@@ -13,3 +13,8 @@ type TestClass () =
         Assert.AreEqual(1, actual)
         let actual = Base.Autoload(false, 3u)
         Assert.AreEqual(-1, actual)
+
+    [<TestMethod>]
+     member this.BaseOpen () =
+         let actual = Base.Open(@"D:\GitHub\ScincNet\Tests\data\test")
+         Assert.AreEqual(1, actual)

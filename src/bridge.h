@@ -88,3 +88,4 @@ struct scidBaseT {
 
 
 extern "C" __declspec(dllexport) int Base_autoload(bool getbase, uint basenum);
+extern "C" __declspec(dllexport) int Base_open(const char* basename);

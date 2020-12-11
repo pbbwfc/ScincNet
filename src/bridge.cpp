@@ -280,9 +280,115 @@ BOOL WINAPI DllMain(
     return TRUE;  // Successful DLL_PROCESS_ATTACH.
 }
 
+/////////////////////////////////////////////////////////////////////
+//  MISC functions
+/////////////////////////////////////////////////////////////////////
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// findEmptyBase:
+//    returns a number from 0 to MAX_BASES - 1 if an empty
+//    database slot exists; or returns -1 if a maximum number of bases
+//    are already in use.
+int findEmptyBase(void)
+{
+    for (int i = 0; i < MAX_BASES; i++)
+    {
+        if (!dbList[i].inUse)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+void clearFilter(scidBaseT* dbase, uint size)
+{
+    if (dbase->dbFilter && dbase->dbFilter != dbase->filter)
+        delete dbase->dbFilter;
+    if (dbase->filter)
+        delete dbase->filter;
+    if (dbase->treeFilter)
+        delete dbase->treeFilter;
+    dbase->filter = new Filter(size);
+    dbase->dbFilter = dbase->filter;
+    dbase->treeFilter = NULL;
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////
+///  DATABASE functions
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// base_opened:
+//    Returns a slot number if the named database is already
+//    opened in Scid, or -1 if it is not open.
+int base_opened(const char* filename)
+{
+    for (int i = 0; i < CLIPBASE_NUM; i++)
+    {
+        if (dbList[i].inUse && strEqual(dbList[i].realFileName, filename))
+        {
+            return i;
+        }
+    }
+
+    // OK, An exact same file name was not found, but we may have compared
+    // absolute path (e.g. from a File Open dialog) with a relative one
+    // (e.g. from a command-line argument).
+    // To check further, return true if two names have the same tail
+    // (part after the last "/"), device and inode number:
+
+    const char* tail = strLastChar(filename, '/');
+    if (tail == NULL)
+    {
+        tail = filename;
+    }
+    else
+    {
+        tail++;
+    }
+    for (int j = 0; j < CLIPBASE_NUM; j++)
+    {
+        if (!dbList[j].inUse)
+        {
+            continue;
+        }
+        const char* ftail = strLastChar(dbList[j].realFileName, '/');
+        if (ftail == NULL)
+        {
+            ftail = dbList[j].realFileName;
+        }
+        else
+        {
+            ftail++;
+        }
+
+        if (strEqual(ftail, tail))
+        {
+            struct stat s1;
+            struct stat s2;
+            if (stat(ftail, &s1) != 0)
+            {
+                continue;
+            }
+            if (stat(tail, &s2) != 0)
+            {
+                continue;
+            }
+            if (s1.st_dev == s2.st_dev && s1.st_ino == s2.st_ino)
+            {
+                return j;
+            }
+        }
+    }
+    return -1;
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sc_base_autoload:
+// Base_autoload:
 //   Sets or returns the autoload number of the database, which
 //   is the game to load when opening the base.
 int Base_autoload(bool getbase, uint basenum)
@@ -305,3 +411,69 @@ int Base_autoload(bool getbase, uint basenum)
     db->idx->WriteHeader();
     return 0;
 }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Base_open: takes a database name and opens the database.
+//    If either the index file or game file cannot be opened for
+//    reading and writing, then the database is opened read-only
+//    and will not be alterable.
+int Base_open(const char* basename)
+{
+    // Check that this base is not already opened:
+    fileNameT realFileName;
+    strCopy(realFileName, basename);
+    strAppend(realFileName, INDEX_SUFFIX);
+    if (base_opened(realFileName) >= 0)
+    {
+        return -1;
+    }
+
+    // Find an empty database slot to use:
+    int oldBaseNum = currentBase;
+    if (db->inUse)
+    {
+        int newBaseNum = findEmptyBase();
+        if (newBaseNum == -1)
+        {
+            return -1;
+        }
+        currentBase = newBaseNum;
+        db = &(dbList[currentBase]);
+    }
+
+    db->idx->SetFileName(basename);
+    db->nb->SetFileName(basename);
+
+    db->memoryOnly = false;
+    db->fileMode = FMODE_Both;
+
+    errorT err;
+    err = db->idx->OpenIndexFile(db->fileMode);
+    err = db->nb->ReadNameFile();
+    err = db->gfile->Open(basename, db->fileMode);
+
+
+
+    db->idx->ReadEntireFile();
+    db->numGames = db->idx->GetNumGames();
+    // Initialise the filter: all games match at move 1 by default.
+    clearFilter(db, db->numGames);
+
+    strCopy(db->fileName, basename);
+    strCopy(db->realFileName, realFileName);
+    db->inUse = true;
+    db->gameNumber = -1;
+
+    if (db->treeCache == NULL)
+    {
+        db->treeCache = new TreeCache;
+        db->treeCache->SetCacheSize(SCID_TreeCacheSize);
+        db->backupCache = new TreeCache;
+        db->backupCache->SetCacheSize(SCID_BackupCacheSize);
+        db->backupCache->SetPolicy(TREECACHE_Oldest);
+    }
+
+    db->treeCache->Clear();
+    db->backupCache->Clear();
+
+    return (currentBase + 1);
+ }

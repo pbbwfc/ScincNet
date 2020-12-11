@@ -12,5 +12,13 @@ namespace ScincFuncs
             int result = Base_autoload(getbase, basenum);
             return result;
         }
-    }
+        [DllImport("ScincBridge.dll")]
+        public static extern int Base_open(string basename);
+        public static int Open(string basename)
+        {
+            int result = Base_open(basename);
+            return result;
+        }
+}
+
 }
