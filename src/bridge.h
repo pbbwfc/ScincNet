@@ -89,3 +89,8 @@ struct scidBaseT {
 
 extern "C" __declspec(dllexport) int Base_autoload(bool getbase, uint basenum);
 extern "C" __declspec(dllexport) int Base_open(const char* basename);
+extern "C" __declspec(dllexport) int Base_close();
+extern "C" __declspec(dllexport) bool Base_isreadonly();
+extern "C" __declspec(dllexport) int Base_numGames();
+
+extern "C" __declspec(dllexport) int Clipbase_clear();

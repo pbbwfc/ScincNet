@@ -477,3 +477,109 @@ int Base_open(const char* basename)
 
     return (currentBase + 1);
  }
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Base_close:
+//    Closes the current or specified database.
+int Base_close()
+{
+    scidBaseT* basePtr = db;
+ 
+    if (!basePtr->inUse)
+    {
+        return -1;
+    }
+
+    // reset undo data
+    basePtr->undoMax = -1;
+    basePtr->undoIndex = -1;
+    basePtr->undoCurrent = -1;
+    basePtr->undoCurrentNotAvail = false;
+    for (int u = 0; u < UNDO_MAX; u++)
+    {
+        if (basePtr->undoGame[u] != NULL)
+        {
+            delete basePtr->undoGame[u];
+            basePtr->undoGame[u] = NULL;
+        }
+    }
+
+    // If the database is the clipbase, do not close it, just clear it:
+    if (basePtr == clipbase)
+    {
+        return Clipbase_clear();
+    }
+    basePtr->idx->CloseIndexFile();
+    basePtr->idx->Clear();
+    basePtr->nb->Clear();
+    basePtr->gfile->Close();
+    basePtr->idx->SetDescription("NOT OPEN");
+
+    clearFilter(basePtr, 0);
+
+    if (basePtr->duplicates != NULL)
+    {
+        delete[] basePtr->duplicates;
+        basePtr->duplicates = NULL;
+    }
+
+    basePtr->inUse = false;
+    basePtr->gameNumber = -1;
+    basePtr->numGames = 0;
+    recalcFlagCounts(basePtr);
+    strCopy(basePtr->fileName, "<empty>");
+    basePtr->treeCache->Clear();
+    basePtr->backupCache->Clear();
+    return 0;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Base_isreadoonly:
+//    is the base read only
+
+bool Base_isreadonly()
+{
+    return db->inUse && db->fileMode == FMODE_ReadOnly;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Base_numGames:
+//   Takes optional database number and returns number of games.
+int Base_numGames()
+{
+    scidBaseT* basePtr = db;
+    return basePtr->inUse ? basePtr->numGames : 0;
+}
+
+//////////////////////////////////////////////////////////////////////
+/// CLIPBASE functions
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Clipbase_clear:
+//    Clears the clipbase by closing and recreating it.
+int Clipbase_clear()
+{
+    if (!clipbase->inUse)
+    {
+        return -1;
+    }
+    clipbase->game->Clear();
+    clipbase->nb->Clear();
+    clipbase->gfile->Close();
+    clipbase->gfile->CreateMemoryOnly();
+    clipbase->idx->CloseIndexFile();
+    clipbase->idx->CreateMemoryOnly();
+    clipbase->idx->SetType(2);
+
+    clipbase->numGames = 0;
+    clearFilter(clipbase, clipbase->numGames);
+
+    clipbase->inUse = true;
+    clipbase->gameNumber = -1;
+    clipbase->treeCache->Clear();
+    clipbase->backupCache->Clear();
+    recalcFlagCounts(clipbase);
+
+    return 0;
+}
