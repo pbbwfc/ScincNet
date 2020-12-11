@@ -1,0 +1,1455 @@
+Database "SimonWilliams": 
+1428 games
+Version: 4.0
+Namebase: 970 players, 374 events, 94 sites, 249 rounds.
+     1: Williams, Sim    0  Antoniewski,     0  =-=:50 1993 ?           A13 
+     2: Hoang, Thanh  2285  Williams, Sim 2185  1-0:61 1994 ?           A40 
+     3: Williams, Sim 2180  Dive, Russell 2315  1-0:39 1994 ?           A16 
+     4: Williams, Sim 2180  Uvarov, Vyach    0  0-1:47 1994 ?           A16 
+     5: Spielmann, Al 2295  Williams, Sim 2185  0-1:46 1994 ?           A04 
+     6: Williams, Sim 2180  Lilley, Graha 2185  =-=:65 1994 ?           A34 
+     7: Williams, Sim 2180  Ioannides, Mi 2075  1-0:32 1994 ?           A13 
+     8: Williams, Sim 2185  Flear, Christ 2175  0-1:23 1994 ?           C20 
+     9: Kern, Guido   2310  Williams, Sim 2185  =-=:56 1994 ?           A13 
+    10: Williams, Sim 2180  Pergel, Laszl 2030  1-0:38 1994 ?           A34 
+    11: Gufeld, Eduar 2475  Williams, Sim 2180  1-0:50 1994 London ENG  C06 
+    12: Williams, Sim 2185  Castelfranchi 2290  0-1:37 1994 ?           A16 
+    13: Williams, Sim 2180  Medak, Bojan  2220  1-0:21 1994 Baile Hercu A16 
+    14: Papazov, Ivaj 2180  Williams, Sim 2180  1-0:25 1994 Baile Hercu C06 
+    15: Williams, Sim 2225  Leko, Peter   2555  0-1:34 1995 ?           A36 
+    16: Williams, Sim 2250  Ward, Christo 2500  =-=:32 1995 ?           A34 
+    17: Gunnarsson, J 2255  Williams, Sim 2225  1-0:43 1995 Canaries ES C02 
+    18: Svicevic, Ras 2265  Williams, Sim 2225  1-0:43 1995 Canaries ES C01 
+    19: Williams, Sim 2225  Bakhtadze, Gi 2275  0-1:36 1995 Canaries ES A10 
+    20: Williams, Sim 2225  Buckley, Grae 2310  1-0:27 1995 Hastings EN A10 
+    21: Orso, Miklos  2380  Williams, Sim 2250  1-0:27 1995 ?           A40 
+    22: Martin, David 2155  Williams, Sim 2225  =-=:13 1995 ?           A40 
+    23: Williams, Sim 2250  Dyce, Andrew  2135  0-1:50 1995 ?           B06 
+    24: Bates, Richar 2345  Williams, Sim 2250  1-0:23 1995 ?           A40 
+    25: Conquest, Stu 2520  Williams, Sim 2225  1-0:36 1995 Hastings EN C05 
+    26: Williams, Sim 2225  Cooper, Lawre 2305  0-1:55 1995 Hastings EN A29 
+    27: Williams, Sim 2225  Dabrowski, Wo 2200  1-0:30 1995 ?           A34 
+    28: Bykhovsky, An 2420  Williams, Sim 2225  1-0:32 1995 ?           C10 
+    29: Ragnarsson, J    0  Williams, Sim 2250  =-=:79 1995 ?           A40 
+    30: Williams, Sim 2250  Stuart, E Les 2080  1-0:25 1995 ?           A34 
+    31: Bouchaud, Vin 2200  Williams, Sim 2225  0-1:30 1995 Hastings EN A01 
+    32: Williams, Sim 2225  Gaughan, Rich 2080  1-0:46 1995 ?           A10 
+    33: Antoniewski,  2250  Williams, Sim 2250  =-=:39 1995 ?           C02 
+    34: Williams, Sim 2225  Emms, John M  2500  =-=:21 1995 Hastings EN A34 
+    35: De Vreugt, De 2270  Williams, Sim 2250  1-0:59 1995 ?           A16 
+    36: Hunt, Harriet 2265  Williams, Sim 2225  1-0:42 1995 Cambridge E C06 
+    37: Vallejo Pons, 2300  Williams, Sim 2225  1-0:57 1995 ?           C06 
+    38: Williams, Sim 2225  Mcshane, Luke 2145  1-0:61 1995 ?           A10 
+    39: Peredy, Feren 2230  Williams, Sim 2250  0-1:32 1995 ?           A40 
+    40: Williams, Sim 2225  Johannessen,  2205  =-=:49 1995 Canaries ES A19 
+    41: Summerscale,  2455  Williams, Sim 2250  1-0:39 1995 Richmond EN A91 
+    42: Williams, Sim 2250  Radovanovic,  2280  1-0:41 1995 Richmond EN A21 
+    43: Trifunovic, A 2230  Williams, Sim 2250  0-1:29 1995 Richmond EN A91 
+    44: Williams, Sim 2250  McShane, Luke 2170  1-0:61 1995 Richmond EN A26 
+    45: Welling, Gera 2415  Williams, Sim 2250  0-1:75 1995 Richmond EN A80 
+    46: Williams, Sim 2250  Wall, Gavin   2265  =-=:36 1995 Richmond EN A36 
+    47: Maduekwe, Chi 2265  Williams, Sim 2250  =-=:62 1995 Richmond EN A96 
+    48: Williams, Sim 2250  Berg, Klaus   2420  =-=:73 1995 Richmond EN E68 
+    49: Bates, Richar 2345  Williams, Sim 2250  0-1:33 1995 Richmond EN A00 
+    50: Socko, Bartos 2455  Williams, Sim 2365  1-0:37 1996 Menorca     B35 
+    51: Sylvan, Jacob 2285  Williams, Sim 2350  0-1:42 1996 ?           A04 
+    52: Polak, Tomas  2445  Williams, Sim 2350  1-0:26 1996 ?           A40 
+    53: Williams, Sim 2365  Herraiz Hidal 2305  0-1:33 1996 Menorca     A16 
+    54: Ansell, Simon 2345  Williams, Sim 2365  1-0:38 1996 Witley ENG  C02 
+    55: Williams, Sim 2365  Sivan, Yaacov 2380  0-1:38 1996 Witley ENG  D48 
+    56: Schreiber, Ch 2100  Williams, Sim 2310  0-1:51 1997 ?           C00 
+    57: Baker, Chris  2370  Williams, Sim 2350  1-0:43 1997 ?           B23 
+    58: Knott, Simon  2335  Williams, Sim 2350  =-=:43 1997 ENG         A13 
+    59: Ansell, Simon 2390  Williams, Sim 2310  =-=:71 1997 ?           A04 
+    60: Gormally, Dan 2375  Williams, Sim 2255  =-=:10 1997 ?           A40 
+    61: Williams, Sim 2310  Brooke, John  2175  1-0:33 1997 ?           A36 
+    62: Williams, Sim 2310  Dearing, Eddi 2210  0-1:42 1997 ?           A14 
+    63: Williams, Sim 2310  Wall, Tim P   2375  =-=:40 1997 ?           A36 
+    64: Gormally, Dan 2425  Williams, Sim 2310  =-=:15 1997 ?           C02 
+    65: Williams, Sim 2310  Dempsey, Paul    0  =-=:47 1997 ?           A34 
+    66: Williams, Sim 2255  Ionescu, Cris 2290  1-0:39 1997 ?           A34 
+    67: Dunnington, A 2420  Williams, Sim 2310  =-=:19 1997 ?           A10 
+    68: Cole, Roland  2245  Williams, Sim 2310  0-1:42 1997 ?           C06 
+    69: Williams, Sim 2310  Beaumont, Chr 2345  =-=:13 1997 ?           C01 
+    70: Williams, Sim 2390  Kelly, Brian  2390  0-1:27 1997 ?           D35 
+    71: Williams, Sim 2255  Mannion, Step 2380  1-0:33 1997 ?           A16 
+    72: Williams, Sim 2350  Cooper, John  2370  =-=:15 1997 ENG         D32 
+    73: Williams, Sim 2350  Mannion, Step 2390  =-=:32 1997 ENG         D36 
+    74: Plaskett, H J 2450  Williams, Sim 2310  1-0:64 1997 Hove ENG    A96 
+    75: Morrison, Chr 2195  Williams, Sim 2310  1-0:29 1997 Hove ENG    C05 
+    76: Bates, Richar 2345  Williams, Sim 2310  0-1:28 1997 ?           A40 
+    77: Williams, Sim 2310  Ooms, Andy    2170  1-0:45 1997 ?           A16 
+    78: Williams, Sim 2310  Kelly, Brian  2390  =-=:32 1997 ?           A13 
+    79: Friedgood, Da 2240  Williams, Sim 2315  0-1:30 1997 Warwick ENG A04 
+    80: Turner, Matth 2470  Williams, Sim 2315  1-0:35 1998 ?           A40 
+    81: Forbes, Cathy 2105  Williams, Sim 2315  0-1:34 1998 ?           A40 
+    82: Habibi, Ali   2335  Williams, Sim 2315  0-1:44 1998 ?           A04 
+    83: Aagaard, Jaco 2395  Williams, Sim 2315  1-0:25 1998 ?           A40 
+    84: Panczyk, Krzy 2390  Williams, Sim 2315  0-1:80 1998 ?           A40 
+    85: Naylor, John  2265  Williams, Sim 2315  =-=:31 1998 ?           C15 
+    86: Littlewood, P 2435  Williams, Sim 2315  1-0:40 1998 ?           A40 
+    87: Williams, Sim 2315  Pert, Nichola 2320  =-=: 5 1998 Witley ENG  A01 
+    88: Summerscale,  2440  Williams, Sim 2315  1-0:34 1998 ?           A40 
+    89: Bree, Thomas  2255  Williams, Sim 2335  1-0:53 1998 ?           A40 
+    90: Adrian, Claud 2310  Williams, Sim 2335  0-1:25 1998 ?           A04 
+    91: Vegh, Endre   2340  Williams, Sim 2335  0-1:58 1998 ?           A40 
+    92: Pedersen, Nic 2315  Williams, Sim 2335  0-1:38 1998 Aarhus DEN  A96 
+    93: Williams, Sim 2335  Boe, Mads     2345  0-1:36 1998 Aarhus DEN  A85 
+    94: Pedersen, Dan 2260  Williams, Sim 2335  =-=:27 1998 ?           A40 
+    95: Williams, Sim 2335  Pedersen, Jan 2355  0-1:44 1998 Aarhus DEN  A10 
+    96: Holst, Allan  2350  Williams, Sim 2335  1-0:47 1998 Aarhus DEN  C05 
+    97: Friedgood, Da 2240  Williams, Sim 2335  0-1:30 1998 ?           A04 
+    98: Fressinet, La 2455  Williams, Sim 2335  0-1:35 1998 ?           A40 
+    99: Herraiz Hidal 2405  Williams, Sim 2335  1-0:43 1998 ?           A40 
+   100: Burnett, Rona 2395  Williams, Sim 2335  0-1:33 1998 ?           A06 
+   101: Goris, Ton    2052  Williams, Sim 2367  0-1:30 1999 ?           C02 
+   102: Williams, Sim 2367  Clark, Ian C  2085  1-0:34 1999 ?           A29 
+   103: Williams, Sim 2367  Jackson, Adri 2208  =-=:53 1999 ?           A16 
+   104: Spanton, Tim  2096  Williams, Sim 2367  0-1:17 1999 Sutton ENG  A10 
+   105: Georghiou, Pa 2218  Williams, Sim 2367  =-=:38 1999 Sutton ENG  A04 
+   106: Williams, Sim 2367  Wall, Tim P   2367  0-1:27 1999 Sutton ENG  A10 
+   107: Gregg, Alan M 2145  Williams, Sim 2367  0-1:17 1999 Sutton ENG  C05 
+   108: Anderton, Mat 2273  Williams, Sim 2367  0-1:30 1999 Sutton ENG  C18 
+   109: Bjarnason, Sa 2303  Williams, Sim 2367  =-=:16 1999 ?           A04 
+   110: Williams, Sim 2367  Kelly, Brian  2423  =-=:19 1999 ?           A01 
+   111: Crouch, Colin 2430  Williams, Sim 2367  0-1:32 1999 Imperial Co C02 
+   112: Nicholas, Koi    0  Williams, Sim 2371  1-0:46 1999 ?           C17 
+   113: Cooper, Andre 2151  Williams, Sim 2421  0-1:22 1999 ?           A40 
+   114: Wells, Peter  2476  Williams, Sim 2421  1-0:23 1999 ?           A04 
+   115: Williams, Sim 2421  Mallahi, Amir 2317  =-=:10 1999 ?           B30 
+   116: Williams, Sim 2421  Turner, Matth 2478  0-1:24 1999 ?           A02 
+   117: Rowson, Jonat 2490  Williams, Sim 2421  0-1:36 1999 ?           A40 
+   118: Williams, Sim 2362  Lock, Gavin R 2079  1-0:42 2000 ?           A11 
+   119: Ethelontis, A 2140  Williams, Sim 2362  0-1:66 2000 ?           A10 
+   120: Williams, Sim 2362  Ledger, Andre 2428  0-1:39 2000 London ENG  A02 
+   121: Karayiannis,  2159  Williams, Sim 2362  0-1:39 2000 ?           A40 
+   122: Williams, Sim 2362  Rahman, Ziaur 2465  0-1:64 2000 London MSO  A10 
+   123: Player, Edmun 2067  Williams, Sim 2362  0-1:37 2000 ?           C06 
+   124: Williams, Sim 2362  Fegan, Chris     0  1-0:24 2000 ?           A16 
+   125: Kelly, Brian  2417  Williams, Sim 2421  =-=:41 2000 ?           A10 
+   126: Williams, Sim 2421  Cafferty, Ber 2197  1-0:43 2000 ?           A16 
+   127: Rayner, Franc 2218  Williams, Sim 2421  1-0:30 2000 ?           C02 
+   128: Chandler, Mur 2527  Williams, Sim 2362  1-0:31 2000 ?           C18 
+   129: Dunnington, A 2372  Williams, Sim 2362  0-1:40 2000 ?           B50 
+   130: Parker, Jonat 2532  Williams, Sim 2362  1-0:30 2000 ?           A40 
+   131: Williams, Sim 2362  Lund, D Brett 2291  1-0:33 2000 ?           A10 
+   132: Levitt, Jonat 2438  Williams, Sim 2362  =-=:47 2000 ?           A40 
+   133: Williams, Sim 2353  Menon, Shanke 2237  1-0:35 2000 ?           A13 
+   134: Williams, Sim 2353  Webster, Andr 2417  =-=:53 2000 ?           A10 
+   135: Williams, Sim 2353  Bates, Richar 2357  0-1:38 2000 ?           A02 
+   136: Williams, Sim 2353  Collins, Sam  2172  0-1:45 2000 ?           A13 
+   137: Kemp, Peter   2214  Williams, Sim 2353  0-1:27 2000 ?           A40 
+   138: Williams, Sim 2353  Rudd, Jack    2176  1-0:39 2000 ?           A16 
+   139: McFarland, Ro 2267  Williams, Sim 2353  0-1:42 2000 Millfield E A04 
+   140: Player, Edmun 2087  Williams, Sim 2353  =-=:51 2000 ?           C06 
+   141: Flower, David 2091  Williams, Sim 2353  0-1:21 2000 ?           B24 
+   142: Spence, David 2153  Williams, Sim 2353  =-=:31 2000 ?           C11 
+   143: King, Daniel  2525  Williams, Sim 2353  =-=:24 2000 ?           C18 
+   144: Williams, Sim 2353  Zeidler, Sven 2255  1-0:34 2000 ?           A10 
+   145: Williams, Sim 2350  Gallagher, Jo 2519  0-1:21 2001 ?           A10 
+   146: Mata, Andrew  1872  Williams, Sim 2367  0-1:25 2001 ?           C18 
+   147: Williams, Sim 2367  Hebbes, Tim   2124  1-0:39 2001 ?           A22 
+   148: Hunt, Harriet 2426  Williams, Sim 2367  1-0:43 2001 ?           B50 
+   149: Spence, David 2178  Williams, Sim 2367  =-=: 9 2001 ?           B22 
+   150: Wells, Peter  2522  Williams, Sim 2367  0-1:40 2001 ?           B53 
+   151: Gallagher, Jo 2524  Williams, Sim 2367  1-0:44 2001 ?           B75 
+   152: Gladyszev, Ol 2352  Williams, Sim 2369  =-=:12 2001 ?           A40 
+   153: Snape, Ian    2160  Williams, Sim 2369  0-1:49 2001 ?           A10 
+   154: Williams, Sim 2369  Gallagher, Jo 2516  =-=:35 2001 ?           A10 
+   155: Williams, Sim 2369  Collins, Sam  2194  1-0:68 2001 ?           A11 
+   156: Hebden, Mark  2550  Williams, Sim 2369  1-0:24 2001 ?           A40 
+   157: Williams, Sim 2369  Gormally, Dan 2481  0-1:38 2001 ?           A16 
+   158: Ghasi, Ameet  2188  Williams, Sim 2369  0-1:37 2001 ?           A04 
+   159: Williams, Sim 2369  Summerscale,  2510  0-1:41 2001 ?           A11 
+   160: Rowson, Jonat 2514  Williams, Sim 2369  1-0:18 2001 ?           B23 
+   161: Richardson, J 2330  Williams, Sim 2369  =-=:21 2001 ?           A40 
+   162: Gallagher, Jo 2516  Williams, Sim 2369  0-1:35 2001 ?           A81 
+   163: Beaumont, Chr 2300  Williams, Sim 2288  =-=:67 2001 ?           A40 
+   164: Gallagher, Jo 2511  Williams, Sim 2288  1-0:22 2001 ?           C17 
+   165: Williams, Sim 2288  Rowson, Jonat 2512  0-1:21 2001 London ENG  A28 
+   166: Crouch, Colin 2375  Williams, Sim 2288  1-0:45 2001 London ENG  A96 
+   167: Williams, Sim 2288  Lutton, E Jos 2031  1-0:49 2001 London ENG  E13 
+   168: Ward, Christo 2486  Williams, Sim 2300  =-=:25 2002 ?           A40 
+   169: Corkett, Anth 2283  Williams, Sim 2369  1-0:47 2002 Birmingham  B23 
+   170: Arkell, Keith 2463  Williams, Sim 2300  1-0:30 2002 Birmingham  A81 
+   171: Turner, Matth 2502  Williams, Sim 2375  =-=:15 2002 ?           C01 
+   172: Williams, Sim 2300  Sugden, John  2200  1-0:39 2002 ?           A27 
+   173: Webster, Ian  1808  Williams, Sim 2300  0-1:22 2002 ?           C00 
+   174: Anderson, Joh 2169  Williams, Sim 2300  =-=:42 2002 ?           B53 
+   175: Buckley, Simo 2249  Williams, Sim 2300  0-1:39 2002 ?           B23 
+   176: Williams, Sim 2375  Palliser, Ric 2443  1-0:18 2002 Birmingham  A10 
+   177: Mcnab, Colin  2411  Williams, Sim 2423  0-1:41 2002 ?           A10 
+   178: McNab, Colin  2425  Williams, Sim 2375  0-1:41 2002 Birmingham  A10 
+   179: Williams, Sim 2421  Koster, Ramon 2226  =-=:44 2002 ?           A16 
+   180: Williams, Sim 2421  Skytte, Rasmu 2366  =-=:46 2002 Millfield S A21 
+   181: Middelburg, T 2382  Williams, Sim 2421  =-=:63 2002 Millfield S B70 
+   182: Broomfield, M 2229  Williams, Sim 2421  =-=:45 2002 Millfield S A80 
+   183: Williams, Sim 2421  Sinkevich, Pe 2337  0-1:70 2002 Millfield S D15 
+   184: Trent, Lawren 2246  Williams, Sim 2421  1-0:34 2002 Millfield S C06 
+   185: Williams, Sim 2421  Woodward, Tim 2211  0-1:44 2002 Millfield S D15 
+   186: Erwich, Frank 2330  Williams, Sim 2421  1-0:24 2002 Millfield S A96 
+   187: Williams, Sim 2421  Meenakshi, Su 2266  =-=:26 2002 Torquay ENG D90 
+   188: Williams, Sim 2421  Harikrishna,  2568  =-=:34 2002 Torquay ENG A03 
+   189: Nixon, Thomas 2187  Williams, Sim 2421  0-1:34 2002 Torquay ENG A96 
+   190: Williams, Sim 2421  Barua, Dibyen 2542  0-1:26 2002 ?           D31 
+   191: Collins, S.   2313  Williams, Sim 2421  1-0:72 2002 Torquay ENG C05 
+   192: Williams, Sim 2421  Webb, Laurenc 2262  1-0:60 2002 Torquay ENG C54 
+   193: Cox, John J   2311  Williams, Sim 2421  =-=:35 2002 ?           A04 
+   194: Williams, Sim 2421  Pert, Richard 2357  =-=:16 2002 Torquay ENG C39 
+   195: Pham, Minh Ho 2354  Williams, Sim 2421  =-=:27 2002 ?           A04 
+   196: Williams, Sim 2421  Claverie, Chr 2392  1-0:53 2002 ?           A40 
+   197: Bui, Vinh     2444  Williams, Sim 2421  =-=:58 2002 ?           A40 
+   198: Barczay, Lasz 2389  Williams, Sim 2421  0-1:29 2002 Budapest HU C05 
+   199: Williams, Sim 2421  Marzolo, Cyri 2415  0-1:76 2002 ?           A27 
+   200: Breder, Denni 2438  Williams, Sim 2421  =-=:22 2002 Budapest HU B52 
+   201: Williams, Sim 2421  Rajlich, Vasi 2338  1-0:44 2002 Budapest HU E70 
+   202: Lane, Gary W  2446  Williams, Sim 2421  1-0:42 2002 ?           C05 
+   203: Williams, Sim 2421  Todorovic, Go 2482  1-0:34 2002 ?           D34 
+   204: Lechtynsky, J 2404  Williams, Sim 2421  0-1:40 2002 Budapest HU A96 
+   205: Williams, Sim 2421  Szeberenyi, A 2395  =-=:12 2002 Budapest HU A03 
+   206: Balogh, Csaba 2441  Williams, Sim 2421  =-=: 8 2002 Budapest HU B70 
+   207: Ulybin, Mikha 2589  Williams, Sim 2421  =-=:66 2002 Pori Erin I A80 
+   208: Williams, Sim 2421  Zapata, A     2549  0-1:46 2002 Port Erin I A16 
+   209: Purton, Ben J 2067  Williams, Sim 2421  0-1:27 2002 Port Erin I B23 
+   210: Williams, Sim 2421  Fox, Anthony  2142  1-0:31 2002 Pori Erin I D37 
+   211: Neverov, Vale 2587  Williams, Sim 2421  1-0:40 2002 ?           A40 
+   212: Williams, Sim 2421  Pert, Richard 2357  0-1:28 2002 ?           A45 
+   213: Cooper, Lawre 2348  Williams, Sim 2391  =-=:13 2002 West Bromwi B23 
+   214: Williams, Sim 2391  Haslinger, St 2385  =-=:76 2002 West Bromwi A29 
+   215: Richards, Hea 2264  Williams, Sim 2391  1-0:29 2003 ?           B22 
+   216: Cobb, James   2318  Williams, Sim 2405  0-1:25 2003 ?           B50 
+   217: Cobb, Charles 2331  Williams, Sim 2405  =-=:40 2003 Telford ENG B23 
+   218: Lappage, Jona 2208  Williams, Sim 2405  =-=:49 2003 Portsmouth  C16 
+   219: Williams, Sim 2405  Lock, Gavin R 2120  1-0:30 2003 Portsmouth  D44 
+   220: Crouch, Colin 2388  Williams, Sim 2405  =-=:78 2003 Portsmouth  A96 
+   221: Hunt, Adam    2365  Williams, Sim 2405  1-0:34 2003 ?           B53 
+   222: Williams, Sim 2405  Kemp, Peter D 2192  1-0:10 2003 Portsmouth  A80 
+   223: Williams, Sim 2405  Gwaze, Robert 2341  =-=:79 2003 Portsmouth  E13 
+   224: Rechel, Bernd 2414  Williams, Sim 2405  1-0:48 2003 Telford ENG B75 
+   225: Williams, Sim 2405  Wohl, Aleksan 2415  1-0:22 2003 Telford ENG A10 
+   226: Williams, Sim 2405  Zaltz, Dov    2324  0-1:40 2003 ?           A16 
+   227: Zillmer, Josh    0  Williams, Sim 2405  0-1:22 2003 ?           B23 
+   228: Williams, Sim 2405  Pinheiro, Jos 2321  1-0:35 2003 ?           A34 
+   229: Ziatdinov, Ra 2466  Williams, Sim 2405  1-0:39 2003 ?           B53 
+   230: Gormally, Dan 2496  Williams, Sim 2375  =-=:50 2003 ?           B51 
+   231: Williams, Sim 2375  Trent, Lawren 2257  1-0:32 2003 Telford ENG A16 
+   232: Short, Nigel  2686  Williams, Sim 2375  1-0:28 2003 Telford ENG B25 
+   233: Williams, Sim 2375  Ferguson, Mar 2377  =-=:37 2003 ?           A16 
+   234: Flear, Glenn  2527  Williams, Sim 2381  1-0:28 2003 Montpellier A96 
+   235: Dumitrache, D 2492  Williams, Sim 2381  0-1:28 2003 Montpellier A96 
+   236: Williams, Sim 2381  Libiszewski,  2458  =-=:22 2003 Montpellier D15 
+   237: Karpatchev, A 2397  Williams, Sim 2381  1-0:43 2003 Montpellier C02 
+   238: Williams, Sim 2381  Laclau, Danie 2312  1-0:35 2003 Montpellier D15 
+   239: Williams, Sim 2353  Menon, Shanke 2237  1-0:35 2003 Witley WLS  D35 
+   240: Williams, Sim 2381  Ganguly, Sury 2536  =-=:29 2003 Edinburgh S D87 
+   241: Broomfield, M 2193  Williams, Sim 2353  =-=:40 2003 Witley WLS  A10 
+   242: McEwan, Ken B 2190  Williams, Sim 2381  0-1:25 2003 Edinburgh S C06 
+   243: Williams, Sim 2353  Webster, Andr 2417  =-=:53 2003 Witley WLS  A42 
+   244: Williams, Sim 2381  Wells, Peter  2481  =-=:31 2003 Edinburgh S D43 
+   245: Gormally, Dan 2478  Williams, Sim 2381  1-0:55 2003 Edinburgh S C16 
+   246: Panchanathan, 2238  Williams, Sim 2353  0-1:34 2003 Witley WLS  C05 
+   247: Williams, Sim 2353  Bates, Richar 2357  0-1:38 2003 Witley WLS  A02 
+   248: Williams, Sim 2381  Radovanovic,  2239  1-0:38 2003 ?           A02 
+   249: Vigus, James  2266  Williams, Sim 2353  =-=:52 2003 Witley WLS  A96 
+   250: Singh, Gurpre 2293  Williams, Sim 2381  1-0:36 2003 ?           B53 
+   251: Williams, Sim 2353  Collins, Sam  2172  0-1:45 2003 Witley WLS  D36 
+   252: Thiruchelvam, 2179  Williams, Sim 2353  0-1:74 2003 Witley WLS  C18 
+   253: Williams, Sim 2381  Martyn, Rafe  2266  =-=:## 2003 Edinburgh S E15 
+   254: Williams, Sim 2353  Gladyszev, Ol 2351  =-=:11 2003 Witley WLS  A36 
+   255: Longson, Alex 2225  Williams, Sim 2381  1-0:46 2003 Edinburgh S B75 
+   256: Williams, Sim 2381  Karavade, Ees 2218  1-0:29 2003 Edinburgh S D87 
+   257: Woodward, Tim 2285  Williams, Sim 2381  =-=:32 2003 Edinburgh S A96 
+   258: Halkias, Stel 2560  Williams, Sim 2381  =-=:44 2003 ?           A40 
+   259: Williams, Sim 2381  Fossum, Oyste 2090  1-0:33 2003 ?           E77 
+   260: Mikhalevski,  2523  Williams, Sim 2381  0-1:44 2003 ?           A04 
+   261: Kuzmin, Alexe 2583  Williams, Sim 2381  =-=:23 2003 ?           A40 
+   262: Williams, Sim 2381  Motwani, Paul 2525  =-=:24 2003 Port Erin I E12 
+   263: Psakhis, Lev  2550  Williams, Sim 2381  1-0:25 2003 Port Erin I B76 
+   264: Williams, Sim 2381  Luther, Thoma 2574  0-1:37 2003 Port Erin I A03 
+   265: Williams, Sim 2381  Allen, Keith  2224  1-0:34 2003 Port Erin I A80 
+   266: Grant, Alan G 2270  Williams, Sim 2381  0-1:35 2003 ?           A10 
+   267: Slisser, Theo 2161  Williams, Sim 2380  0-1:47 2003 ?           A40 
+   268: Williams, Sim 2380  Janssen, Ruud 2489  =-=:44 2003 Hoogeveen N A70 
+   269: Hebden, Mark  2560  Williams, Sim 2380  1-0:39 2003 Hoogeveen N C18 
+   270: Williams, Sim 2380  Doggers, Pete 2209  1-0:35 2003 Hoogeveen N E70 
+   271: Spoelman, Wou 2193  Williams, Sim 2380  1-0:51 2003 Hoogeveen N C18 
+   272: Williams, Sim 2380  Giddins, Step 2237  1-0:46 2003 Hoogeveen N E92 
+   273: Williams, Sim 2380  Van der Werf, 2423  1-0:49 2003 Hoogeveen N D31 
+   274: Glek, Igor    2555  Williams, Sim 2380  1-0:29 2003 Hoogeveen N C01 
+   275: Williams, Sim 2380  Timmermans, I 2213  =-=:26 2003 Hoogeveen N D44 
+   276: Lalic, Bogdan 2518  Williams, Sim 2396  =-=:43 2004 West Bromwi C03 
+   277: Williams, Sim 2396  Ghasi, Ameet  2344  1-0:40 2004 ?           E91 
+   278: Williams, Sim 2396  Lappage, Jona 2181  0-1:65 2004 Portsmouth  A36 
+   279: Williams, Sim 2396  Webb, Richard 2348  =-=:58 2004 Portsmouth  B76 
+   280: Pye, David E  2132  Williams, Sim 2396  0-1:31 2004 Portsmouth  C15 
+   281: Simmons, Matt 2065  Williams, Sim 2396  0-1:63 2004 Portsmouth  C01 
+   282: Williams, Sim 2396  Schlette, Mar 2175  1-0:26 2004 Portsmouth  A42 
+   283: Hebden, Mark  2549  Williams, Sim 2396  1-0:33 2004 ?           A40 
+   284: Snape, Ian    2251  Williams, Sim 2396  0-1:30 2004 ?           C01 
+   285: Williams, Sim 2396  Sowray, Peter 2360  =-=:53 2004 West Bromwi C57 
+   286: Pedersen, L.  2054  Williams, Sim 2411  0-1:31 2004 Oslo NOR    A85 
+   287: Williams, Sim 2411  Stenersen, Gu 2172  1-0:47 2004 Oslo NOR    E12 
+   288: Stokke, Kjeti 2214  Williams, Sim 2411  0-1:40 2004 Oslo NOR    A96 
+   289: Williams, Sim 2411  Van der Weide 2460  1-0:35 2004 Oslo NOR    E92 
+   290: Hebden, Mark  2544  Williams, Sim 2411  =-=: 8 2004 Oslo NOR    C03 
+   291: Williams, Sim 2411  Hunt, Adam C  2411  =-=:31 2004 Oslo NOR    E92 
+   292: Williams, Sim 2411  Miezis, Normu 2530  1-0:31 2004 Oslo NOR    A52 
+   293: Gullaksen, Ei 2376  Williams, Sim 2411  1-0:19 2004 Oslo NOR    C18 
+   294: Williams, Sim 2411  Brynell, Stel 2458  0-1:44 2004 Oslo NOR    D20 
+   295: Williams, Sim 2396  Pritchett, Cr 2296  =-=:26 2004 West Bromwi E11 
+   296: Webb, Laurenc 2337  Williams, Sim 2411  =-=:34 2004 ?           C17 
+   297: Shaw, John    2465  Williams, Sim 2396  1-0:41 2004 West Bromwi C03 
+   298: Williams, Sim 2411  Kelly, Brian  2499  1-0:50 2004 ?           C16 
+   299: Davies, Nigel 2512  Williams, Sim 2411  1-0:30 2004 ?           A40 
+   300: Williams, Sim 2427  Lyell, Mark   2217  1-0:46 2004 Scarborough A80 
+   301: Greet, Andrew 2310  Williams, Sim 2427  0-1:41 2004 Scarborough A91 
+   302: Williams, Sim 2427  Motwani, Paul 2552  1-0:28 2004 Scarborough D17 
+   303: Ward, Chris G 2490  Williams, Sim 2427  0-1:64 2004 Scarborough A96 
+   304: Williams, Sim 2427  Ledger, Andre 2452  1-0:29 2004 Scarborough D17 
+   305: Rowson, Jonat 2558  Williams, Sim 2427  1-0:26 2004 Scarborough A99 
+   306: Williams, Sim 2427  Wells, Peter  2494  0-1:28 2004 Scarborough D39 
+   307: Houska, Jovan 2375  Williams, Sim 2427  =-=:62 2004 Scarborough C02 
+   308: Williams, Sim 2427  Arakhamia-Gra 2446  1-0:36 2004 Scarborough B20 
+   309: Jones, Gawain 2453  Williams, Sim 2427  0-1:38 2004 Scarborough C04 
+   310: Williams, Sim 2427  Hebden, Mark  2559  =-=:61 2004 Scarborough E92 
+   311: Hackbarth, Wo 2137  Williams, Sim 2427  0-1:22 2004 ?           A10 
+   312: Williams, Sim 2427  Loef, Dirk    2181  1-0:43 2004 ?           A44 
+   313: Dubkov, Andre 2314  Williams, Sim 2427  =-=:28 2004 ?           A40 
+   314: Williams, Sim 2427  Kotlyar, Dimi 2298  =-=:41 2004 ?           A10 
+   315: Williams, Sim 2427  Hertneck, Ger 2557  1-0:64 2004 ?           A58 
+   316: Williams, Sim 2427  Shchekachev,  2555  1-0:47 2004 ?           E10 
+   317: Matlak, Marek 2492  Williams, Sim 2427  =-=:17 2004 ?           A40 
+   318: Kekelidze, Mi 2484  Williams, Sim 2427  =-=:30 2004 Schwarzach  C16 
+   319: Williams, Sim 2427  Kotronias, Va 2608  1-0:62 2004 Port Erin I E92 
+   320: Williams, Sim 2427  Korchnoi, Vik 2568  0-1:44 2004 Pori Erin I D38 
+   321: Smith, Andrew 2205  Williams, Sim 2427  0-1:41 2004 ?           C16 
+   322: Agrest, Evgen 2602  Williams, Sim 2427  0-1:36 2004 Port Erin I A85 
+   323: Williams, Sim 2427  Kulaots, Kaid 2593  =-=:39 2004 Pori Erin I D17 
+   324: Baklan, Vladi 2595  Williams, Sim 2427  1-0:25 2004 Port Erin I C16 
+   325: Williams, Sim 2427  Speelman, Jon 2555  =-=:12 2004 Pori Erin I E12 
+   326: Bannink, Bern 2280  Williams, Sim 2427  0-1:33 2004 Port Erin I C03 
+   327: Williams, Sim 2427  Pavlovic, Mil 2498  0-1:39 2004 Port Erin I E11 
+   328: Williams, Sim 2427  Allicock, Raw 2292  1-0:23 2004 West Bromwi D37 
+   329: Collins, Sam  2387  Williams, Sim 2427  1-0:39 2004 West Bromwi B00 
+   330: Hutchinson, P 2191  Williams, Sim 2473  =-=:35 2004 Halifax ENG B20 
+   331: Williams, Sim 2473  Howell, David 2340  1-0:32 2004 Halifax ENG A02 
+   332: Ashton, Adam  2283  Williams, Sim 2473  =-=:17 2004 ?           C16 
+   333: Williams, Sim 2473  Gormally, Dan 2472  0-1:55 2004 Halifax ENG E13 
+   334: Williams, Sim 2473  Palliser, Ric 2402  1-0:31 2004 Halifax ENG A50 
+   335: Williams, Sim 2473  Wells, Peter  2504  0-1:21 2004 Halifax ENG B20 
+   336: Dorrington, C 2194  Williams, Sim 2473  0-1:23 2004 ?           B23 
+   337: Williams, Sim 2473  Chandler, Mur 2531  =-=:34 2004 West Bromwi D37 
+   338: Shirov, Alexe 2726  Williams, Sim 2473  1-0:54 2004 West Bromwi B75 
+   339: Williams, Sim 2487  Hennigan, Mic 2408  1-0:32 2005 Caleta ENG  E94 
+   340: Sasikiran, Kr 2657  Williams, Sim 2487  1-0:26 2005 Caleta ENG  C18 
+   341: Williams, Sim 2487  Howell, David 2348  0-1:62 2005 Caleta ENG  A21 
+   342: Hinks-Edwards 2383  Williams, Sim 2487  =-=:17 2005 Nottingham  A96 
+   343: Williams, Sim 2487  Buckley, Grae 2417  1-0:74 2005 ?           E73 
+   344: Quillan, Gary 2322  Williams, Sim 2487  1-0:53 2005 Caleta ENG  B51 
+   345: Williams, Sim 2487  Flores Chico, 2125  1-0:30 2005 Caleta ENG  D08 
+   346: Ofstad, Per   2202  Williams, Sim 2487  0-1:44 2005 Caleta ENG  C05 
+   347: Williams, Sim 2487  Thorfinnsson, 2356  1-0:47 2005 Caleta ENG  D26 
+   348: Efimenko, Zah 2601  Williams, Sim 2487  1-0:36 2005 Caleta ENG  A80 
+   349: Williams, Sim 2487  Kekki, Petri  2362  =-=:36 2005 Caleta ENG  D80 
+   350: Pert, Richard 2417  Williams, Sim 2487  =-=:20 2005 Caleta ENG  B33 
+   351: Clery, Nicola 2327  Williams, Sim 2487  0-1:28 2005 ?           A40 
+   352: Iskusnyh, Ser 2459  Williams, Sim 2487  1-0:36 2005 Cappelle la A96 
+   353: Williams, Sim 2487  Peric, Slavis 2230  1-0:32 2005 Cappelle la D15 
+   354: Giffard, Nico 2348  Williams, Sim 2487  0-1:43 2005 ?           A40 
+   355: Williams, Sim 2487  Draoui, Najib 2377  1-0:56 2005 Cappelle la D15 
+   356: Williams, Sim 2487  Talbot, Andre 2179  =-=:23 2005 Coventry EN E73 
+   357: Pym, Thomas T 2050  Williams, Sim 2487  0-1:40 2005 Coventry EN B20 
+   358: Williams, Sim 2487  Stone, A.     2254  =-=:27 2005 Coventry EN A84 
+   359: Chipanga, Tak 2189  Williams, Sim 2487  0-1:69 2005 Coventry EN C19 
+   360: Williams, Sim 2487  Berry, Neil   2260  1-0:57 2005 Coventry EN D15 
+   361: Zude, Erik Dr 2399  Williams, Sim 2487  0-1:31 2005 Coventry EN A96 
+   362: Williams, Sim 2487  Tkachiev, Vla 2609  =-=:17 2005 Coventry EN E12 
+   363: Williams, Sim 2487  Ansell, Simon 2408  1-0:43 2005 Coventry EN D17 
+   364: Areshchenko,  2570  Williams, Sim 2487  1-0:32 2005 Coventry EN C18 
+   365: Williams, Sim 2466  Van Voorthuij 2249  1-0:24 2005 ?           E10 
+   366: Kotronias, Va 2578  Williams, Sim 2466  =-=:56 2005 Cork IRL    C06 
+   367: Williams, Sim 2466  Cicak, Slavko 2530  0-1:38 2005 ?           A40 
+   368: Williams, Sim 2466  Rowson, Jonat 2572  1-0:## 2005 ?           B53 
+   369: Buckley, Simo 2332  Williams, Sim 2466  =-=:37 2005 England     C05 
+   370: Pedersen, Ch  2396  Williams, Sim 2466  =-=:11 2005 Gausdal NOR C02 
+   371: Williams, Sim 2466  Lie, Kjetil A 2495  0-1:43 2005 Gausdal NOR A75 
+   372: Tiviakov, Ser 2631  Williams, Sim 2466  1-0:40 2005 Gausdal NOR C06 
+   373: Williams, Sim 2466  Carlsen, Magn 2548  1-0:40 2005 ?           E12 
+   374: Korneev, Oleg 2611  Williams, Sim 2466  1-0:33 2005 Gausdal NOR B75 
+   375: Kulaots, Kaid 2572  Williams, Sim 2466  1-0:59 2005 Gausdal NOR C18 
+   376: Williams, Sim 2466  Vidonyak, Rom 2417  1-0:23 2005 Gausdal NOR E73 
+   377: Bogner, Sebas 2409  Williams, Sim 2466  0-1:54 2005 Gausdal NOR B75 
+   378: Williams, Sim 2466  Nordahl, Helg 2402  =-=:31 2005 Gausdal NOR E73 
+   379: Ward, Chris G 2485  Williams, Sim 2487  =-=:38 2005 Nottingham  A81 
+   380: Williams, Sim 2466  Hanley, Craig 2397  0-1:34 2005 England     E73 
+   381: Hamelink, Des 2242  Williams, Sim 2487  1-0:40 2005 Nottingham  C05 
+   382: Williams, Sim 2466  Macieja, Bart 2613  0-1:34 2005 Warsaw POL  D87 
+   383: Krasiewicz, R 2056  Williams, Sim 2466  0-1:34 2005 Warsaw POL  C01 
+   384: Williams, Sim 2466  Andersson, Ul 2579  =-=:33 2005 Warsaw POL  C11 
+   385: Kornev, Alexe 2565  Williams, Sim 2466  1-0:28 2005 Warsaw POL  C06 
+   386: Williams, Sim 2466  Lanzani, Mari 2356  =-=:49 2005 Warsaw POL  D37 
+   387: Markus, Rober 2584  Williams, Sim 2466  =-=:62 2005 Warsaw POL  A96 
+   388: Williams, Sim 2466  Anastasian, A 2574  1-0:66 2005 Warsaw POL  E12 
+   389: Shomoev, Anto 2540  Williams, Sim 2466  1-0:23 2005 Warsaw POL  B78 
+   390: Williams, Sim 2466  Lputian, Smba 2640  0-1:52 2005 Warsaw POL  D37 
+   391: Babujian, Lev 2386  Williams, Sim 2466  0-1:27 2005 Warsaw POL  B23 
+   392: Williams, Sim 2466  Khairullin, I 2517  0-1:37 2005 Warsaw POL  B20 
+   393: Bruno, Fabio  2374  Williams, Sim 2466  =-=:46 2005 Warsaw POL  A96 
+   394: Williams, Sim 2466  Warakomski, T 2384  1-0:82 2005 Warsaw POL  D27 
+   395: Williams, Sim 2461  Markus, John  2227  =-=:42 2005 ?           D32 
+   396: Breivik, Lars 2217  Williams, Sim 2461  0-1:25 2005 Amsterdam N A80 
+   397: Williams, Sim 2461  Avrukh, Boris 2652  1-0:37 2005 Amsterdam N D86 
+   398: Sokolov, I.   2691  Williams, Sim 2461  1-0:35 2005 Amsterdam N A91 
+   399: Williams, Sim 2461  Ivanov, Jorda 2347  1-0:31 2005 Amsterdam N D20 
+   400: Al-Modiahki,  2570  Williams, Sim 2461  1-0:33 2005 Amsterdam N B72 
+   401: Williams, Sim 2461  Buckley, Simo 2333  1-0:32 2005 Amsterdam N D15 
+   402: Kharlov, Andr 2619  Williams, Sim 2461  0-1:50 2005 ?           A04 
+   403: Williams, Sim 2461  Nijboer, Fris 2529  =-=:59 2005 ?           A81 
+   404: Williams, Sim 2461  Dignam, Matth 2194  1-0:48 2005 ?           E73 
+   405: Jessel, Steph 2285  Williams, Sim 2461  1-0:45 2005 ?           B72 
+   406: Williams, Sim 2461  Eggleston, Th 2166  =-=:47 2005 ?           A40 
+   407: White, Michae 2200  Williams, Sim 2461  0-1:## 2005 ?           C02 
+   408: Williams, Sim 2461  Stone, Andrew 2265  1-0:28 2005 ?           A40 
+   409: Knott, Simon  2382  Williams, Sim 2461  =-=:24 2005 Douglas IOM A96 
+   410: Williams, Sim 2461  Gordon, Steph 2390  0-1:47 2005 Douglas IOM E70 
+   411: Storey, Charl 2211  Williams, Sim 2461  =-=:87 2005 Douglas IOM C09 
+   412: Williams, Sim 2461  Eggleston, Da 2138  1-0:73 2005 Douglas IOM D37 
+   413: Haslinger, St 2412  Williams, Sim 2461  1-0:43 2005 Douglas IOM C06 
+   414: Williams, Sim 2461  Mason, Donald 2265  =-=:11 2005 Douglas ENG C77 
+   415: Rudd, Jack    2328  Williams, Sim 2473  =-=:69 2005 Sunningdale C03 
+   416: Williams, Sim 2473  Tan, Desmond  2334  1-0:40 2005 Sunningdale E15 
+   417: Davies, Nigel 2521  Williams, Sim 2452  =-=:22 2005 Birmingham  B06 
+   418: Williams, Sim 2452  King, Daniel  2526  0-1:39 2005 Birmingham  C12 
+   419: Jones, Ri     2078  Williams, Sim 2473  0-1:34 2005 Coventry EN B00 
+   420: Williams, Sim 2473  Howell, David 2479  0-1:45 2005 Coventry EN D87 
+   421: Williams, Sim 2487  Littlewood, J 2308  1-0:21 2005 Birmingham  D87 
+   422: Shaw, John    2445  Williams, Sim 2487  1-0:38 2005 Birmingham  B07 
+   423: Snape, Ian L  2258  Williams, Sim 2452  0-1:49 2005 Hastings EN A10 
+   424: Williams, Sim 2452  Ziska, Helgi  2251  1-0:63 2005 Hastings EN E73 
+   425: Erenburg, Ser 2582  Williams, Sim 2452  =-=:65 2005 Hastings EN C05 
+   426: Williams, Sim 2452  Le Roux, Jean 2497  1-0:30 2005 ?           E11 
+   427: Williams, Sim 2452  Neverov, Vale 2569  =-=:33 2006 Hastings EN D37 
+   428: Belov, Vl     2620  Williams, Sim 2452  1-0:31 2006 Hastings EN A41 
+   429: Wu, L.        2287  Williams, Sim 2452  0-1:46 2006 Hastings EN A85 
+   430: Williams, Sim 2452  Hebden, Mark  2514  1-0:39 2006 Hastings EN E70 
+   431: Williams, Sim 2452  Pert, Richard 2429  =-=: 9 2006 Hastings EN B90 
+   432: Bobras, Piotr 2563  Williams, Sim 2452  =-=:21 2006 Hastings EN B70 
+   433: Williams, Sim 2452  Devereaux, Ma 2367  1-0:74 2006 England     E13 
+   434: Shirov, Alexe 2710  Williams, Sim 2452  1-0:33 2006 Birmingham  A96 
+   435: Keogh, Eamon  2108  Williams, Sim 2452  0-1:44 2006 ?           C19 
+   436: Williams, Sim 2452  Orr, Mark J L 2293  1-0:35 2006 Bunratty IR D38 
+   437: Baburin, Alex 2511  Williams, Sim 2452  1-0:40 2006 Bunratty IR A81 
+   438: Williams, Sim 2452  Collins, Sam  2409  1-0:47 2006 ?           D10 
+   439: Jones, Gawain 2418  Williams, Sim 2452  0-1:38 2006 Bunratty IR B30 
+   440: Williams, Sim 2452  Hanley, Craig 2402  =-=:22 2006 Bunratty IR D38 
+   441: Williams, Sim 2452  Thorsteinsson 2147  1-0:28 2006 Reykjavik I A53 
+   442: Sokolov, Ivan 2689  Williams, Sim 2452  0-1:37 2006 Reykjavik I A96 
+   443: Williams, Sim 2452  Hillarp Perss 2548  =-=:42 2006 Reykjavik I D43 
+   444: Williams, Sim 2452  Erenburg, Ser 2573  0-1:44 2006 Reykjavik I D43 
+   445: Sanchez Casti 2177  Williams, Sim 2452  0-1:62 2006 Reykjavik I C01 
+   446: Galego, Luis  2538  Williams, Sim 2452  =-=: 7 2006 ?           A04 
+   447: Williams, Sim 2452  Ivanisevic, I 2588  =-=:38 2006 Reykjavik I D44 
+   448: Tregubov, Pav 2556  Williams, Sim 2452  1-0:39 2006 Reykjavik I A96 
+   449: Williams, Sim 2452  Arngrimsson,  2298  1-0:24 2006 Reykjavik I D15 
+   450: Williams, Sim 2452  Lagerman, Rob 2369  0-1:63 2006 Reykjavik I A03 
+   451: Lagerman, Rob 2369  Williams, Sim 2452  0-1:39 2006 Reykjavik I C05 
+   452: Williams, Sim 2452  Carlsen, Magn 2625  0-1:39 2006 ?           E12 
+   453: Williams, Sim 2452  Lagerman, Rob 2369  0-1:34 2006 Reykjavik I A36 
+   454: Williams, Sim 2452  Kotronias, Va 2622  =-=:56 2006 Kusadasi TU E70 
+   455: Belov, Vl     2608  Williams, Sim 2452  1-0:58 2006 Kusadasi TU A96 
+   456: Williams, Sim 2452  Logothetis, S 2298  =-=:21 2006 Kusadasi TU D38 
+   457: Aleskerov, Fa 2309  Williams, Sim 2452  0-1:16 2006 Kusadasi TU B20 
+   458: Williams, Sim 2452  Andersson, Ul 2562  =-=:17 2006 Kusadasi TU E20 
+   459: Baramidze, Da 2554  Williams, Sim 2452  1-0:53 2006 Kusadasi TU B06 
+   460: Williams, Sim 2452  Vehi Bach, Vi 2385  1-0:20 2006 Kusadasi TU A45 
+   461: Kuzubov, Yuri 2544  Williams, Sim 2452  1-0:25 2006 Kusadasi TU A96 
+   462: Williams, Sim 2452  Yeke, Serkan  2255  =-=:37 2006 Kusadasi TU D15 
+   463: Jankovic, Alo 2485  Williams, Sim 2452  =-=:11 2006 Kusadasi TU A96 
+   464: Williams, Sim 2452  Meier, Georg  2424  0-1:31 2006 Kusadasi TU C01 
+   465: Hennigan, Mic 2400  Williams, Sim 2478  0-1:28 2006 England     A00 
+   466: Williams, Sim 2478  Duncan, Chris 2332  1-0:33 2006 ?           B20 
+   467: Cox, John J   2423  Williams, Sim 2478  1-0:27 2006 ?           A40 
+   468: Milesi, Laure 2144  Williams, Sim 2478  1-0:37 2006 Marseilles  A04 
+   469: Williams, Sim 2478  Boudre, Jean- 2325  =-=:61 2006 Marseilles  E13 
+   470: Malakhatko, V 2559  Williams, Sim 2478  1-0:33 2006 Marseilles  A85 
+   471: Williams, Sim 2478  Hanley, Craig 2418  =-=:24 2006 Marseille F E11 
+   472: Williams, Sim 2473  Fowler, Simon 2181  1-0:31 2006 Swansea WLS D31 
+   473: Ashton, Adam  2329  Williams, Sim 2473  0-1:36 2006 Swansea WLS C11 
+   474: Williams, Sim 2473  Jones, Gawain 2416  =-=:41 2006 Swansea WLS D07 
+   475: Haslinger, St 2423  Williams, Sim 2473  =-=:52 2006 Swansea WLS B00 
+   476: Williams, Sim 2473  Arakhamia-Gra 2427  =-=:27 2006 Swansea WLS A58 
+   477: Gordon, Steph 2443  Williams, Sim 2473  0-1:21 2006 Swansea WLS A85 
+   478: Williams, Sim 2473  Guliyev, Nami 2513  0-1:78 2006 Swansea WLS E15 
+   479: Williams, Sim 2473  Gormally, Dan 2513  0-1:78 2006 Swansea WLS E15 
+   480: Rowson, Jonat 2579  Williams, Sim 2473  1-0:34 2006 Swansea WLS A92 
+   481: Williams, Sim 2473  Ledger, Dave  2274  1-0:39 2006 Swansea WLS E15 
+   482: Devereaux, Ma 2377  Williams, Sim 2473  1-0:56 2006 Swansea WLS A96 
+   483: Williams, Sim 2473  Rudd, Jack    2328  =-=:64 2006 Swansea WLS A29 
+   484: Williams, Sim 2473  Grant, Jonath 2251  =-=:33 2006 ?           A34 
+   485: Van Kemenade, 2039  Williams, Sim 2473  0-1:51 2006 Liverpool E A03 
+   486: Williams, Sim 2473  Miezis, Normu 2527  1-0:39 2006 ?           E11 
+   487: Williams, Sim 2473  Dgebuadze, Al 2527  1-0:54 2006 Liverpool E E14 
+   488: McShane, Luke 2614  Williams, Sim 2473  0-1:51 2006 Liverpool E C05 
+   489: Williams, Sim 2473  Short, Nigel  2676  =-=:39 2006 Liverpool E E15 
+   490: Sulskis, Saru 2514  Williams, Sim 2473  =-=:32 2006 Liverpool E C18 
+   491: Williams, Sim 2473  Gordon, Steph 2443  =-=:37 2006 Liverpool E B42 
+   492: Jones, Gawain 2416  Williams, Sim 2473  =-=:17 2006 Liverpool E A96 
+   493: Gormally, Dan 2513  Williams, Sim 2473  1-0:19 2006 Liverpool E A80 
+   494: Rudd, Jack    2328  Williams, Sim 2473  =-=:69 2006 England     C03 
+   495: Williams, Sim 2473  Tan, Desmond  2334  1-0:40 2006 England     E15 
+   496: Lunn, Timothy 2079  Williams, Sim 2473  0-1:18 2006 Port Erin I A85 
+   497: Williams, Sim 2473  Kazhgaleyev,  2606  =-=:11 2006 Pori Erin I D44 
+   498: Volkov, S1.   2628  Williams, Sim 2473  1-0:40 2006 Pori Erin I C03 
+   499: Williams, Sim 2473  Sharma, Dines 2358  =-=:17 2006 ?           D10 
+   500: Dworakowska,  2359  Williams, Sim 2473  1-0:27 2006 Port Erin I C18 
+   501: Williams, Sim 2473  Hutchinson, N 2107  1-0:28 2006 Port Erin I E15 
+   502: Mohota, Nisha 2313  Williams, Sim 2473  =-=:43 2006 Pori Erin I A96 
+   503: Williams, Sim 2473  Ashton, Adam  2329  1-0:28 2006 Pori Erin I D08 
+   504: Kononenko, Ta 2387  Williams, Sim 2473  =-=:72 2006 Port Erin I A40 
+   505: Williams, Sim 2473  Pelletier, Ya 2588  =-=:25 2006 Feugen AUT  D17 
+   506: Van Ketel, Ra 2324  Williams, Sim 2473  0-1:31 2006 Fuegen AUT  A40 
+   507: Williams, Sim 2473  Heberla, Bart 2569  0-1:40 2006 Feugen AUT  A43 
+   508: Atlas, Valery 2482  Williams, Sim 2473  1-0:56 2006 Fuegen AUT  B70 
+   509: Williams, Sim 2473  Jenni, Floria 2521  1-0:28 2006 Feugen AUT  E15 
+   510: Jones, Richar 2354  Williams, Sim 2473  0-1:34 2006 ?           C01 
+   511: Williams, Sim 2473  Howell, David 2471  0-1:45 2006 England     D87 
+   512: Williams, Sim 2473  Fryer, David  2101  1-0:35 2006 Hastings EN A58 
+   513: Britton, Rich 2261  Williams, Sim 2473  0-1:28 2006 ?           B06 
+   514: Williams, Sim 2473  Rudd, Jack    2310  1-0:47 2006 Hastings EN E73 
+   515: Williams, Sim 2473  Gagunashvili, 2611  =-=:46 2006 ?           A41 
+   516: Williams, Sim 2483  Karim, Ismael 2324  1-0:39 2007 FRA         D51 
+   517: Pavlovic, Mil 2507  Williams, Sim 2473  1-0:40 2007 Hastings EN A04 
+   518: Gofshtein, Le 2509  Williams, Sim 2473  1-0:38 2007 ?           A10 
+   519: Williams, Sim 2473  Prosviriakov, 2346  1-0:34 2007 Hastings EN E15 
+   520: Williams, Sim 2473  Knott, Simon  2375  =-=:20 2007 ?           A17 
+   521: Ashton, Adam  2304  Williams, Sim 2473  0-1:30 2007 Hastings EN B38 
+   522: Williams, Sim 2483  Gourlay, Iain 2348  1-0:34 2007 England     E61 
+   523: Williams, Sim 2483  Parker, Jonat 2522  =-=:45 2007 England     D37 
+   524: Williams, Sim 2483  Path, David   2090  1-0:32 2007 Bunratty IR D37 
+   525: Williams, Sim 2483  Van Lanen, An 2156  0-1:75 2007 Bunratty IR D32 
+   526: Lommers, Fran 2186  Williams, Sim 2483  0-1:21 2007 Bunratty IR A85 
+   527: Benjamin, Joe 2571  Williams, Sim 2483  1-0:45 2007 Bunratty IR A96 
+   528: Cafolla, Pete 2053  Williams, Sim 2483  =-=:12 2007 Bunratty IR A42 
+   529: Williams, Sim 2483  O'driscoll, K 2062  =-=: 8 2007 ?           B20 
+   530: Williams, Sim 2483  Cernousek, Lu 2397  =-=:80 2007 Wakefield P D80 
+   531: Ledger, Dave  2291  Williams, Sim 2483  0-1:29 2007 England     B06 
+   532: Nisipeanu, Li 2693  Williams, Sim 2487  1-0:83 2007 Dresden GER C15 
+   533: Williams, Sim 2487  Luechtemeier, 2270  1-0:51 2007 Dresden GER D15 
+   534: Jahnel, Guent 2303  Williams, Sim 2487  0-1:33 2007 Dresden GER A90 
+   535: Williams, Sim 2487  Van den Doel, 2580  0-1:59 2007 Dresden GER C33 
+   536: Klokas, Konst 2219  Williams, Sim 2487  0-1:50 2007 Dresden GER B00 
+   537: Williams, Sim 2487  Kurnosov, Igo 2566  =-=:27 2007 Dresden GER D87 
+   538: Lupulescu, Co 2565  Williams, Sim 2487  1-0:32 2007 Dresden GER B72 
+   539: Williams, Sim 2487  Vaznonis, Vyt 2282  =-=:71 2007 Dresden GER D15 
+   540: Armbrust, Flo 2255  Williams, Sim 2487  1-0:45 2007 Dresden GER B06 
+   541: Williams, Sim 2487  Espig, Lutz   2351  1-0:42 2007 Dresden GER B20 
+   542: Koepke, Chris 2290  Williams, Sim 2487  0-1:36 2007 Dresden GER B00 
+   543: Williams, Sim 2487  Morrison, Gra 2328  1-0:29 2007 ?           E11 
+   544: Williams, Sim 2487  Haslinger, St 2450  =-=:45 2007 England     D15 
+   545: Rowson, Jonat 2594  Williams, Sim 2487  1-0:27 2007 England     D30 
+   546: Hedri, Abdela 2060  Williams, Sim 2480  0-1:32 2007 ?           C02 
+   547: Williams, Sim 2480  Perruchoud, B 2199  1-0:24 2007 ?           A05 
+   548: Lehmann, Andr 2248  Williams, Sim 2480  =-=:27 2007 ?           C19 
+   549: Hochstrasser, 2393  Williams, Sim 2480  1-0:28 2007 ?           A40 
+   550: Williams, Sim 2480  Colmenares, A 2205  1-0:26 2007 ?           D07 
+   551: Loetscher, Ro 2386  Williams, Sim 2480  0-1:16 2007 ?           A04 
+   552: Raetsky, Alex 2423  Williams, Sim 2480  =-=:15 2007 ?           A40 
+   553: Williams, Sim 2480  Snape, Ian L  2255  1-0:44 2007 Great Yarmo A43 
+   554: Buckley, Grae 2379  Williams, Sim 2480  1-0:34 2007 Great Yarmo C02 
+   555: Williams, Sim 2480  Spence, David 2183  1-0:44 2007 ?           A36 
+   556: White, Michae 2246  Williams, Sim 2480  =-=:17 2007 Great Yarmo B72 
+   557: Williams, Sim 2480  Hodgson, John 2227  1-0:35 2007 ?           D80 
+   558: Briscoe, Chri 2224  Williams, Sim 2480  0-1:40 2007 Great Yarmo C19 
+   559: Williams, Sim 2480  Aagaard, Jaco 2467  0-1:58 2007 ?           B40 
+   560: Ciuksyte, Dag 2426  Williams, Sim 2480  0-1:29 2007 Great Yarmo B72 
+   561: Williams, Sim 2480  Kosten, Antho 2508  =-=:60 2007 Great Yarmo C77 
+   562: Williams, Sim 2480  Pert, Nichola 2536  =-=:37 2007 ?           C18 
+   563: Howell, David 2519  Williams, Sim 2480  1-0:63 2007 Great Yarmo C40 
+   564: Kennaugh, Cha 2294  Williams, Sim 2480  0-1:32 2007 Liverpool E C17 
+   565: Williams, Sim 2480  Williamson, R 2129  1-0:46 2007 Liverpool E D32 
+   566: Greet, Andrew 2441  Williams, Sim 2480  1-0:28 2007 ?           C19 
+   567: Smerdon, Davi 2461  Williams, Sim 2480  =-=:56 2007 Liverpool E C09 
+   568: Williams, Sim 2480  Yeo, M.       2153  1-0:## 2007 Liverpool E D08 
+   569: Williams, Sim 2480  Palliser, Ric 2417  1-0:26 2007 Liverpool E B87 
+   570: Fridman, Dani 2628  Williams, Sim 2480  1-0:61 2007 ?           A40 
+   571: Williams, Sim 2480  Madan, August 2425  1-0:22 2007 Liverpool E D37 
+   572: Ghaem Maghami 2610  Williams, Sim 2480  1-0:32 2007 ?           A04 
+   573: Jenks, Bruce  2148  Williams, Sim 2480  0-1:30 2007 Sunningdale A20 
+   574: Williams, Sim 2480  Talsma, Paul  2220  1-0:30 2007 Sunningdale A80 
+   575: Williams, Sim 2475  Carlhammar, M 2349  1-0:58 2007 FRA         B87 
+   576: Simon, Olivie 2397  Williams, Sim 2475  0-1:57 2007 FRA         C01 
+   577: Williams, Sim 2475  Roser, Kevin  2400  0-1:69 2007 FRA         E15 
+   578: Williams, Sim 2475  Deslandes, Pa 2316  1-0:27 2007 FRA         E61 
+   579: Williams, Sim 2475  Ledger, Dave  2266  1-0:33 2007 Hastings EN E15 
+   580: Thompson, Ian 2312  Williams, Sim 2475  0-1:27 2007 Hastings EN A81 
+   581: Williams, Sim 2475  Tahirov, Farh 2540  =-=:52 2007 ?           B07 
+   582: Hebden, Mark  2542  Williams, Sim 2475  1-0:22 2007 Hastings EN D07 
+   583: Williams, Sim 2475  Zozulia, Anna 2343  1-0:22 2008 ?           B06 
+   584: Afek, Yochana 2349  Williams, Sim 2475  0-1:23 2008 Hastings EN C02 
+   585: Williams, Sim 2482  Neverov, Vale 2558  1-0:61 2008 ?           B40 
+   586: Williams, Sim 2475  Malakhatko, V 2603  =-=:12 2008 Hastings EN D15 
+   587: Pert, Nichola 2539  Williams, Sim 2475  1-0:22 2008 Hastings EN A43 
+   588: Pavlovic, Mil 2536  Williams, Sim 2475  1-0:34 2008 Hastings EN A40 
+   589: Williams, Sim 2482  Spice, Alan   2144  0-1:39 2008 ?           D24 
+   590: Agrest, Evgen 2535  Williams, Sim 2482  =-=:26 2008 Oslo NOR    E21 
+   591: Williams, Sim 2482  Sveshnikov, E 2506  1-0:30 2008 Oslo NOR    D43 
+   592: Ostenstad, Be 2482  Williams, Sim 2482  =-=:54 2008 Oslo NOR    B00 
+   593: Svidler, Pete 2763  Williams, Sim 2482  1-0:20 2008 Bunratty IR A90 
+   594: Mcphillips, K 2206  Williams, Sim 2482  0-1:31 2008 ?           A40 
+   595: McPhillips, K 2206  Williams, Sim 2482  0-1:31 2008 Bunratty IR A85 
+   596: Johannesson,  2338  Williams, Sim 2482  1-0:31 2008 Bunratty IR A01 
+   597: Williams, Sim 2482  Jones, Gawain 2562  0-1:46 2008 Bunratty IR E73 
+   598: Thomas, Nicho 2304  Williams, Sim 2482  1-0:51 2008 ?           C05 
+   599: Williams, Sim 2482  Saiboulatov,  2373  =-=:49 2008 FRA         E11 
+   600: Petitcunot, P 2389  Williams, Sim 2482  0-1:48 2008 FRA         B58 
+   601: Har-Zvi, Rone 2512  Williams, Sim 2492  1-0:39 2008 Internet Ch A96 
+   602: Williams, Sim 2492  Har-Zvi, Rone 2512  1-0:27 2008 Internet Ch D27 
+   603: Williams, Sim 2492  Har-Zvi, Rone 2512  0-1:67 2008 Internet Ch A41 
+   604: Hetey, Laszlo 2344  Williams, Sim 2492  0-1:50 2008 ?           A40 
+   605: Mannion, Step 2361  Williams, Sim 2492  1-0:48 2008 ?           B33 
+   606: Williams, Sim 2496  Quillan, Gary 2339  =-=:34 2008 Liverpool E C05 
+   607: Goodger, Mart 2187  Williams, Sim 2496  =-=:73 2008 Liverpool E B00 
+   608: Williams, Sim 2496  Russell, Jame 2225  =-=:28 2008 ?           D35 
+   609: Williams, Sim 2496  James, Russel 2225  =-=:28 2008 Liverpool E D35 
+   610: Briscoe, Chri 2232  Williams, Sim 2496  0-1:42 2008 ?           C16 
+   611: Williams, Sim 2496  Hanley, James 2243  =-=:43 2008 Liverpool E E10 
+   612: Lalic, Susan  2344  Williams, Sim 2496  0-1:39 2008 Liverpool E C01 
+   613: Williams, Sim 2496  Ynojosa Apont 2101  1-0:23 2008 Liverpool E A18 
+   614: Jones, Gawain 2549  Williams, Sim 2496  =-=:71 2008 ?           B50 
+   615: Williams, Sim 2496  Eggleston, Da 2372  1-0:40 2008 Liverpool E A18 
+   616: Gordon, Steph 2508  Williams, Sim 2496  =-=:43 2008 ?           E81 
+   617: Williams, Sim 2496  Conquest, Stu 2536  =-=:23 2008 Liverpool E E11 
+   618: Williams, Sim 2496  David, Albert 2568  =-=:42 2008 Liverpool E D38 
+   619: Williams, Sim 2496  Laznicka, Vik 2601  0-1:30 2008 Liverpool E D15 
+   620: Ringoir, Tang 2321  Williams, Sim 2496  0-1:26 2008 Liverpool E C18 
+   621: Williams, Sim 2496  Short, Nigel  2655  0-1:51 2008 Liverpool E D37 
+   622: Rodriguez Lop 2312  Williams, Sim 2496  =-=:34 2008 Liverpool E E62 
+   623: Williams, Sim 2496  Peek, Marcel  2370  1-0:64 2008 Liverpool E D07 
+   624: Miezis, Normu 2540  Williams, Sim 2496  =-=:73 2008 Liverpool E A10 
+   625: Williams, Sim 2494  Civin, Tomas  2419  =-=:48 2008 ENG         E70 
+   626: Dargan, Paul  2207  Williams, Sim 2494  0-1:54 2008 ENG         B00 
+   627: Williams, Sim 2494  Burrows, Mart 2196  1-0:30 2008 Newport Pag E70 
+   628: Williams, Sim 2494  Arkell, Keith 2521  1-0:77 2008 Newport Pag A35 
+   629: Hebden, Mark  2515  Williams, Sim 2494  1-0:39 2008 Newport Pag A97 
+   630: Winants, Luc  2516  Williams, Sim 2494  0-1:31 2008 FRA         A85 
+   631: Williams, Sim 2494  Crouan, Steph 2183  1-0:27 2008 FRA         E70 
+   632: Tripoteau, Ni 2361  Williams, Sim 2494  =-=:48 2008 FRA         A40 
+   633: Savage, Ben D 2308  Williams, Sim 2494  0-1:68 2008 ?           E94 
+   634: Jablonski, No 2284  Williams, Sim 2494  0-1:54 2008 FRA         B70 
+   635: Williams, Sim 2494  Carlhammar, M 2354  1-0:22 2008 FRA         C41 
+   636: Williams, Sim 2494  Aikhoje, Odio 2260  1-0:39 2008 ?           A57 
+   637: Rudd, Jack    2344  Williams, Sim 2494  =-=:31 2008 ?           B72 
+   638: Williams, Sim 2494  Poobalasingam 2235  1-0:42 2008 Hastings EN E60 
+   639: Neverov, Vale 2571  Williams, Sim 2494  1-0:28 2008 ?           E77 
+   640: Williams, Sim 2494  Lock, Gavin R 2252  1-0:25 2009 Hastings EN D15 
+   641: Rolvag, Mikae 2199  Williams, Sim 2494  0-1:43 2009 ?           A40 
+   642: Williams, Sim 2494  Conquest, Stu 2526  =-=:37 2009 Hastings EN D87 
+   643: Kjartansson,  2284  Williams, Sim 2494  =-=:30 2009 ?           A40 
+   644: Williams, Sim 2494  Gordon, Steph 2521  1-0:35 2009 ?           E10 
+   645: Inkiov, Ventz 2484  Williams, Sim 2507  =-=:27 2009 FRA         A40 
+   646: Williams, Sim 2507  Demuth, Adrie 2331  =-=:29 2009 FRA         E70 
+   647: Williams, Sim 2507  Mendelson, An 2114  1-0:38 2009 Bunratty IR A56 
+   648: McPhillips, K 2220  Williams, Sim 2507  0-1:45 2009 Bunratty IR A40 
+   649: Heidenfeld, M 2367  Williams, Sim 2507  =-=:28 2009 Bunratty IR B53 
+   650: Williams, Sim 2507  Svidler, Pete 2723  0-1:56 2009 Bunratty IR E70 
+   651: Mcphillips, K 2220  Williams, Sim 2507  0-1:45 2009 ?           A40 
+   652: Tsaboshvili,  2014  Williams, Sim 2507  0-1:27 2009 ?           A40 
+   653: Williams, Sim 2507  Wall, Gavin   2302  0-1:38 2009 ?           C30 
+   654: Williams, Sim 2507  Payen, Arnaud 2364  1-0:40 2009 FRA         A90 
+   655: Geenen, Marc  2333  Williams, Sim 2507  =-=:24 2009 FRA         C06 
+   656: Williams, Sim 2507  Player, Edmun 2129  1-0:28 2009 ?           D20 
+   657: Williams, Sim 2507  Cooksey, Paul 2292  1-0:37 2009 ?           D10 
+   658: Williams, Sim 2507  Bjornsson, Sv 2161  1-0:29 2009 Reykjavik I E14 
+   659: Vernay, Clovi 2339  Williams, Sim 2507  1-0:78 2009 ?           A56 
+   660: Williams, Sim 2507  Naslund, Mika 2195  1-0:37 2009 Reykjavik I A27 
+   661: Johannesson,  2345  Williams, Sim 2507  0-1:40 2009 ?           A04 
+   662: Williams, Sim 2507  Caspi, Israel 2402  =-=:54 2009 Reykjavik I A02 
+   663: Breder, Denni 2427  Williams, Sim 2507  =-=:16 2009 Reykjavik I B00 
+   664: Williams, Sim 2507  Meszaros, Mic 2376  0-1:41 2009 ?           E60 
+   665: Williams, Sim 2507  Cori T, Deysi 2256  1-0:39 2009 Reykjavik I E13 
+   666: Rombaldoni, A 2309  Williams, Sim 2507  0-1:41 2009 Reykjavik I B53 
+   667: Williams, Sim 2512  Dumitrache, D 2486  1-0:11 2009 FRA         B07 
+   668: Williams, Sim 2512  Cosma, Ioan   2447  1-0:32 2009 FRA         D51 
+   669: Flear, Glenn  2485  Williams, Sim 2512  1-0:27 2009 ?           A42 
+   670: Williams, Sim 2512  Hebden, Mark  2510  1-0:41 2009 ?           E76 
+   671: Wells, Peter  2489  Williams, Sim 2512  0-1:60 2009 Southend EN E94 
+   672: Wells, Peter  2489  Williams, Sim 2512  0-1:60 2009 ?           A48 
+   673: Williams, Sim 2512  Arkell, Keith 2517  =-=: 8 2009 ?           B12 
+   674: Emms, John M  2487  Williams, Sim 2512  0-1:41 2009 Southend EN B06 
+   675: Ward, Christo 2422  Williams, Sim 2512  =-=:13 2009 ?           A40 
+   676: Williams, Sim 2512  Mcdonald, N   2405  =-=:54 2009 ?           D31 
+   677: Williams, Sim 2512  McDonald, Nei 2405  =-=:54 2009 Southend EN D58 
+   678: Rutter, Nick  2181  Williams, Sim 2512  =-=:19 2009 Staverton E B72 
+   679: Neyer, Renato 2089  Williams, Sim 2527  0-1:56 2009 ?           A40 
+   680: Williams, Sim 2527  Nuri, Kambez  2198  1-0:51 2009 Graechen SU A65 
+   681: Lehmann, Andr 2297  Williams, Sim 2527  =-=:52 2009 ?           B27 
+   682: Williams, Sim 2527  Zimmermann, P 2280  1-0:26 2009 Graechen SU D43 
+   683: Heinatz, Thom 2294  Williams, Sim 2527  0-1:26 2009 ?           B72 
+   684: Williams, Sim 2527  Kaenel, Hansj 2306  =-=:30 2009 Graechen SU B40 
+   685: Korchnoi, Vik 2561  Williams, Sim 2527  0-1:29 2009 Graechen SU E90 
+   686: Williams, Sim 2527  Domont, Alexa 2345  1-0:39 2009 Graechen SU D31 
+   687: Ekstroem, Rol 2482  Williams, Sim 2527  =-=:24 2009 Graechen SU A96 
+   688: Williams, Sim 2527  Rudd, Jack    2326  1-0:22 2009 ?           A60 
+   689: Palliser, Ric 2413  Williams, Sim 2527  0-1:57 2009 ?           A40 
+   690: Williams, Sim 2527  Cobb, James   2432  =-=:82 2009 ?           A46 
+   691: Trent, Lawren 2471  Williams, Sim 2527  1-0:40 2009 Torquay ENG B53 
+   692: Williams, Sim 2527  Ross, Chris N 2203  1-0:35 2009 ?           A13 
+   693: Lane, Gary W  2379  Williams, Sim 2527  0-1:29 2009 ?           B57 
+   694: Williams, Sim 2527  Hebden, Mark  2468  1-0:32 2009 ?           E76 
+   695: Williams, Sim 2527  Howell, David 2614  =-=:43 2009 ?           C33 
+   696: Jones, Gawain 2554  Williams, Sim 2527  0-1:44 2009 ?           B51 
+   697: Wells, Peter  2498  Williams, Sim 2527  =-=:53 2009 ?           A48 
+   698: Williams, Sim 2527  Gordon, Steph 2537  1-0:31 2009 ?           D85 
+   699: Davies, Nigel 2493  Williams, Sim 2527  =-=:47 2009 ?           C00 
+   700: Williams, Sim 2527  Hendriks, Wil 2444  1-0:35 2009 London ENG  E76 
+   701: Chapman, Terr 2232  Williams, Sim 2527  0-1:31 2009 London ENG  B04 
+   702: Williams, Sim 2527  Wiersma, Eelk 2403  =-=:28 2009 ?           A80 
+   703: Timman, Jan H 2569  Williams, Sim 2527  1-0:34 2009 London ENG  A05 
+   704: Cherniaev, Al 2428  Williams, Sim 2527  1-0:44 2009 ?           C01 
+   705: Williams, Sim 2527  Wells, Peter  2498  1-0:38 2009 London ENG  E17 
+   706: Korchnoi, Vik 2561  Williams, Sim 2527  1-0:76 2009 London ENG  E81 
+   707: Williams, Sim 2527  Trent, Lawren 2471  =-=: 7 2009 London ENG  D09 
+   708: Williams, Sim 2527  Severens, Lar 2157  1-0:23 2009 Dieppe FRA  D15 
+   709: Williams, Sim 2527  Platel, Alexa 2206  1-0:19 2009 ?           E60 
+   710: Williams, Sim 2545  Lerch, Patric 2322  1-0:40 2009 FRA         E17 
+   711: Williams, Sim 2545  Ninov, Nikola 2532  1-0:39 2009 FRA         D31 
+   712: Williams, Sim 2545  Ribbegren, Ka 2158  1-0:35 2009 ?           A40 
+   713: Mamedyarov, S    0  Williams, Sim    0  1-0:28 2009 ?           E73 
+   714: Feller, Sebas    0  Williams, Sim    0  1-0:40 2009 ?           A40 
+   715: Williams, Sim 2545  Neubauer, Mar 2448  =-=:24 2009 ?           E10 
+   716: Williams, Sim 2545  Thomassen, Jo 2332  1-0:21 2009 ?           E77 
+   717: Williams, Sim 2550  Roberts, Davi 2119  1-0:36 2009 ?           A10 
+   718: Anderton, Mat 2232  Williams, Sim 2550  0-1:48 2009 London ENG  B06 
+   719: Williams, Sim 2550  Hennigan, Mic 2385  =-=:29 2009 London ENG  E76 
+   720: Bellin, Rober 2388  Williams, Sim 2550  0-1:24 2009 London ENG  A04 
+   721: Williams, Sim 2550  Gullaksen, Ei 2400  1-0:45 2009 ?           E70 
+   722: Hebden, Mark  2522  Williams, Sim 2550  =-=:56 2009 ?           A46 
+   723: Williams, Sim 2550  Cherniaev, Al 2465  =-=:13 2009 ?           A41 
+   724: Rendle, Thoma 2382  Williams, Sim 2550  0-1:39 2009 ?           B06 
+   725: Hammer, Jon L 2588  Williams, Sim 2550  =-=: 4 2009 ?           C01 
+   726: Williams, Sim 2550  Addison, Bret 2258  1-0:35 2009 Hastings EN D37 
+   727: Hawkins, Jona 2383  Williams, Sim 2550  1-0:45 2009 ?           A40 
+   728: Williams, Sim 2550  Franklin, Sam 2139  0-1:48 2009 ?           E77 
+   729: Horn, Stefan  2074  Williams, Sim 2550  0-1:40 2009 ?           B06 
+   730: Williams, Sim 2550  Goodger, Mart 2147  1-0:27 2010 ?           A80 
+   731: Anderson, Joh 2209  Williams, Sim 2550  1-0:52 2010 ?           B06 
+   732: Williams, Sim 2550  Jaunooby, Ali 2171  1-0:25 2010 Hastings EN B06 
+   733: Snape, Ian    2176  Williams, Sim 2550  1-0:47 2010 ?           C16 
+   734: Williams, Sim 2550  Green, Andrew 2151  1-0:28 2010 Hastings EN E76 
+   735: Williams, Sim 2545  Mestel, A Jon 2473  0-1:40 2010 ?           E60 
+   736: Morrison, Gra 2353  Williams, Sim 2545  0-1:40 2010 ?           A40 
+   737: Rowson, Jonat 2579  Williams, Sim 2548  0-1:52 2010 ?           E86 
+   738: Williams, Sim 2545  Savage, Ben D 2296  =-=:25 2010 Hinckley Is E11 
+   739: Williams, Sim 2545  Speelman, Jon 2525  =-=:50 2010 Hinckley Is B12 
+   740: Hunt, Adam C  2425  Williams, Sim 2519  =-=:45 2010 ?           C13 
+   741: Williams, Sim 2519  Slaby, Jerzy  2470  0-1:40 2010 ?           E73 
+   742: Cooper, John  2346  Williams, Sim 2519  =-=:49 2010 ?           A04 
+   743: Williams, Sim 2519  Swanson, Step 2263  =-=:47 2010 ?           A00 
+   744: Williams, Sim 2511  Studer, Noel  2036  1-0:39 2010 ?           A40 
+   745: Illijin, Nebo 2225  Williams, Sim 2511  0-1:31 2010 ?           C16 
+   746: Williams, Sim 2511  Grandadam, Ni 2249  =-=:20 2010 ?           D31 
+   747: Gaehwiler, Ga 2250  Williams, Sim 2511  0-1:31 2010 ?           C02 
+   748: Nuri, Kambez  2233  Williams, Sim 2511  =-=:22 2010 ?           C13 
+   749: Williams, Sim 2511  Onoprienko, V 2343  1-0:36 2010 ?           C33 
+   750: Williams, Sim 2511  Cebalo, Miso  2500  1-0:62 2010 ?           B72 
+   751: Carron, Julie 2380  Williams, Sim 2511  1-0:63 2010 ?           A40 
+   752: Williams, Sim 2511  Klauser, Mark 2362  =-=:39 2010 ?           C30 
+   753: Griffiths, Ry 2249  Williams, Sim 2511  0-1:49 2010 Canterbury  A36 
+   754: Griffiths, Ry 2249  Williams, Sim 2511  0-1:50 2010 ?           A30 
+   755: Williams, Sim 2511  Littlewood, P 2361  1-0:58 2010 ?           E10 
+   756: Rudd, Jack    2236  Williams, Sim 2511  1-0:47 2010 Canterbury  E99 
+   757: Williams, Sim 2511  Rich, Mark C  2166  1-0:25 2010 ?           E11 
+   758: Constantinou, 2302  Williams, Sim 2511  =-=:73 2010 ?           A00 
+   759: Williams, Sim 2511  Rendle, Thoma 2391  1-0:60 2010 Canterbury  A04 
+   760: Hunt, Adam C  2408  Williams, Sim 2511  =-=:50 2010 Canterbury  B67 
+   761: Williams, Sim 2511  Pert, Nichola 2551  =-=:48 2010 ?           B30 
+   762: Conquest, Stu 2523  Williams, Sim 2511  0-1:35 2010 Canterbury  C02 
+   763: Adams, Michae 2706  Williams, Sim 2511  1-0:27 2010 ?           B52 
+   764: Williams, Sim 2511  Hawkins, Jona 2423  0-1:38 2010 Canterbury  E76 
+   765: McNab, Colin  2463  Williams, Sim 2511  =-=:50 2010 Uxbridge EN A21 
+   766: Mcnab, Colin  2463  Williams, Sim 2511  =-=:50 2010 ?           A21 
+   767: Sen, Subin    2159  Williams, Sim 2511  0-1:38 2010 ?           A04 
+   768: Williams, Sim 2511  Player, Edmun 2176  0-1:39 2010 ?           D20 
+   769: Williams, Sim 2511  Norinkeviciut 2024  =-=:44 2010 ?           E15 
+   770: Poobalasingam 2326  Williams, Sim 2511  =-=:66 2010 Uxbridge EN A00 
+   771: Nilsson, Ande 2160  Williams, Sim 2511  0-1:33 2010 ?           E77 
+   772: Williams, Sim 2511  Jeanne, Micka 2174  1-0:24 2010 Uxbridge EN C05 
+   773: Williams, Sim 2511  Buckley, Grae 2380  0-1:39 2010 ?           C12 
+   774: Sowray, Peter 2383  Williams, Sim 2511  0-1:28 2010 Uxbridge EN A25 
+   775: Mangione, Cla 2087  Williams, Sim 2485  0-1:15 2010 ?           A00 
+   776: Williams, Sim 2485  Genovese, Mau 2267  1-0:29 2010 ?           C32 
+   777: Wall, Gavin   2315  Williams, Sim 2485  =-=:44 2010 ?           C01 
+   778: Williams, Sim 2527  Jones, Gawain 2554  1-0:74 2010 Sunningdale E76 
+   779: Williams, Sim 2485  Pert, Nichola 2561  =-=: 3 2010 ?           D07 
+   780: Spencer, Carl 2166  Williams, Sim 2485  0-1:34 2010 ?           C06 
+   781: Williams, Sim 2485  Dorrington, C 2263  0-1:33 2010 ?           B40 
+   782: Roberts, DL   2083  Williams, Sim 2493  0-1:27 2010 London ENG  C15 
+   783: Williams, Sim 2493  Coleman, Davi 2247  1-0:59 2010 ?           B99 
+   784: Zhou, Yang-Fa 2326  Williams, Sim 2493  0-1:32 2010 ?           C00 
+   785: Williams, Sim 2493  Slavin, Alexe 2425  1-0:47 2010 ?           B27 
+   786: Avrukh, Boris 2625  Williams, Sim 2493  0-1:37 2010 ?           A10 
+   787: Williams, Sim 2493  Wall, Gavin   2325  1-0:32 2010 ?           A84 
+   788: Jones, Gawain 2575  Williams, Sim 2493  1-0:62 2010 London ENG  C05 
+   789: Williams, Sim 2493  Gormally, Dan 2470  1-0:34 2010 London ENG  E13 
+   790: Hebden, Mark  2560  Williams, Sim 2493  =-=:## 2010 ?           A46 
+   791: Williams, Sim 2493  Furman, Boris 2253  =-=:43 2010 ?           B33 
+   792: De Coverly, R 2091  Williams, Sim 2493  0-1:55 2010 ?           A04 
+   793: Williams, Sim 2493  Zhou, Yang-Fa 2348  1-0:61 2010 ?           A02 
+   794: Rendle, Thoma 2391  Williams, Sim 2493  1-0:27 2010 ?           B04 
+   795: Williams, Sim 2513  Shaw, Peter   2164  =-=:80 2011 ?           D00 
+   796: Winfridsson,  2140  Williams, Sim 2513  0-1:27 2011 ?           A40 
+   797: Munson, Shaun 2201  Williams, Sim 2513  0-1:43 2011 ?           A45 
+   798: Williams, Sim 2513  Cooper, John  2363  1-0:40 2011 ?           C15 
+   799: Williams, Sim 2513  McMorrow, Joh 2048  1-0:33 2011 Bunratty IR D37 
+   800: Cooper, Lawre 2316  Williams, Sim 2513  =-=:43 2011 ?           A40 
+   801: Williams, Sim 2513  Griffiths, Ry 2245  =-=:47 2011 ?           B23 
+   802: Collins, Sam  2436  Williams, Sim 2513  1-0:52 2011 ?           B22 
+   803: Williams, Sim 2513  Osborne, Sam  2045  1-0:53 2011 ?           A00 
+   804: Cafolla, Pete 2060  Williams, Sim 2513  0-1:34 2011 ?           B23 
+   805: Hobber, Ander 2224  Williams, Sim 2506  0-1:46 2011 Reykjavik I B07 
+   806: Williams, Sim 2506  Bjornsson, Sv 2153  1-0:23 2011 Reykjavik I E10 
+   807: Sokolov, Ivan 2653  Williams, Sim 2506  1-0:37 2011 Reykjavik I A85 
+   808: Bergsson, Ste 2158  Williams, Sim 2507  0-1:27 2011 ?           C01 
+   809: Williams, Sim 2506  Thorhallsson, 2398  =-=:42 2011 Reykjavik I D43 
+   810: Williams, Sim 2507  Mack, Wolfgan 2282  1-0:45 2011 ?           A42 
+   811: McShane, Luke 2683  Williams, Sim 2507  1-0:35 2011 Reykjavik I C05 
+   812: Michalczak, T 2326  Williams, Sim 2506  =-=:32 2011 Reykjavik I B22 
+   813: Williams, Sim 2506  Sigfusson, Si 2346  1-0:39 2011 Reykjavik I A16 
+   814: Mcshane, Luke 2683  Williams, Sim 2507  1-0:35 2011 ?           C05 
+   815: Williams, Sim 2507  Piasetski, Le 2299  1-0:23 2011 ?           B23 
+   816: Sipila, Vilka 2347  Williams, Sim 2507  0-1:72 2011 ?           A01 
+   817: Williams, Sim 2507  Adly, Ahmed   2640  1-0:57 2011 ?           B23 
+   818: Halkias, Stel 2579  Williams, Sim 2507  =-=:## 2011 ?           A48 
+   819: Williams, Sim 2507  Hammer, Jon L 2606  0-1:40 2011 ?           E10 
+   820: Fier, Alexand 2586  Williams, Sim 2507  1-0:44 2011 ?           B99 
+   821: Jones, Richar 2369  Williams, Sim 2507  =-=:71 2011 ?           C11 
+   822: Williams, Sim 2507  Lock, Gavin R 2192  1-0:34 2011 ?           D10 
+   823: Taulbut, Shau 2376  Williams, Sim 2507  1-0:33 2011 London ENG  B51 
+   824: Williams, Sim 2507  Hall, Richard 2150  =-=:32 2011 ?           A40 
+   825: Hansen, Hans- 2215  Williams, Sim 2507  1-0:31 2011 ?           A20 
+   826: Williams, Sim 2507  Swanson, Step 2269  1-0:39 2011 ?           A40 
+   827: Buckley, Davi 2237  Williams, Sim 2507  =-=:62 2011 ?           A40 
+   828: Thompson, Ian 2260  Williams, Sim 2507  =-=:35 2011 ?           A04 
+   829: Wojtaszek, Ra 2721  Williams, Sim 2520  0-1:20 2011 Mulhouse FR A96 
+   830: Krasenkow, Mi 2619  Williams, Sim 2520  =-=:31 2011 Mulhouse FR A85 
+   831: Williams, Sim 2520  Eljanov, Pave 2712  1-0:35 2011 Mulhouse FR D38 
+   832: Williams, Sim 2520  Istratescu, A 2623  =-=:33 2011 Mulhouse FR D27 
+   833: Postny, Evgen 2612  Williams, Sim 2520  1-0:46 2011 Mulhouse FR A77 
+   834: Williams, Sim 2520  Nisipeanu, Li 2659  =-=:50 2011 ?           A56 
+   835: Williams, Sim 2520  Marcelin, Cyr 2482  1-0:41 2011 ?           D10 
+   836: Meier, Georg  2650  Williams, Sim 2520  1-0:54 2011 Mulhouse FR E97 
+   837: Williams, Sim 2520  Avrukh, Boris 2601  1-0:35 2011 ?           B41 
+   838: Williams, Sim 2520  Mista, Aleksa 2569  =-=:36 2011 Mulhouse FR A01 
+   839: Rozentalis, E 2573  Williams, Sim 2520  1-0:33 2011 Mulhouse FR B22 
+   840: Williams, Sim 2520  Atako, Chino  2095  =-=:34 2011 ?           A80 
+   841: Shepherd, Dav 2034  Williams, Sim 2520  0-1:51 2011 ?           A40 
+   842: Williams, Sim 2520  Bisby, Daniel 2296  1-0:58 2011 London ENG  B22 
+   843: Therrien, Ale 2251  Williams, Sim 2520  0-1:30 2011 ?           A40 
+   844: Williams, Sim 2520  Longson, Alex 2221  =-=:58 2011 London ENG  D31 
+   845: Williams, Sim 2520  Arkell, Keith 2419  1-0:81 2011 ?           C00 
+   846: Slavin, Alexe 2412  Williams, Sim 2520  =-=:52 2011 ?           A04 
+   847: Williams, Sim 2520  Eggleston, Da 2319  =-=:25 2011 London ENG  A30 
+   848: Khosla, Shive 2391  Williams, Sim 2520  =-=:22 2011 ?           B72 
+   849: Williams, Sim 2520  Houska, Jovan 2429  1-0:38 2011 London ENG  D15 
+   850: Vaibhav, Suri 2430  Williams, Sim 2520  0-1:27 2011 London ENG  B76 
+   851: Williams, Sim 2520  Ledger, Dave  2245  1-0:20 2011 London ENG  A01 
+   852: Williams, Sim 2520  Galego, Luis  2501  =-=: 9 2011 London ENG  A49 
+   853: Ansell, Simon 2427  Williams, Sim 2520  =-=:41 2011 London ENG  B21 
+   854: Lalic, Susan  2277  Williams, Sim 2528  1-0:43 2011 Sheffield E C13 
+   855: Williams, Sim 2528  Walton, Alan  2172  1-0:24 2011 Sheffield E C14 
+   856: Yap, Abel Jin 2029  Williams, Sim 2528  0-1:54 2011 Sheffield E B23 
+   857: Williams, Sim 2528  Chapman, Terr 2242  =-=:## 2011 Sheffield E A57 
+   858: Britton, Rich 2203  Williams, Sim 2528  0-1:35 2011 ?           B51 
+   859: Williams, Sim 2528  Griffiths, Ry 2301  1-0:18 2011 ?           B22 
+   860: Adams, Michae 2715  Williams, Sim 2528  1-0:64 2011 Sheffield E B51 
+   861: Williams, Sim 2528  Ledger, Andre 2435  =-=:57 2011 Sheffield E D17 
+   862: Rendle, Thoma 2386  Williams, Sim 2528  1-0:29 2011 Sheffield E C84 
+   863: Williams, Sim 2528  Jones, Victor 2153  1-0:33 2011 ?           A13 
+   864: Summerscale,  2415  Williams, Sim 2528  =-=:## 2011 Sheffield E A47 
+   865: Lock, Gavin R 2194  Williams, Sim 2528  0-1:32 2011 Sunningdale A96 
+   866: Williams, Sim 2528  Hegarty, Sara 2065  1-0:24 2011 Sunningdale E60 
+   867: Burrows, Mart 2168  Williams, Sim 2528  0-1:46 2011 Sunningdale B35 
+   868: Eggleston, Da 2318  Williams, Sim 2528  0-1:47 2011 Sunningdale B72 
+   869: Williams, Sim 2528  Sturt, Raven  2231  0-1:38 2011 Sunningdale D85 
+   870: Mcclement, An 2072  Williams, Sim 2528  0-1:41 2011 ?           B72 
+   871: McClement, An 2072  Williams, Sim 2528  0-1:41 2011 Sunningdale B72 
+   872: Williams, Sim 2528  White, Michae 2241  1-0:27 2011 Sunningdale B22 
+   873: Williams, Sim 2528  Lalic, Bogdan 2470  =-=:10 2011 Sunningdale A06 
+   874: Straka, Josef 2305  Williams, Sim 2528  =-=:80 2011 Sunningdale A96 
+   875: Williams, Sim 2512  White, Kevin  2086  1-0:24 2011 Sunningdale E76 
+   876: Williams, Sim 2512  Venkataramana 2274  1-0:41 2011 Sunningdale D80 
+   877: Roberson, Pet 2274  Williams, Sim 2512  0-1:28 2011 ?           C06 
+   878: Hebden, Mark  2506  Williams, Sim 2512  =-=:61 2011 Sunningdale A46 
+   879: Williams, Sim 2512  Pert, Nichola 2557  =-=: 6 2011 Sunningdale D17 
+   880: Jones, Gawain 2624  Williams, Sim 2512  1-0:55 2011 Reykjavik I B51 
+   881: Olafsson, H1  2523  Williams, Sim 2512  1-0:36 2011 Reykjavik I A10 
+   882: Williams, Sim 2512  Tairi, Faruk  2307  =-=:16 2011 ?           A02 
+   883: Williams, Sim 2512  Arngrimsson,  2353  1-0:44 2011 Reykjavik I A01 
+   884: Williams, Sim 2512  Cafolla, Pete 2060  1-0:27 2011 ?           B23 
+   885: Josse, Mark   2181  Williams, Sim 2512  0-1:34 2011 ?           B23 
+   886: Williams, Sim 2512  Vuilleumier,  2338  1-0:35 2011 ?           C30 
+   887: Sowray, Peter 2353  Williams, Sim 2512  =-=:41 2011 ?           E76 
+   888: Williams, Sim 2512  Hebden, Mark  2506  0-1:56 2011 ?           E61 
+   889: Savage, Ben D 2262  Williams, Sim 2512  1-0:56 2011 ?           A40 
+   890: Williams, Sim 2512  O`toole, Geor 2157  1-0:29 2011 ?           A16 
+   891: Rudd, Jack    2290  Williams, Sim 2512  1-0:37 2011 ?           B41 
+   892: Williams, Sim 2512  O'toole, Geor 2157  1-0:29 2011 ?           A16 
+   893: Williams, Sim 2513  Jones, Gawain 2635  0-1:16 2011 ?           B10 
+   894: Harvey, Marcu 2130  Williams, Sim 2513  1-0:57 2011 Staverton P B22 
+   895: Burrows, Mart 2177  Williams, Sim 2512  0-1:47 2011 ?           B42 
+   896: Williams, Sim 2513  Prosviriakov, 2274  1-0:42 2011 Hastings EN D15 
+   897: Godard, Maxen 2333  Williams, Sim 2513  =-=:35 2011 Hastings EN A96 
+   898: Williams, Sim 2513  Knott, Simon  2332  1-0:56 2011 ?           A16 
+   899: Franklin, Sam 2179  Williams, Sim 2513  0-1:39 2011 Hastings EN B80 
+   900: Williams, Sim 2513  Istratescu, A 2627  =-=:44 2012 ?           E15 
+   901: Roy Chowdhury 2411  Williams, Sim 2513  =-=:22 2012 Hastings EN A96 
+   902: Williams, Sim 2513  Hebden, Mark  2515  =-=:97 2012 ?           E98 
+   903: Vovk, Yuri    2571  Williams, Sim 2513  1-0:39 2012 Hastings EN E90 
+   904: Williams, Sim 2513  Longson, Alex 2281  1-0:50 2012 Hastings EN A03 
+   905: Williams, Sim 2513  Parker, Jonat 2531  1-0:33 2012 Hinkley Isl C33 
+   906: Mah, Karl Cc  2419  Williams, Sim 2504  0-1:50 2012 ?           A49 
+   907: Emms, John M  2484  Williams, Sim 2513  0-1:27 2012 Sunningdale B89 
+   908: Williams, Sim 2513  Wall, Gavin   2330  1-0:40 2012 Sunningdale A85 
+   909: Regan, Natash 2096  Williams, Sim 2504  =-=:54 2012 Bunratty IR B21 
+   910: Williams, Sim 2504  Healy, Tom    1983  1-0:31 2012 ?           E76 
+   911: Collins, Sam  2426  Williams, Sim 2504  0-1:30 2012 Bunratty IR B00 
+   912: Williams, Sim 2504  Adams, Michae 2724  0-1:24 2012 ?           E10 
+   913: Rendle, Thoma 2393  Williams, Sim 2504  0-1:42 2012 Bunratty IR B21 
+   914: Williams, Sim 2504  Arkell, Keith 2429  0-1:31 2012 Bunratty IR E20 
+   915: Williams, Sim 2506  Kristinsson,  1997  1-0:39 2012 ?           D21 
+   916: Hobber, Ander 2224  Williams, Sim 2506  0-1:46 2012 Reykjavik I B07 
+   917: Williams, Sim 2506  Bjornsson, Sv 2153  1-0:23 2012 Reykjavik I E10 
+   918: Sokolov, Ivan 2653  Williams, Sim 2506  1-0:37 2012 Reykjavik I A85 
+   919: Williams, Sim 2506  Thorhallsson, 2398  =-=:42 2012 Reykjavik I D43 
+   920: Michalczak, T 2326  Williams, Sim 2506  =-=:32 2012 Reykjavik I B22 
+   921: Williams, Sim 2506  Sigfusson, Si 2346  1-0:39 2012 ?           A16 
+   922: Kjartansson,  2357  Williams, Sim 2506  0-1:61 2012 Reykjavik I A56 
+   923: Williams, Sim 2506  Maze, Sebasti 2577  0-1:72 2012 Reykjavik I B12 
+   924: Paehtz, Elisa 2457  Williams, Sim 2513  =-=:44 2012 Hinkley ENG E62 
+   925: Zhou, Y       2436  Williams, Sim 2513  1-0:23 2012 Hinkley ENG B43 
+   926: Williams, Sim 2506  Mihajlov, Sve 2093  0-1:50 2012 ?           A22 
+   927: Grebstad, Kje 1987  Williams, Sim 2506  0-1:38 2012 ?           A40 
+   928: Williams, Sim 2506  Hauge, Lars O 2087  1-0:28 2012 Dublin IRL  B20 
+   929: Bomans, Arno  2228  Williams, Sim 2506  0-1:24 2012 Dublin IRL  A40 
+   930: Williams, Sim 2506  Quinn, Mark   2398  1-0:57 2012 Dublin IRL  E13 
+   931: Williams, Sim 2506  Romero Holmes 2501  =-=:60 2012 Dublin IRL  A29 
+   932: Collins, S Ir 2439  Williams, Sim 2506  0-1:65 2012 ?           C05 
+   933: Kvisvik, Bred 2304  Williams, Sim 2506  =-=:52 2012 Dublin IRL  C18 
+   934: Williams, Sim 2506  Nemeth, Miklo 2452  1-0:35 2012 Dublin IRL  E15 
+   935: Williams, Sim 2506  Kemp, Paulm   2037  1-0:33 2012 ?           D32 
+   936: Braun, Walter 2248  Williams, Sim 2506  0-1:22 2012 Bournemouth E61 
+   937: Williams, Sim 2506  Jenks, Chris  2157  1-0:39 2012 Bournemouth A57 
+   938: Williams, Sim 2506  Gregg, Alan M    0  1-0:51 2012 ?           C33 
+   939: Howell, David 2614  Williams, Sim 2506  1-0:44 2012 Bournemouth B07 
+   940: Buchicchio, G 2300  Williams, Sim 2513  0-1:34 2012 Hinkley ENG C41 
+   941: Ghasi, Ameet  2400  Williams, Sim 2513  1-0:49 2012 Hinkley ENG A80 
+   942: Williams, Sim 2513  Adams, Michae 2734  0-1:32 2012 ?           E10 
+   943: Karayiannis,  2167  Williams, Sim 2513  0-1:37 2012 London ENG  A10 
+   944: Williams, Sim 2513  Rudd, Jack    2305  1-0:26 2012 London ENG  A22 
+   945: Sipila, Vilka 2393  Williams, Sim 2513  =-=:62 2012 London ENG  A03 
+   946: Jaunooby, Ali 2158  Williams, Sim 2513  0-1:27 2012 London ENG  C02 
+   947: Williams, Sim 2513  Eggleston, Da 2327  0-1:54 2012 London ENG  A01 
+   948: Williams, Sim 2513  Byron, Alan M 2179  1-0:42 2012 London ENG  D37 
+   949: Vovk, Yuri    2562  Williams, Sim 2513  1-0:44 2012 London ENG  C19 
+   950: Williams, Sim 2513  Batchelor, Pe 2050  1-0:44 2012 London ENG  D37 
+   951: Collins, Sam  2428  Williams, Sim 2513  =-=:63 2012 ?           C15 
+   952: Gofshtein, Le 2480  Williams, Sim 2496  1-0:35 2012 Eilat ISR   A10 
+   953: Williams, Sim 2496  Fejzullah, Af 2318  1-0:27 2012 Eilat ISR   C33 
+   954: Williams, Sim 2496  Palac, Mladen 2600  1-0:47 2012 Eilat ISR   B23 
+   955: Gelfand, Bori 2736  Williams, Sim 2496  0-1:43 2012 Eilat ISR   A96 
+   956: Williams, Sim 2496  Sammalvuo, Ta 2466  1-0:35 2012 Eilat ISR   E15 
+   957: Nakamura, Hik 2786  Williams, Sim 2496  1-0:37 2012 Eilat ISR   C01 
+   958: Johannessen,  2520  Williams, Sim 2496  =-=:38 2012 Eilat ISR   E90 
+   959: Williams, Sim 2511  Mcdonald, Nei 2454  1-0:31 2012 ?           D31 
+   960: Williams, Sim 2511  McDonald, Nei 2454  1-0:31 2012 Sunningdale D37 
+   961: Mcnab, Colin  2455  Williams, Sim 2511  1-0:68 2012 ?           A10 
+   962: McNab, Colin  2455  Williams, Sim 2511  1-0:68 2012 Sunningdale A10 
+   963: Williams, Sim 2511  Lechner, Marc 1958  1-0:32 2012 ?           E10 
+   964: Van 't Hof, E 2145  Williams, Sim 2511  0-1:32 2012 Bugibba MLT A40 
+   965: Williams, Sim 2511  Valles, M.    2294  1-0:37 2012 Bugibba MLT A56 
+   966: L'ami, Alina  2381  Williams, Sim 2511  1-0:30 2012 ?           A40 
+   967: L'Ami, Alina  2381  Williams, Sim 2511  1-0:30 2012 Bugibba MLT A40 
+   968: Mirzoev, Azer 2555  Williams, Sim 2511  0-1:39 2012 Bugibba MLT A81 
+   969: Williams, Sim 2511  Vaarala, Eric 2234  1-0:18 2012 Bugibba MLT B24 
+   970: Lenier, Jude  2069  Williams, Sim 2515  0-1:29 2012 London ENG  C41 
+   971: Williams, Sim 2515  Eriksson, Jor 2213  1-0:30 2012 London ENG  E73 
+   972: Kojima, Shiny 2340  Williams, Sim 2515  0-1:31 2012 London ENG  A96 
+   973: Williams, Sim 2515  Hanley, Craig 2412  =-=:77 2012 London ENG  E11 
+   974: Ferguson, Mar 2402  Williams, Sim 2515  0-1:35 2012 London ENG  B51 
+   975: Williams, Sim 2515  Hamitevici, V 2440  =-=:27 2012 London ENG  D37 
+   976: Zhou, Y.      2419  Williams, Sim 2515  0-1:43 2012 London ENG  B67 
+   977: Williams, Sim 2515  Melkumyan, Hr 2649  =-=:42 2012 London ENG  D87 
+   978: Williams, Sim 2515  Van Kampen, R 2570  0-1:37 2012 ?           A29 
+   979: Carlsson, Pon 2518  Williams, Sim 2515  1-0:54 2012 Al-Ain UAE  C09 
+   980: Minhazuddin,  2401  Williams, Sim 2515  =-=:67 2012 ?           B57 
+   981: Mohammad, Min 2401  Williams, Sim 2515  =-=:67 2012 Al-Ain UAE  B88 
+   982: Williams, Sim 2515  Faisal, Abdul 2255  1-0:26 2012 Al-Ain UAE  A18 
+   983: Halkias, Stel 2561  Williams, Sim 2515  1-0:50 2012 Al-Ain UAE  A91 
+   984: Williams, Sim 2515  Atako, Chino  2117  1-0:43 2012 Hastings EN C11 
+   985: Gu, Xiaobing  2209  Williams, Sim 2515  0-1:36 2012 ?           B41 
+   986: Williams, Sim 2515  Sumets, Andre 2638  0-1:42 2013 Hastings EN D15 
+   987: Melekhina, Al 2221  Williams, Sim 2515  0-1:73 2013 Hastings EN C05 
+   988: Williams, Sim 2515  Farid, Firman 2338  =-=:## 2013 Hastings EN A41 
+   989: Rayner, Franc 2166  Williams, Sim 2515  =-=:53 2013 ?           B41 
+   990: Williams, Sim 2515  Ashton, Adam  2366  =-=:29 2013 ?           D37 
+   991: Burns-Mannion 2351  Williams, Sim 2515  1-0:65 2013 ?           B41 
+   992: Mannion, Step 2351  Williams, Sim 2515  1-0:65 2013 ?           B41 
+   993: Williams, Sim 2498  Meier, Gerd   1949  1-0:34 2013 ?           A52 
+   994: Karason, Aske 2235  Williams, Sim 2498  0-1:63 2013 ?           A40 
+   995: Williams, Sim 2498  Vachier-Lagra 2715  0-1:41 2013 Reykjavik I B44 
+   996: Ptacnikova, L 2269  Williams, Sim 2498  =-=:42 2013 ?           A04 
+   997: Williams, Sim 2498  Wang, Yiye    2226  1-0:38 2013 Reykjavik I A43 
+   998: Bekker-Jensen 2405  Williams, Sim 2498  0-1:26 2013 Reykjavik I D44 
+   999: Williams, Sim 2498  Navara, David 2710  0-1:32 2013 Reykjavik I E11 
+  1000: Gislason, Gud 2329  Williams, Sim 2498  0-1:47 2013 Reykjavik I A49 
+  1001: Williams, Sim 2498  Bu, Xiangzhi  2675  =-=:48 2013 ?           D10 
+  1002: Williams, Sim 2504  Amin, Bassem  2641  1-0:58 2013 Reykjavik I E11 
+  1003: Williams, Sim 2504  Eljanov, Pave 2697  0-1:37 2013 Reykjavik I D15 
+  1004: Gislason, Gud 2329  Williams, Sim 2504  0-1:52 2013 Reykjavik I A90 
+  1005: Williams, Sim 2511  Hunt, Harriet 2450  1-0:42 2013 Hinckley EN E15 
+  1006: Howell, David 2634  Williams, Sim 2511  1-0:50 2013 ?           C05 
+  1007: Williams, Sim 2511  Carey, Paul      0  1-0:23 2013 ?           A00 
+  1008: Fleming, Nige    0  Williams, Sim 2511  0-1:26 2013 ?           A10 
+  1009: Bojkov, Dejan 2507  Williams, Sim 2511  0-1:75 2013 Cork IRL    B51 
+  1010: Williams, Sim 2511  Collins, Sam  2483  1-0:53 2013 Cork IRL    D37 
+  1011: Williams, Sim 2511  Short, Philip 2260  1-0:22 2013 ?           A16 
+  1012: Baburin, Alex 2534  Williams, Sim 2511  =-=:18 2013 ?           A40 
+  1013: Williams, Sim 2511  Hamitevici, V 2440  1-0:63 2013 Hinckley EN A01 
+  1014: Collins, Sam  2471  Williams, Sim 2511  0-1:38 2013 Hinckley EN C41 
+  1015: Dearing, Eddi 2418  Williams, Sim 2511  1-0:52 2013 Hinckley EN A56 
+  1016: Kisteneva, Li 2053  Williams, Sim 2511  0-1:24 2013 ?           A40 
+  1017: Hambleton, Am 2468  Williams, Sim 2511  1-0:31 2013 ?           A40 
+  1018: Williams, Sim 2511  Croad, Nicola 2277  1-0:53 2013 Ascot ENG   D37 
+  1019: Williams, Sim 2511  Gibson, Ch    1947  1-0:19 2013 ?           A01 
+  1020: Osborne, Marc 2263  Williams, Sim 2511  0-1:41 2013 Ascot ENG   A85 
+  1021: Williams, Sim 2511  Buchicchio, G 2306  1-0:40 2013 Ascot ENG   D13 
+  1022: Williams, Sim 2511  Hebden, Mark  2537  0-1:48 2013 Ascot ENG   E73 
+  1023: Williams, Sim 2511  Istratescu, A 2651  =-=:46 2013 Haguenau FR E16 
+  1024: Williams, Sim 2511  Doettling, Fa 2587  0-1:42 2013 Haguenau FR D31 
+  1025: Iordachescu,  2582  Williams, Sim 2511  1-0:40 2013 Haguenau FR B51 
+  1026: David, Albert 2584  Williams, Sim 2511  1-0:36 2013 Haguenau FR C41 
+  1027: Williams, Sim 2511  Ragger, Marku 2666  0-1:22 2013 Haguenau FR C33 
+  1028: Zherebukh, Ya 2629  Williams, Sim 2511  1-0:30 2013 Haguenau FR C02 
+  1029: Williams, Sim 2511  Velikov, Peta 2422  =-=:51 2013 Haguenau FR D17 
+  1030: Landa, Konsta 2644  Williams, Sim 2511  1-0:39 2013 Haguenau FR A91 
+  1031: Williams, Sim 2511  Fressinet, La 2693  0-1:37 2013 Haguenau FR E11 
+  1032: Battaglini, G 2437  Williams, Sim 2511  1-0:25 2013 Haguenau FR C15 
+  1033: Dilleigh, Ste 2121  Williams, Sim 2481  0-1:65 2013 Torquay ENG A40 
+  1034: Williams, Sim 2481  Weaving, Rich 2196  1-0:26 2013 Torquay ENG D24 
+  1035: Fernandez, Da 2346  Williams, Sim 2481  1-0:68 2013 Torquay ENG E11 
+  1036: Williams, Sim 2481  Brown, Martin 2203  1-0:25 2013 Torquay ENG D90 
+  1037: Rudd, Jack    2280  Williams, Sim 2481  0-1:25 2013 Torquay ENG B32 
+  1038: Williams, Sim 2481  Hawkins, Jona 2517  =-=:40 2013 Torquay ENG D38 
+  1039: Gordon, Steph 2521  Williams, Sim 2481  0-1:30 2013 Torquay ENG E90 
+  1040: Williams, Sim 2481  Howell, David 2639  0-1:65 2013 Torquay ENG D85 
+  1041: Meszaros, Gyu 2255  Williams, Sim 2481  1-0:40 2013 Torquay ENG D02 
+  1042: Williams, Sim 2481  Harvey, Marcu 2202  =-=:54 2013 Torquay ENG C02 
+  1043: Weller, Jean- 2172  Williams, Sim 2481  =-=:47 2013 Torquay ENG E92 
+  1044: Williams, Sim 2469  Walton, Alan  2138  1-0:24 2013 Bedford ENG D31 
+  1045: Ledger, Dave  2288  Williams, Sim 2469  0-1:36 2013 Bedford ENG B80 
+  1046: Williams, Sim 2469  Jackson, Jame 2231  =-=:80 2013 ?           A60 
+  1047: Chapman, Terr 2312  Williams, Sim 2469  1-0:36 2013 ?           A06 
+  1048: Williams, Sim 2463  Karjakin, Ser 2762  0-1:31 2013 Rhodes GRE  D15 
+  1049: Williams, Sim 2463  Hamitevici, V 2490  0-1:56 2013 Rhodes GRE  B06 
+  1050: Rasmussen, Al 2499  Williams, Sim 2463  0-1:31 2013 Rhodes GRE  A46 
+  1051: Williams, Sim 2463  Ostenstad, Be 2465  0-1:31 2013 ?           E60 
+  1052: Raznikov, Dan 2486  Williams, Sim 2463  1-0:55 2013 ?           A40 
+  1053: Ermeni, Avni  2274  Williams, Sim 2463  0-1:27 2013 Rhodes GRE  B51 
+  1054: Savage, Ben D 2269  Williams, Sim 2455  0-1:43 2013 ?           A04 
+  1055: Williams, Sim 2455  Rogers, Jonat 2307  1-0:23 2013 ?           D08 
+  1056: Williams, Sim 2461  Donovan, Nige 2033  1-0:33 2013 London ENG  E15 
+  1057: Jetzl, Joerg  2213  Williams, Sim 2461  1-0:34 2013 ?           A40 
+  1058: Williams, Sim 2461  Okike, David  2150  1-0:73 2013 London ENG  E73 
+  1059: Bird, Andrew  2229  Williams, Sim 2461  0-1:38 2013 ?           A04 
+  1060: Williams, Sim 2461  Semprun Marti 2213  1-0:28 2013 ?           A01 
+  1061: Williams, Sim 2461  Delchev, Alek 2648  0-1:34 2013 ?           B40 
+  1062: Khatanbaatar, 2329  Williams, Sim 2461  1-0:45 2013 London ENG  B43 
+  1063: Williams, Sim 2461  Wallace, Paul 2130  1-0:44 2013 London ENG  C30 
+  1064: Longson, Alex 2333  Williams, Sim 2461  =-=:80 2013 London ENG  B51 
+  1065: Williams, Sim 2455  Spivack, Simo 2197  1-0:38 2014 Hinckley EN A01 
+  1066: Haydon, David 2280  Williams, Sim 2455  =-=:30 2014 Hinckley EN A96 
+  1067: Williams, Sim 2455  Ledger, Dave  2262  1-0:20 2014 ?           A03 
+  1068: Hebden, Mark  2549  Williams, Sim 2449  0-1:41 2014 ?           A60 
+  1069: Williams, Sim 2449  Geirnaert, St 2391  =-=:35 2014 ?           E15 
+  1070: Van Foreest,  2371  Williams, Sim 2449  1-0:51 2014 Amsterdam N E62 
+  1071: Williams, Sim 2449  Ernst, Sipke  2575  1-0:35 2014 ?           C30 
+  1072: Peng, Zhaoqin 2398  Williams, Sim 2449  0-1:62 2014 Amsterdam N A40 
+  1073: Williams, Sim 2449  Van Delft, Me 2423  1-0:39 2014 Amsterdam N D43 
+  1074: Burg, Twan    2494  Williams, Sim 2449  1-0:30 2014 Amsterdam N B51 
+  1075: Williams, Sim 2449  Van Eijk, San 2438  1-0:40 2014 Amsterdam N A34 
+  1076: Smerdon, Davi 2508  Williams, Sim 2449  1-0:31 2014 ?           C02 
+  1077: Williams, Sim 2449  L'ami, Alina  2398  =-=:39 2014 ?           B23 
+  1078: Williams, Sim 2449  L'Ami, Alina  2398  =-=:39 2014 Amsterdam N B23 
+  1079: Williams, Sim 2458  Williams, Sam 2263  1-0:25 2014 ?           B20 
+  1080: Van de Griend 2341  Williams, Sim 2455  =-=:41 2014 ?           A40 
+  1081: Williams, Sim 2458  O'brien, Geor    0  1-0:39 2014 ?           C36 
+  1082: Murray, D     2162  Williams, Sim 2458  0-1:72 2014 ?           B51 
+  1083: Baburin, Alex 2503  Williams, Sim 2458  0-1:31 2014 ?           A77 
+  1084: Williams, Sim 2458  Kalinins, Val 2204  =-=:46 2014 ?           A80 
+  1085: Jones, G      2651  Williams, Sim 2458  1-0:37 2014 ?           B40 
+  1086: Seymour, Timo 2079  Williams, Sim 2463  0-1:28 2014 ?           C06 
+  1087: Wadsworth, Ma 2200  Williams, Sim 2463  =-=:74 2014 Ascot ENG   B07 
+  1088: Williams, Sim 2463  Mason, Donald 2212  =-=:47 2014 ?           D10 
+  1089: Williams, Sim 2463  Whitehead, Da 2013  1-0:51 2014 Ascot ENG   E73 
+  1090: Petrov, Maria 2455  Williams, Sim 2463  =-=:32 2014 ?           C00 
+  1091: Gormally, Dan 2492  Williams, Sim 2463  1-0:37 2014 ?           A48 
+  1092: Williams, Sim 2463  Arkell, Keith 2461  1-0:56 2014 ?           D10 
+  1093: Eggleston, Da 2402  Williams, Sim 2463  0-1:43 2014 ?           B90 
+  1094: Williams, Sim 2463  Rudd, Jack    2218  1-0:42 2014 ?           A03 
+  1095: Williams, Sim 2463  Smerdon, Davi 2510  =-=:54 2014 ?           E10 
+  1096: Shirov, Alexe 2703  Williams, Sim 2455  1-0:47 2014 Hinckley EN B84 
+  1097: Williams, Sim 2455  Jackson, Jame 2246  1-0:41 2014 ?           A15 
+  1098: Williams, Sim    0  Sanikidze, To    0  0-1:28 2014 ?           D31 
+  1099: Relange, Eloi 2466  Williams, Sim 2465  =-=:48 2014 Saint Quent A40 
+  1100: Williams, Sim    0  Marcelin, Cyr    0  1-0:30 2014 ?           A56 
+  1101: Degraeve, Jea 2576  Williams, Sim 2465  1-0:40 2014 ?           B07 
+  1102: Williams, Sim 2465  Tregubov, Pav 2616  0-1:33 2014 ?           A01 
+  1103: Ipatov, Alexa 2613  Williams, Sim 2465  1-0:33 2014 Saint Quent A91 
+  1104: Williams, Sim 2465  Postny, Evgen 2641  0-1:24 2014 Saint Quent D15 
+  1105: Flear, Glenn  2488  Williams, Sim 2465  0-1:37 2014 ?           A40 
+  1106: Krasenkow, Mi 2635  Williams, Sim 2465  =-=:83 2014 Saint Quent A96 
+  1107: Williams, Sim 2465  Bunzmann, Dim 2464  =-=:32 2014 Saint Quent D30 
+  1108: Willmoth, Rob 2159  Williams, Sim 2466  0-1:30 2014 ?           A04 
+  1109: Williams, Sim 2466  Strugnell, Ca 2258  0-1:66 2014 ?           E10 
+  1110: Williams, Sim 2466  Radovanovic,  2358  1-0:38 2014 ?           A00 
+  1111: Williams, Sim 2462  Lenier, Jude  2099  1-0:33 2014 Aberystwyth E70 
+  1112: Batchelor, Pe    0  Williams, Sim    0  =-=:36 2014 ?           A04 
+  1113: Williams, Sim 2462  Hill, Alistai 2126  1-0:30 2014 ?           A17 
+  1114: Howell, David 2650  Williams, Sim 2462  0-1:83 2014 Aberystwyth B30 
+  1115: Williams, Sim 2462  Tan, Ju2      2375  1-0:75 2014 Aberystwyth D19 
+  1116: Williams, Sim    0  Hawkins, Jona    0  0-1:41 2014 ?           E77 
+  1117: Pert, Nichola 2564  Williams, Sim 2462  1-0:55 2014 Aberystwyth E12 
+  1118: Rudd, Jack       0  Williams, Sim    0  0-1:25 2014 ?           B96 
+  1119: Williams, Sim 2462  Hebden, Mark  2554  0-1:28 2014 Aberystwyth E92 
+  1120: McPhillips, J 2200  Williams, Sim 2462  0-1:30 2014 Aberystwyth B84 
+  1121: Mcphillips, J 2200  Williams, Sim 2462  0-1:30 2014 ?           B90 
+  1122: Williams, Sim 2462  Haria, Ravi   2202  0-1:80 2014 Aberystwyth A10 
+  1123: Williams, Sim 2457  Boelhouwer, C 2106  1-0:49 2014 ?           B23 
+  1124: Howell, David 2657  Williams, Sim 2457  =-=:45 2014 Douglas ENG B09 
+  1125: Williams, Sim    0  Sargissian, G    0  0-1:27 2014 ?           A45 
+  1126: Haimovich, Ta 2365  Williams, Sim 2457  =-=:34 2014 Douglas ENG B08 
+  1127: Williams, Sim 2457  Van Foreest,  2466  0-1:42 2014 Douglas ENG D10 
+  1128: Allen, Keith  2197  Williams, Sim 2457  0-1:19 2014 Douglas ENG A40 
+  1129: Williams, Sim 2457  Bartell, Thom 2358  =-=:46 2014 ?           E10 
+  1130: Givon, Asaf   2431  Williams, Sim 2457  =-=:41 2014 ?           C01 
+  1131: Williams, Sim 2457  Ansell, Simon 2370  =-=:39 2014 ?           D10 
+  1132: Williams, Sim 2451  Harvey, Marcu 2307  0-1:38 2014 Hinckley Is E14 
+  1133: Rendle, Thoma 2378  Williams, Sim 2429  =-=:15 2014 ?           B08 
+  1134: Williams, Sim 2443  McShane, Luke 2672  0-1:52 2014 London ENG  D15 
+  1135: Williams, Sim 2451  Mcshane, Luke 2671  0-1:52 2014 ?           D10 
+  1136: Williams, Sim 2443  Van Wely, Loe 2667  1-0:32 2014 London ENG  D24 
+  1137: Williams, Sim 2443  Acosta, Maria 1981  1-0:40 2014 ?           D90 
+  1138: Marzano, Carl 2166  Williams, Sim 2443  0-1:25 2014 ?           A40 
+  1139: Williams, Sim 2443  Roe, Simon J  2240  1-0:35 2014 London ENG  D34 
+  1140: Stopa, Jacek  2521  Williams, Sim 2443  1-0:40 2014 London ENG  C18 
+  1141: Naroditsky, D 2620  Williams, Sim 2443  1-0:49 2014 ?           B44 
+  1142: Williams, Sim 2443  Maisuradze, N 2323  0-1:60 2014 ?           A45 
+  1143: Smith, Andrew 2148  Williams, Sim 2443  =-=:15 2014 ?           B07 
+  1144: Williams, Sim 2443  Hill, Alistai 2112  =-=:34 2014 ?           A01 
+  1145: Williams, Sim 2429  Spencer, Carl 2194  1-0:22 2015 ?           A40 
+  1146: Fernandez, Mi 2264  Williams, Sim 2429  0-1:17 2015 Hinckley Is B23 
+  1147: Williams, Sim 2429  O'donnell, Co 2190  1-0:45 2015 ?           D10 
+  1148: Williams, Sim 2429  O'Donnell, Co 2190  1-0:45 2015 Hinckley Is D10 
+  1149: Lagarde, Maxi 2581  Williams, Sim 2429  =-=:31 2015 Hinckley Is E70 
+  1150: Williams, Sim 2434  Trent, Lawren 2470  0-1:48 2015 Bunratty IR A48 
+  1151: Hunt, Adam C  2428  Williams, Sim 2434  =-=:54 2015 ?           C13 
+  1152: Williams, Sim 2434  Galego, Luis  2461  =-=: 7 2015 Bunratty IR B11 
+  1153: Williams, Sim 2434  Collins, Sam  2491  0-1:47 2015 ?           C32 
+  1154: D'Costa, Lori 2430  Williams, Sim 2434  1-0:44 2015 Bunratty IR A10 
+  1155: Williams, Sim 2434  Thorfinnsson, 2432  =-=: 7 2015 Bunratty IR A29 
+  1156: D'costa, Lori 2430  Williams, Sim 2434  1-0:44 2015 ?           A10 
+  1157: Tan, Justin   2383  Williams, Sim 2434  =-=: 9 2015 ?           B50 
+  1158: Maze, Sebasti 2585  Williams, Sim 2434  0-1:28 2015 Bunratty IR B51 
+  1159: Williams, Sim 2429  Cenal Gutierr 2216  0-1:24 2015 Hinckley Is D37 
+  1160: Ledger, Andre 2396  Williams, Sim 2429  =-=:54 2015 Hinckley Is A40 
+  1161: Williams, Sim 2430  Burnett, Jim  2121  1-0:51 2015 Southend EN A01 
+  1162: Brozel, Sacha 2000  Williams, Sim 2430  0-1:31 2015 Southend EN A25 
+  1163: Pert, Nichola 2557  Williams, Sim 2430  0-1:35 2015 Southend EN D30 
+  1164: Williams, Sim 2430  Cherniaev, Al 2481  =-=:13 2015 Southend EN A21 
+  1165: Williams, Sim 2430  Merry, Alan B 2333  =-=:30 2015 Southend EN D22 
+  1166: Eggleston, Da 2424  Williams, Sim 2430  1-0:66 2015 ?           B67 
+  1167: Anderson, Joh 2229  Williams, Sim 2430  0-1:19 2015 Southend EN B40 
+  1168: Suarez Real,  2403  Williams, Sim 2429  =-=:49 2015 Hinckley Is B07 
+  1169: Williams, Sim    0  Cox, John J      0  =-=:26 2015 ?           D10 
+  1170: Williams, Sim 2429  McNab, Colin  2426  =-=:20 2015 Hinckley Is B06 
+  1171: Williams, Sim    0  Mcnab, Colin     0  =-=:20 2015 ?           B06 
+  1172: Truman, Richa 1956  Williams, Sim 2426  0-1:19 2015 ?           B30 
+  1173: Williams, Sim 2426  Kawuma, Moses 2180  1-0:60 2015 ?           A52 
+  1174: Braun, Walter 2222  Williams, Sim 2426  0-1:36 2015 ?           A00 
+  1175: Williams, Sim 2426  Pert, Nichola 2562  1-0:64 2015 Bournemouth C90 
+  1176: Williams, Sim 2426  Llorente Zaro 2464  =-=: 6 2015 Bournemouth A29 
+  1177: Fodor, T jr   2491  Williams, Sim 2426  1-0:34 2015 London ENG  A96 
+  1178: Williams, Sim 2426  Healey, Micha 2082  1-0:27 2015 ?           A00 
+  1179: Asenov, Pavel 2081  Williams, Sim 2426  =-=:36 2015 ?           A40 
+  1180: Williams, Sim    0  Myall, Ivan J    0  1-0:57 2015 ?           E10 
+  1181: Richards, Hea 2141  Williams, Sim 2426  0-1:25 2015 Coventry EN B12 
+  1182: Williams, Sim 2426  Howell, David 2698  0-1:27 2015 Coventry EN E16 
+  1183: Jones, Steven 2126  Williams, Sim 2426  =-=:48 2015 Coventry EN B12 
+  1184: Williams, Sim 2426  Wadsworth, Ma 2160  1-0:43 2015 Coventry EN D10 
+  1185: Taylor, Adam     0  Williams, Sim    0  0-1:58 2015 ?           A04 
+  1186: Williams, Sim    0  Hebden, Mark     0  1-0:14 2015 ?           D35 
+  1187: Williams, Sim 2426  Hebden, Mark  2500  1-0:79 2015 ?           E92 
+  1188: Jackson, Jame 2367  Williams, Sim 2426  =-=:73 2015 Coventry EN C11 
+  1189: Williams, Sim 2426  Hawkins, Jona 2554  0-1:48 2015 Coventry EN D00 
+  1190: Williams, Sim    0  Emms, John M     0  1-0:35 2015 ?           A43 
+  1191: Weinstein, Sh 1991  Williams, Sim 2429  0-1:33 2015 ?           A40 
+  1192: Williams, Sim 2429  Sengupta, Dee 2580  =-=:58 2015 Douglas ENG E16 
+  1193: Hillarp Perss 2546  Williams, Sim 2429  1-0:43 2015 Douglas ENG C05 
+  1194: L'ami, Erwin  2619  Williams, Sim 2429  =-=:75 2015 ?           A46 
+  1195: L'Ami, Erwin  2619  Williams, Sim 2429  =-=:75 2015 Douglas ENG D41 
+  1196: Williams, Sim    0  Efroimski, Ma    0  1-0:25 2015 ?           D25 
+  1197: Williams, Sim 2429  Van Foreest,  2548  =-=:44 2015 ?           A09 
+  1198: Greenfeld, Al 2534  Williams, Sim 2429  =-=:20 2015 Douglas ENG A04 
+  1199: Williams, Sim 2429  Harika, Drona 2516  1-0:40 2015 Douglas ENG D44 
+  1200: Boruchovsky,  2536  Williams, Sim 2429  1-0:66 2015 ?           C06 
+  1201: Williams, Sim 2439  Iyengar, Ilya 2023  1-0:38 2015 London ENG  E70 
+  1202: Williams, Sim 2439  Hawkins, Jona 2569  =-=:31 2015 London ENG  D35 
+  1203: Guthrie, Davi 2198  Williams, Sim 2439  0-1:30 2015 ?           A40 
+  1204: Rambaldi, Fra 2560  Williams, Sim 2439  1-0:37 2015 London ENG  B51 
+  1205: Williams, Sim 2439  Stephan, Axel 2222  =-=:44 2015 London ENG  B23 
+  1206: Osborne, Marc    0  Williams, Sim    0  0-1:27 2015 ?           A06 
+  1207: Williams, Sim 2439  Dragun, Kamil 2564  =-=:59 2015 London ENG  B20 
+  1208: Hillarp Perss 2521  Williams, Sim 2439  1-0:48 2015 London ENG  A21 
+  1209: Summerscale,  2418  Williams, Sim 2439  0-1:59 2015 ?           A06 
+  1210: Williams, Sim 2439  Cordes, HJ    2248  1-0:40 2015 London ENG  D34 
+  1211: Bhatia, Kanwa 2072  Williams, Sim 2439  0-1:35 2015 ?           B22 
+  1212: Williams, Sim 2439  Hebden, Mark  2467  =-=:45 2015 London ENG  C33 
+  1213: Howell, David 2693  Williams, Sim 2439  1-0:59 2015 ?           C05 
+  1214: Williams, Sim 2439  Genzling, Ala 2386  1-0:29 2015 ?           B23 
+  1215: Williams, Sim 2439  Buckley, Grae 2342  0-1:39 2015 ?           E15 
+  1216: Hansen, Eric  2573  Williams, Sim 2439  1-0:54 2015 London ENG  C11 
+  1217: Singh, Vishnu 2180  Williams, Sim 2439  0-1:47 2015 Hastings EN A90 
+  1218: Williams, Sim    0  Berkes, Feren    0  =-=:36 2015 ?           A50 
+  1219: Romanishin, O 2462  Williams, Sim 2439  1-0:22 2015 ?           A40 
+  1220: Williams, Sim 2439  Gallagher, Da 2010  1-0:31 2015 Hastings EN C48 
+  1221: Cunningham, R    0  Williams, Sim    0  =-=:33 2016 ?           C05 
+  1222: Williams, Sim    0  Anderson, Joh    0  1-0:30 2016 ?           A10 
+  1223: Tarhon, Brian 2139  Williams, Sim 2439  =-=:49 2016 Hastings EN B07 
+  1224: Williams, Sim 2439  Gormally, Dan 2506  1-0:39 2016 ?           A48 
+  1225: Fodor, Tamas     0  Williams, Sim    0  1-0:43 2016 ?           A40 
+  1226: Williams, Sim    0  Milliet, Soph    0  1-0:59 2016 ?           A45 
+  1227: Williams, Sim    0  Sowray, Peter    0  1-0:24 2016 ?           A40 
+  1228: Williams, Sim 2439  Walton, Alan  2194  1-0:50 2016 Birmingham  D10 
+  1229: Wadsworth, Ma 2254  Williams, Sim 2439  =-=:49 2016 Birmingham  A10 
+  1230: Van der Zwet, 2100  Williams, Sim 2435  0-1:44 2016 ?           A40 
+  1231: Williams, Sim 2435  Wells, Peter  2427  1-0:40 2016 Bunratty IR E16 
+  1232: Williams, Sim 2435  Le Ruyet, Leo 2240  1-0:44 2016 ?           E11 
+  1233: Collins, Sam  2442  Williams, Sim 2435  =-=:64 2016 Bunratty IR C41 
+  1234: Williams, Sim 2435  Short, Nigel  2684  0-1:49 2016 Bunratty IR E11 
+  1235: Bates, Richar    0  Williams, Sim    0  1-0:48 2016 ?           A06 
+  1236: Williams, Sim    0  Guthrie, Davi    0  1-0:33 2016 ?           B20 
+  1237: Williams, Sim    0  Kulon, Klaudi    0  =-=:58 2016 ?           A45 
+  1238: Foisor, Mihae    0  Williams, Sim    0  =-=:44 2016 ?           D07 
+  1239: Williams, Sim 2439  Gayson, Peter 2143  1-0:61 2016 Birmingham  A80 
+  1240: Ledger, Dave  2226  Williams, Sim 2439  0-1:31 2016 Birmingham  B72 
+  1241: Gallagher, Da 2087  Williams, Sim 2435  0-1:34 2016 ?           A40 
+  1242: Williams, Sim 2435  Gupta, Arul   2039  1-0:27 2016 Southend EN E17 
+  1243: Williams, Sim 2435  Eames, Robert 2212  1-0:21 2016 Southend EN D31 
+  1244: Pert, Richard 2448  Williams, Sim 2435  =-=:20 2016 Southend EN A41 
+  1245: Williams, Sim 2435  Fodor, Tamas  2499  0-1:50 2016 ?           D31 
+  1246: French, Max   1919  Williams, Sim 2452  0-1:39 2016 ?           A40 
+  1247: Williams, Sim 2452  L'ami, Alina  2348  1-0:34 2016 ?           A45 
+  1248: Hebden, Mark  2489  Williams, Sim 2452  0-1:48 2016 St Clement  A87 
+  1249: Williams, Sim 2452  Houska, Jovan 2376  0-1:43 2016 ?           A00 
+  1250: Hillarp Perss 2529  Williams, Sim 2452  =-=:44 2016 ?           A10 
+  1251: Williams, Sim 2452  Webb, Laurenc 2272  1-0:45 2016 ?           A46 
+  1252: House, Glenn  2213  Williams, Sim 2452  0-1:38 2016 ?           B50 
+  1253: Williams, Sim 2452  Merry, Alan B 2375  0-1:37 2016 St Clement  A43 
+  1254: Williams, Sim    0  Emms, John M     0  0-1:78 2016 ?           A46 
+  1255: Merry, Alan B 2376  Williams, Sim 2439  1-0:46 2016 Birmingham  A01 
+  1256: Williams, Sim 2439  Le Roux, Jean 2572  0-1:46 2016 Birmingham  D87 
+  1257: Williams, Sim 2443  Farthofer, Jo 2047  1-0:35 2016 Vienna AUT  E11 
+  1258: Hovsepyan, Va 2173  Williams, Sim 2443  0-1:34 2016 Vienna AUT  C01 
+  1259: Williams, Sim    0  Dedebas, Emre    0  =-=:43 2016 ?           D20 
+  1260: Santagati, Al    0  Williams, Sim    0  0-1:41 2016 ?           A41 
+  1261: Steiner, Brun    0  Williams, Sim    0  0-1:43 2016 ?           A10 
+  1262: Williams, Sim 2443  Keymer, Vince 2348  =-=:36 2016 Vienna AUT  D11 
+  1263: Williams, Sim 2443  Buhmann, Rain 2641  0-1:38 2016 Vienna AUT  D31 
+  1264: Formento, Pao    0  Williams, Sim    0  0-1:33 2016 ?           A40 
+  1265: Williams, Sim 2443  Sadilek, Pete 2201  =-=:72 2016 Vienna AUT  D44 
+  1266: Genutis, Mind 2310  Williams, Sim 2444  =-=:69 2016 ?           A40 
+  1267: Williams, Sim 2444  Lambrechts, K 2284  1-0:34 2016 ?           A40 
+  1268: Jakovenko, Dm 2709  Williams, Sim 2444  1-0:27 2016 ?           A40 
+  1269: Williams, Sim 2444  Nevednichy, V 2541  0-1:29 2016 Novi Sad SR A45 
+  1270: Williams, Sim 2444  Fontaine, Que 2270  1-0:32 2016 ?           A45 
+  1271: Pelletier, Ya 2566  Williams, Sim 2444  1-0:31 2016 Novi Sad SR A56 
+  1272: Mihajlov, Seb 2359  Williams, Sim 2444  =-=:39 2016 Novi Sad SR A56 
+  1273: Way, Julian M 2025  Williams, Sim 2444  0-1:36 2016 ?           A00 
+  1274: Williams, Sim 2444  Ledger, Andre 2377  1-0:31 2016 Reading ENG A46 
+  1275: Williams, Sim 2443  Iyengar, Ilya 2008  1-0:46 2016 ?           A45 
+  1276: Williams, Sim 2443  Smith, Andrew 2136  1-0:37 2016 ?           A41 
+  1277: Gaudeau, Vale 2182  Williams, Sim 2443  =-=:65 2016 London ENG  A96 
+  1278: Lenderman, Al 2581  Williams, Sim 2443  1-0:39 2016 ?           A07 
+  1279: Williams, Sim 2443  Taylor, Adam  2212  1-0:74 2016 ?           A46 
+  1280: Buchicchio, G 2262  Williams, Sim 2443  0-1:25 2016 ?           B06 
+  1281: Williams, Sim 2443  Istratescu, A 2596  0-1:30 2016 London ENG  D11 
+  1282: Paszewski, Ma 2281  Williams, Sim 2443  0-1:30 2016 London ENG  B06 
+  1283: Williams, Sim    0  Sadzikowski,     0  0-1:33 2016 ?           A45 
+  1284: Williams, Sim 2443  Hawkins, Jona 2590  =-=:49 2016 London ENG  A45 
+  1285: Nandhidhaa, P 2251  Williams, Sim 2443  0-1:39 2016 London ENG  B06 
+  1286: Adair, James  2489  Williams, Sim 2443  0-1:40 2016 London ENG  B06 
+  1287: Williams, Sim 2443  Ansell, Simon 2349  1-0:36 2016 London ENG  D11 
+  1288: Williams, Sim    0  Istratescu, A    0  0-1:44 2016 ?           E10 
+  1289: Melkumyan, Hr    0  Williams, Sim    0  1-0:66 2016 ?           A04 
+  1290: Williams, Sim    0  Haria, Ravi      0  =-=:60 2016 ?           A40 
+  1291: Longson, Alex    0  Williams, Sim    0  0-1:32 2017 ?           B06 
+  1292: Williams, Sim    0  Milliet, Soph    0  1-0:59 2017 ?           A45 
+  1293: Zeidler, Sven 2185  Williams, Sim 2444  0-1:21 2017 Reading ENG B21 
+  1294: Williams, Sim 2444  Sowray, Peter 2310  1-0:24 2017 Reading ENG B06 
+  1295: Williams, Sim 2444  Guthrie, Davi 2192  1-0:33 2017 ?           B20 
+  1296: Foisor, Mihae    0  Williams, Sim    0  =-=:44 2017 ?           D07 
+  1297: Williams, Sim 2444  Kulon, Klaudi 2400  =-=:58 2017 Telford ENG A45 
+  1298: Gourlay, Iain 2385  Williams, Sim 2444  1-0:43 2017 Telford ENG A20 
+  1299: Edouard, Roma 2628  Williams, Sim 2444  1-0:40 2017 Telford ENG B53 
+  1300: Williams, Sim 2511  Bhatia, Kanwa 2040  1-0:25 2017 ?           A45 
+  1301: Richardson, J 2237  Williams, Sim 2442  =-=:70 2017 London ENG  A90 
+  1302: Williams, Sim 2511  Bukojemski, A 2283  1-0:56 2017 ?           A45 
+  1303: Merriman, Joh 2198  Williams, Sim 2511  1-0:36 2017 ?           A40 
+  1304: Eames, Robert 2161  Williams, Sim 2511  0-1:29 2017 ?           B06 
+  1305: Williams, Sim 2442  Murphy, Hugh  2109  1-0:42 2017 London ENG  D37 
+  1306: Williams, Sim 2442  Arkell, Keith 2424  =-=:10 2017 Dundee SCO  B90 
+  1307: Arakhamia-Gra 2364  Williams, Sim 2442  0-1:59 2017 Dundee SCO  C11 
+  1308: Williams, Sim 2442  Rozentalis, E 2509  =-=:56 2017 Dundee SCO  A47 
+  1309: McNab, Colin  2435  Williams, Sim 2442  0-1:33 2017 Dundee SCO  A10 
+  1310: Williams, Sim 2442  Cramling, Pia 2444  =-=:38 2017 Dundee SCO  D37 
+  1311: Greet, Andrew 2447  Williams, Sim 2442  1-0:49 2017 Dundee SCO  D30 
+  1312: Williams, Sim 2442  Kapnisis, Spy 2464  0-1:50 2017 Dundee SCO  D32 
+  1313: Pritchett, Cr 2326  Williams, Sim 2442  0-1:36 2017 Dundee SCO  C70 
+  1314: Williams, Sim 2442  Petr, Martin  2486  1-0:36 2017 Dundee SCO  C10 
+  1315: Williams, Sim 2442  Maroroa, Sue  2116  1-0:32 2017 Llandudno W A36 
+  1316: Richardson, J 2237  Williams, Sim 2442  =-=:31 2017 Llandudno W D02 
+  1317: Williams, Sim 2442  Merriman, Joh 2221  0-1:33 2017 Llandudno W C05 
+  1318: Williams, Sim 2442  Abrahams, Dan 2162  1-0:71 2017 Llandudno W A46 
+  1319: Murphy, Conor 2154  Williams, Sim 2442  =-=:90 2017 Llandudno W A10 
+  1320: Toma, Katarzy 2252  Williams, Sim 2442  =-=:59 2017 Llandudno W C11 
+  1321: Williams, Sim 2442  Gaudeau, Vale 2170  1-0:43 2017 Llandudno W D38 
+  1322: Williams, Sim 2442  Longson, Alex 2323  1-0:58 2017 Llandudno W A03 
+  1323: Palliser, Ric 2408  Williams, Sim 2442  1-0:42 2017 Llandudno W C05 
+  1324: Williams, Sim 2437  Coleman, Davi 2093  1-0:21 2017 Coventry EN D00 
+  1325: Williams, Sim 2437  Sowray, Peter 2322  =-=:55 2017 ?           D37 
+  1326: Richmond, Jan 2124  Williams, Sim 2437  0-1:24 2017 Coventry EN C11 
+  1327: Roberson, Pet 2410  Williams, Sim 2437  =-=:74 2017 ?           C01 
+  1328: Britton, Rich 2221  Williams, Sim 2437  0-1:29 2017 Coventry EN C00 
+  1329: Ingvason, Joh 2172  Williams, Sim 2437  0-1:50 2017 Reykjavik I C11 
+  1330: Williams, Sim 2437  Stefansson, H 2514  =-=:16 2017 Reykjavik I D38 
+  1331: Xu, Yi        2465  Williams, Sim 2437  1-0:38 2017 ?           B51 
+  1332: Gislason, Gud 2318  Williams, Sim 2437  0-1:22 2017 Reykjavik I A80 
+  1333: Williams, Sim 2437  Thorfinnsson, 2443  =-=:41 2017 Reykjavik I E13 
+  1334: Williams, Sim 2437  Hansen, Torbj 2406  1-0:32 2017 ?           E11 
+  1335: Thorfinnsson, 2395  Williams, Sim 2437  =-=:23 2017 ?           A04 
+  1336: Xu, Yinglun   2518  Williams, Sim 2437  =-=:25 2017 Reykjavik I A40 
+  1337: Williams, Sim 2437  Kveinys, Aloy 2545  1-0:33 2017 Reykjavik I D42 
+  1338: Williams, Sim 2453  Ditmas, Hugh  2004  1-0:30 2017 ?           E15 
+  1339: Williams, Sim 2453  Jones, Gawain 2654  =-=:44 2017 ?           E70 
+  1340: Willmoth, Rob 2202  Williams, Sim 2453  0-1:28 2017 ?           A04 
+  1341: Globus, Or    2253  Williams, Sim 2453  =-=:26 2017 ?           A40 
+  1342: Williams, Sim 2453  Risting, Eivi 2279  =-=:41 2017 London ENG  A43 
+  1343: Paterek, Mich 2315  Williams, Sim 2453  0-1:28 2017 ?           D09 
+  1344: Williams, Sim 2453  Motylev, Alex 2675  0-1:50 2017 ?           D10 
+  1345: Kett, Tim     2204  Williams, Sim 2453  0-1:26 2017 ?           B72 
+  1346: Williams, Sim 2453  Krishna Teja, 2368  =-=:18 2017 ?           A46 
+  1347: Sargissian, G 2672  Williams, Sim 2453  =-=:47 2017 London ENG  A87 
+  1348: Williams, Sim 2453  Amores Gago,  2139  1-0:60 2017 ?           A41 
+  1349: Amores Gago,  2139  Williams, Sim 2453  0-1:41 2017 London ENG  C01 
+  1350: Williams, Sim 2453  Sargissian, G 2672  0-1:30 2017 ?           D31 
+  1351: Williams, Sim 2437  Franklin, Sam 2342  1-0:64 2018 ?           A45 
+  1352: Hunt, Adam C  2407  Williams, Sim 2437  1-0:57 2018 England ENG B06 
+  1353: Zhou, Yang-Fa 2461  Williams, Sim 2437  0-1:67 2018 ?           C00 
+  1354: Williams, Sim 2437  Kett, Tim     2215  1-0:21 2018 ?           D31 
+  1355: Marquardt, Ch 2115  Williams, Sim 2453  =-=:37 2018 Bunratty IR A10 
+  1356: Williams, Sim 2453  Bourached, An 1991  1-0:25 2018 ?           E11 
+  1357: Williams, Sim 2453  Moran, Stephe 2127  1-0:35 2018 ?           D90 
+  1358: Heidenfeld, M 2356  Williams, Sim 2453  0-1:41 2018 ?           C13 
+  1359: Bates, Richar 2364  Williams, Sim 2453  =-=:57 2018 Bunratty IR E62 
+  1360: Williams, Sim 2453  Jones, Gawain 2646  0-1:45 2018 ?           E76 
+  1361: Jackson, Shei 2108  Williams, Sim 2460  0-1:41 2018 ?           C06 
+  1362: Williams, Sim 2460  Kabos, Tobias 2253  1-0:93 2018 ?           A41 
+  1363: Vakhidov, Jak 2542  Williams, Sim 2460  1-0:28 2018 ?           A40 
+  1364: Williams, Sim 2460  Pruijssers, R 2523  =-=:42 2018 ?           A80 
+  1365: Williams, Sim 2460  L'ami, Alina  2306  0-1:54 2018 ?           A01 
+  1366: Okhai, Shabir 2090  Williams, Sim 2460  0-1:35 2018 ?           C06 
+  1367: Williams, Sim 2460  Ahluwalia, Am 2052  1-0:38 2018 ?           A18 
+  1368: Mitchell, Mar 2237  Williams, Sim 2460  0-1:32 2018 ?           A40 
+  1369: Williams, Sim 2460  Arkell, Keith 2413  1-0:68 2018 ?           D10 
+  1370: Dickinson, Ti 2049  Williams, Sim 2460  0-1:16 2018 ?           A40 
+  1371: Williams, Sim 2460  Arakhamia-Gra 2338  =-=:20 2018 ?           A02 
+  1372: Le Roux, Jean 2557  Williams, Sim 2460  1-0:38 2018 ?           A04 
+  1373: Sagues, Vince 1928  Williams, Sim 2457  0-1:33 2018 ?           C05 
+  1374: Harari, Zaki  2055  Williams, Sim 2457  0-1:55 2018 ?           C02 
+  1375: Williams, Sim 2457  Fridman, Dani 2600  =-=:22 2018 ?           A05 
+  1376: Kovalev, Vlad 2664  Williams, Sim 2457  1-0:76 2018 ?           B06 
+  1377: Williams, Sim 2457  Pranav Anand  2269  =-=:90 2018 ?           A05 
+  1378: House, Glenn  2180  Williams, Sim 2457  0-1:21 2018 ?           A06 
+  1379: Williams, Sim 2457  Vaibhav, Suri 2597  1-0:32 2018 ?           A05 
+  1380: Almasi, Zolta 2702  Williams, Sim 2457  =-=:47 2018 ?           A06 
+  1381: Williams, Sim 2457  Ganguly, Sury 2622  =-=:51 2018 ?           E10 
+  1382: L'ami, Erwin  2639  Williams, Sim 2457  1-0:37 2018 ?           B70 
+  1383: Williams, Sim 2457  Ferrington, N 2130  1-0:71 2018 ?           D00 
+  1384: Williams, Sim 2457  Roberson, Pet 2396  =-=:24 2018 ?           A05 
+  1385: Ravi, Teja S  2357  Williams, Sim 2457  0-1:35 2018 ?           A80 
+  1386: Williams, Sim 2457  Dgebuadze, Al 2484  =-=:38 2018 ?           A04 
+  1387: Haria, Ravi   2436  Williams, Sim 2457  =-=:25 2018 ?           A06 
+  1388: Williams, Sim 2457  Hill, Alistai 2203  1-0:41 2018 ?           A05 
+  1389: Gonda, Laszlo 2528  Williams, Sim 2457  1-0:53 2018 ?           A04 
+  1390: Turner, Matth 2536  Williams, Sim 2457  =-=:13 2018 ?           A81 
+  1391: Kulkarni, Rak 2297  Williams, Sim 2457  0-1:32 2018 ?           B06 
+  1392: Williams, Sim 2472  Hunt, Harriet 2440  1-0:66 2018 ?           A47 
+  1393: Hunt, Harriet 2440  Williams, Sim 2472  =-=:33 2018 ?           B30 
+  1394: Williams, Sim 2472  Adams, Michae 2703  =-=:62 2018 ?           A46 
+  1395: Adams, Michae 2703  Williams, Sim 2472  1-0:24 2018 ?           B33 
+  1396: Williams, Sim 2472  Willow, Jonah 2218  0-1:24 2018 ?           A04 
+  1397: Miller, Domin 2061  Williams, Sim 2472  0-1:29 2018 ?           C06 
+  1398: Williams, Sim 2472  Spiegel, Stef 2124  1-0:37 2018 ?           A46 
+  1399: Saric, Ivan   2690  Williams, Sim 2477  1-0:27 2019 ?           C14 
+  1400: Tomb, Maroun  2180  Williams, Sim 2477  0-1:39 2019 ?           C05 
+  1401: Williams, Sim 2477  Hansen, Eric  2615  0-1:39 2019 ?           A02 
+  1402: Williams, Sim 2477  Noritsyn, Nik 2484  1-0:50 2019 ?           A80 
+  1403: Williams, Sim 2471  Melaugh, Shan 2118  1-0:35 2019 ?           A45 
+  1404: O'gorman, Tom 2248  Williams, Sim 2471  1-0:57 2019 ?           B72 
+  1405: Pein, Malcolm 2313  Williams, Sim 2471  0-1:20 2019 ?           C11 
+  1406: Williams, Sim 2471  Bates, Richar 2351  =-=:17 2019 ?           E11 
+  1407: Hebden, Mark     0  Williams, Sim    0  1-0:39 2019 ?           A40 
+  1408: Leenhouts, Ko 2443  Williams, Sim 2471  =-=:27 2019 ?           D07 
+  1409: Williams, Sim 2471  Leenhouts, Ko 2443  0-1:24 2019 ?           A45 
+  1410: Leenhouts, Ko 2443  Williams, Sim 2471  1-0:35 2019 ?           A01 
+  1411: Williams, Sim 2471  Lopez, Jasel  2388  1-0:42 2019 ?           A03 
+  1412: Lopez, Jasel  2388  Williams, Sim 2471  0-1:47 2019 ?           A40 
+  1413: Williams, Sim 2471  Van der Wiel, 2394  1-0:28 2019 ?           E10 
+  1414: Van der Wiel, 2394  Williams, Sim 2471  0-1:25 2019 ?           C05 
+  1415: Van der Wiel, 2394  Williams, Sim 2471  0-1:32 2019 ?           B06 
+  1416: Lahaye, Rick  2411  Williams, Sim 2471  1-0:31 2019 ?           A40 
+  1417: Williams, Sim 2471  Lahaye, Rick  2411  0-1:35 2019 ?           B20 
+  1418: Williams, Sim 2471  Lahaye, Rick  2411  1-0:30 2019 ?           D32 
+  1419: Lahaye, Rick  2411  Williams, Sim 2471  1-0:50 2019 ?           A05 
+  1420: Williams, Sim 2471  Kuipers, Stef 2455  0-1:26 2019 ?           D10 
+  1421: Williams, Sim 2471  Kuipers, Stef 2455  1-0:35 2019 ?           D11 
+  1422: Kuipers, Stef 2455  Williams, Sim 2471  =-=:49 2019 ?           C14 
+  1423: Meissner, Fel 2378  Williams, Sim 2471  0-1:44 2019 ?           E70 
+  1424: Warmerdam, Ma 2450  Williams, Sim 2471  1-0:55 2019 ?           B51 
+  1425: Williams, Sim 2471  Pijpers, Arth 2490  0-1:55 2019 ?           B02 
+  1426: Pijpers, Arth 2490  Williams, Sim 2471  1-0:51 2019 ?           C01 
+  1427: Williams, Sim 2468  Merriman, Joh 2226  1-0:59 2019 ?           A40 
+  1428: Ashton, Adam  2323  Williams, Sim 2468  1-0:43 2019 ?           C11 
+Current size:      1428 games,   124056 bytes =   121 Kb
+Compacted size:    1428 games,   124056 bytes =   121 Kb
+Database SimonWilliams: 970 players, 374 events, 94 sites, 249 rounds.
+
+PLAYER section:    970 names, 48 unused, 17582 disk bytes
+Avg length = 15.53 bytes, avg prefix = 3.41 bytes
+Longest name: "Sanchez Castillo, Sarai Carolina" (32 bytes)
+Most frequent name: "Williams, Simon K" (1428 times)
+
+EVENT section:    374 names, 46 unused, 6778 disk bytes
+Avg length = 21.63 bytes, avg prefix = 8.51 bytes
+Longest name: "England, The Four Nations Chess League Division 1 04/05 Rounds 7-8" (66 bytes)
+Most frequent name: "The Four Nations Chess League" (43 times)
+
+SITE section:    94 names, 2 unused, 1580 disk bytes
+Avg length = 12.60 bytes, avg prefix = 1.78 bytes
+Longest name: "London MSO Ron Banwell-mem" (26 bytes)
+Most frequent name: "?" (643 times)
+
+ROUND section:    249 names, 61 unused, 1773 disk bytes
+Avg length = 3.75 bytes, avg prefix = 2.62 bytes
+Longest name: "1.15.1" (6 bytes)
+Most frequent name: "?" (642 times)
