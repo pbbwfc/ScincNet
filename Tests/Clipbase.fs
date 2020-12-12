@@ -9,6 +9,6 @@ type TestClipbase () =
 
     [<TestMethod>]
      member this.ClipbaseClear () =
-         let actual = Clipbase.Clear()
-         Assert.AreEqual(0, actual)
+        let actual = Clipbase.Clear()
+        Assert.AreEqual(0, actual)
 

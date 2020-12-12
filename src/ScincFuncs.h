@@ -85,11 +85,25 @@ struct scidBaseT {
                               // or 0 if there is no duplicate.
 };
 
-namespace ScincFuncs2 {
-	public ref class Base2
+using System::String;
+namespace ScincFuncs {
+	public ref class Base
 	{
 		// TODO: Add your methods for this class here.
 	public:
-		static int Autoload(bool getbase, unsigned int basenum);
+        static Base();
+        static int Autoload(bool getbase, unsigned int basenum);
+        static int Open(String^ basename);
+        static int Close();
+        static bool Isreadonly();
+        static int NumGames();
+
 	};
+    public ref class Clipbase
+    {
+        // TODO: Add your methods for this class here.
+    public:
+        static int Clear();
+
+    };
 }

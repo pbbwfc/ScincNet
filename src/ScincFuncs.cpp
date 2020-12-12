@@ -1,6 +1,6 @@
-#include <stdlib.h>
 
-#include "bridge.h"
+#include "ScincFuncs.h"
+#include <msclr/marshal.h>
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Global variables:
@@ -17,7 +17,6 @@ static Game* scratchGame = NULL;                            // "scratch" game fo
 // including the clipbase database.
 const int MAX_BASES = 9;
 const int CLIPBASE_NUM = MAX_BASES - 1;
-
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // recalcFlagCounts:
@@ -187,97 +186,69 @@ void recalcFlagCounts(scidBaseT* basePtr)
     }
 }
 
-
-
-
-BOOL WINAPI DllMain(
-    HINSTANCE hinstDLL,  // handle to DLL module
-    DWORD fdwReason,     // reason for calling function
-    LPVOID lpReserved)  // reserved
+static ScincFuncs::Base::Base()
 {
-    // Perform actions based on the reason for calling.
-    switch (fdwReason)
+    // Initialise global Scid database variables:
+    dbList = new scidBaseT[MAX_BASES];
+
+    for (int base = 0; base < MAX_BASES; base++)
     {
-    case DLL_PROCESS_ATTACH:
-        // Initialize once for each new process.
-        // Return FALSE to fail DLL load.
-        // Initialise global Scid database variables:
-        dbList = new scidBaseT[MAX_BASES];
+        db = &(dbList[base]);
+        db->idx = new Index;
+        db->nb = new NameBase;
+        db->game = new Game;
+        for (int u = 0; u < UNDO_MAX; u++)
+            db->undoGame[u] = NULL;
+        db->undoMax = -1;
+        db->undoIndex = -1;
+        db->undoCurrent = -1;
+        db->undoCurrentNotAvail = false;
+        db->gameNumber = -1;
+        db->gameAltered = false;
+        db->gfile = new GFile;
+        // TODO: Bases should be able to share common buffers!!!
+        db->bbuf = new ByteBuffer;
+        db->bbuf->SetBufferSize(BBUF_SIZE);
+        db->tbuf = new TextBuffer;
+        db->tbuf->SetBufferSize(TBUF_SIZE);
+        strCopy(db->fileName, "");
+        strCopy(db->realFileName, "");
+        db->fileMode = FMODE_Both;
+        db->inUse = false;
+        db->filter = new Filter(0);
+        db->dbFilter = db->filter;
+        db->treeFilter = NULL;
+        db->numGames = 0;
+        db->memoryOnly = false;
+        db->duplicates = NULL;
+        db->idx->SetDescription("NOT OPEN");
 
-        for (int base = 0; base < MAX_BASES; base++)
-        {
-            db = &(dbList[base]);
-            db->idx = new Index;
-            db->nb = new NameBase;
-            db->game = new Game;
-            for (int u = 0; u < UNDO_MAX; u++)
-                db->undoGame[u] = NULL;
-            db->undoMax = -1;
-            db->undoIndex = -1;
-            db->undoCurrent = -1;
-            db->undoCurrentNotAvail = false;
-            db->gameNumber = -1;
-            db->gameAltered = false;
-            db->gfile = new GFile;
-            // TODO: Bases should be able to share common buffers!!!
-            db->bbuf = new ByteBuffer;
-            db->bbuf->SetBufferSize(BBUF_SIZE);
-            db->tbuf = new TextBuffer;
-            db->tbuf->SetBufferSize(TBUF_SIZE);
-            strCopy(db->fileName, "");
-            strCopy(db->realFileName, "");
-            db->fileMode = FMODE_Both;
-            db->inUse = false;
-            db->filter = new Filter(0);
-            db->dbFilter = db->filter;
-            db->treeFilter = NULL;
-            db->numGames = 0;
-            db->memoryOnly = false;
-            db->duplicates = NULL;
-            db->idx->SetDescription("NOT OPEN");
+        recalcFlagCounts(db);
 
-            recalcFlagCounts(db);
+        db->tree.moveCount = db->tree.totalCount = 0;
+        db->treeCache = NULL;
 
-            db->tree.moveCount = db->tree.totalCount = 0;
-            db->treeCache = NULL;
-
-            db->treeSearchTime = 0;
-        }
-        // Initialise the clipbase database:
-        clipbase = &(dbList[CLIPBASE_NUM]);
-        clipbase->gfile->CreateMemoryOnly();
-        clipbase->idx->CreateMemoryOnly();
-        clipbase->idx->SetType(2);
-        clipbase->idx->SetDescription("Temporary database, not kept on disk.");
-        clipbase->inUse = true;
-        clipbase->memoryOnly = true;
-
-        clipbase->treeCache = new TreeCache;
-        clipbase->treeCache->SetCacheSize(SCID_TreeCacheSize);
-        clipbase->backupCache = new TreeCache;
-        clipbase->backupCache->SetCacheSize(SCID_BackupCacheSize);
-        clipbase->backupCache->SetPolicy(TREECACHE_Oldest);
-
-        currentBase = 0;
-        scratchPos = new Position;
-        scratchGame = new Game;
-        db = &(dbList[currentBase]);
-
-        break;
-
-    case DLL_THREAD_ATTACH:
-        // Do thread-specific initialization.
-        break;
-
-    case DLL_THREAD_DETACH:
-        // Do thread-specific cleanup.
-        break;
-
-    case DLL_PROCESS_DETACH:
-        // Perform any necessary cleanup.
-        break;
+        db->treeSearchTime = 0;
     }
-    return TRUE;  // Successful DLL_PROCESS_ATTACH.
+    // Initialise the clipbase database:
+    clipbase = &(dbList[CLIPBASE_NUM]);
+    clipbase->gfile->CreateMemoryOnly();
+    clipbase->idx->CreateMemoryOnly();
+    clipbase->idx->SetType(2);
+    clipbase->idx->SetDescription("Temporary database, not kept on disk.");
+    clipbase->inUse = true;
+    clipbase->memoryOnly = true;
+
+    clipbase->treeCache = new TreeCache;
+    clipbase->treeCache->SetCacheSize(SCID_TreeCacheSize);
+    clipbase->backupCache = new TreeCache;
+    clipbase->backupCache->SetCacheSize(SCID_BackupCacheSize);
+    clipbase->backupCache->SetPolicy(TREECACHE_Oldest);
+
+    currentBase = 0;
+    scratchPos = new Position;
+    scratchGame = new Game;
+    db = &(dbList[currentBase]);
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -301,7 +272,6 @@ int findEmptyBase(void)
     return -1;
 }
 
-
 void clearFilter(scidBaseT* dbase, uint size)
 {
     if (dbase->dbFilter && dbase->dbFilter != dbase->filter)
@@ -314,9 +284,6 @@ void clearFilter(scidBaseT* dbase, uint size)
     dbase->dbFilter = dbase->filter;
     dbase->treeFilter = NULL;
 }
-
-
-
 
 /////////////////////////////////////////////////////////////////////
 ///  DATABASE functions
@@ -388,16 +355,16 @@ int base_opened(const char* filename)
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Base_autoload:
+// Autoload:
 //   Sets or returns the autoload number of the database, which
 //   is the game to load when opening the base.
-int Base_autoload(bool getbase, uint basenum)
+int ScincFuncs::Base::Autoload(bool getbase, unsigned int basenum)
 {
     if (getbase)
     {
         return db->idx->GetAutoLoad();
     }
-    
+
     if (!db->inUse)
     {
         return -1;
@@ -413,12 +380,17 @@ int Base_autoload(bool getbase, uint basenum)
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Base_open: takes a database name and opens the database.
+// Open: takes a database name and opens the database.
 //    If either the index file or game file cannot be opened for
 //    reading and writing, then the database is opened read-only
 //    and will not be alterable.
-int Base_open(const char* basename)
+int ScincFuncs::Base::Open(String^ sbasename)
 {
+    msclr::interop::marshal_context oMarshalContext;
+
+    const char* basename = oMarshalContext.marshal_as<const char*>(sbasename);
+
+    
     // Check that this base is not already opened:
     fileNameT realFileName;
     strCopy(realFileName, basename);
@@ -477,16 +449,15 @@ int Base_open(const char* basename)
     db->backupCache->Clear();
 
     return (currentBase + 1);
- }
-
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Base_close:
+// Close:
 //    Closes the current or specified database.
-int Base_close()
+int ScincFuncs::Base::Close()
 {
     scidBaseT* basePtr = db;
- 
+
     if (!basePtr->inUse)
     {
         return -1;
@@ -509,7 +480,7 @@ int Base_close()
     // If the database is the clipbase, do not close it, just clear it:
     if (basePtr == clipbase)
     {
-        return Clipbase_clear();
+        return Clipbase::Clear();
     }
     basePtr->idx->CloseIndexFile();
     basePtr->idx->Clear();
@@ -536,30 +507,30 @@ int Base_close()
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Base_isreadoonly:
+// Isreadoonly:
 //    is the base read only
-
-bool Base_isreadonly()
+bool ScincFuncs::Base::Isreadonly()
 {
     return db->inUse && db->fileMode == FMODE_ReadOnly;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Base_numGames:
+// NumGames:
 //   Takes optional database number and returns number of games.
-int Base_numGames()
+int ScincFuncs::Base::NumGames()
 {
     scidBaseT* basePtr = db;
     return basePtr->inUse ? basePtr->numGames : 0;
 }
 
+
 //////////////////////////////////////////////////////////////////////
 /// CLIPBASE functions
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Clipbase_clear:
+// Clear:
 //    Clears the clipbase by closing and recreating it.
-int Clipbase_clear()
+int ScincFuncs::Clipbase::Clear()
 {
     if (!clipbase->inUse)
     {

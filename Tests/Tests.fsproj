@@ -22,12 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\srcNet\ScincFuncs\ScincFuncs.csproj" />
-    <ProjectReference Include="..\src\ScincFuncs2.vcxproj" />
+    <ProjectReference Include="..\src\ScincFuncs.vcxproj" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy $(ProjectDir)..\debug\netcoreapp3.1\ScincBridge.* $(TargetDir) /y" />
-  </Target>
 
 </Project>

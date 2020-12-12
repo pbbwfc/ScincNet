@@ -95,4 +95,3 @@ extern "C" __declspec(dllexport) int Base_numGames();
 
 extern "C" __declspec(dllexport) int Clipbase_clear();
 
-extern "C" __declspec(dllexport) int Base_autoload2(bool getbase, unsigned int basenum);
