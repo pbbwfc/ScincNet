@@ -22,6 +22,8 @@ type TestBase () =
         Assert.AreEqual(3, actual)
         let actual = Base.Autoload(false, 3u)
         Assert.AreEqual(0, actual)
+        let act2 = ScincFuncs2.Base2.Autoload(false, 3u)
+        Assert.AreEqual(0, act2)
 
     [<TestMethod>]
      member this.BaseOpen () =

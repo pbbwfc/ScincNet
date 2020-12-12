@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\srcNet\ScincFuncs\ScincFuncs.csproj" />
+    <ProjectReference Include="..\src\ScincFuncs2.vcxproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

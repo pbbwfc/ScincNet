@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "common.h"
 #include "index.h"
 #include "game.h"
@@ -86,13 +85,11 @@ struct scidBaseT {
                               // or 0 if there is no duplicate.
 };
 
-
-extern "C" __declspec(dllexport) int Base_autoload(bool getbase, uint basenum);
-extern "C" __declspec(dllexport) int Base_open(const char* basename);
-extern "C" __declspec(dllexport) int Base_close();
-extern "C" __declspec(dllexport) bool Base_isreadonly();
-extern "C" __declspec(dllexport) int Base_numGames();
-
-extern "C" __declspec(dllexport) int Clipbase_clear();
-
-extern "C" __declspec(dllexport) int Base_autoload2(bool getbase, unsigned int basenum);
+namespace ScincFuncs2 {
+	public ref class Base2
+	{
+		// TODO: Add your methods for this class here.
+	public:
+		static int Autoload(bool getbase, unsigned int basenum);
+	};
+}

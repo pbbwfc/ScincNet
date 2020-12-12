@@ -411,6 +411,27 @@ int Base_autoload(bool getbase, uint basenum)
     db->idx->WriteHeader();
     return 0;
 }
+int Base_autoload2(bool getbase, unsigned int basenum)
+{
+    if (getbase)
+    {
+        return db->idx->GetAutoLoad();
+    }
+
+    if (!db->inUse)
+    {
+        return -1;
+    }
+    if (db->fileMode == FMODE_ReadOnly)
+    {
+        return -2;
+    }
+
+    db->idx->SetAutoLoad(basenum);
+    db->idx->WriteHeader();
+    return 0;
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Base_open: takes a database name and opens the database.
 //    If either the index file or game file cannot be opened for
