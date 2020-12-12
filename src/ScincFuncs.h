@@ -97,6 +97,8 @@ namespace ScincFuncs {
         static int Close();
         static bool Isreadonly();
         static int NumGames();
+        static int Filename(String^ %name);
+        static bool InUse();
 
 	};
     public ref class Clipbase

@@ -523,6 +523,38 @@ int ScincFuncs::Base::NumGames()
     return basePtr->inUse ? basePtr->numGames : 0;
 }
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Filename: get the name of the current database file.
+//    Returns "[empty]" for an empty base, "[clipbase]" for the clipbase.
+int ScincFuncs::Base::Filename(String^ %name)
+{
+    scidBaseT* basePtr = db;
+    if (!basePtr->inUse)
+    {
+        name = gcnew System::String("[empty]");
+    }
+    else if (basePtr == clipbase)
+    {
+        name = gcnew System::String("[clipbase]");
+    }
+    else
+    {
+        name = gcnew System::String(basePtr->fileName);
+    }
+
+    return 0;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// InUse
+//  Returns 1 if the database slot is in use; 0 otherwise.
+bool ScincFuncs::Base::InUse()
+{
+    scidBaseT* basePtr = db;
+    
+    return basePtr->inUse;
+}
+
 
 //////////////////////////////////////////////////////////////////////
 /// CLIPBASE functions

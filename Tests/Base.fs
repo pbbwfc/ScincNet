@@ -41,3 +41,16 @@ type TestBase () =
      member this.BaseNumGames () =
         let actual = Base.NumGames()
         Assert.AreEqual(6, actual)
+
+    [<TestMethod>]
+     member this.BaseFilenames () =
+        let mutable name = "";
+        let actual = Base.Filename(&name)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual(@"D:\GitHub\ScincNet\Tests\data\test",name)
+
+    [<TestMethod>]
+     member this.BaseInUse () =
+        let actual = Base.InUse()
+        Assert.AreEqual(true, actual)
+        
