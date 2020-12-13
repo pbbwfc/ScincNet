@@ -1,2 +1,2 @@
-# PLACEHOLDER
-TODO: Add .NET projects to the *src* folder and run `docfx` to generate **REAL** *API Documentation*!
+# API Documentation
+There is currently only one library. Please just navigate to [ScincFuncs](https://pbbwfc.github.io/ScincNet/api/ScincFuncs.html)
