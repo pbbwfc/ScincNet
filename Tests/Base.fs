@@ -1,18 +1,26 @@
 namespace Tests
 
-open System
+open System.IO
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open ScincFuncs
 
 [<TestClass>]
 type TestBase () =
+    let tfol = @"D:\GitHub\ScincNet\Tests\data\"
+    let testdb = tfol + "test"
+    let dumdb = tfol + "dummy"
+    
     [<TestCleanup>]  
     member this.testClean() = 
         Base.Close()|>ignore
+        if File.Exists(dumdb + ".si4") then
+            File.Delete(dumdb + ".si4")
+            File.Delete(dumdb + ".sg4")
+            File.Delete(dumdb + ".sn4")
   
     [<TestInitialize>]  
     member this.testInit()   =
-        Base.Open(@"D:\GitHub\ScincNet\Tests\data\test")|>ignore
+        Base.Open(testdb)|>ignore
         
     [<TestMethod>]
     member this.BaseAutoload () =
@@ -23,7 +31,7 @@ type TestBase () =
 
     [<TestMethod>]
      member this.BaseOpen () =
-        let actual = Base.Open(@"D:\GitHub\ScincNet\Tests\data\test")
+        let actual = Base.Open(testdb)
         Assert.AreEqual(-1, actual)
          
     [<TestMethod>]
@@ -45,10 +53,21 @@ type TestBase () =
      member this.BaseFilenames () =
         let actual,nm = Base.Getfilename()
         Assert.AreEqual(0, actual)
-        Assert.AreEqual(@"D:\GitHub\ScincNet\Tests\data\test",nm)
+        Assert.AreEqual(testdb,nm)
 
     [<TestMethod>]
      member this.BaseInUse () =
         let actual = Base.InUse()
         Assert.AreEqual(true, actual)
-        
+
+    [<TestMethod>]
+     member this.BaseCreate () =
+        Base.Close()|>ignore
+        let actual = Base.Create(dumdb)
+        Base.Close()|>ignore
+        if File.Exists(dumdb + ".si4") then
+            File.Delete(dumdb + ".si4")
+            File.Delete(dumdb + ".sg4")
+            File.Delete(dumdb + ".sn4")
+        Assert.AreEqual(1, actual)
+         

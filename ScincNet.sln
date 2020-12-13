@@ -11,6 +11,14 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Tests", "Tests\Tests.fsproj
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScincFuncs", "src\ScincFuncs.vcxproj", "{AA0013D6-DC2E-48B8-B07E-BCC8BE47E87F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{54A42DE1-1A59-4A1E-8629-361A2DBC7F54}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\importWhite.fsx = scripts\importWhite.fsx
+		scripts\importWhite.tcl = scripts\importWhite.tcl
+		scripts\runfsx.cmd = scripts\runfsx.cmd
+		scripts\runtcl.cmd = scripts\runtcl.cmd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
