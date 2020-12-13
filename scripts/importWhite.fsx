@@ -7,17 +7,15 @@ open ScincFuncs
 let basename = @"D:/tmp/WhiteFSX"
 Base.Create(basename)|>ignore
 
-//if {[catch {sc_base open $basename} result]} {
-//    puts stderr "Error opening database \"$basename\": $result"
-//    exit 1
-//}
-//if {[sc_base isReadOnly]} {
-//    puts stderr "Error: database \"$basename\" is read-only."
-//    exit 1
-//}
-//set num [sc_base numGames] 
+if (Base.Open(basename)<0) then
+    printfn "Error opening database %s" basename
 
-//puts "number of games: $num"
+if (Base.Isreadonly()) then
+    printfn "Error database %s is read only" basename
+
+let num = Base.NumGames()
+
+printfn "number of games: %i" num
 
 //set fol "D:/tmp/"
 //set pgns [list "Benko.pgn" "Benoni.pgn" "Budapest.pgn" "Dutch.pgn" "Grunfeld.pgn" "KingsIndian.pgn" "OldIndian.pgn" "QGA.pgn" "QGDmain.pgn" "QGDtarr.pgn" "QGDtri.pgn" "QGDunus.pgn" "Slav.pgn"]
