@@ -251,9 +251,7 @@ static ScincFuncs::Base::Base()
     db = &(dbList[currentBase]);
 }
 
-/////////////////////////////////////////////////////////////////////
 //  MISC functions
-/////////////////////////////////////////////////////////////////////
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // findEmptyBase:
@@ -285,13 +283,11 @@ void clearFilter(scidBaseT* dbase, uint size)
     dbase->treeFilter = NULL;
 }
 
-/////////////////////////////////////////////////////////////////////
-///  DATABASE functions
+//  DATABASE functions
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // base_opened:
-//    Returns a slot number if the named database is already
-//    opened in Scid, or -1 if it is not open.
+//  Returns a slot number if the named database is already
+//  opened in Scid, or -1 if it is not open.
 int base_opened(const char* filename)
 {
     for (int i = 0; i < CLIPBASE_NUM; i++)
@@ -354,11 +350,14 @@ int base_opened(const char* filename)
     return -1;
 }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Autoload:
-//   Sets or returns the autoload number of the database, which
-//   is the game to load when opening the base.
-int ScincFuncs::Base::Autoload(bool getbase, unsigned int basenum)
+
+/// <summary>
+/// Autoloadgame: Sets or returns the autoload number for the database - the game number to load.
+/// </summary>
+/// <param name="getbase">Whether to get or set the database</param>
+/// <param name="basenum">The number to set</param>
+/// <returns>returns 0 if succesful</returns>
+int ScincFuncs::Base::Autoloadgame(bool getbase, unsigned int basenum)
 {
     if (getbase)
     {
@@ -379,16 +378,19 @@ int ScincFuncs::Base::Autoload(bool getbase, unsigned int basenum)
     return 0;
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Open: takes a database name and opens the database.
-//    If either the index file or game file cannot be opened for
-//    reading and writing, then the database is opened read-only
-//    and will not be alterable.
-int ScincFuncs::Base::Open(String^ sbasename)
+/// <summary>
+/// Open: takes a database name and opens the database.
+///    If either the index file or game file cannot be opened for
+///    reading and writing, then the database is opened read-only
+///    and will not be alterable.
+/// </summary>
+/// <param name="basenm">The name of the database</param>
+/// <returns>returns 0 if succesful</returns>
+int ScincFuncs::Base::Open(String^ basenm)
 {
     msclr::interop::marshal_context oMarshalContext;
 
-    const char* basename = oMarshalContext.marshal_as<const char*>(sbasename);
+    const char* basename = oMarshalContext.marshal_as<const char*>(basenm);
 
     
     // Check that this base is not already opened:
@@ -451,9 +453,10 @@ int ScincFuncs::Base::Open(String^ sbasename)
     return (currentBase + 1);
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Close:
-//    Closes the current or specified database.
+/// <summary>
+/// Close: Closes the current or specified database.
+/// </summary>
+/// <returns>returns 0 if succesful</returns>
 int ScincFuncs::Base::Close()
 {
     scidBaseT* basePtr = db;
@@ -506,27 +509,32 @@ int ScincFuncs::Base::Close()
     return 0;
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Isreadoonly:
-//    is the base read only
+/// <summary>
+/// Isreadoonly: is the base read only
+/// </summary>
+/// <returns>returns true if read only</returns>
 bool ScincFuncs::Base::Isreadonly()
 {
     return db->inUse && db->fileMode == FMODE_ReadOnly;
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// NumGames:
-//   Takes optional database number and returns number of games.
+/// <summary>
+/// NumGames: Takes optional database number and returns number of games.
+/// </summary>
+/// <returns>returns number of games</returns>
 int ScincFuncs::Base::NumGames()
 {
     scidBaseT* basePtr = db;
     return basePtr->inUse ? basePtr->numGames : 0;
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Filename: get the name of the current database file.
-//    Returns "[empty]" for an empty base, "[clipbase]" for the clipbase.
-int ScincFuncs::Base::Filename(String^ %name)
+/// <summary>
+/// Getfilename: get the name of the current database file.
+///   Returns "[empty]" for an empty base, "[clipbase]" for the clipbase.
+/// </summary>
+/// <param name="name">The name variable passed by reference</param>
+/// <returns>returns 0 if succesful</returns>
+int ScincFuncs::Base::Getfilename(String^ %name)
 {
     scidBaseT* basePtr = db;
     if (!basePtr->inUse)
@@ -545,9 +553,10 @@ int ScincFuncs::Base::Filename(String^ %name)
     return 0;
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// InUse
-//  Returns 1 if the database slot is in use; 0 otherwise.
+/// <summary>
+/// InUse: Returns 1 if the database slot is in use; 0 otherwise.
+/// </summary>
+/// <returns>returns 1 if the database slot is in use; 0 otherwise.</returns>
 bool ScincFuncs::Base::InUse()
 {
     scidBaseT* basePtr = db;
@@ -555,13 +564,12 @@ bool ScincFuncs::Base::InUse()
     return basePtr->inUse;
 }
 
+// CLIPBASE functions
 
-//////////////////////////////////////////////////////////////////////
-/// CLIPBASE functions
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Clear:
-//    Clears the clipbase by closing and recreating it.
+/// <summary>
+/// Clear: Clears the clipbase by closing and recreating it.
+/// </summary>
+/// <returns>returns 0 if succesful</returns>
 int ScincFuncs::Clipbase::Clear()
 {
     if (!clipbase->inUse)

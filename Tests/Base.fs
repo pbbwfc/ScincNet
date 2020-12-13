@@ -9,7 +9,6 @@ type TestBase () =
     [<TestCleanup>]  
     member this.testClean() = 
         Base.Close()|>ignore
-        
   
     [<TestInitialize>]  
     member this.testInit()   =
@@ -17,9 +16,9 @@ type TestBase () =
         
     [<TestMethod>]
     member this.BaseAutoload () =
-        let actual = Base.Autoload(true, 3u)
+        let actual = Base.Autoloadgame(true, 3u)
         Assert.AreEqual(3, actual)
-        let actual = Base.Autoload(false, 3u)
+        let actual = Base.Autoloadgame(false, 3u)
         Assert.AreEqual(0, actual)
 
     [<TestMethod>]
@@ -44,10 +43,9 @@ type TestBase () =
 
     [<TestMethod>]
      member this.BaseFilenames () =
-        let mutable name = "";
-        let actual = Base.Filename(&name)
+        let actual,nm = Base.Getfilename()
         Assert.AreEqual(0, actual)
-        Assert.AreEqual(@"D:\GitHub\ScincNet\Tests\data\test",name)
+        Assert.AreEqual(@"D:\GitHub\ScincNet\Tests\data\test",nm)
 
     [<TestMethod>]
      member this.BaseInUse () =

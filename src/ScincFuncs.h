@@ -86,24 +86,29 @@ struct scidBaseT {
 };
 
 using System::String;
+using namespace System::Runtime::InteropServices;
 namespace ScincFuncs {
-	public ref class Base
+    ///<summary>
+    /// Class that hold functions relating to the SCID database 
+    ///</summary>
+    public ref class Base
 	{
-		// TODO: Add your methods for this class here.
 	public:
         static Base();
-        static int Autoload(bool getbase, unsigned int basenum);
-        static int Open(String^ basename);
+        static int Autoloadgame(bool getbase, unsigned int basenum);
+        static int Open(String^ basenm);
         static int Close();
         static bool Isreadonly();
         static int NumGames();
-        static int Filename(String^ %name);
+        static int Getfilename([Out] String^ %name);
         static bool InUse();
 
 	};
+    /// <summary>
+    /// Class that hold functions relating to the SCID clipbase
+    /// </summary>
     public ref class Clipbase
     {
-        // TODO: Add your methods for this class here.
     public:
         static int Clear();
 
