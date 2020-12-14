@@ -85,10 +85,31 @@
 <p>You can also run it on the command line, like TCL, but using:</p>
 <pre><code>dotnet fsi ImportWhite.fsx
 </code></pre>
-<p>To use the .NET version of the API in the F# script you need to reference the .DLL and open the namespace at the start of the script:</p>
-<pre><code class="lang-FSharp">#r @&quot;D:\GitHub\ScincNet\debug\bin\ScincFuncs.dll&quot;
+<p>To use the .NET version of the API in the F# script you need to reference <strong>ScincFuncs.dll</strong> and open the namespace <strong>ScincFuncs</strong> at the start of the script. We are also going to use file operations and so also need to open <strong>System.IO</strong>. Thus we use:</p>
+<pre><code class="lang-fsharp">#r @&quot;D:\GitHub\ScincNet\debug\bin\ScincFuncs.dll&quot;
 open ScincFuncs
 open System.IO
+</code></pre>
+<h2 id="step-1---create-the-database">Step 1 - Create the Database</h2>
+<p>In TCL, we first create the database. We then open the database and print an error message if this fails. We then check that it is not read only. We then get the number of games in the database (which should be 0) and then print a message to the console.</p>
+<p>This is the code:</p>
+<pre><code class="lang-tcl">set basename D:/tmp/WhiteTCL
+sc_base create $basename
+
+if {[catch {sc_base open $basename} result]} {
+    puts stderr &quot;Error opening database \&quot;$basename\&quot;: $result&quot;
+    exit 1
+}
+if {[sc_base isReadOnly]} {
+    puts stderr &quot;Error: database \&quot;$basename\&quot; is read-only.&quot;
+    exit 1
+}
+set num [sc_base numGames] 
+
+puts &quot;number of games: $num&quot;
+</code></pre>
+<p>This should produce this output:</p>
+<pre><code class="lang-console">number of games: 0
 </code></pre>
 </article>
           </div>
