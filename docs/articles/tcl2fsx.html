@@ -138,7 +138,7 @@ printfn &quot;number of games: %i&quot; num
 <li>get the warnings generated</li>
 <li>produce a message of the number of games imported</li>
 <li>produce a message on the warnings
-Finally close the databse.</li>
+Finally close the database.</li>
 </ul>
 <p>This is the code:</p>
 <pre><code class="lang-tcl">set fol &quot;D:/tmp/&quot;
@@ -240,6 +240,34 @@ There were no PGN errors or warnings.
 Imported 1 games from D:/tmp/Slav.pgn
 There were no PGN errors or warnings.
 </code></pre>
+<h2 id="step-3---classify-the-games">Step 3 - Classify the games</h2>
+<p>In TCL, we now import a file of ECO codes. If this fails produce an error message. Now open the database again and check that it is not read only. Now classify the games generating messages. Finally, close the database.</p>
+<p>This is the code:</p>
+<pre><code class="lang-tcl">set ecofile &quot;D:/tmp/scid.eco&quot;
+if {[catch {sc_eco read $ecofile} result]} {
+    puts stderr &quot;Error reading ECO file: $result&quot;
+    exit 1
+}
+
+# Open the database:
+if {[catch {sc_base open $basename} result]} {
+    puts stderr &quot;Error opening database \&quot;$basename\&quot;: $result&quot;
+    exit 1
+}
+if {[sc_base isReadOnly]} {
+    puts stderr &quot;Error: database \&quot;$basename\&quot; is read-only.&quot;
+    exit 1
+}
+
+puts &quot;Classifying games...&quot;
+puts [sc_eco base 1 1]
+sc_base close
+</code></pre>
+<p>This should produce this output:</p>
+<pre><code class="lang-console">Classifying games...
+Classified 13 games in 0.00 seconds
+</code></pre>
+<p>The correspondong F# code is:</p>
 </article>
           </div>
           

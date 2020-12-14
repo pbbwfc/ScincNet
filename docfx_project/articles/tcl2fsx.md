@@ -96,7 +96,7 @@ In TCL, we now create a set a folder that holds the PGN files. We then create a 
 - get the warnings generated
 - produce a message of the number of games imported
 - produce a message on the warnings
-Finally close the databse.
+Finally close the database.
 
 This is the code:
 
@@ -208,3 +208,39 @@ There were no PGN errors or warnings.
 Imported 1 games from D:/tmp/Slav.pgn
 There were no PGN errors or warnings.
 ```
+
+## Step 3 - Classify the games
+
+In TCL, we now import a file of ECO codes. If this fails produce an error message. Now open the database again and check that it is not read only. Now classify the games generating messages. Finally, close the database.
+
+This is the code:
+
+```tcl
+set ecofile "D:/tmp/scid.eco"
+if {[catch {sc_eco read $ecofile} result]} {
+    puts stderr "Error reading ECO file: $result"
+    exit 1
+}
+
+# Open the database:
+if {[catch {sc_base open $basename} result]} {
+    puts stderr "Error opening database \"$basename\": $result"
+    exit 1
+}
+if {[sc_base isReadOnly]} {
+    puts stderr "Error: database \"$basename\" is read-only."
+    exit 1
+}
+
+puts "Classifying games..."
+puts [sc_eco base 1 1]
+sc_base close
+```
+
+This should produce this output:
+
+```console
+Classifying games...
+Classified 13 games in 0.00 seconds
+```
+The correspondong F# code is:
