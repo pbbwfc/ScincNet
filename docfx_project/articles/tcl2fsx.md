@@ -244,3 +244,89 @@ Classifying games...
 Classified 13 games in 0.00 seconds
 ```
 The correspondong F# code is:
+
+```fsharp
+//TODO
+```
+
+This produces this output:
+
+```console
+TODO
+```
+
+## Step 4 - Remove comments from the games
+
+In TCL, we now open the database again and check that it is not read only. Now loop through each game removing the comments. Finally, close the database.
+
+This is the code:
+
+```tcl
+if {[catch {sc_base open $basename} result]} {
+    puts stderr "Error opening database \"$basename\": $result"
+    exit 1
+}
+if {[sc_base isReadOnly]} {
+    puts stderr "Error: database \"$basename\" is read-only."
+    exit 1
+}
+
+for {set i 1} {$i <= [sc_base numGames]} {incr i} {
+    if {[catch { sc_game load $i }]} {
+        puts "Error: could not load game number $i"
+        exit 1
+    }
+    sc_game strip comments
+
+    sc_game save $i
+}
+sc_base close
+```
+
+This produces no output.
+
+The correspondong F# code is:
+
+```fsharp
+//TODO
+```
+
+## Step 5 - Change the white names in the games to the names of the opening
+
+In TCL, we create a list of names to use. We now open the database again and check that it is not read only. Now loop through each game changing the white name and then saving it. Finally, close the database.
+
+This is the code:
+
+```tcl
+set nms [list "Benko" "Benoni" "Budapest" "Dutch" "Grunfeld" "Kings Indian" "Old Indian" "QGA" "QGD main" "QGD tarrasch" "QGD triangle" "QGD unusual" "Slav"]
+
+# Open the database:
+if {[catch {sc_base open $basename} result]} {
+    puts stderr "Error opening database \"$basename\": $result"
+    exit 1
+}
+if {[sc_base isReadOnly]} {
+    puts stderr "Error: database \"$basename\" is read-only."
+    exit 1
+}
+
+for {set i 1} {$i <= [sc_base numGames]} {incr i} {
+    if {[catch { sc_game load $i }]} {
+        puts "Error: could not load game number $i"
+        exit 1
+    }
+    set nm [lindex $nms [expr $i-1]]
+    sc_game tags set -white $nm
+
+    sc_game save $i
+}
+sc_base close
+```
+
+This produces no output.
+
+The correspondong F# code is:
+
+```fsharp
+//TODO
+```

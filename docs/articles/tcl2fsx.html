@@ -268,6 +268,69 @@ sc_base close
 Classified 13 games in 0.00 seconds
 </code></pre>
 <p>The correspondong F# code is:</p>
+<pre><code class="lang-fsharp">//TODO
+</code></pre>
+<p>This produces this output:</p>
+<pre><code class="lang-console">TODO
+</code></pre>
+<h2 id="step-4---remove-comments-from-the-games">Step 4 - Remove comments from the games</h2>
+<p>In TCL, we now open the database again and check that it is not read only. Now loop through each game removing the comments. Finally, close the database.</p>
+<p>This is the code:</p>
+<pre><code class="lang-tcl">if {[catch {sc_base open $basename} result]} {
+    puts stderr &quot;Error opening database \&quot;$basename\&quot;: $result&quot;
+    exit 1
+}
+if {[sc_base isReadOnly]} {
+    puts stderr &quot;Error: database \&quot;$basename\&quot; is read-only.&quot;
+    exit 1
+}
+
+for {set i 1} {$i &lt;= [sc_base numGames]} {incr i} {
+    if {[catch { sc_game load $i }]} {
+        puts &quot;Error: could not load game number $i&quot;
+        exit 1
+    }
+    sc_game strip comments
+
+    sc_game save $i
+}
+sc_base close
+</code></pre>
+<p>This produces no output.</p>
+<p>The correspondong F# code is:</p>
+<pre><code class="lang-fsharp">//TODO
+</code></pre>
+<h2 id="step-5---change-the-white-names-in-the-games-to-the-names-of-the-opening">Step 5 - Change the white names in the games to the names of the opening</h2>
+<p>In TCL, we create a list of names to use. We now open the database again and check that it is not read only. Now loop through each game changing the white name and then saving it. Finally, close the database.</p>
+<p>This is the code:</p>
+<pre><code class="lang-tcl">set nms [list &quot;Benko&quot; &quot;Benoni&quot; &quot;Budapest&quot; &quot;Dutch&quot; &quot;Grunfeld&quot; &quot;Kings Indian&quot; &quot;Old Indian&quot; &quot;QGA&quot; &quot;QGD main&quot; &quot;QGD tarrasch&quot; &quot;QGD triangle&quot; &quot;QGD unusual&quot; &quot;Slav&quot;]
+
+# Open the database:
+if {[catch {sc_base open $basename} result]} {
+    puts stderr &quot;Error opening database \&quot;$basename\&quot;: $result&quot;
+    exit 1
+}
+if {[sc_base isReadOnly]} {
+    puts stderr &quot;Error: database \&quot;$basename\&quot; is read-only.&quot;
+    exit 1
+}
+
+for {set i 1} {$i &lt;= [sc_base numGames]} {incr i} {
+    if {[catch { sc_game load $i }]} {
+        puts &quot;Error: could not load game number $i&quot;
+        exit 1
+    }
+    set nm [lindex $nms [expr $i-1]]
+    sc_game tags set -white $nm
+
+    sc_game save $i
+}
+sc_base close
+</code></pre>
+<p>This produces no output.</p>
+<p>The correspondong F# code is:</p>
+<pre><code class="lang-fsharp">//TODO
+</code></pre>
 </article>
           </div>
           
