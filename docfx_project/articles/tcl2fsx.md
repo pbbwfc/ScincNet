@@ -63,7 +63,7 @@ This should produce this output:
 number of games: 0
 ```
 
-The correspondong F~ code is:
+The correspondong F# code is:
 
 ```fsharp
 let basename = @"D:/tmp/WhiteFSX"
@@ -84,4 +84,73 @@ This produces this output:
 
 ```console
 number of games: 0
+```
+
+## Step 2 - Import PGN files
+
+In TCL, we now create a set a folder that holds the PGN files. We then create a list of the pgn file names. We then loop through these names doing the following:
+- create a full nam by including the folder
+- import the file
+- produce an error message if it fails
+- get the number of games imported
+- get the warnings generated
+- produce a message of the number of games imported
+- produce a message on the warnings
+Finally close the databse.
+
+This is the code:
+
+```tcl
+set fol "D:/tmp/"
+set pgns [list "Benko.pgn" "Benoni.pgn" "Budapest.pgn" "Dutch.pgn" "Grunfeld.pgn" "KingsIndian.pgn" "OldIndian.pgn" "QGA.pgn" "QGDmain.pgn" "QGDtarr.pgn" "QGDtri.pgn" "QGDunus.pgn" "Slav.pgn"]
+foreach pgn $pgns  {
+    set pgnfile [file join $fol $pgn]
+
+    if {[catch {sc_base import file $pgnfile} result]} {
+        puts stderr "Error importing \"$pgnfile\": $result"
+        exit 1
+    }
+    set numImported [lindex $result 0]
+    set warnings [lindex $result 1]
+    puts "Imported $numImported games from $pgnfile"
+    if {$warnings == ""} {
+        puts "There were no PGN errors or warnings."
+    } else {
+        puts "PGN errors/warnings:"
+        puts $warnings
+    }
+}
+
+sc_base close
+```
+
+This should produce this output:
+
+```console
+Imported 1 games from D:/tmp/Benko.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/Benoni.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/Budapest.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/Dutch.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/Grunfeld.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/KingsIndian.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/OldIndian.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/QGA.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/QGDmain.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/QGDtarr.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/QGDtri.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/QGDunus.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/Slav.pgn
+There were no PGN errors or warnings.
 ```

@@ -18,7 +18,6 @@ puts "number of games: $num"
 
 set fol "D:/tmp/"
 set pgns [list "Benko.pgn" "Benoni.pgn" "Budapest.pgn" "Dutch.pgn" "Grunfeld.pgn" "KingsIndian.pgn" "OldIndian.pgn" "QGA.pgn" "QGDmain.pgn" "QGDtarr.pgn" "QGDtri.pgn" "QGDunus.pgn" "Slav.pgn"]
-set i 0
 foreach pgn $pgns  {
     set pgnfile [file join $fol $pgn]
 
@@ -35,8 +34,6 @@ foreach pgn $pgns  {
         puts "PGN errors/warnings:"
         puts $warnings
     }
-    incr i
-
 }
 
 sc_base close
