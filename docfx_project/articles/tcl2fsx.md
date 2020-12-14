@@ -154,3 +154,57 @@ There were no PGN errors or warnings.
 Imported 1 games from D:/tmp/Slav.pgn
 There were no PGN errors or warnings.
 ```
+The correspondong F# code is:
+
+```fsharp
+let fol = "D:/tmp/"
+let pgns = ["Benko.pgn"; "Benoni.pgn"; "Budapest.pgn"; "Dutch.pgn"; "Grunfeld.pgn"; "KingsIndian.pgn"; "OldIndian.pgn"; "QGA.pgn"; "QGDmain.pgn"; "QGDtarr.pgn"; "QGDtri.pgn"; "QGDunus.pgn"; "Slav.pgn"]
+
+let doimp pgn =
+    let pgnfile = Path.Combine(fol,pgn)
+    let mutable num = 0
+    let mutable msgs = ""
+    if (Base.Import(&num,&msgs,pgnfile)<>0) then
+        printfn "Error importing: %s" pgnfile
+    printfn "Imported %i games from %s" num pgnfile
+    if msgs="" then
+        printfn "There were no PGN errors or warnings."
+    else
+        printfn "PGN errors/warnings:"
+        printfn "%s" msgs
+
+pgns|>List.iter doimp
+
+Base.Close()|>ignore
+```
+
+This produces this output:
+
+```console
+Imported 1 games from D:/tmp/Benko.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/Benoni.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/Budapest.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/Dutch.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/Grunfeld.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/KingsIndian.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/OldIndian.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/QGA.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/QGDmain.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/QGDtarr.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/QGDtri.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/QGDunus.pgn
+There were no PGN errors or warnings.
+Imported 1 games from D:/tmp/Slav.pgn
+There were no PGN errors or warnings.
+```
