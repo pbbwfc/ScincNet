@@ -9,10 +9,10 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.Base.html",
-          "hash": "WZIPOqGGf5k+WwlgLRPijQ=="
+          "hash": "yaKVX/NRwr0imISFiGxVrw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -36,7 +36,7 @@
           "hash": "6AjlHdcL2iZz69xFWPw2yw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -48,7 +48,7 @@
           "hash": "ahGdB/3ia600e67Yaoo0Og=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -72,7 +72,7 @@
           "hash": "V3VyyggrzTf4TXgF2/VZnQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -125,13 +125,13 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 3,
-          "skipped_file_count": 1
+          "skipped_file_count": 3
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 3,
-          "skipped_file_count": 3
+          "skipped_file_count": 2
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

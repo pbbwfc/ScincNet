@@ -49,6 +49,18 @@ references:
   commentId: Overload:ScincFuncs.Base.Close
   fullName: ScincFuncs.Base.Close
   nameWithType: Base.Close
+- uid: ScincFuncs.Base.Create(System.String)
+  name: Create(String)
+  href: api/ScincFuncs.Base.html#ScincFuncs_Base_Create_System_String_
+  commentId: M:ScincFuncs.Base.Create(System.String)
+  fullName: ScincFuncs.Base.Create(System.String)
+  nameWithType: Base.Create(String)
+- uid: ScincFuncs.Base.Create*
+  name: Create
+  href: api/ScincFuncs.Base.html#ScincFuncs_Base_Create_
+  commentId: Overload:ScincFuncs.Base.Create
+  fullName: ScincFuncs.Base.Create
+  nameWithType: Base.Create
 - uid: ScincFuncs.Base.Getfilename(System.String@)
   name: Getfilename(out String)
   href: api/ScincFuncs.Base.html#ScincFuncs_Base_Getfilename_System_String__
@@ -64,6 +76,21 @@ references:
   commentId: Overload:ScincFuncs.Base.Getfilename
   fullName: ScincFuncs.Base.Getfilename
   nameWithType: Base.Getfilename
+- uid: ScincFuncs.Base.Import(System.Int32@,System.String@,System.String)
+  name: Import(ref Int32, ref String, String)
+  href: api/ScincFuncs.Base.html#ScincFuncs_Base_Import_System_Int32__System_String__System_String_
+  commentId: M:ScincFuncs.Base.Import(System.Int32@,System.String@,System.String)
+  name.vb: Import(ByRef Int32, ByRef String, String)
+  fullName: ScincFuncs.Base.Import(ref System.Int32, ref System.String, System.String)
+  fullName.vb: ScincFuncs.Base.Import(ByRef System.Int32, ByRef System.String, System.String)
+  nameWithType: Base.Import(ref Int32, ref String, String)
+  nameWithType.vb: Base.Import(ByRef Int32, ByRef String, String)
+- uid: ScincFuncs.Base.Import*
+  name: Import
+  href: api/ScincFuncs.Base.html#ScincFuncs_Base_Import_
+  commentId: Overload:ScincFuncs.Base.Import
+  fullName: ScincFuncs.Base.Import
+  nameWithType: Base.Import
 - uid: ScincFuncs.Base.InUse
   name: InUse()
   href: api/ScincFuncs.Base.html#ScincFuncs_Base_InUse
