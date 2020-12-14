@@ -67,15 +67,24 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h2 id="converting-tcl-to-fsx">Converting TCL to FSX</h2>
+<h1 id="converting-tcl-to-fsx">Converting TCL to FSX</h1>
 
-<p>This artcle shows how to convert a sample TCL script to use F#.</p>
-<p>This illustrates how to use the provided API functions.</p>
+<p>This article shows how a sample TCL script can be converted to an F# version.</p>
+<p>If you follow this article you will see some examples of how to use the provided API functions.</p>
 <p>The full sample scipts can be found here:</p>
 <ul>
-<li>TCL script <a href="">ImportWhite.tcl</a></li>
-<li>F# script <a href="">ImportWhite.fsx</a></li>
+<li>TCL script <a href="https://github.com/pbbwfc/ScincNet/blob/main/scripts/importWhite.tcl">ImportWhite.tcl</a></li>
+<li>F# script <a href="https://github.com/pbbwfc/ScincNet/blob/main/scripts/importWhite.fsx">ImportWhite.fsx</a></li>
 </ul>
+<h2 id="usage">Usage</h2>
+<p>For the TCL script it needs to be run using the SCID interpreter: <strong>tcscid.exe</strong>.</p>
+<p>If you navigate to the location of the script then you can run it in a command prompt using:</p>
+<pre><code>&quot;D:\Scid vs PC-4.21\bin\tcscid&quot; ImportWhite.tcl
+</code></pre>
+<p>For the F# script, this is built to depend on .NET Core. You therefore need to use F# interactive for this rather tha the .NET standard version. The easiest way to do this is to use Visual Stdio Code with the Ionide Extension.</p>
+<p>You can also run it on the command line like TCL but using:</p>
+<pre><code>dotnet fsi ImportWhite.fsx
+</code></pre>
 </article>
           </div>
           
