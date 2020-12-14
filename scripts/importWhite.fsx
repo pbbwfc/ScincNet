@@ -1,8 +1,10 @@
-// Usage:  fsiAnyCpu importWhite.fsx
+// Usage: dotnet fsi importWhite.fsx
 #r @"D:\GitHub\ScincNet\debug\bin\ScincFuncs.dll"
 #I @"D:\GitHub\ScincNet\debug\bin\"
 
 open ScincFuncs
+open System.IO
+
 // Open the database:
 let basename = @"D:/tmp/WhiteFSX"
 Base.Create(basename)|>ignore
@@ -17,30 +19,26 @@ let num = Base.NumGames()
 
 printfn "number of games: %i" num
 
-//set fol "D:/tmp/"
-//set pgns [list "Benko.pgn" "Benoni.pgn" "Budapest.pgn" "Dutch.pgn" "Grunfeld.pgn" "KingsIndian.pgn" "OldIndian.pgn" "QGA.pgn" "QGDmain.pgn" "QGDtarr.pgn" "QGDtri.pgn" "QGDunus.pgn" "Slav.pgn"]
-//set i 0
-//foreach pgn $pgns  {
-//    set pgnfile [file join $fol $pgn]
+let fol = "D:/tmp/"
+let pgns = ["Benko.pgn"; "Benoni.pgn"; "Budapest.pgn"; "Dutch.pgn"; "Grunfeld.pgn"; "KingsIndian.pgn"; "OldIndian.pgn"; "QGA.pgn"; "QGDmain.pgn"; "QGDtarr.pgn"; "QGDtri.pgn"; "QGDunus.pgn"; "Slav.pgn"]
 
-//    if {[catch {sc_base import file $pgnfile} result]} {
-//        puts stderr "Error importing \"$pgnfile\": $result"
-//        exit 1
-//    }
-//    set numImported [lindex $result 0]
-//    set warnings [lindex $result 1]
-//    puts "Imported $numImported games from $pgnfile"
-//    if {$warnings == ""} {
-//        puts "There were no PGN errors or warnings."
-//    } else {
-//        puts "PGN errors/warnings:"
-//        puts $warnings
-//    }
-//    incr i
+let doimp pgn =
+    let pgnfile = Path.Combine(fol,pgn)
+    let mutable num = 0
+    let mutable msgs = ""
+    if (Base.Import(&num,&msgs,pgnfile)<>0) then
+        printfn "Error importing: %s" pgnfile
+    printfn "Imported %i games from %s" num pgnfile
+    if msgs="" then
+        printfn "There were no PGN errors or warnings."
+    else
+        printfn "PGN errors/warnings:"
+        printfn "%s" msgs
 
-//}
+pgns|>List.iter doimp
 
-//sc_base close
+Base.Close()|>ignore
+
 
 //# now classify
 //# Open the ECO file:
