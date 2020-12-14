@@ -1,7 +1,5 @@
 // Usage: dotnet fsi importWhite.fsx
 #r @"D:\GitHub\ScincNet\debug\bin\ScincFuncs.dll"
-#I @"D:\GitHub\ScincNet\debug\bin\"
-
 open ScincFuncs
 open System.IO
 

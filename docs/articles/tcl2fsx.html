@@ -81,9 +81,14 @@
 <p>If you navigate to the location of the script then you can run it in a command prompt using:</p>
 <pre><code>&quot;D:\Scid vs PC-4.21\bin\tcscid&quot; ImportWhite.tcl
 </code></pre>
-<p>For the F# script, this is built to depend on .NET Core. You therefore need to use F# interactive for this rather tha the .NET standard version. The easiest way to do this is to use Visual Stdio Code with the Ionide Extension.</p>
-<p>You can also run it on the command line like TCL but using:</p>
+<p>For the F# script, this is built to depend on .NET Core. You therefore need to use F# interactive for this rather tha the .NET Standard version. The easiest way to do this is to use Visual Studio Code with the Ionide Extension.</p>
+<p>You can also run it on the command line, like TCL, but using:</p>
 <pre><code>dotnet fsi ImportWhite.fsx
+</code></pre>
+<p>To use the .NET version of the API in the F# script you need to reference the .DLL and open the namespace at the start of the script:</p>
+<pre><code class="lang-FSharp">#r @&quot;D:\GitHub\ScincNet\debug\bin\ScincFuncs.dll&quot;
+open ScincFuncs
+open System.IO
 </code></pre>
 </article>
           </div>
