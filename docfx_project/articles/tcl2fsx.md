@@ -62,3 +62,26 @@ This should produce this output:
 ```console
 number of games: 0
 ```
+
+The correspondong F~ code is:
+
+```fsharp
+let basename = @"D:/tmp/WhiteFSX"
+Base.Create(basename)|>ignore
+
+if (Base.Open(basename)<0) then
+    printfn "Error opening database %s" basename
+
+if (Base.Isreadonly()) then
+    printfn "Error database %s is read only" basename
+
+let num = Base.NumGames()
+
+printfn "number of games: %i" num
+```
+
+This produces this output:
+
+```console
+number of games: 0
+```

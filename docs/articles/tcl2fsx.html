@@ -111,6 +111,23 @@ puts &quot;number of games: $num&quot;
 <p>This should produce this output:</p>
 <pre><code class="lang-console">number of games: 0
 </code></pre>
+<p>The correspondong F~ code is:</p>
+<pre><code class="lang-fsharp">let basename = @&quot;D:/tmp/WhiteFSX&quot;
+Base.Create(basename)|&gt;ignore
+
+if (Base.Open(basename)&lt;0) then
+    printfn &quot;Error opening database %s&quot; basename
+
+if (Base.Isreadonly()) then
+    printfn &quot;Error database %s is read only&quot; basename
+
+let num = Base.NumGames()
+
+printfn &quot;number of games: %i&quot; num
+</code></pre>
+<p>This produces this output:</p>
+<pre><code class="lang-console">number of games: 0
+</code></pre>
 </article>
           </div>
           
