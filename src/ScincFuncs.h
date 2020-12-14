@@ -5,6 +5,7 @@
 #include "game.h"
 #include "tree.h"
 #include "gfile.h"
+#include "pgnparse.h"
 
 // TreeCache size for each open database:
 const uint SCID_TreeCacheSize = 1000; //250
@@ -103,6 +104,8 @@ namespace ScincFuncs {
 		static int Getfilename([Out] String^% name);
 		static bool InUse();
 		static int Create(String^ basenm);
+		static int Import(int% numgames, String^% msgs, String^ pgnfile);
+
 
 	};
 	/// <summary>

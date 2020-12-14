@@ -12,8 +12,11 @@ static int currentBase = 0;
 static Position* scratchPos = NULL;                         // temporary "scratch" position.
 static Game* scratchGame = NULL;                            // "scratch" game for searches, etc.
 
-
-// MAX_BASES is the maximum number of databases that can be open,
+// Default maximum number of games in the clipbase database:
+const uint CLIPBASE_MAX_GAMES = 5000000; // 5 million
+// Actual current maximum number of games in the clipbase database:
+static uint clipbaseMaxGames = CLIPBASE_MAX_GAMES;
+															// MAX_BASES is the maximum number of databases that can be open,
 // including the clipbase database.
 const int MAX_BASES = 9;
 const int CLIPBASE_NUM = MAX_BASES - 1;
@@ -632,8 +635,6 @@ int createbase(const char* filename, scidBaseT* base, bool memoryOnly)
 	return 0;
 }
 
-
-
 /// <summary>
 /// Create: creates a new database give a string of folder with name
 /// </summary>
@@ -681,6 +682,296 @@ int ScincFuncs::Base::Create(String^ basenm)
 	return newBaseNum + 1;
 }
 
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// sc_savegame:
+//    Called by sc_game_save and by clipbase functions to save
+//    a new game or replacement game to a database.
+//    Any errors are appended to the Tcl interpreter result.
+//
+//   (NB - See below for another sc_savegame, which is used in switcher game copy (and else???))
+int sc_savegame(Game* game, gameNumberT gnum, scidBaseT* base)
+{
+	char temp[200];
+	if (!base->inUse)
+	{
+		return -1;
+	}
+	if (base->fileMode == FMODE_ReadOnly && !(base->memoryOnly))
+	{
+		return -2;
+	}
+	if (base == clipbase && base->numGames >= clipbaseMaxGames)
+	{
+		return -3;
+	}
+
+	base->bbuf->Empty();
+	bool replaceMode = false;
+	gameNumberT gNumber = 0;
+	if (gnum > 0)
+	{
+		gNumber = gnum - 1; // Number games from zero.
+		replaceMode = true;
+	}
+
+	// Grab a new idx entry, if needed:
+	IndexEntry* oldIE = NULL;
+	IndexEntry iE;
+	iE.Init();
+
+	if (game->Encode(base->bbuf, &iE) != OK)
+	{
+		return -4;
+	}
+
+	// game->Encode computes flags, so we have to re-set flags if replace mode
+	if (replaceMode)
+	{
+		oldIE = base->idx->FetchEntry(gNumber);
+		// Remember previous user-settable flags:
+		for (uint flag = 0; flag < IDX_NUM_FLAGS; flag++)
+		{
+			char flags[32];
+			oldIE->GetFlagStr(flags, NULL);
+			iE.SetFlagStr(flags);
+		}
+	}
+	else
+	{
+		// add game without resetting the index, because it has been filled by game->encode above
+		if (base->idx->AddGame(&gNumber, &iE, false) != OK)
+		{
+			sprintf(temp, "Scid maximum games (%u) reached.\n", MAX_GAMES);
+			return -5;
+		}
+		base->numGames = base->idx->GetNumGames();
+	}
+
+	base->bbuf->BackToStart();
+
+	// Now try writing the game to the gfile:
+	uint offset = 0;
+	if (base->gfile->AddGame(base->bbuf, &offset) != OK)
+	{
+		return -6;
+	}
+	iE.SetOffset(offset);
+	iE.SetLength(base->bbuf->GetByteCount());
+
+	// Now we add the names to the NameBase
+	// If replacing, we decrement the frequency of the old names.
+	const char* s;
+	idNumberT id = 0;
+
+	// WHITE:
+	s = game->GetWhiteStr();
+	if (!s)
+	{
+		s = "?";
+	}
+	if (base->nb->AddName(NAME_PLAYER, s, &id) == ERROR_NameBaseFull)
+	{
+		return -8;
+	}
+	base->nb->IncFrequency(NAME_PLAYER, id, 1);
+	iE.SetWhite(id);
+
+	// BLACK:
+	s = game->GetBlackStr();
+	if (!s)
+	{
+		s = "?";
+	}
+	if (base->nb->AddName(NAME_PLAYER, s, &id) == ERROR_NameBaseFull)
+	{
+		return -9;
+	}
+	base->nb->IncFrequency(NAME_PLAYER, id, 1);
+	iE.SetBlack(id);
+
+	// EVENT:
+	s = game->GetEventStr();
+	if (!s)
+	{
+		s = "?";
+	}
+	if (base->nb->AddName(NAME_EVENT, s, &id) == ERROR_NameBaseFull)
+	{
+		return -10;
+	}
+	base->nb->IncFrequency(NAME_EVENT, id, 1);
+	iE.SetEvent(id);
+
+	// SITE:
+	s = game->GetSiteStr();
+	if (!s)
+	{
+		s = "?";
+	}
+	if (base->nb->AddName(NAME_SITE, s, &id) == ERROR_NameBaseFull)
+	{
+		return -11;
+	}
+	base->nb->IncFrequency(NAME_SITE, id, 1);
+	iE.SetSite(id);
+
+	// ROUND:
+	s = game->GetRoundStr();
+	if (!s)
+	{
+		s = "?";
+	}
+	if (base->nb->AddName(NAME_ROUND, s, &id) == ERROR_NameBaseFull)
+	{
+		return -12;
+	}
+	base->nb->IncFrequency(NAME_ROUND, id, 1);
+	iE.SetRound(id);
+
+	// If replacing, decrement the frequency of the old names:
+	if (replaceMode)
+	{
+		base->nb->IncFrequency(NAME_PLAYER, oldIE->GetWhite(), -1);
+		base->nb->IncFrequency(NAME_PLAYER, oldIE->GetBlack(), -1);
+		base->nb->IncFrequency(NAME_EVENT, oldIE->GetEvent(), -1);
+		base->nb->IncFrequency(NAME_SITE, oldIE->GetSite(), -1);
+		base->nb->IncFrequency(NAME_ROUND, oldIE->GetRound(), -1);
+	}
+
+	// Flush the gfile so it is up-to-date with other files:
+	// This made copying games between databases VERY slow, so it
+	// is now done elsewhere OUTSIDE a loop that copies many
+	// games, such as in sc_filter_copy().
+	//base->gfile->FlushAll();
+
+	// Last of all, we write the new idxEntry, but NOT the index header
+	// or the name file, since there might be more games saved yet and
+	// writing them now would then be a waste of time.
+
+	if (base->idx->WriteEntries(&iE, gNumber, 1) != OK)
+	{
+		return -13;
+	}
+
+	// We need to increase the filter size if a game was added:
+	if (!replaceMode)
+	{
+		base->filter->Append(1); // Added game is in filter by default.
+		if (base->filter != base->dbFilter)
+			base->dbFilter->Append(1);
+		if (base->treeFilter)
+			base->treeFilter->Append(1);
+
+		if (base->duplicates != NULL)
+		{
+			delete[] base->duplicates;
+			base->duplicates = NULL;
+		}
+	}
+	base->undoCurrent = base->undoIndex;
+	base->undoCurrentNotAvail = false;
+
+	return 0;
+}
+
+
+
+/// <summary>
+/// Import: Imports games from a PGN file to the current base.
+/// </summary>
+/// <param name="numgames">returns number of games imported</param>
+/// <param name="msgs">returns any PGN import errors or warnings</param>
+/// <param name="pgnfile">the PGN file to import</param>
+/// <returns>returns 0 if succesful</returns>
+int ScincFuncs::Base::Import(int% numgames, String^% msgs, String^ pgnfile)
+{
+	msclr::interop::marshal_context oMarshalContext;
+
+	const char* pgn = oMarshalContext.marshal_as<const char*>(pgnfile);
+
+	if (!db->inUse)
+	{
+		return -1;
+	}
+	// Cannot import into a read-only database unless it is memory-only:
+	if (db->fileMode == FMODE_ReadOnly && !(db->memoryOnly))
+	{
+		return -2;
+	}
+
+	MFile pgnFile;
+	uint inputLength = 0;
+	PgnParser parser;
+
+	if (pgnFile.Open(pgn, FMODE_ReadOnly) != OK)
+	{
+		return -3;
+	}
+	parser.Reset(&pgnFile);
+	inputLength = fileSize(pgn, "");
+
+	if (inputLength < 1)
+	{
+		inputLength = 1;
+	}
+	parser.IgnorePreGameText();
+	uint gamesSeen = 0;
+
+	while (parser.ParseGame(scratchGame) != ERROR_NotFound)
+	{
+		if (sc_savegame(scratchGame, 0, db) != 0)
+		{
+			// quick and nasty cleanup aka below
+			db->gfile->FlushAll();
+			pgnFile.Close();
+			db->idx->WriteHeader();
+			if (!db->memoryOnly)
+				db->nb->WriteNameFile();
+			recalcFlagCounts(db);
+			if (!db->memoryOnly)
+				removeFile(db->fileName, TREEFILE_SUFFIX);
+
+			return -3;
+		}
+		gamesSeen++;
+	}
+	db->gfile->FlushAll();
+	pgnFile.Close();
+
+	// Now write the Index file header and the name file:
+	if (db->idx->WriteHeader() != OK)
+	{
+		return -4;
+	}
+	if (!db->memoryOnly)
+	{
+		if (db->nb->WriteNameFile() != OK)
+		{
+			return -5;
+		}
+	}
+	recalcFlagCounts(db);
+	if (!db->memoryOnly)
+	{
+		removeFile(db->fileName, TREEFILE_SUFFIX);
+	}
+
+	numgames=gamesSeen;
+
+	if (parser.ErrorCount() > 0)
+	{
+		msgs = gcnew System::String(parser.ErrorMessages());
+	}
+	else
+	{
+		msgs = gcnew System::String("");
+	}
+
+	return 0;
+}
+
+
 // CLIPBASE functions
 
 /// <summary>
@@ -712,3 +1003,6 @@ int ScincFuncs::Clipbase::Clear()
 
 	return 0;
 }
+
+
+// GAME functions
