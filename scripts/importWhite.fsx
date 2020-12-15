@@ -38,27 +38,25 @@ pgns|>List.iter doimp
 Base.Close()|>ignore
 
 
-//# now classify
-//# Open the ECO file:
-//set ecofile "D:/tmp/scid.eco"
-//if {[catch {sc_eco read $ecofile} result]} {
-//    puts stderr "Error reading ECO file: $result"
-//    exit 1
-//}
+// now classify
+// Open the ECO file:
+let ecofile = "D:/tmp/scid.eco"
+if Eco.Read(ecofile)<>0 then
+    printfn "Error reading ECO file"
 
-//# Open the database:
-//if {[catch {sc_base open $basename} result]} {
-//    puts stderr "Error opening database \"$basename\": $result"
-//    exit 1
-//}
-//if {[sc_base isReadOnly]} {
-//    puts stderr "Error: database \"$basename\" is read-only."
-//    exit 1
-//}
+if (Base.Open(basename)<0) then
+    printfn "Error opening database %s" basename
 
-//puts "Classifying games..."
-//puts [sc_eco base 1 1]
-//sc_base close
+if (Base.Isreadonly()) then
+    printfn "Error database %s is read only" basename
+
+let mutable msgs = ""
+Eco.Base(&msgs)|>ignore
+printfn "Classifying games...\n%s" msgs
+
+Base.Close()|>ignore
+
+
 
 //#now strip comments
 //# Open the database:

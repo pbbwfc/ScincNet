@@ -246,13 +246,28 @@ Classified 13 games in 0.00 seconds
 The correspondong F# code is:
 
 ```fsharp
-//TODO
+let ecofile = "D:/tmp/scid.eco"
+if Eco.Read(ecofile)<>0 then
+    printfn "Error reading ECO file"
+
+if (Base.Open(basename)<0) then
+    printfn "Error opening database %s" basename
+
+if (Base.Isreadonly()) then
+    printfn "Error database %s is read only" basename
+
+let mutable msgs = ""
+Eco.Base(&msgs)|>ignore
+printfn "Classifying games...\n%s" msgs
+
+Base.Close()|>ignore
 ```
 
 This produces this output:
 
 ```console
-TODO
+Classifying games...
+Classified 13 games in 0.00 seconds
 ```
 
 ## Step 4 - Remove comments from the games

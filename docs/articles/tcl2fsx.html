@@ -268,10 +268,25 @@ sc_base close
 Classified 13 games in 0.00 seconds
 </code></pre>
 <p>The correspondong F# code is:</p>
-<pre><code class="lang-fsharp">//TODO
+<pre><code class="lang-fsharp">let ecofile = &quot;D:/tmp/scid.eco&quot;
+if Eco.Read(ecofile)&lt;&gt;0 then
+    printfn &quot;Error reading ECO file&quot;
+
+if (Base.Open(basename)&lt;0) then
+    printfn &quot;Error opening database %s&quot; basename
+
+if (Base.Isreadonly()) then
+    printfn &quot;Error database %s is read only&quot; basename
+
+let mutable msgs = &quot;&quot;
+Eco.Base(&amp;msgs)|&gt;ignore
+printfn &quot;Classifying games...\n%s&quot; msgs
+
+Base.Close()|&gt;ignore
 </code></pre>
 <p>This produces this output:</p>
-<pre><code class="lang-console">TODO
+<pre><code class="lang-console">Classifying games...
+Classified 13 games in 0.00 seconds
 </code></pre>
 <h2 id="step-4---remove-comments-from-the-games">Step 4 - Remove comments from the games</h2>
 <p>In TCL, we now open the database again and check that it is not read only. Now loop through each game removing the comments. Finally, close the database.</p>
