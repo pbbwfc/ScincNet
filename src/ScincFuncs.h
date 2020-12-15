@@ -120,6 +120,17 @@ namespace ScincFuncs {
 
 	};
 	/// <summary>
+	/// Class that hold functions relating to games in a SCID clipbase
+	/// </summary>
+	public ref class ScidGame
+	{
+	public:
+		static int Load(unsigned int gnum);
+		static int Save(unsigned int gnum);
+		static int StripComments();
+
+	};
+	/// <summary>
 	/// Class that hold functions relating to the ECO book
 	/// </summary>
 	public ref class Eco

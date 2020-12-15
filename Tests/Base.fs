@@ -11,6 +11,7 @@ type TestBase1 () =
     
     [<TestCleanup>]  
     member this.testClean() = 
+        Base.Autoloadgame(false, 1u)|>ignore
         Base.Close()|>ignore
   
     [<TestInitialize>]  
@@ -20,7 +21,7 @@ type TestBase1 () =
     [<TestMethod>]
     member this.BaseAutoload () =
         let actual = Base.Autoloadgame(true, 3u)
-        Assert.AreEqual(3, actual)
+        Assert.AreEqual(1, actual)
         let actual = Base.Autoloadgame(false, 3u)
         Assert.AreEqual(0, actual)
 

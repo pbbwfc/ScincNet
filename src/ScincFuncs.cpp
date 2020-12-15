@@ -1007,7 +1007,185 @@ int ScincFuncs::Clipbase::Clear()
 }
 
 
-// GAME functions
+// SCIDGAME functions
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//    resets data used for undos (for example after loading another game)
+void sc_game_undo_reset()
+{
+	db->undoMax = -1;
+	db->undoIndex = -1;
+	db->undoCurrent = -1;
+	db->undoCurrentNotAvail = false;
+	for (int i = 0; i < UNDO_MAX; i++)
+	{
+		if (db->undoGame[i] != NULL)
+		{
+			delete db->undoGame[i];
+			db->undoGame[i] = NULL;
+		}
+	}
+}
+
+/// <summary>
+/// Load: Takes a game number and loads the game
+/// </summary>
+/// <param name="gnum">The game number</param>
+/// <returns>returns 0 if succesful</returns>
+int ScincFuncs::ScidGame::Load(unsigned int gnum)
+{
+	if (!db->inUse)
+	{
+		return -1;
+	}
+	
+	sc_game_undo_reset();
+
+	db->bbuf->Empty();
+	
+	// Check the game number is valid::
+	if (gnum < 1 || gnum > db->numGames)
+	{
+		return -2;//Invalid game number
+	}
+
+	// We number games from 0 internally, so subtract one:
+	gnum--;
+
+	IndexEntry* ie = db->idx->FetchEntry(gnum);
+
+	if (db->gfile->ReadGame(db->bbuf, ie->GetOffset(), ie->GetLength()) != OK)
+	{
+		return -3;//This game appears to be corrupt
+	}
+	if (db->game->Decode(db->bbuf, GAME_DECODE_ALL) != OK)
+	{
+		return -4;//This game appears to be corrupt
+	}
+
+	if (db->filter->Get(gnum) > 0)
+	{
+		db->game->MoveToPly(db->filter->Get(gnum) - 1);
+	}
+	else
+	{
+		db->game->MoveToPly(0);
+	}
+
+	db->game->LoadStandardTags(ie, db->nb);
+	db->gameNumber = gnum;
+	db->gameAltered = false;
+	return 0;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// sc_game_save:
+//    Saves the current game. If the parameter is 0, a NEW
+//    game is added; otherwise, that game number is REPLACED.
+
+/// <summary>
+/// Save: Saves the current game. If the parameter is 0, a NEW
+/// game is added; otherwise, that game number is REPLACED.
+/// </summary>
+/// <param name="gnum">The game number</param>
+/// <returns>returns 0 if succesful</returns>
+int ScincFuncs::ScidGame::Save(unsigned int gnum)
+{
+
+	if (!db->inUse)
+	{
+		return -1;
+	}
+	if (db->fileMode == FMODE_ReadOnly)
+	{
+		return -2;
+	}
+	db->bbuf->Empty();
+
+	if (gnum > db->numGames)
+	{
+		return -3;
+	}
+
+	db->game->SaveState();
+	if (sc_savegame(db->game, gnum, db) != OK)
+	{
+		return -4;
+	}
+	db->gfile->FlushAll();
+	db->game->RestoreState();
+	if (db->idx->WriteHeader() != OK)
+	{
+		return -5;//Error writing index file
+	}
+	if (!db->memoryOnly && db->nb->WriteNameFile() != OK)
+	{
+		return -6;//Error writing name file
+	}
+
+	if (gnum == 0)
+	{
+		// Saved new game, so set gameNumber to the saved game number:
+		db->gameNumber = db->numGames - 1;
+	}
+	db->gameAltered = false;
+
+	// We must ensure that the Index is still all in memory:
+	db->idx->ReadEntireFile();
+
+	recalcFlagCounts(db);
+	// Finally, saving a game makes the treeCache out of date:
+	db->treeCache->Clear();
+	db->backupCache->Clear();
+	if (!db->memoryOnly)
+	{
+		removeFile(db->fileName, TREEFILE_SUFFIX);
+	}
+
+	return 0;
+}
+
+/// <summary>
+/// StripComments: Strips all comments from a game.
+/// </summary>
+/// <returns>returns 0 if succesful</returns>
+int ScincFuncs::ScidGame::StripComments()
+{
+	// we need to switch off short header style or PGN parsing will not work
+	uint old_style = db->game->GetPgnStyle();
+	uint old_ply = db->game->GetCurrentPly();
+	if (old_style & PGN_STYLE_SHORT_HEADER)
+		db->game->SetPgnStyle(PGN_STYLE_SHORT_HEADER, false);
+
+	db->game->AddPgnStyle(PGN_STYLE_TAGS);
+	db->game->AddPgnStyle(PGN_STYLE_COMMENTS);
+	db->game->AddPgnStyle(PGN_STYLE_VARS);
+	db->game->SetPgnFormat(PGN_FORMAT_Plain);
+
+	db->game->RemovePgnStyle(PGN_STYLE_COMMENTS);
+	
+	db->tbuf->Empty();
+	db->tbuf->SetWrapColumn(99999);
+	db->game->WriteToPGN(db->tbuf);
+	PgnParser parser;
+	parser.Reset((const char*)db->tbuf->GetBuffer());
+	scratchGame->Clear();
+	if (parser.ParseGame(scratchGame))
+	{
+		return -1;//Error: unable to strip this game.
+	}
+	parser.Reset((const char*)db->tbuf->GetBuffer());
+	db->game->Clear();
+	parser.ParseGame(db->game);
+
+	// Restore PGN style (Short header)
+	if (old_style & PGN_STYLE_SHORT_HEADER)
+		db->game->SetPgnStyle(PGN_STYLE_SHORT_HEADER, true);
+
+	db->game->MoveToPly(old_ply);
+	db->gameAltered = true;
+	return 0;
+}
 
 
 // ECO functions

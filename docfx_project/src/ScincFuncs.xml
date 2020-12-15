@@ -18,6 +18,27 @@ Read: Reads a book file for ECO classification.
             <param name="econm">the ECO file name</param>
             <returns>returns the book size (number of positions)</returns>
         </member>
+        <member name="M:ScincFuncs.ScidGame.StripComments">
+            <summary>
+StripComments: Strips all comments from a game.
+</summary>
+            <returns>returns 0 if succesful</returns>
+        </member>
+        <member name="M:ScincFuncs.ScidGame.Save(System.UInt32)">
+            <summary>
+Save: Saves the current game. If the parameter is 0, a NEW
+game is added; otherwise, that game number is REPLACED.
+</summary>
+            <param name="gnum">The game number</param>
+            <returns>returns 0 if succesful</returns>
+        </member>
+        <member name="M:ScincFuncs.ScidGame.Load(System.UInt32)">
+            <summary>
+Load: Takes a game number and loads the game
+</summary>
+            <param name="gnum">The game number</param>
+            <returns>returns 0 if succesful</returns>
+        </member>
         <member name="M:ScincFuncs.Clipbase.Clear">
             <summary>
 Clear: Clears the clipbase by closing and recreating it.
@@ -93,6 +114,11 @@ Autoloadgame: Sets or returns the autoload number for the database - the game nu
         <member name="T:ScincFuncs.Eco">
             <summary>
 Class that hold functions relating to the ECO book
+</summary>
+        </member>
+        <member name="T:ScincFuncs.ScidGame">
+            <summary>
+Class that hold functions relating to games in a SCID clipbase
 </summary>
         </member>
         <member name="T:ScincFuncs.Clipbase">
