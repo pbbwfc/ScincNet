@@ -303,7 +303,19 @@ This produces no output.
 The correspondong F# code is:
 
 ```fsharp
-//TODO
+if (Base.Open(basename)<0) then
+    printfn "Error opening database %s" basename
+
+if (Base.Isreadonly()) then
+    printfn "Error database %s is read only" basename
+
+for i=1 to Base.NumGames() do
+    if ScidGame.Load(uint(i))<>0 then
+        printfn "Error: could not load game number %i" i
+    ScidGame.StripComments()|>ignore
+    ScidGame.Save(uint(i))|>ignore
+
+Base.Close()|>ignore
 ```
 
 ## Step 5 - Change the white names in the games to the names of the opening

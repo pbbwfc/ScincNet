@@ -56,29 +56,21 @@ printfn "Classifying games...\n%s" msgs
 
 Base.Close()|>ignore
 
+//now strip comments
+// Open the database:
+if (Base.Open(basename)<0) then
+    printfn "Error opening database %s" basename
 
+if (Base.Isreadonly()) then
+    printfn "Error database %s is read only" basename
 
-//#now strip comments
-//# Open the database:
-//if {[catch {sc_base open $basename} result]} {
-//    puts stderr "Error opening database \"$basename\": $result"
-//    exit 1
-//}
-//if {[sc_base isReadOnly]} {
-//    puts stderr "Error: database \"$basename\" is read-only."
-//    exit 1
-//}
+for i=1 to Base.NumGames() do
+    if ScidGame.Load(uint(i))<>0 then
+        printfn "Error: could not load game number %i" i
+    ScidGame.StripComments()|>ignore
+    ScidGame.Save(uint(i))|>ignore
 
-//for {set i 1} {$i <= [sc_base numGames]} {incr i} {
-//    if {[catch { sc_game load $i }]} {
-//        puts "Error: could not load game number $i"
-//        exit 1
-//    }
-//    sc_game strip comments
-
-//    sc_game save $i
-//}
-//sc_base close
+Base.Close()|>ignore
 
 //#now add names
 

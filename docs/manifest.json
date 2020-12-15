@@ -48,7 +48,7 @@
           "hash": "vu2un2frdlMFh82LJH0H4w=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -60,7 +60,7 @@
           "hash": "kI/yGJuMKT4aqy2LeiBukA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -108,10 +108,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/tcl2fsx.html",
-          "hash": "IB0LiW4RV1QKm8Ytc75IeA=="
+          "hash": "SIsnhbXstkpJGEVhQPso2A=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -164,13 +164,13 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 4,
-          "skipped_file_count": 4
+          "skipped_file_count": 3
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 5,
-          "skipped_file_count": 4
+          "skipped_file_count": 5
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

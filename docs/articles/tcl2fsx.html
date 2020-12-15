@@ -313,7 +313,19 @@ sc_base close
 </code></pre>
 <p>This produces no output.</p>
 <p>The correspondong F# code is:</p>
-<pre><code class="lang-fsharp">//TODO
+<pre><code class="lang-fsharp">if (Base.Open(basename)&lt;0) then
+    printfn &quot;Error opening database %s&quot; basename
+
+if (Base.Isreadonly()) then
+    printfn &quot;Error database %s is read only&quot; basename
+
+for i=1 to Base.NumGames() do
+    if ScidGame.Load(uint(i))&lt;&gt;0 then
+        printfn &quot;Error: could not load game number %i&quot; i
+    ScidGame.StripComments()|&gt;ignore
+    ScidGame.Save(uint(i))|&gt;ignore
+
+Base.Close()|&gt;ignore
 </code></pre>
 <h2 id="step-5---change-the-white-names-in-the-games-to-the-names-of-the-opening">Step 5 - Change the white names in the games to the names of the opening</h2>
 <p>In TCL, we create a list of names to use. We now open the database again and check that it is not read only. Now loop through each game changing the white name and then saving it. Finally, close the database.</p>
