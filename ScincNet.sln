@@ -19,6 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{54A4
 		scripts\runtcl.cmd = scripts\runtcl.cmd
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1B8B9CAA-FEE0-4CFA-91DA-6C10397F3999}"
+	ProjectSection(SolutionItems) = preProject
+		docfx_project\index.md = docfx_project\index.md
+		docfx_project\articles\intro.md = docfx_project\articles\intro.md
+		docfx_project\articles\tcl2fsx.md = docfx_project\articles\tcl2fsx.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
