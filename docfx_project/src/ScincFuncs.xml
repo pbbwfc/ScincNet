@@ -4,6 +4,13 @@
         "ScincFuncs"
     </assembly>
     <members>
+        <member name="M:ScincFuncs.Eco.Read(System.String)">
+            <summary>
+Read: Reads a book file for ECO classification.
+</summary>
+            <param name="econm">the ECO file name</param>
+            <returns>returns the book size (number of positions)</returns>
+        </member>
         <member name="M:ScincFuncs.Clipbase.Clear">
             <summary>
 Clear: Clears the clipbase by closing and recreating it.
@@ -75,6 +82,11 @@ Autoloadgame: Sets or returns the autoload number for the database - the game nu
             <param name="getbase">Whether to get or set the database</param>
             <param name="basenum">The number to set</param>
             <returns>returns 0 if succesful</returns>
+        </member>
+        <member name="T:ScincFuncs.Eco">
+            <summary>
+Class that hold functions relating to the ECO book
+</summary>
         </member>
         <member name="T:ScincFuncs.Clipbase">
             <summary>

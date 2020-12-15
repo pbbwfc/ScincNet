@@ -5,6 +5,7 @@
 #include "game.h"
 #include "tree.h"
 #include "gfile.h"
+#include "pbook.h"
 #include "pgnparse.h"
 
 // TreeCache size for each open database:
@@ -115,6 +116,15 @@ namespace ScincFuncs {
 	{
 	public:
 		static int Clear();
+
+	};
+	/// <summary>
+	/// Class that hold functions relating to the ECO book
+	/// </summary>
+	public ref class Eco
+	{
+	public:
+		static int Read(String^ econm);
 
 	};
 }

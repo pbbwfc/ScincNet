@@ -164,6 +164,7 @@
     <ClInclude Include="naglatex.h" />
     <ClInclude Include="nagtext.h" />
     <ClInclude Include="namebase.h" />
+    <ClInclude Include="pbook.h" />
     <ClInclude Include="pgnparse.h" />
     <ClInclude Include="position.h" />
     <ClInclude Include="sqlist.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="movelist.cpp" />
     <ClCompile Include="myassert.cpp" />
     <ClCompile Include="namebase.cpp" />
+    <ClCompile Include="pbook.cpp" />
     <ClCompile Include="pgnparse.cpp" />
     <ClCompile Include="position.cpp" />
     <ClCompile Include="stored.cpp" />

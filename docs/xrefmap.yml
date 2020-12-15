@@ -169,3 +169,33 @@ references:
   commentId: Overload:ScincFuncs.Clipbase.Clear
   fullName: ScincFuncs.Clipbase.Clear
   nameWithType: Clipbase.Clear
+- uid: ScincFuncs.Eco
+  name: Eco
+  href: api/ScincFuncs.Eco.html
+  commentId: T:ScincFuncs.Eco
+  fullName: ScincFuncs.Eco
+  nameWithType: Eco
+- uid: ScincFuncs.Eco.#ctor
+  name: Eco()
+  href: api/ScincFuncs.Eco.html#ScincFuncs_Eco__ctor
+  commentId: M:ScincFuncs.Eco.#ctor
+  fullName: ScincFuncs.Eco.Eco()
+  nameWithType: Eco.Eco()
+- uid: ScincFuncs.Eco.#ctor*
+  name: Eco
+  href: api/ScincFuncs.Eco.html#ScincFuncs_Eco__ctor_
+  commentId: Overload:ScincFuncs.Eco.#ctor
+  fullName: ScincFuncs.Eco.Eco
+  nameWithType: Eco.Eco
+- uid: ScincFuncs.Eco.Read(System.String)
+  name: Read(String)
+  href: api/ScincFuncs.Eco.html#ScincFuncs_Eco_Read_System_String_
+  commentId: M:ScincFuncs.Eco.Read(System.String)
+  fullName: ScincFuncs.Eco.Read(System.String)
+  nameWithType: Eco.Read(String)
+- uid: ScincFuncs.Eco.Read*
+  name: Read
+  href: api/ScincFuncs.Eco.html#ScincFuncs_Eco_Read_
+  commentId: Overload:ScincFuncs.Eco.Read
+  fullName: ScincFuncs.Eco.Read
+  nameWithType: Eco.Read

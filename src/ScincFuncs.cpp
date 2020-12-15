@@ -11,6 +11,8 @@ static scidBaseT* dbList = NULL;   // array of database slots.
 static int currentBase = 0;
 static Position* scratchPos = NULL;                         // temporary "scratch" position.
 static Game* scratchGame = NULL;                            // "scratch" game for searches, etc.
+static PBook* ecoBook = NULL;                               // eco classification pbook.
+
 
 // Default maximum number of games in the clipbase database:
 const uint CLIPBASE_MAX_GAMES = 5000000; // 5 million
@@ -682,7 +684,6 @@ int ScincFuncs::Base::Create(String^ basenm)
 	return newBaseNum + 1;
 }
 
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // sc_savegame:
 //    Called by sc_game_save and by clipbase functions to save
@@ -875,8 +876,6 @@ int sc_savegame(Game* game, gameNumberT gnum, scidBaseT* base)
 	return 0;
 }
 
-
-
 /// <summary>
 /// Import: Imports games from a PGN file to the current base.
 /// </summary>
@@ -1006,3 +1005,33 @@ int ScincFuncs::Clipbase::Clear()
 
 
 // GAME functions
+
+
+// ECO functions
+
+/// <summary>
+/// Read: Reads a book file for ECO classification.
+/// </summary>
+/// <param name="econm">the ECO file name</param>
+/// <returns>returns the book size (number of positions)</returns>
+int ScincFuncs::Eco::Read(String^ econm)
+{
+	msclr::interop::marshal_context oMarshalContext;
+
+	const char* econame = oMarshalContext.marshal_as<const char*>(econm);
+
+	if (ecoBook)
+	{
+		delete ecoBook;
+	}
+	ecoBook = new PBook;
+	ecoBook->SetFileName(econame);
+	errorT err = ecoBook->ReadEcoFile();
+	if (err != OK)
+	{
+		delete ecoBook;
+		ecoBook = NULL;
+		return -1;
+	}
+	return ecoBook->Size();
+}
