@@ -72,28 +72,23 @@ for i=1 to Base.NumGames() do
 
 Base.Close()|>ignore
 
-//#now add names
+//now add names
 
-//set nms [list "Benko" "Benoni" "Budapest" "Dutch" "Grunfeld" "Kings Indian" "Old Indian" "QGA" "QGD main" "QGD tarrasch" "QGD triangle" "QGD unusual" "Slav"]
+let nms  =["Benko"; "Benoni"; "Budapest"; "Dutch"; "Grunfeld"; "Kings Indian"; "Old Indian"; "QGA"; "QGD main"; "QGD tarrasch"; "QGD triangle"; "QGD unusual"; "Slav"]
 
-//# Open the database:
-//if {[catch {sc_base open $basename} result]} {
-//    puts stderr "Error opening database \"$basename\": $result"
-//    exit 1
-//}
-//if {[sc_base isReadOnly]} {
-//    puts stderr "Error: database \"$basename\" is read-only."
-//    exit 1
-//}
+// Open the database:
+if (Base.Open(basename)<0) then
+    printfn "Error opening database %s" basename
 
-//for {set i 1} {$i <= [sc_base numGames]} {incr i} {
-//    if {[catch { sc_game load $i }]} {
-//        puts "Error: could not load game number $i"
-//        exit 1
-//    }
-//    set nm [lindex $nms [expr $i-1]]
-//    sc_game tags set -white $nm
+if (Base.Isreadonly()) then
+    printfn "Error database %s is read only" basename
 
-//    sc_game save $i
-//}
-//sc_base close
+let setwht i vl =
+    if ScidGame.Load(uint(i+1))<>0 then
+        printfn "Error: could not load game number %i" (i+1)
+    ScidGame.SetTag("White",vl)|>ignore
+    ScidGame.Save(uint(i+1))|>ignore
+
+nms|>List.iteri setwht
+
+Base.Close()|>ignore

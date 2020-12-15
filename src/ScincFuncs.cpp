@@ -18,7 +18,7 @@ static PBook* ecoBook = NULL;                               // eco classificatio
 const uint CLIPBASE_MAX_GAMES = 5000000; // 5 million
 // Actual current maximum number of games in the clipbase database:
 static uint clipbaseMaxGames = CLIPBASE_MAX_GAMES;
-															// MAX_BASES is the maximum number of databases that can be open,
+// MAX_BASES is the maximum number of databases that can be open,
 // including the clipbase database.
 const int MAX_BASES = 9;
 const int CLIPBASE_NUM = MAX_BASES - 1;
@@ -358,13 +358,12 @@ int base_opened(const char* filename)
 	return -1;
 }
 
-
 /// <summary>
 /// Autoloadgame: Sets or returns the autoload number for the database - the game number to load.
 /// </summary>
 /// <param name="getbase">Whether to get or set the database</param>
 /// <param name="basenum">The number to set</param>
-/// <returns>returns 0 if succesful</returns>
+/// <returns>returns 0 if successful</returns>
 int ScincFuncs::Base::Autoloadgame(bool getbase, unsigned int basenum)
 {
 	if (getbase)
@@ -393,7 +392,7 @@ int ScincFuncs::Base::Autoloadgame(bool getbase, unsigned int basenum)
 ///    and will not be alterable.
 /// </summary>
 /// <param name="basenm">The name of the database</param>
-/// <returns>returns 0 if succesful</returns>
+/// <returns>returns 0 if successful</returns>
 int ScincFuncs::Base::Open(String^ basenm)
 {
 	msclr::interop::marshal_context oMarshalContext;
@@ -463,7 +462,7 @@ int ScincFuncs::Base::Open(String^ basenm)
 /// <summary>
 /// Close: Closes the current or specified database.
 /// </summary>
-/// <returns>returns 0 if succesful</returns>
+/// <returns>returns 0 if successful</returns>
 int ScincFuncs::Base::Close()
 {
 	scidBaseT* basePtr = db;
@@ -540,7 +539,7 @@ int ScincFuncs::Base::NumGames()
 ///   Returns "[empty]" for an empty base, "[clipbase]" for the clipbase.
 /// </summary>
 /// <param name="name">The name variable passed by reference</param>
-/// <returns>returns 0 if succesful</returns>
+/// <returns>returns 0 if successful</returns>
 int ScincFuncs::Base::Getfilename(String^% name)
 {
 	scidBaseT* basePtr = db;
@@ -644,7 +643,7 @@ int createbase(const char* filename, scidBaseT* base, bool memoryOnly)
 /// Create: creates a new database give a string of folder with name
 /// </summary>
 /// <param name="basenm">The name of the new database</param>
-/// <returns>returns 0 if succesful</returns>
+/// <returns>returns 0 if successful</returns>
 int ScincFuncs::Base::Create(String^ basenm)
 {
 	msclr::interop::marshal_context oMarshalContext;
@@ -691,8 +690,7 @@ int ScincFuncs::Base::Create(String^ basenm)
 // sc_savegame:
 //    Called by sc_game_save and by clipbase functions to save
 //    a new game or replacement game to a database.
-//    Any errors are appended to the Tcl interpreter result.
-//
+//    
 //   (NB - See below for another sc_savegame, which is used in switcher game copy (and else???))
 int sc_savegame(Game* game, gameNumberT gnum, scidBaseT* base)
 {
@@ -885,7 +883,7 @@ int sc_savegame(Game* game, gameNumberT gnum, scidBaseT* base)
 /// <param name="numgames">returns number of games imported</param>
 /// <param name="msgs">returns any PGN import errors or warnings</param>
 /// <param name="pgnfile">the PGN file to import</param>
-/// <returns>returns 0 if succesful</returns>
+/// <returns>returns 0 if successful</returns>
 int ScincFuncs::Base::Import(int% numgames, String^% msgs, String^ pgnfile)
 {
 	msclr::interop::marshal_context oMarshalContext;
@@ -959,7 +957,7 @@ int ScincFuncs::Base::Import(int% numgames, String^% msgs, String^ pgnfile)
 		removeFile(db->fileName, TREEFILE_SUFFIX);
 	}
 
-	numgames=gamesSeen;
+	numgames = gamesSeen;
 
 	if (parser.ErrorCount() > 0)
 	{
@@ -979,7 +977,7 @@ int ScincFuncs::Base::Import(int% numgames, String^% msgs, String^ pgnfile)
 /// <summary>
 /// Clear: Clears the clipbase by closing and recreating it.
 /// </summary>
-/// <returns>returns 0 if succesful</returns>
+/// <returns>returns 0 if successful</returns>
 int ScincFuncs::Clipbase::Clear()
 {
 	if (!clipbase->inUse)
@@ -1031,18 +1029,18 @@ void sc_game_undo_reset()
 /// Load: Takes a game number and loads the game
 /// </summary>
 /// <param name="gnum">The game number</param>
-/// <returns>returns 0 if succesful</returns>
+/// <returns>returns 0 if successful</returns>
 int ScincFuncs::ScidGame::Load(unsigned int gnum)
 {
 	if (!db->inUse)
 	{
 		return -1;
 	}
-	
+
 	sc_game_undo_reset();
 
 	db->bbuf->Empty();
-	
+
 	// Check the game number is valid::
 	if (gnum < 1 || gnum > db->numGames)
 	{
@@ -1088,10 +1086,9 @@ int ScincFuncs::ScidGame::Load(unsigned int gnum)
 /// game is added; otherwise, that game number is REPLACED.
 /// </summary>
 /// <param name="gnum">The game number</param>
-/// <returns>returns 0 if succesful</returns>
+/// <returns>returns 0 if successful</returns>
 int ScincFuncs::ScidGame::Save(unsigned int gnum)
 {
-
 	if (!db->inUse)
 	{
 		return -1;
@@ -1148,7 +1145,7 @@ int ScincFuncs::ScidGame::Save(unsigned int gnum)
 /// <summary>
 /// StripComments: Strips all comments from a game.
 /// </summary>
-/// <returns>returns 0 if succesful</returns>
+/// <returns>returns 0 if successful</returns>
 int ScincFuncs::ScidGame::StripComments()
 {
 	// we need to switch off short header style or PGN parsing will not work
@@ -1163,7 +1160,7 @@ int ScincFuncs::ScidGame::StripComments()
 	db->game->SetPgnFormat(PGN_FORMAT_Plain);
 
 	db->game->RemovePgnStyle(PGN_STYLE_COMMENTS);
-	
+
 	db->tbuf->Empty();
 	db->tbuf->SetWrapColumn(99999);
 	db->game->WriteToPGN(db->tbuf);
@@ -1184,6 +1181,100 @@ int ScincFuncs::ScidGame::StripComments()
 
 	db->game->MoveToPly(old_ply);
 	db->gameAltered = true;
+	return 0;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// sc_game_tags_set:
+//    Set the standard tags for this game.
+//    Args are: event, site, date, round, white, black, result,
+//              whiteElo, whiteRatingType, blackElo, blackRatingType, Eco,
+//              eventdate.
+//    Last arg is the non-standard tags, a string of lines in the format:
+//        [TagName "TagValue"]
+
+/// <summary>
+/// SetTag: Set a standard tag for this game.
+/// </summary>
+/// <param name="tag">Tag as a string, such as White</param>
+/// <param name="val">Value as a string</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::ScidGame::SetTag(String^ tag, String^ val)
+{
+	msclr::interop::marshal_context oMarshalContext;
+
+	const char* tg = oMarshalContext.marshal_as<const char*>(tag);
+	const char* value = oMarshalContext.marshal_as<const char*>(val);
+
+	static const char* options[] = {
+	"Event", "Site", "Date", "Round", "White", "Black", "Result",
+	"WhiteElo", "WhiteRType", "BlackElo", "BlackRType",
+	"ECO", "EDate",
+	NULL };
+	enum
+	{
+		T_EVENT,
+		T_SITE,
+		T_DATE,
+		T_ROUND,
+		T_WHITE,
+		T_BLACK,
+		T_RESULT,
+		T_WHITE_ELO,
+		T_WHITE_RTYPE,
+		T_BLACK_ELO,
+		T_BLACK_RTYPE,
+		T_ECO,
+		T_EVENTDATE,
+	};
+
+	int index = strUniqueMatch(tg, options);
+		
+	switch (index)
+	{
+	case T_EVENT:
+		db->game->SetEventStr(value);
+		break;
+	case T_SITE:
+		db->game->SetSiteStr(value);
+		break;
+	case T_DATE:
+		db->game->SetDate(date_EncodeFromString(value));
+		break;
+	case T_ROUND:
+		db->game->SetRoundStr(value);
+		break;
+	case T_WHITE:
+		db->game->SetWhiteStr(value);
+		break;
+	case T_BLACK:
+		db->game->SetBlackStr(value);
+		break;
+	case T_RESULT:
+		db->game->SetResult(strGetResult(value));
+		break;
+	case T_WHITE_ELO:
+		db->game->SetWhiteElo(strGetUnsigned(value));
+		break;
+	case T_WHITE_RTYPE:
+		db->game->SetWhiteRatingType(strGetRatingType(value));
+		break;
+	case T_BLACK_ELO:
+		db->game->SetBlackElo(strGetUnsigned(value));
+		break;
+	case T_BLACK_RTYPE:
+		db->game->SetBlackRatingType(strGetRatingType(value));
+		break;
+	case T_ECO:
+		db->game->SetEco(eco_FromString(value));
+		break;
+	case T_EVENTDATE:
+		db->game->SetEventDate(date_EncodeFromString(value));
+		break;
+	default:
+		return -1;
+	}
+
 	return 0;
 }
 

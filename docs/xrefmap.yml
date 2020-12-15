@@ -256,6 +256,18 @@ references:
   commentId: Overload:ScincFuncs.ScidGame.Save
   fullName: ScincFuncs.ScidGame.Save
   nameWithType: ScidGame.Save
+- uid: ScincFuncs.ScidGame.SetTag(System.String,System.String)
+  name: SetTag(String, String)
+  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_SetTag_System_String_System_String_
+  commentId: M:ScincFuncs.ScidGame.SetTag(System.String,System.String)
+  fullName: ScincFuncs.ScidGame.SetTag(System.String, System.String)
+  nameWithType: ScidGame.SetTag(String, String)
+- uid: ScincFuncs.ScidGame.SetTag*
+  name: SetTag
+  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_SetTag_
+  commentId: Overload:ScincFuncs.ScidGame.SetTag
+  fullName: ScincFuncs.ScidGame.SetTag
+  nameWithType: ScidGame.SetTag
 - uid: ScincFuncs.ScidGame.StripComments
   name: StripComments()
   href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_StripComments

@@ -18,11 +18,19 @@ Read: Reads a book file for ECO classification.
             <param name="econm">the ECO file name</param>
             <returns>returns the book size (number of positions)</returns>
         </member>
+        <member name="M:ScincFuncs.ScidGame.SetTag(System.String,System.String)">
+            <summary>
+SetTag: Set a standard tag for this game.
+</summary>
+            <param name="tag">Tag as a string, such as White</param>
+            <param name="val">Value as a string</param>
+            <returns>returns 0 if successful</returns>
+        </member>
         <member name="M:ScincFuncs.ScidGame.StripComments">
             <summary>
 StripComments: Strips all comments from a game.
 </summary>
-            <returns>returns 0 if succesful</returns>
+            <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.ScidGame.Save(System.UInt32)">
             <summary>
@@ -30,20 +38,20 @@ Save: Saves the current game. If the parameter is 0, a NEW
 game is added; otherwise, that game number is REPLACED.
 </summary>
             <param name="gnum">The game number</param>
-            <returns>returns 0 if succesful</returns>
+            <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.ScidGame.Load(System.UInt32)">
             <summary>
 Load: Takes a game number and loads the game
 </summary>
             <param name="gnum">The game number</param>
-            <returns>returns 0 if succesful</returns>
+            <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.Clipbase.Clear">
             <summary>
 Clear: Clears the clipbase by closing and recreating it.
 </summary>
-            <returns>returns 0 if succesful</returns>
+            <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.Base.Import(System.Int32@,System.String@,System.String)">
             <summary>
@@ -52,14 +60,14 @@ Import: Imports games from a PGN file to the current base.
             <param name="numgames">returns number of games imported</param>
             <param name="msgs">returns any PGN import errors or warnings</param>
             <param name="pgnfile">the PGN file to import</param>
-            <returns>returns 0 if succesful</returns>
+            <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.Base.Create(System.String)">
             <summary>
 Create: creates a new database give a string of folder with name
 </summary>
             <param name="basenm">The name of the new database</param>
-            <returns>returns 0 if succesful</returns>
+            <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.Base.InUse">
             <summary>
@@ -73,7 +81,7 @@ Getfilename: get the name of the current database file.
   Returns "[empty]" for an empty base, "[clipbase]" for the clipbase.
 </summary>
             <param name="name">The name variable passed by reference</param>
-            <returns>returns 0 if succesful</returns>
+            <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.Base.NumGames">
             <summary>
@@ -91,7 +99,7 @@ Isreadoonly: is the base read only
             <summary>
 Close: Closes the current or specified database.
 </summary>
-            <returns>returns 0 if succesful</returns>
+            <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.Base.Open(System.String)">
             <summary>
@@ -101,7 +109,7 @@ Open: takes a database name and opens the database.
    and will not be alterable.
 </summary>
             <param name="basenm">The name of the database</param>
-            <returns>returns 0 if succesful</returns>
+            <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.Base.Autoloadgame(System.Boolean,System.UInt32)">
             <summary>
@@ -109,7 +117,7 @@ Autoloadgame: Sets or returns the autoload number for the database - the game nu
 </summary>
             <param name="getbase">Whether to get or set the database</param>
             <param name="basenum">The number to set</param>
-            <returns>returns 0 if succesful</returns>
+            <returns>returns 0 if successful</returns>
         </member>
         <member name="T:ScincFuncs.Eco">
             <summary>

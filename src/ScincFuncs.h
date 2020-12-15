@@ -128,6 +128,7 @@ namespace ScincFuncs {
 		static int Load(unsigned int gnum);
 		static int Save(unsigned int gnum);
 		static int StripComments();
+		static int SetTag(String^ tag, String^ val);
 
 	};
 	/// <summary>

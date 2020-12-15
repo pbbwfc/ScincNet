@@ -44,4 +44,11 @@ type TestScidGame () =
         let actual = ScidGame.StripComments()
         ScidGame.Save(1u)|>ignore
         Assert.AreEqual(0, actual)
+
+    [<TestMethod>]
+    member this.ScidGameSetTag () =
+        ScidGame.Load(1u)|>ignore
+        let actual = ScidGame.SetTag("White","White Name")
+        ScidGame.Save(1u)|>ignore
+        Assert.AreEqual(0, actual)
         

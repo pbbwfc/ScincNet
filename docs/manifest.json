@@ -9,10 +9,10 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.Base.html",
-          "hash": "SKqskleBkkuo+asmWKRTHg=="
+          "hash": "0VY+b8SkFFHp4Lh/bkG8LQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -21,10 +21,10 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.Clipbase.html",
-          "hash": "malAsC3OKRfcHb8ia0SJqA=="
+          "hash": "F2WpmdKb/QVDEf58PS8dWQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -45,10 +45,10 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.ScidGame.html",
-          "hash": "vu2un2frdlMFh82LJH0H4w=="
+          "hash": "WK9xfwQGk7nUGoH2ARgRkQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -60,7 +60,7 @@
           "hash": "kI/yGJuMKT4aqy2LeiBukA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -108,7 +108,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/tcl2fsx.html",
-          "hash": "SIsnhbXstkpJGEVhQPso2A=="
+          "hash": "IkSvBXfk3rHRfDD88Vz2Wg=="
         }
       },
       "is_incremental": false,
@@ -170,7 +170,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 5,
-          "skipped_file_count": 5
+          "skipped_file_count": 2
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

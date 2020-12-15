@@ -355,5 +355,22 @@ This produces no output.
 The correspondong F# code is:
 
 ```fsharp
-//TODO
+let nms  =["Benko"; "Benoni"; "Budapest"; "Dutch"; "Grunfeld"; "Kings Indian"; "Old Indian"; "QGA"; "QGD main"; "QGD tarrasch"; "QGD triangle"; "QGD unusual"; "Slav"]
+
+// Open the database:
+if (Base.Open(basename)<0) then
+    printfn "Error opening database %s" basename
+
+if (Base.Isreadonly()) then
+    printfn "Error database %s is read only" basename
+
+let setwht i vl =
+    if ScidGame.Load(uint(i+1))<>0 then
+        printfn "Error: could not load game number %i" (i+1)
+    ScidGame.SetTag("White",vl)|>ignore
+    ScidGame.Save(uint(i+1))|>ignore
+
+nms|>List.iteri setwht
+
+Base.Close()|>ignore
 ```

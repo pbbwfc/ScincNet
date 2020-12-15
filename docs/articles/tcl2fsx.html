@@ -356,7 +356,24 @@ sc_base close
 </code></pre>
 <p>This produces no output.</p>
 <p>The correspondong F# code is:</p>
-<pre><code class="lang-fsharp">//TODO
+<pre><code class="lang-fsharp">let nms  =[&quot;Benko&quot;; &quot;Benoni&quot;; &quot;Budapest&quot;; &quot;Dutch&quot;; &quot;Grunfeld&quot;; &quot;Kings Indian&quot;; &quot;Old Indian&quot;; &quot;QGA&quot;; &quot;QGD main&quot;; &quot;QGD tarrasch&quot;; &quot;QGD triangle&quot;; &quot;QGD unusual&quot;; &quot;Slav&quot;]
+
+// Open the database:
+if (Base.Open(basename)&lt;0) then
+    printfn &quot;Error opening database %s&quot; basename
+
+if (Base.Isreadonly()) then
+    printfn &quot;Error database %s is read only&quot; basename
+
+let setwht i vl =
+    if ScidGame.Load(uint(i+1))&lt;&gt;0 then
+        printfn &quot;Error: could not load game number %i&quot; (i+1)
+    ScidGame.SetTag(&quot;White&quot;,vl)|&gt;ignore
+    ScidGame.Save(uint(i+1))|&gt;ignore
+
+nms|&gt;List.iteri setwht
+
+Base.Close()|&gt;ignore
 </code></pre>
 </article>
           </div>
