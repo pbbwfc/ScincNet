@@ -4,6 +4,13 @@
         "ScincFuncs"
     </assembly>
     <members>
+        <member name="M:ScincFuncs.Eco.Base(System.String@)">
+            <summary>
+Base: Reclassifies all games in the current base by ECO code.
+</summary>
+            <param name="msgs">The messages returned</param>
+            <returns>returns 0 if successful</returns>
+        </member>
         <member name="M:ScincFuncs.Eco.Read(System.String)">
             <summary>
 Read: Reads a book file for ECO classification.

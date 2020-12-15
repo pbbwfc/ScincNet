@@ -12,7 +12,7 @@
           "hash": "SKqskleBkkuo+asmWKRTHg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -24,7 +24,7 @@
           "hash": "malAsC3OKRfcHb8ia0SJqA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.Eco.html",
-          "hash": "YeIZZq5fL3dEtcL5eP2PFw=="
+          "hash": "MVbmwiwzASK98KGvzV/aeA=="
         }
       },
       "is_incremental": false,
@@ -60,7 +60,7 @@
           "hash": "k4Lz0lla+ePdw+Hgq5c2Ew=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -158,7 +158,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 4,
-          "skipped_file_count": 2
+          "skipped_file_count": 3
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

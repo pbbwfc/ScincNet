@@ -7,6 +7,7 @@
 #include "gfile.h"
 #include "pbook.h"
 #include "pgnparse.h"
+#include "timer.h"
 
 // TreeCache size for each open database:
 const uint SCID_TreeCacheSize = 1000; //250
@@ -125,6 +126,7 @@ namespace ScincFuncs {
 	{
 	public:
 		static int Read(String^ econm);
+		static int Base(String^% msgs);
 
 	};
 }

@@ -187,6 +187,21 @@ references:
   commentId: Overload:ScincFuncs.Eco.#ctor
   fullName: ScincFuncs.Eco.Eco
   nameWithType: Eco.Eco
+- uid: ScincFuncs.Eco.Base(System.String@)
+  name: Base(ref String)
+  href: api/ScincFuncs.Eco.html#ScincFuncs_Eco_Base_System_String__
+  commentId: M:ScincFuncs.Eco.Base(System.String@)
+  name.vb: Base(ByRef String)
+  fullName: ScincFuncs.Eco.Base(ref System.String)
+  fullName.vb: ScincFuncs.Eco.Base(ByRef System.String)
+  nameWithType: Eco.Base(ref String)
+  nameWithType.vb: Eco.Base(ByRef String)
+- uid: ScincFuncs.Eco.Base*
+  name: Base
+  href: api/ScincFuncs.Eco.html#ScincFuncs_Eco_Base_
+  commentId: Overload:ScincFuncs.Eco.Base
+  fullName: ScincFuncs.Eco.Base
+  nameWithType: Eco.Base
 - uid: ScincFuncs.Eco.Read(System.String)
   name: Read(String)
   href: api/ScincFuncs.Eco.html#ScincFuncs_Eco_Read_System_String_

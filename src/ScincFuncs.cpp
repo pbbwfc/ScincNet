@@ -23,6 +23,9 @@ static uint clipbaseMaxGames = CLIPBASE_MAX_GAMES;
 const int MAX_BASES = 9;
 const int CLIPBASE_NUM = MAX_BASES - 1;
 
+static char decimalPointChar = '.';
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // recalcFlagCounts:
 //    Updates all precomputed stats about the database: flag counts,
@@ -1034,4 +1037,133 @@ int ScincFuncs::Eco::Read(String^ econm)
 		return -1;
 	}
 	return ecoBook->Size();
+}
+
+/// <summary>
+/// Base: Reclassifies all games in the current base by ECO code.
+/// </summary>
+/// <param name="msgs">The messages returned</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::Eco::Base(String^% msgs)
+{
+	if (!ecoBook)
+	{
+		return -1;//No ECO Book is loaded
+	}
+	if (!db->inUse)
+	{
+		return -2;
+	}
+
+	bool extendedCodes = true;
+	Game* g = scratchGame;
+	IndexEntry* ie;
+	uint updateStart, update;
+	updateStart = update = 1000; // Update progress bar every 1000 games
+	errorT err = OK;
+	uint countClassified = 0; // Count of games classified.
+	dateT startDate = ZERO_DATE;
+
+	Timer timer; // Time the classification operation.
+
+	// Read each game:
+	for (uint i = 0; i < db->numGames; i++)
+	{
+		ie = db->idx->FetchEntry(i);
+		if (ie->GetLength() == 0)
+		{
+			continue;
+		}
+		ecoT oldEcoCode = ie->GetEcoCode();
+		if (db->gfile->ReadGame(db->bbuf, ie->GetOffset(),
+			ie->GetLength()) != OK)
+		{
+			continue;
+		}
+		db->bbuf->BackToStart();
+		g->Clear();
+		if (g->DecodeStart(db->bbuf) != OK)
+		{
+			continue;
+		}
+
+		// First, read in the game -- with a limit of 30 moves per
+		// side, since an ECO match after move 31 is very unlikely and
+		// we can save time by setting a limit. Also, stop when the
+		// material left in on the board is less than that of the
+		// book position with the least material, since no further
+		// positions in the game could possibly match.
+
+		uint maxPly = 60;
+		uint leastMaterial = ecoBook->FewestPieces();
+		uint material;
+
+		do
+		{
+			err = g->DecodeNextMove(db->bbuf, NULL);
+			maxPly--;
+			material = g->GetCurrentPos()->TotalMaterial();
+		} while (err == OK && maxPly > 0 && material >= leastMaterial);
+
+		// Now, move back through the game to the start searching for a
+		// match in the ECO book. Stop at the first match found since it
+		// is the deepest.
+
+		DString commentStr;
+		bool found = false;
+
+		do
+		{
+			if (ecoBook->FindOpcode(g->GetCurrentPos(), "eco",
+				&commentStr) == OK)
+			{
+				found = true;
+				break;
+			}
+			err = g->MoveBackup();
+		} while (err == OK);
+
+		ecoT ecoCode = ECO_None;
+		if (found)
+		{
+			ecoCode = eco_FromString(commentStr.Data());
+			if (!extendedCodes)
+			{
+				ecoCode = eco_BasicCode(ecoCode);
+			}
+		}
+		ie->SetEcoCode(ecoCode);
+		countClassified++;
+
+		// If the database is read-only or the ECO code has not changed,
+		// nothing needs to be written to the index file.
+		// Write the updated entry if necessary:
+
+		if (db->fileMode != FMODE_ReadOnly && ie->GetEcoCode() != oldEcoCode)
+		{
+			if (db->idx->WriteEntries(ie, i, 1) != OK)
+			{
+				return -3;//Error writing index file
+			}
+		}
+	}
+
+	// Update the index file header:
+	if (db->fileMode != FMODE_ReadOnly)
+	{
+		if (db->idx->WriteHeader() != OK)
+		{
+			return -4;//Error writing index file
+		}
+	}
+
+	recalcFlagCounts(db);
+
+	int centisecs = timer.CentiSecs();
+	char tempStr[100];
+	sprintf(tempStr, "Classified %u game%s in %d%c%02d seconds",
+		countClassified, strPlural(countClassified),
+		centisecs / 100, decimalPointChar, centisecs % 100);
+	msgs = gcnew System::String(tempStr);
+	return 0;
 }
