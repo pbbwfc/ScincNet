@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ScincNet": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

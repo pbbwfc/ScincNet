@@ -36,7 +36,7 @@ module Form =
                 if ndlg.ShowDialog() = DialogResult.OK then
                     //create database
                     let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), Path.GetFileNameWithoutExtension(ndlg.FileName))
-                    if ScincFuncs.Base.Create(fn)<>0 then
+                    if ScincFuncs.Base.Create(fn)<0 then
                         MessageBox.Show("Unable to create database: " + fn,"Scinc Error")|>ignore
                     else
                         //::recentFiles::add $fName
