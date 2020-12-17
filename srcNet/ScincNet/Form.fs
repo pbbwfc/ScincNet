@@ -1,6 +1,6 @@
 ﻿namespace ScincNet
 
-open System
+open System.IO
 open System.Drawing
 open System.Windows.Forms
 open FsChess
@@ -29,18 +29,57 @@ module Form =
         let anl = new PnlAnl(Dock=DockStyle.Fill)
 
         let donew() =
-            
-            
-            ()
+            if ScincFuncs.Base.CountFree()=0 then
+                MessageBox.Show("Too many databases open; close one first","Scinc Error")|>ignore
+            else
+                let ndlg = new SaveFileDialog(Title="Create New Database",Filter="Scid databases(*.si4)|*.si4",AddExtension=true,OverwritePrompt=false)
+                if ndlg.ShowDialog() = DialogResult.OK then
+                    //create database
+                    let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), Path.GetFileNameWithoutExtension(ndlg.FileName))
+                    if ScincFuncs.Base.Create(fn)<>0 then
+                        MessageBox.Show("Unable to create database: " + fn,"Scinc Error")|>ignore
+                    else
+                        //::recentFiles::add $fName
+                        //refreshWindows all
+                        //refreshSearchDBs
+                        //updateBoard -pgn -switch
+                        ()
+                else
+                    ()
+
+        let doopen() = 
+            if ScincFuncs.Base.CountFree()=0 then
+                MessageBox.Show("Too many databases open; close one first","Scinc Error")|>ignore
+            else
+                let ndlg = new OpenFileDialog(Title="Open Database",Filter="Scid databases(*.si4)|*.si4")
+                if ndlg.ShowDialog() = DialogResult.OK then
+                    //open database
+                    let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), Path.GetFileNameWithoutExtension(ndlg.FileName))
+                    if ScincFuncs.Base.Open(fn)<0 then
+                        MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
+                    else
+                        //::recentFiles::add $fName
+                        //refreshWindows all
+                        //refreshSearchDBs
+                        //updateBoard -pgn -switch
+                        ()
+                else
+                    ()
 
 
         //TODO
         let tb = 
             let ts = new ToolStrip()
+            // new
             let newb = new ToolStripButton(Image = img "new.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&New")
-
-
+            newb.Click.Add(fun _ -> donew())
             ts.Items.Add(newb)|>ignore
+            // open
+            let openb = new ToolStripButton(Image = img "opn.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Open")
+            openb.Click.Add(fun _ -> doopen())
+            ts.Items.Add(openb)|>ignore
+ 
+
             ts
 
         let mm = 
@@ -51,6 +90,10 @@ module Form =
             let newm = new ToolStripMenuItem(Image = img "new.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.N), Text = "&New")
             newm.Click.Add(fun _ -> donew())
             filem.DropDownItems.Add(newm)|>ignore
+            // file open
+            let openm = new ToolStripMenuItem(Image = img "opn.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.O), Text = "&Open")
+            openm.Click.Add(fun _ -> doopen())
+            filem.DropDownItems.Add(openm)|>ignore
             
             
             

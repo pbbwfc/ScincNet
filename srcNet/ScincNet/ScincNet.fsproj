@@ -7,14 +7,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+    <EmbeddedResource Include="Images\opn.png" />
     <EmbeddedResource Include="Images\new.png" />
     <Compile Include="Form.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
-	<ItemGroup />
-
 	<ItemGroup>
+	  <ProjectReference Include="..\..\src\ScincFuncs.vcxproj" />
 	  <ProjectReference Include="..\FsChess.WinForms\FsChess.WinForms.fsproj" />
 	  <ProjectReference Include="..\FsChessPgn\FsChessPgn.fsproj" />
 	</ItemGroup>
