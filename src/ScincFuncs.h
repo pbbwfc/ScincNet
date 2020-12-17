@@ -107,7 +107,7 @@ namespace ScincFuncs {
 		static bool InUse();
 		static int Create(String^ basenm);
 		static int Import(int% numgames, String^% msgs, String^ pgnfile);
-
+		static int CountFree();
 
 	};
 	/// <summary>

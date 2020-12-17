@@ -7,6 +7,14 @@ open FsChess
 open FsChess.WinForms
 
 module Form =
+    let img nm =
+        let thisExe = System.Reflection.Assembly.GetExecutingAssembly()
+        let file = thisExe.GetManifestResourceStream("ScincNet.Images." + nm)
+        Image.FromStream(file)
+    let ico nm =
+        let thisExe = System.Reflection.Assembly.GetExecutingAssembly()
+        let file = thisExe.GetManifestResourceStream("ScintNet.Icons." + nm)
+        new Icon(file)
 
     type FrmMain() as this =
         inherit Form(Text = "ScincNet", WindowState = FormWindowState.Maximized, IsMdiContainer = true)
@@ -20,11 +28,36 @@ module Form =
         let gms = new DgvGames(Dock=DockStyle.Fill)
         let anl = new PnlAnl(Dock=DockStyle.Fill)
 
+        let donew() =
+            
+            
+            ()
 
 
         //TODO
-        let tb = new ToolStrip()
-        let mm = new MenuStrip()
+        let tb = 
+            let ts = new ToolStrip()
+            let newb = new ToolStripButton(Image = img "new.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&New")
+
+
+            ts.Items.Add(newb)|>ignore
+            ts
+
+        let mm = 
+            let ms = new MenuStrip()
+            // file menu
+            let filem = new ToolStripMenuItem(Text = "&File")
+            // file new
+            let newm = new ToolStripMenuItem(Image = img "new.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.N), Text = "&New")
+            newm.Click.Add(fun _ -> donew())
+            filem.DropDownItems.Add(newm)|>ignore
+            
+            
+            
+            
+            ms.Items.Add(filem)|>ignore
+            
+            ms
 
 
 

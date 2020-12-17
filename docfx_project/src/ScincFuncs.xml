@@ -53,6 +53,12 @@ Clear: Clears the clipbase by closing and recreating it.
 </summary>
             <returns>returns 0 if successful</returns>
         </member>
+        <member name="M:ScincFuncs.Base.CountFree">
+            <summary>
+CountFree: Return count of free base slots.
+</summary>
+            <returns>count of free base slots</returns>
+        </member>
         <member name="M:ScincFuncs.Base.Import(System.Int32@,System.String@,System.String)">
             <summary>
 Import: Imports games from a PGN file to the current base.

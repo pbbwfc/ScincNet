@@ -49,6 +49,18 @@ references:
   commentId: Overload:ScincFuncs.Base.Close
   fullName: ScincFuncs.Base.Close
   nameWithType: Base.Close
+- uid: ScincFuncs.Base.CountFree
+  name: CountFree()
+  href: api/ScincFuncs.Base.html#ScincFuncs_Base_CountFree
+  commentId: M:ScincFuncs.Base.CountFree
+  fullName: ScincFuncs.Base.CountFree()
+  nameWithType: Base.CountFree()
+- uid: ScincFuncs.Base.CountFree*
+  name: CountFree
+  href: api/ScincFuncs.Base.html#ScincFuncs_Base_CountFree_
+  commentId: Overload:ScincFuncs.Base.CountFree
+  fullName: ScincFuncs.Base.CountFree
+  nameWithType: Base.CountFree
 - uid: ScincFuncs.Base.Create(System.String)
   name: Create(String)
   href: api/ScincFuncs.Base.html#ScincFuncs_Base_Create_System_String_

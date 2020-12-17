@@ -971,6 +971,23 @@ int ScincFuncs::Base::Import(int% numgames, String^% msgs, String^ pgnfile)
 	return 0;
 }
 
+/// <summary>
+/// CountFree: Return count of free base slots.
+/// </summary>
+/// <returns>count of free base slots</returns>
+int ScincFuncs::Base::CountFree()
+{
+	int numFree = 0;
+	for (int i = 0; i < MAX_BASES; i++)
+	{
+		if (!dbList[i].inUse)
+		{
+			numFree++;
+		}
+	}
+	return numFree;
+}
+
 
 // CLIPBASE functions
 
