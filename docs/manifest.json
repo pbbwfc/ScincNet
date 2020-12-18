@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.Base.html",
-          "hash": "iRAiQE+ytfBVAqcHj7BJ3g=="
+          "hash": "9dbOggMORLYmE3jBSCTYVw=="
         }
       },
       "is_incremental": false,
@@ -45,10 +45,10 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.ScidGame.html",
-          "hash": "WK9xfwQGk7nUGoH2ARgRkQ=="
+          "hash": "Kh9lrSyJdUe2JHJ3GLqcCA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -170,7 +170,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 5,
-          "skipped_file_count": 4
+          "skipped_file_count": 3
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

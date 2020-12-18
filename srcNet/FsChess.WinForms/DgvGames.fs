@@ -11,16 +11,28 @@ module Library4 =
         {
             Num : int
             White : string
-            W_Elo : string
             Black : string
-            B_Elo : string
             Result : string
+            Length : string
             Date : string
             Event : string
+            W_Elo : string
+            B_Elo : string
             Round : string
-            Site : string
+            Deleted : string
+            Variations : string
+            Comments : string
+            Annos : string
+            ECO : string
+            Opening : string
+            Flags : string
+            Start : string
+            Country : string
+            EventDate : string
+            EndMaterial : string
         }
-    
+    let formatStr = "gwbrmdWBnsDVCAoOUScEF"
+
     type DgvGames() as gms =
         inherit DataGridView(Width = 800, Height = 250, 
                 AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders, 
@@ -53,18 +65,19 @@ module Library4 =
 
         let igm2gmui (igmmv:(int * Game * string)) =
             let i,gm,mv = igmmv
-            {
-                Num = i+1
-                White = gm.WhitePlayer
-                W_Elo = gm.WhiteElo
-                Black = gm.BlackPlayer
-                B_Elo = gm.BlackElo
-                Result = gm.Result|>Result.ToUnicode
-                Date = gm|>GameDate.ToStr
-                Event = gm.Event
-                Round = gm.Round
-                Site = gm.Site
-            }
+            //{
+            //    Num = i+1
+            //    White = gm.WhitePlayer
+            //    W_Elo = gm.WhiteElo
+            //    Black = gm.BlackPlayer
+            //    B_Elo = gm.BlackElo
+            //    Result = gm.Result|>Result.ToUnicode
+            //    Date = gm|>GameDate.ToStr
+            //    Event = gm.Event
+            //    Round = gm.Round
+            //    Site = gm.Site
+            //}
+            ()
         
         let dosave() =
             if crw=0 then
@@ -113,8 +126,9 @@ module Library4 =
 
         ///Refresh the list
         member this.Refrsh() =
-            //b <- ScincFuncs.Base.Current
+            b <- ScincFuncs.Base.Current()
             gmsui.Clear()
+            //set chunk [sc_game list $glstart $c $glistCodes]
             //let chunk = ScincFuncs.ScidGame.List
             ()
 
@@ -131,7 +145,7 @@ module Library4 =
             filtgms <- allgms|>Games.FastFindBoard cbd indx
             gmsui.Clear()
             let dispgms = if filtgms.Length>201 then filtgms.[..200] else filtgms 
-            dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
+            //dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
             gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
             filtgms|>filtEvt.Trigger
             gmchg <- false
@@ -158,7 +172,7 @@ module Library4 =
             filtgms <- allgms|>Games.FastFindBoard cbd indx
             gmsui.Clear()
             let dispgms = if filtgms.Length>201 then filtgms.[..200] else filtgms 
-            dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
+            //dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
             gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
             filtgms|>filtEvt.Trigger
 
@@ -173,9 +187,10 @@ module Library4 =
             gmchg <- true
             let rw = gms.SelectedCells.[0].RowIndex
             let chdr = gmsui.[rw]
-            let nchdr = {chdr with White=cgm.WhitePlayer;W_Elo=cgm.WhiteElo;Black=cgm.BlackPlayer;B_Elo=cgm.BlackElo;Result=cgm.Result|>Result.ToUnicode;
-                                   Date=cgm|>GameDate.ToStr;Event=cgm.Event;Round=cgm.Round;Site=cgm.Site}
-            gmsui.[rw] <- nchdr
+            //let nchdr = {chdr with White=cgm.WhitePlayer;W_Elo=cgm.WhiteElo;Black=cgm.BlackPlayer;B_Elo=cgm.BlackElo;Result=cgm.Result|>Result.ToUnicode;
+            //                       Date=cgm|>GameDate.ToStr;Event=cgm.Event;Round=cgm.Round;Site=cgm.Site}
+            //gmsui.[rw] <- nchdr
+            ()
 
         ///Creates a new Game
         member _.NewGame() =
@@ -192,7 +207,7 @@ module Library4 =
             filtgms <- allgms|>Games.FastFindBoard cbd indx
             gmsui.Clear()
             let dispgms = if filtgms.Length>201 then filtgms.[..200] else filtgms 
-            dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
+            //dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
             gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
             filtgms|>filtEvt.Trigger
             gmchg <- false
@@ -219,7 +234,7 @@ module Library4 =
                 filtgms <- allgms|>Games.FastFindBoard cbd indx
                 gmsui.Clear()
                 let dispgms = if filtgms.Length>201 then filtgms.[..200] else filtgms 
-                dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
+                //dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
                 gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
                 filtgms|>filtEvt.Trigger
                 gmchg <- false

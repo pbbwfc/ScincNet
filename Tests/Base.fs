@@ -61,6 +61,11 @@ type TestBase1 () =
         let actual = Base.CountFree()
         Assert.AreEqual(7, actual)
 
+    [<TestMethod>]
+    member this.BaseCurrent () =
+        let actual = Base.Current()
+        Assert.AreEqual(1, actual)
+
 
 [<TestClass>]
 type TestBase2 () =

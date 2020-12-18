@@ -9,6 +9,7 @@ type TestScidGame () =
     let tfol = @"D:\GitHub\ScincNet\Tests\data\"
     let testdb = tfol + "test"
     let gmdb = tfol + "game"
+    let formatStr = "g* w* b* r* m* d* e* W* B* n* s* D* V* C* A* o* O* U* S* c* E* F* "
     
     [<TestCleanup>]  
     member this.testClean() = 
@@ -51,4 +52,13 @@ type TestScidGame () =
         let actual = ScidGame.SetTag("White","White Name")
         ScidGame.Save(1u)|>ignore
         Assert.AreEqual(0, actual)
+
+    [<TestMethod>]
+    member this.ScidGameList () =
+        let mutable glist = ""
+        let actual = ScidGame.List(&glist,1u,1u,formatStr)
+        Assert.AreEqual(0, actual)
+        let exp = "1 A Kalaiyalahan P Brooks 0-1 52 2016.10.17 V Wimbledon 1             ? Wimbledon     1  4 E01 1.d4 e6 2.c4    don 2016.10.17 2:3 \n"
+        Assert.AreEqual(exp, glist)
+
         

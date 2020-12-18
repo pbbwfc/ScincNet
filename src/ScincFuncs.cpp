@@ -988,6 +988,15 @@ int ScincFuncs::Base::CountFree()
 	return numFree;
 }
 
+/// <summary>
+/// Current: Returns the number of the current open database.
+/// </summary>
+/// <returns>the number of the current open database</returns>
+int ScincFuncs::Base::Current()
+{
+	return currentBase + 1;
+}
+
 
 // CLIPBASE functions
 
@@ -1201,15 +1210,6 @@ int ScincFuncs::ScidGame::StripComments()
 	return 0;
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sc_game_tags_set:
-//    Set the standard tags for this game.
-//    Args are: event, site, date, round, white, black, result,
-//              whiteElo, whiteRatingType, blackElo, blackRatingType, Eco,
-//              eventdate.
-//    Last arg is the non-standard tags, a string of lines in the format:
-//        [TagName "TagValue"]
-
 /// <summary>
 /// SetTag: Set a standard tag for this game.
 /// </summary>
@@ -1292,6 +1292,62 @@ int ScincFuncs::ScidGame::SetTag(String^ tag, String^ val)
 		return -1;
 	}
 
+	return 0;
+}
+
+/// <summary>
+/// List: Returns a portion of the game list according to the current filter.
+/// Takes start and count, where start is in the range (1..FilterCount).
+/// The next argument is the format string -- -- see index.cpp for details.,
+/// </summary>
+/// <param name="glist">the game list returned</param>
+/// <param name="start">the gane number to start from</param>
+/// <param name="count">the number of games to get</param>
+/// <param name="formatStr">the format string</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::ScidGame::List(String^% glist,unsigned int start, unsigned int count, String^ formatStr)
+{
+	msclr::interop::marshal_context oMarshalContext;
+
+	const char* format = oMarshalContext.marshal_as<const char*>(formatStr);
+	
+	if (!db->inUse)
+	{
+		return 0;
+	}
+
+	if (start < 1 || start > db->numGames)
+	{
+		return 0;
+	}
+	uint fcount = db->filter->Count();
+	if (fcount > count)
+	{
+		fcount = count;
+	}
+
+	uint index = db->filter->FilteredCountToIndex(start);
+	IndexEntry* ie;
+	char temp[2048];
+	int update, updateStart;
+	update = updateStart = 5000;
+	uint linenum = 0;
+	bool returnLineNum = false;
+	glist = gcnew System::String("");
+
+	while (index < db->numGames && count > 0)
+	{
+		if (db->filter->Get(index))
+		{
+			ie = db->idx->FetchEntry(index);
+			ie->PrintGameInfo(temp, start, index + 1, db->nb, format);
+			// separate lines by newline &&& Issues ?
+			glist = glist + gcnew System::String(temp) + gcnew System::String("\n");
+			count--;
+			start++;
+		}
+		index++;
+	}
 	return 0;
 }
 

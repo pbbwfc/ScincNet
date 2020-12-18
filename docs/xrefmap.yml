@@ -73,6 +73,18 @@ references:
   commentId: Overload:ScincFuncs.Base.Create
   fullName: ScincFuncs.Base.Create
   nameWithType: Base.Create
+- uid: ScincFuncs.Base.Current
+  name: Current()
+  href: api/ScincFuncs.Base.html#ScincFuncs_Base_Current
+  commentId: M:ScincFuncs.Base.Current
+  fullName: ScincFuncs.Base.Current()
+  nameWithType: Base.Current()
+- uid: ScincFuncs.Base.Current*
+  name: Current
+  href: api/ScincFuncs.Base.html#ScincFuncs_Base_Current_
+  commentId: Overload:ScincFuncs.Base.Current
+  fullName: ScincFuncs.Base.Current
+  nameWithType: Base.Current
 - uid: ScincFuncs.Base.Getfilename(System.String@)
   name: Getfilename(out String)
   href: api/ScincFuncs.Base.html#ScincFuncs_Base_Getfilename_System_String__
@@ -244,6 +256,21 @@ references:
   commentId: Overload:ScincFuncs.ScidGame.#ctor
   fullName: ScincFuncs.ScidGame.ScidGame
   nameWithType: ScidGame.ScidGame
+- uid: ScincFuncs.ScidGame.List(System.String@,System.UInt32,System.UInt32,System.String)
+  name: List(ref String, UInt32, UInt32, String)
+  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_List_System_String__System_UInt32_System_UInt32_System_String_
+  commentId: M:ScincFuncs.ScidGame.List(System.String@,System.UInt32,System.UInt32,System.String)
+  name.vb: List(ByRef String, UInt32, UInt32, String)
+  fullName: ScincFuncs.ScidGame.List(ref System.String, System.UInt32, System.UInt32, System.String)
+  fullName.vb: ScincFuncs.ScidGame.List(ByRef System.String, System.UInt32, System.UInt32, System.String)
+  nameWithType: ScidGame.List(ref String, UInt32, UInt32, String)
+  nameWithType.vb: ScidGame.List(ByRef String, UInt32, UInt32, String)
+- uid: ScincFuncs.ScidGame.List*
+  name: List
+  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_List_
+  commentId: Overload:ScincFuncs.ScidGame.List
+  fullName: ScincFuncs.ScidGame.List
+  nameWithType: ScidGame.List
 - uid: ScincFuncs.ScidGame.Load(System.UInt32)
   name: Load(UInt32)
   href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_Load_System_UInt32_

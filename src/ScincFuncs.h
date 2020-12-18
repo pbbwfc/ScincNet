@@ -108,6 +108,7 @@ namespace ScincFuncs {
 		static int Create(String^ basenm);
 		static int Import(int% numgames, String^% msgs, String^ pgnfile);
 		static int CountFree();
+		static int Current();
 
 	};
 	/// <summary>
@@ -129,6 +130,8 @@ namespace ScincFuncs {
 		static int Save(unsigned int gnum);
 		static int StripComments();
 		static int SetTag(String^ tag, String^ val);
+		static int List(String^% glist, unsigned int start, unsigned int count, String^ formatStr);
+
 
 	};
 	/// <summary>

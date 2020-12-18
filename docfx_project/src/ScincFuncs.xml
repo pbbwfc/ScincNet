@@ -18,6 +18,18 @@ Read: Reads a book file for ECO classification.
             <param name="econm">the ECO file name</param>
             <returns>returns the book size (number of positions)</returns>
         </member>
+        <member name="M:ScincFuncs.ScidGame.List(System.String@,System.UInt32,System.UInt32,System.String)">
+            <summary>
+List: Returns a portion of the game list according to the current filter.
+Takes start and count, where start is in the range (1..FilterCount).
+The next argument is the format string -- -- see index.cpp for details.,
+</summary>
+            <param name="glist">the game list returned</param>
+            <param name="start">the gane number to start from</param>
+            <param name="count">the number of games to get</param>
+            <param name="formatStr">the format string</param>
+            <returns>returns 0 if successful</returns>
+        </member>
         <member name="M:ScincFuncs.ScidGame.SetTag(System.String,System.String)">
             <summary>
 SetTag: Set a standard tag for this game.
@@ -52,6 +64,12 @@ Load: Takes a game number and loads the game
 Clear: Clears the clipbase by closing and recreating it.
 </summary>
             <returns>returns 0 if successful</returns>
+        </member>
+        <member name="M:ScincFuncs.Base.Current">
+            <summary>
+Current: Returns the number of the current open database.
+</summary>
+            <returns>the number of the current open database</returns>
         </member>
         <member name="M:ScincFuncs.Base.CountFree">
             <summary>
