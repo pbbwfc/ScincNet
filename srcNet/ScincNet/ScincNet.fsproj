@@ -29,7 +29,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\ScincFuncs.vcxproj" />
 	  <ProjectReference Include="..\FsChess.WinForms\FsChess.WinForms.fsproj" />
 	  <ProjectReference Include="..\FsChessPgn\FsChessPgn.fsproj" />
 	</ItemGroup>

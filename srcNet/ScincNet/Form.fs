@@ -3,7 +3,6 @@
 open System.IO
 open System.Drawing
 open System.Windows.Forms
-open FsChess
 open FsChess.WinForms
 
 module Form =
@@ -27,6 +26,28 @@ module Form =
         let sts = new WbStats(Dock=DockStyle.Fill)
         let gms = new DgvGames(Dock=DockStyle.Fill)
         let anl = new PnlAnl(Dock=DockStyle.Fill)
+
+        let refreshWindows() =
+            //::windows::gamelist::Reload
+            gms.Reload()
+
+            //### Done in updateBoard
+            //# ::tree::refresh
+            //::windows::stats::Refresh
+            //::tools::graphs::score::Refresh
+            
+            //if {$all != "no"} {
+            //  ### too slow to refresh all the time
+            //  ### Some refreshes will have to call these two themselves
+            //  ### They *should* be done *sometime* when doing a base switch
+            //  ::plist::refresh
+            //}
+
+            //updateMenuStates
+            //updateTitle
+            //updateStatusBar
+            //refreshCustomFlags
+
 
         let donew() =
             if ScincFuncs.Base.CountFree()=0 then

@@ -64,9 +64,8 @@
     <Compile Include="LinkAll.fs" />
   </ItemGroup>
 
-  <ItemGroup />
-
   <ItemGroup>
+    <ProjectReference Include="..\..\src\ScincFuncs.vcxproj" />
     <ProjectReference Include="..\FsChessPgn\FsChessPgn.fsproj" />
   </ItemGroup>
 

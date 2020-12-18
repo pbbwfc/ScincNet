@@ -42,6 +42,9 @@ module Library4 =
         let mutable gmchg = false
         let mutable gmsui = new System.ComponentModel.BindingList<GmUI>()
         let bs = new BindingSource()
+        //scinc related
+        let mutable b = 0 //base number
+
 
         //events
         let filtEvt = new Event<_>()
@@ -103,6 +106,21 @@ module Library4 =
             setup()
             gms.CellClick.Add(doclick)
 
+        ///Reloads the list
+        member this.Reload() =
+            //b <- ScincFuncs.Base.Current
+            this.Refrsh()
+
+        ///Refresh the list
+        member this.Refrsh() =
+            //b <- ScincFuncs.Base.Current
+            gmsui.Clear()
+            //let chunk = ScincFuncs.ScidGame.List
+            ()
+
+
+
+        
         ///Sets the PGN file to be used
         member gms.SetPgn(ipgn:string) =
             pgn <- ipgn
