@@ -39,7 +39,7 @@ module Form =
                     if ScincFuncs.Base.Create(fn)<0 then
                         MessageBox.Show("Unable to create database: " + fn,"Scinc Error")|>ignore
                     else
-                        //::recentFiles::add $fName
+                        Recents.add fn
                         //refreshWindows all
                         //refreshSearchDBs
                         //updateBoard -pgn -switch
@@ -58,7 +58,7 @@ module Form =
                     if ScincFuncs.Base.Open(fn)<0 then
                         MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
                     else
-                        //::recentFiles::add $fName
+                        Recents.add fn
                         //refreshWindows all
                         //refreshSearchDBs
                         //updateBoard -pgn -switch
