@@ -4,6 +4,13 @@
         "ScincFuncs"
     </assembly>
     <members>
+        <member name="M:ScincFuncs.Pos.Board(System.String@)">
+            <summary>
+Board: Returns a string representation of the position
+</summary>
+            <param name="bdstr">The string returned</param>
+            <returns>returns 0 if successful</returns>
+        </member>
         <member name="M:ScincFuncs.Eco.Base(System.String@)">
             <summary>
 Base: Reclassifies all games in the current base by ECO code.
@@ -17,6 +24,13 @@ Read: Reads a book file for ECO classification.
 </summary>
             <param name="econm">the ECO file name</param>
             <returns>returns the book size (number of positions)</returns>
+        </member>
+        <member name="M:ScincFuncs.ScidGame.Pgn(System.String@)">
+            <summary>
+Pgn: Returns the PGN representation of the game.
+</summary>
+            <param name="pgn">string that will hold the pgen representation</param>
+            <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.ScidGame.List(System.String@,System.UInt32,System.UInt32,System.String)">
             <summary>
@@ -142,6 +156,11 @@ Autoloadgame: Sets or returns the autoload number for the database - the game nu
             <param name="getbase">Whether to get or set the database</param>
             <param name="basenum">The number to set</param>
             <returns>returns 0 if successful</returns>
+        </member>
+        <member name="T:ScincFuncs.Pos">
+            <summary>
+Class that hold functions relating to the position
+</summary>
         </member>
         <member name="T:ScincFuncs.Eco">
             <summary>

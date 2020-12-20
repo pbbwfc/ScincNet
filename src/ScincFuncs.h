@@ -131,7 +131,7 @@ namespace ScincFuncs {
 		static int StripComments();
 		static int SetTag(String^ tag, String^ val);
 		static int List(String^% glist, unsigned int start, unsigned int count, String^ formatStr);
-
+		static int ScincFuncs::ScidGame::Pgn(String^% pgn);
 
 	};
 	/// <summary>
@@ -143,5 +143,13 @@ namespace ScincFuncs {
 		static int Read(String^ econm);
 		static int Base(String^% msgs);
 
+	};
+	/// <summary>
+	/// Class that hold functions relating to the position
+	/// </summary>
+	public ref class Pos
+	{
+	public:
+		static int Board(String^% bdstr);
 	};
 }

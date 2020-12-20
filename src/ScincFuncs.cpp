@@ -1329,10 +1329,6 @@ int ScincFuncs::ScidGame::List(String^% glist,unsigned int start, unsigned int c
 	uint index = db->filter->FilteredCountToIndex(start);
 	IndexEntry* ie;
 	char temp[2048];
-	int update, updateStart;
-	update = updateStart = 5000;
-	uint linenum = 0;
-	bool returnLineNum = false;
 	glist = gcnew System::String("");
 
 	while (index < db->numGames && count > 0)
@@ -1351,6 +1347,25 @@ int ScincFuncs::ScidGame::List(String^% glist,unsigned int start, unsigned int c
 	return 0;
 }
 
+/// <summary>
+/// Pgn: Returns the PGN representation of the game.
+/// </summary>
+/// <param name="pgn">string that will hold the pgen representation</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::ScidGame::Pgn(String^% pgn)
+{
+	scidBaseT* base = db;
+	Game* g = db->game;
+	uint lineWidth = 99999;
+	g->ResetPgnStyle();
+	g->SetPgnFormat(PGN_FORMAT_Plain);
+	g->AddPgnStyle(PGN_STYLE_TAGS | PGN_STYLE_COMMENTS | PGN_STYLE_VARS);
+	base->tbuf->Empty();
+	base->tbuf->SetWrapColumn(lineWidth);
+	g->WriteToPGN(base->tbuf);
+	pgn = gcnew System::String(base->tbuf->GetBuffer());
+	return 0;
+}
 
 // ECO functions
 
@@ -1507,5 +1522,22 @@ int ScincFuncs::Eco::Base(String^% msgs)
 		countClassified, strPlural(countClassified),
 		centisecs / 100, decimalPointChar, centisecs % 100);
 	msgs = gcnew System::String(tempStr);
+	return 0;
+}
+
+
+//POS functions
+
+/// <summary>
+/// Board: Returns a string representation of the position:
+/// RNBQKBNRPPPPPPPP................................pppppppprnbqkbnr w
+/// </summary>
+/// <param name="bdstr">The string returned</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::Pos::Board(String^% bdstr)
+{
+	char boardStr[200];
+	db->game->GetCurrentPos()->MakeLongStr(boardStr);
+	bdstr = gcnew System::String(boardStr);
 	return 0;
 }

@@ -14,11 +14,11 @@ module Library6 =
         bd.MvMade|>Observable.add pgn.DoMove
         bd.BdChng |> Observable.add gms.SetBoard
         pgn.BdChng |> Observable.add gms.SetBoard
-        gms.FiltChng |> Observable.add sts.CalcStats
+        //gms.FiltChng |> Observable.add sts.CalcStats
         sts.MvSel |> Observable.add bd.DoMove
         gms.GmSel |> Observable.add pgn.SwitchGame
         pgn.GmChng |> Observable.add gms.ChangeGame
         pgn.HdrChng |> Observable.add gms.ChangeGameHdr
-        gms.PgnChng |> Observable.add bd.SetBoard 
+        //gms.PgnChng |> Observable.add bd.SetBoard 
 
         bd,pgn,gms,sts

@@ -19,6 +19,7 @@ module Library4 =
             W_Elo : string
             B_Elo : string
             Round : string
+            Site : string
             Deleted : string
             Variations : string
             Comments : string
@@ -31,7 +32,6 @@ module Library4 =
             EventDate : string
             EndMaterial : string
         }
-    let formatStr = "gwbrmdWBnsDVCAoOUScEF"
 
     type DgvGames() as gms =
         inherit DataGridView(Width = 800, Height = 250, 
@@ -45,10 +45,7 @@ module Library4 =
                 RowHeadersVisible=false)
 
         let mutable pgn = ""
-        let mutable allgms:(int * Game) list = []
-        let mutable indx = new System.Collections.Generic.Dictionary<Set<Square>,int list>()
         let mutable cbd = Board.Start
-        let mutable filtgms:(int * Game * string) list = []
         let mutable crw = -1
         let mutable cgm = GameEMP
         let mutable gmchg = false
@@ -63,29 +60,39 @@ module Library4 =
         let selEvt = new Event<_>()
         let pgnEvt = new Event<_>()
 
-        let igm2gmui (igmmv:(int * Game * string)) =
-            let i,gm,mv = igmmv
-            //{
-            //    Num = i+1
-            //    White = gm.WhitePlayer
-            //    W_Elo = gm.WhiteElo
-            //    Black = gm.BlackPlayer
-            //    B_Elo = gm.BlackElo
-            //    Result = gm.Result|>Result.ToUnicode
-            //    Date = gm|>GameDate.ToStr
-            //    Event = gm.Event
-            //    Round = gm.Round
-            //    Site = gm.Site
-            //}
-            ()
+        let str2gmui (ln:string) =
+            let f = ln.Split([|'|'|])
+            {
+                Num =  f.[0]|>int
+                White = f.[1]
+                Black = f.[2]
+                Result = f.[3]
+                Length = f.[4]
+                Date = f.[5]
+                Event = f.[6]
+                W_Elo = f.[7]
+                B_Elo = f.[8]
+                Round = f.[9]
+                Site = f.[10]
+                Deleted = f.[11]
+                Variations = f.[12]
+                Comments = f.[13]
+                Annos = f.[14]
+                ECO = f.[15]
+                Opening = f.[16]
+                Flags = f.[17]
+                Start = f.[18]
+                Country = f.[19]
+                EventDate = f.[20]
+                EndMaterial = f.[21]
+            }
+
+        
         
         let dosave() =
-            if crw=0 then
-                ((0,cgm)::allgms.Tail)|>List.map snd|>Games.WriteFile pgn
-            elif crw=allgms.Length-1 then
-                (allgms.[..crw-1]@[crw,cgm])|>List.map snd|>Games.WriteFile pgn
-            else
-                (allgms.[..crw-1]@[crw,cgm]@allgms.[crw+1..])|>List.map snd|>Games.WriteFile pgn
+            ///TODO
+            ()
+            
         
         let doclick(e:DataGridViewCellEventArgs) =
             let rw = e.RowIndex
@@ -95,19 +102,13 @@ module Library4 =
                 let dr = MessageBox.Show("Do you want to save the game: " + nm + " ?","Save Game",MessageBoxButtons.YesNoCancel)
                 if dr=DialogResult.Yes then
                     dosave()
-                    let ci,cg,_ = filtgms.[rw]
-                    crw <- ci
-                    cgm <- cg
+                    //TODO
                     cgm|>selEvt.Trigger
                 elif dr=DialogResult.No then
-                    let ci,cg,_ = filtgms.[rw]
-                    crw <- ci
-                    cgm <- cg
+                    //TODO
                     cgm|>selEvt.Trigger
             else
-                let ci,cg,_ = filtgms.[rw]
-                crw <- ci
-                cgm <- cg
+                //TODO
                 cgm|>selEvt.Trigger
             gms.CurrentCell <- gms.Rows.[rw].Cells.[0]
         
@@ -129,52 +130,33 @@ module Library4 =
             b <- ScincFuncs.Base.Current()
             gmsui.Clear()
             //set chunk [sc_game list $glstart $c $glistCodes]
-            //let chunk = ScincFuncs.ScidGame.List
+            let formatStr = "g*|w*|b*|r*|m*|d*|e*|W*|B*|n*|s*|D*|V*|C*|A*|o*|O*|U*|S*|c*|E*|F*"
+            let mutable glist = ""
+            let chunk = ScincFuncs.ScidGame.List(&glist,1u,100u,formatStr)
+            let lines =
+                let glist1 = glist.TrimEnd('\n')
+                glist1.Split([|'\n'|])
+            lines|>Array.map str2gmui|>Array.iter(fun gmui -> gmsui.Add(gmui))
+            gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
+
             ()
 
 
-
-        
-        ///Sets the PGN file to be used
-        member gms.SetPgn(ipgn:string) =
-            pgn <- ipgn
-            allgms <- pgn|>Games.ReadIndexListFromFile
-            pgn|>Games.CreateIndex
-            indx <- pgn|>Games.GetIndex
-            cbd <- Board.Start
-            filtgms <- allgms|>Games.FastFindBoard cbd indx
-            gmsui.Clear()
-            let dispgms = if filtgms.Length>201 then filtgms.[..200] else filtgms 
-            //dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
-            gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
-            filtgms|>filtEvt.Trigger
-            gmchg <- false
-            if not dispgms.IsEmpty then
-                let ci,cg,_ = dispgms.Head
-                crw <- ci
-                cgm <- cg
-                cgm|>selEvt.Trigger
-                cbd|>pgnEvt.Trigger
-
-        ///Saves the PGN file
-        member _.SavePgn() = dosave()
+        ///Saves the database
+        member _.Save() = dosave()
 
         ///Saves the PGN file with a new name
-        member _.SaveAsPgn(ipgn:string) = 
-            //copy index
-            System.IO.File.Copy(pgn + ".indx",ipgn + ".indx")
-            pgn <- ipgn
+        member _.SaveAs(inm:string) = 
+            //TODO
             dosave()
 
         ///Sets the Board to be filtered on
         member gms.SetBoard(ibd:Brd) =
             cbd <- ibd
-            filtgms <- allgms|>Games.FastFindBoard cbd indx
             gmsui.Clear()
-            let dispgms = if filtgms.Length>201 then filtgms.[..200] else filtgms 
-            //dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
+            //TODO - need to filter by board
             gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
-            filtgms|>filtEvt.Trigger
+            //filtgms|>filtEvt.Trigger
 
         ///Changes the contents of the Game that is selected
         member _.ChangeGame(igm:Game) =
@@ -202,14 +184,11 @@ module Library4 =
                     dosave()
             cbd <- Board.Start
             cgm <- GameEMP
-            crw <- allgms.Length
-            allgms <- allgms@[crw,cgm]
-            filtgms <- allgms|>Games.FastFindBoard cbd indx
+            crw <- 0 //TODO
             gmsui.Clear()
-            let dispgms = if filtgms.Length>201 then filtgms.[..200] else filtgms 
-            //dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
+            //TODO
             gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
-            filtgms|>filtEvt.Trigger
+            //filtgms|>filtEvt.Trigger
             gmchg <- false
             cgm|>selEvt.Trigger
 
@@ -220,37 +199,23 @@ module Library4 =
             if dr=DialogResult.Yes then
                 let orw = gms.SelectedCells.[0].RowIndex
                 //save without gams
-                if crw=0 then
-                    (allgms.Tail)|>List.map snd|>Games.WriteFile pgn
-                elif crw=allgms.Length-1 then
-                    (allgms.[..crw-1])|>List.map snd|>Games.WriteFile pgn
-                else
-                    (allgms.[..crw-1]@allgms.[crw+1..])|>List.map snd|>Games.WriteFile pgn
                 //reload saves pgn
-                allgms <- pgn|>Games.ReadIndexListFromFile
-                pgn|>Games.CreateIndex
-                indx <- pgn|>Games.GetIndex
                 cbd <- Board.Start
-                filtgms <- allgms|>Games.FastFindBoard cbd indx
                 gmsui.Clear()
-                let dispgms = if filtgms.Length>201 then filtgms.[..200] else filtgms 
-                //dispgms|>List.map igm2gmui|>List.iter(fun gmui -> gmsui.Add(gmui))
+                //TODO
                 gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
-                filtgms|>filtEvt.Trigger
+                //filtgms|>filtEvt.Trigger
                 gmchg <- false
                 //select row
                 let rw = if orw=0 then 0 else orw-1
-                let ci,cg,_ = filtgms.[rw]
-                crw <- ci
-                cgm <- cg
+                //TODO
                 cgm|>selEvt.Trigger
                 gms.CurrentCell <- gms.Rows.[rw].Cells.[0]
 
         ///Export filtered games
         member gms.ExportFilter(filtfil:string) =
-            filtgms
-            |>List.map(fun (_,gm,_) -> gm)
-            |>Games.WriteFile filtfil
+            //TODO
+            ()
         
         ///Provides the revised filtered list of Games
         member __.FiltChng = filtEvt.Publish

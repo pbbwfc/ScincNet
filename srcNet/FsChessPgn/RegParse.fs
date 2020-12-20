@@ -150,4 +150,9 @@ module RegParse =
                     yield gm
         }
     
-
+    let GameFromString(str : string) =
+        let byteArray = Encoding.ASCII.GetBytes(str)
+        let stream = new MemoryStream(byteArray)
+        let sr = new StreamReader(stream)
+        let gm = NextGameRdr(sr)
+        gm    

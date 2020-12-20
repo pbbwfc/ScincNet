@@ -436,6 +436,13 @@ module Library2 =
             irs <- [-1]
             board|>bdchngEvt.Trigger
 
+
+        member pgn.Refrsh() =
+            let mutable pgnstr = ""
+            if ScincFuncs.ScidGame.Pgn(&pgnstr)=0 then
+                let gm = FsChessPgn.RegParse.GameFromString(pgnstr)
+                pgn.SetGame(gm)
+
         ///Goes to the next Move in the Game
         member pgn.NextMove() = 
             let rec getnxt oi ci (mtel:MoveTextEntry list) =

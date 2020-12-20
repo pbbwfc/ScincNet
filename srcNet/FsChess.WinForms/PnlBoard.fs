@@ -283,6 +283,14 @@ module Library1 =
             board<-ibd
             setpcsmvs()
 
+        member bd.Refrsh() =
+            //TODO
+            let mutable bdstr = ""
+            ()
+            //if ScincFuncs.Pos.Board(&bdstr) = 0 then
+            //    let cbd = parse(bdstr)
+            //    bd.SetBoard(cbd)
+
         ///Orients the Board depending on whether White
         member bd.Orient(isw:bool) =
             isw|>orient

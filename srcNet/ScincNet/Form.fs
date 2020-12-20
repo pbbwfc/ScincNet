@@ -26,29 +26,28 @@ module Form =
         let sts = new WbStats(Dock=DockStyle.Fill)
         let gms = new DgvGames(Dock=DockStyle.Fill)
         let anl = new PnlAnl(Dock=DockStyle.Fill)
+        let ts = new ToolStrip()
+        let ms = new MenuStrip()
+        
 
+        let updateMenuStates() =
+            //TODO - do updates such as recents
+            ()
+
+        let updateTitle() =
+            let mutable fname = ""
+            if ScincFuncs.Base.Getfilename(&fname) = 0 then
+                this.Text <- "ScincNet - " + Path.GetFileNameWithoutExtension(fname)
+        
         let refreshWindows() =
-            //::windows::gamelist::Reload
             gms.Reload()
+            updateMenuStates()
+            updateTitle()
 
-            //### Done in updateBoard
-            //# ::tree::refresh
-            //::windows::stats::Refresh
-            //::tools::graphs::score::Refresh
+        let updateBoard() =
+            pgn.Refrsh()
+            bd.Refrsh()
             
-            //if {$all != "no"} {
-            //  ### too slow to refresh all the time
-            //  ### Some refreshes will have to call these two themselves
-            //  ### They *should* be done *sometime* when doing a base switch
-            //  ::plist::refresh
-            //}
-
-            //updateMenuStates
-            //updateTitle
-            //updateStatusBar
-            //refreshCustomFlags
-
-
         let donew() =
             if ScincFuncs.Base.CountFree()=0 then
                 MessageBox.Show("Too many databases open; close one first","Scinc Error")|>ignore
@@ -61,9 +60,8 @@ module Form =
                         MessageBox.Show("Unable to create database: " + fn,"Scinc Error")|>ignore
                     else
                         Recents.add fn
-                        //refreshWindows all
-                        //refreshSearchDBs
-                        //updateBoard -pgn -switch
+                        refreshWindows()
+                        updateBoard()
                         ()
                 else
                     ()
@@ -79,18 +77,19 @@ module Form =
                     if ScincFuncs.Base.Open(fn)<0 then
                         MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
                     else
+                        let current = ScincFuncs.Base.Current()
+                        let auto = ScincFuncs.Base.Autoloadgame(true,uint32(current))
+                        ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
                         Recents.add fn
-                        //refreshWindows all
-                        //refreshSearchDBs
-                        //updateBoard -pgn -switch
+                        refreshWindows()
+                        updateBoard()
                         ()
                 else
                     ()
 
 
         //TODO
-        let tb = 
-            let ts = new ToolStrip()
+        let createts() = 
             // new
             let newb = new ToolStripButton(Image = img "new.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&New")
             newb.Click.Add(fun _ -> donew())
@@ -99,12 +98,8 @@ module Form =
             let openb = new ToolStripButton(Image = img "opn.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Open")
             openb.Click.Add(fun _ -> doopen())
             ts.Items.Add(openb)|>ignore
- 
 
-            ts
-
-        let mm = 
-            let ms = new MenuStrip()
+        let createms() = 
             // file menu
             let filem = new ToolStripMenuItem(Text = "&File")
             // file new
@@ -120,8 +115,6 @@ module Form =
             
             
             ms.Items.Add(filem)|>ignore
-            
-            ms
 
 
 
@@ -158,6 +151,8 @@ module Form =
             lftpnl|>lfpnl.Controls.Add
             lfpnl|>bgpnl.Controls.Add
             bgpnl|>this.Controls.Add
-            tb|>this.Controls.Add
-            mm|>this.Controls.Add
+            createts()
+            ts|>this.Controls.Add
+            createms()
+            ms|>this.Controls.Add
     

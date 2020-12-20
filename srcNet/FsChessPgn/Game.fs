@@ -1,5 +1,7 @@
 ﻿namespace FsChessPgn
 
+open System.IO
+open System.Text
 open FsChess
 
 module Game =
