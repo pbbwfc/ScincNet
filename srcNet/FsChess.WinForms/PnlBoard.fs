@@ -2,11 +2,18 @@
 
 open System.Drawing
 open System.Windows.Forms
-open FsChess
 
 [<AutoOpen>]
-module Library1 =
-    
+module PnlBoardLib =
+    type PieceType = 
+        | EMPTY = 0
+        | Pawn = 1
+        | Knight = 2
+        | Bishop = 3
+        | Rook = 4
+        | Queen = 5
+        | King = 6
+
     let private img nm =
         let thisExe = System.Reflection.Assembly.GetExecutingAssembly()
         let file = thisExe.GetManifestResourceStream("FsChess.WinForms.Images." + nm)
@@ -21,7 +28,7 @@ module Library1 =
     type PnlBoard() as bd =
         inherit Panel(Width = 400, Height = 450)
 
-        let mutable board = Board.Start
+        let mutable board = ""
         let mutable sqTo = -1
         let mutable cCur = Cursors.Default
         let mutable prompctp = PieceType.EMPTY
@@ -67,7 +74,7 @@ module Library1 =
                 sq.BackColor <- if i % 2 = 0 then Color.Green else Color.PaleGreen
                 sq.Top <- 1
                 sq.Left <- i * 42 + 1
-                sq.Image <- if board.WhosTurn=Player.White then wpcims.[i] else bpcims.[i]
+                sq.Image <- if board.EndsWith("w") then wpcims.[i] else bpcims.[i]
                 //events
                 let pctps = [ PieceType.Queen;PieceType.Rook;PieceType.Knight;PieceType.Bishop]
                 sq.Click.Add(fun e -> 
@@ -85,78 +92,60 @@ module Library1 =
         let bdEvt = new Event<_>()
 
         //functions
+        /// get image given char
+        let getimg c =
+            match c with
+            | 'P' -> img "WhitePawn.png"
+            | 'B' -> img "WhiteBishop.png"
+            | 'N' -> img "WhiteKnight.png"
+            | 'R' -> img "WhiteRook.png"
+            | 'K' -> img "WhiteKing.png"
+            | 'Q' -> img "WhiteQueen.png"
+            | 'p' -> img "BlackPawn.png"
+            | 'b' -> img "BlackBishop.png"
+            | 'n' -> img "BlackKnight.png"
+            | 'r' -> img "BlackRook.png"
+            | 'k' -> img "BlackKing.png"
+            | 'q' -> img "BlackQueen.png"
+            | _ -> failwith "invalid piece"
         /// get cursor given char
         let getcur c =
             match c with
-            | "P" -> cur "WhitePawn.cur"
-            | "B" -> cur "WhiteBishop.cur"
-            | "N" -> cur "WhiteKnight.cur"
-            | "R" -> cur "WhiteRook.cur"
-            | "K" -> cur "WhiteKing.cur"
-            | "Q" -> cur "WhiteQueen.cur"
-            | "p" -> cur "BlackPawn.cur"
-            | "b" -> cur "BlackBishop.cur"
-            | "n" -> cur "BlackKnight.cur"
-            | "r" -> cur "BlackRook.cur"
-            | "k" -> cur "BlackKing.cur"
-            | "q" -> cur "BlackQueen.cur"
-            | _ -> Cursors.Default
- 
-        /// get image given char
-        let getim c =
-            match c with
-            | "P" -> img "WhitePawn.png"
-            | "B" -> img "WhiteBishop.png"
-            | "N" -> img "WhiteKnight.png"
-            | "R" -> img "WhiteRook.png"
-            | "K" -> img "WhiteKing.png"
-            | "Q" -> img "WhiteQueen.png"
-            | "p" -> img "BlackPawn.png"
-            | "b" -> img "BlackBishop.png"
-            | "n" -> img "BlackKnight.png"
-            | "r" -> img "BlackRook.png"
-            | "k" -> img "BlackKing.png"
-            | "q" -> img "BlackQueen.png"
+            | 'P' -> cur "WhitePawn.cur"
+            | 'B' -> cur "WhiteBishop.cur"
+            | 'N' -> cur "WhiteKnight.cur"
+            | 'R' -> cur "WhiteRook.cur"
+            | 'K' -> cur "WhiteKing.cur"
+            | 'Q' -> cur "WhiteQueen.cur"
+            | 'p' -> cur "BlackPawn.cur"
+            | 'b' -> cur "BlackBishop.cur"
+            | 'n' -> cur "BlackKnight.cur"
+            | 'r' -> cur "BlackRook.cur"
+            | 'k' -> cur "BlackKing.cur"
+            | 'q' -> cur "BlackQueen.cur"
             | _ -> failwith "invalid piece"
 
-        ///set pieces on squares
-        let setpcsmvs () =
-            let setpcsmvs() =
-                board.PieceAt
-                |>List.map Piece.ToStr
-                |> List.iteri (fun i c -> sqs.[i].Image <- if c = " " then null else getim c)
-            if (bd.InvokeRequired) then 
-                try 
-                    bd.Invoke(MethodInvoker(setpcsmvs)) |> ignore
-                with _ -> ()
-            else setpcsmvs()
 
         ///orient board
         let orient isw =
-            let ori() =
-                let possq i (sq : PictureBox) =
-                    let r = i / 8
-                    let f = i % 8
-                    if not isw then 
-                        sq.Top <- 7 * 42 - r * 42 + 1
-                        sq.Left <- 7 * 42 - f * 42 + 1
-                    else 
-                        sq.Left <- f * 42 + 1
-                        sq.Top <- r * 42 + 1
-                sqs |> Array.iteri possq
-                flbls
-                |> Array.iteri (fun i l -> 
-                       if isw then l.Left <- i * 42 + 30
-                       else l.Left <- 7 * 42 - i * 42 + 30)
-                rlbls
-                |> Array.iteri (fun i l -> 
-                       if isw then l.Top <- 7 * 42 - i * 42 + 16
-                       else l.Top <- i * 42 + 16)
-            if (bd.InvokeRequired) then 
-                try 
-                    bd.Invoke(MethodInvoker(ori)) |> ignore
-                with _ -> ()
-            else ori()
+            let possq i (sq : PictureBox) =
+                let r = i / 8
+                let f = i % 8
+                if not isw then 
+                    sq.Top <- r * 42 + 1
+                    sq.Left <- 7 * 42 - f * 42 + 1
+                else 
+                    sq.Left <- f * 42 + 1
+                    sq.Top <- 7 * 42 - r * 42 + 1
+            sqs |> Array.iteri possq
+            flbls
+            |> Array.iteri (fun i l -> 
+                    if isw then l.Left <- i * 42 + 30
+                    else l.Left <- 7 * 42 - i * 42 + 30)
+            rlbls
+            |> Array.iteri (fun i l -> 
+                    if isw then l.Top <- 7 * 42 - i * 42 + 16
+                    else l.Top <- i * 42 + 16)
 
         ///highlight possible squares
         let highlightsqs sl =
@@ -188,39 +177,40 @@ module Library1 =
         let mouseDown (p : PictureBox, e : MouseEventArgs) =
             if e.Button = MouseButtons.Left then 
                 let sqFrom = System.Convert.ToInt32(p.Tag)
-                let sqf:Square = sqFrom|>int16
-                let psmvs = sqf|>Board.PossMoves board
-                let pssqs = psmvs|>List.map(fun m -> m|>Move.To|>int)
-                pssqs|>highlightsqs
+                //let sqf:Square = sqFrom|>int16
+                //let psmvs = sqf|>Board.PossMoves board
+                //let pssqs = psmvs|>List.map(fun m -> m|>Move.To|>int)
+                //pssqs|>highlightsqs
                 let oimg = p.Image
                 p.Image <- null
                 p.Refresh()
-                let c = board.PieceAt.[sqFrom]|>Piece.ToStr
+                let c = board.[sqFrom]
                 cCur <- getcur c
                 sqpnl.Cursor <- cCur
-                if pssqs.Length > 0 && (p.DoDragDrop(oimg, DragDropEffects.Move) = DragDropEffects.Move) then 
-                    let mvl = psmvs|>List.filter(fun m ->m|>Move.To|>int=sqTo)
-                    if mvl.Length=1 then
-                        board <- board|>Board.Push mvl.Head
-                        setpcsmvs()
-                        mvl.Head|>mvEvt.Trigger
-                        board|>bdEvt.Trigger
-                    //need to allow for promotion
-                    elif mvl.Length=4 then
-                        dlgprom.ShowDialog() |> ignore
-                        let nmvl = mvl|>List.filter(fun mv -> mv|>Move.PromPcTp=prompctp)
-                        board <- board|>Board.Push nmvl.Head
-                        setpcsmvs()
-                        nmvl.Head|>mvEvt.Trigger
-                        board|>bdEvt.Trigger
-                    else p.Image <- oimg
-                else p.Image <- oimg
+                //if pssqs.Length > 0 && (p.DoDragDrop(oimg, DragDropEffects.Move) = DragDropEffects.Move) then 
+                //    let mvl = psmvs|>List.filter(fun m ->m|>Move.To|>int=sqTo)
+                //    if mvl.Length=1 then
+                //        board <- board|>Board.Push mvl.Head
+                //        setpcsmvs()
+                //        mvl.Head|>mvEvt.Trigger
+                //        board|>bdEvt.Trigger
+                //    //need to allow for promotion
+                //    elif mvl.Length=4 then
+                //        dlgprom.ShowDialog() |> ignore
+                //        let nmvl = mvl|>List.filter(fun mv -> mv|>Move.PromPcTp=prompctp)
+                //        board <- board|>Board.Push nmvl.Head
+                //        setpcsmvs()
+                //        nmvl.Head|>mvEvt.Trigger
+                //        board|>bdEvt.Trigger
+                //    else p.Image <- oimg
+                //else p.Image <- oimg
                 sqpnl.Cursor <- Cursors.Default
                 []|>highlightsqs
 
         /// creates file label
         let flbl i lbli =
             let lbl = new Label()
+            let FILE_NAMES = ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"]
             lbl.Text <- FILE_NAMES.[i]
             lbl.Font <- new Font("Arial", 12.0F, FontStyle.Bold, 
                                  GraphicsUnit.Point, byte (0))
@@ -253,10 +243,10 @@ module Library1 =
             let sq =
                 new PictureBox(Height = 42, Width = 42, 
                                SizeMode = PictureBoxSizeMode.CenterImage)
-            sq.BackColor <- if (f + r) % 2 = 1 then Color.Green
+            sq.BackColor <- if (f + r) % 2 = 0 then Color.Green
                             else Color.PaleGreen
             sq.Left <- f * 42 + 1
-            sq.Top <- r * 42 + 1
+            sq.Top <- 7 * 42 - r * 42 + 1
             sq.Tag <- i
             //events
             sq.MouseDown.Add(fun e -> mouseDown (sq, e))
@@ -269,7 +259,7 @@ module Library1 =
         do 
             sqs |> Array.iteri setsq
             sqs |> Array.iter sqpnl.Controls.Add
-            setpcsmvs()
+            //setpcsmvs()
             edges |> List.iter bdpnl.Controls.Add
             flbls |> Array.iteri flbl
             flbls |> Array.iter bdpnl.Controls.Add
@@ -278,18 +268,12 @@ module Library1 =
             sqpnl |> bdpnl.Controls.Add
             bdpnl |> bd.Controls.Add
 
-        ///Sets the Board to be displayed
-        member bd.SetBoard(ibd:Brd) =
-            board<-ibd
-            setpcsmvs()
-
         member bd.Refrsh() =
-            //TODO
             let mutable bdstr = ""
-            ()
-            //if ScincFuncs.Pos.Board(&bdstr) = 0 then
-            //    let cbd = parse(bdstr)
-            //    bd.SetBoard(cbd)
+            if ScincFuncs.Pos.Board(&bdstr) = 0 then
+                for i = 0 to 63 do
+                    let c = bdstr.[i]
+                    sqs.[i].Image <- if c = '.' then null else getimg c
 
         ///Orients the Board depending on whether White
         member bd.Orient(isw:bool) =
@@ -297,10 +281,10 @@ module Library1 =
 
         ///Sets the board given a new move in SAN format
         member bd.DoMove(san:string) =
-            let mv = san|>Move.FromSan board
-            board <- board|>Board.Push mv
-            setpcsmvs()
-            mv|>mvEvt.Trigger
+            //let mv = san|>Move.FromSan board
+            //board <- board|>Board.Push mv
+            //setpcsmvs()
+            //mv|>mvEvt.Trigger
             board|>bdEvt.Trigger
 
 

@@ -1,12 +1,44 @@
 namespace FsChess.WinForms
 
 open System.Windows.Forms
-open System.Drawing
-open FsChess
-open FsChess.Pgn
 
 [<AutoOpen>]
-module Library5 =
+module WbStatsLib =
+    type MvStats =
+        {
+            Mvstr : string
+            Count : int
+            Pc : float
+            WhiteWins : int 
+            Draws : int 
+            BlackWins :int
+            Score : float
+            DrawPc : float
+        }
+    
+    type BrdStats = 
+        {
+            Mvstats : MvStats list
+            TotCount : int
+            Pc : float
+            TotWhiteWins : int 
+            TotDraws : int 
+            TotBlackWins :int
+            TotScore : float
+            TotDrawPc : float
+        }
+
+    let BrdStatsEMP = 
+        {
+            Mvstats = []
+            TotCount = 0
+            Pc = 0.0
+            TotWhiteWins = 0 
+            TotDraws = 0
+            TotBlackWins = 0
+            TotScore = 0.0
+            TotDrawPc = 0.0
+        }
 
     type WbStats() as stats =
         inherit WebBrowser(AllowWebBrowserDrop = false,IsWebBrowserContextMenuEnabled = false,WebBrowserShortcutsEnabled = false)
@@ -80,9 +112,9 @@ module Library5 =
             stats.DocumentText <- bdsttags()
   
         ///Calculates the Stats to be displayed
-        member stats.CalcStats(fgms:(int * Game * string) list) = 
-            cbdst <- fgms|>Stats.Get
-            stats.DocumentText <- bdsttags()
+        //member stats.CalcStats(fgms:(int * Game * string) list) = 
+        //    cbdst <- fgms|>Stats.Get
+        //    stats.DocumentText <- bdsttags()
   
         //publish
         ///Provides the selected move in SAN format

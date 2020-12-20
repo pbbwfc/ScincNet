@@ -2,11 +2,9 @@
 
 open System.Drawing
 open System.Windows.Forms
-open FsChess
-open FsChess.Pgn
 
 [<AutoOpen>]
-module Library4 =
+module DgvGamesLib =
     type GmUI =
         {
             Num : int
@@ -45,9 +43,7 @@ module Library4 =
                 RowHeadersVisible=false)
 
         let mutable pgn = ""
-        let mutable cbd = Board.Start
         let mutable crw = -1
-        let mutable cgm = GameEMP
         let mutable gmchg = false
         let mutable gmsui = new System.ComponentModel.BindingList<GmUI>()
         let bs = new BindingSource()
@@ -97,19 +93,19 @@ module Library4 =
         let doclick(e:DataGridViewCellEventArgs) =
             let rw = e.RowIndex
             //need to check if want to save
-            if gmchg then
-                let nm = cgm.WhitePlayer + " v. " + cgm.BlackPlayer
-                let dr = MessageBox.Show("Do you want to save the game: " + nm + " ?","Save Game",MessageBoxButtons.YesNoCancel)
-                if dr=DialogResult.Yes then
-                    dosave()
-                    //TODO
-                    cgm|>selEvt.Trigger
-                elif dr=DialogResult.No then
-                    //TODO
-                    cgm|>selEvt.Trigger
-            else
-                //TODO
-                cgm|>selEvt.Trigger
+            //if gmchg then
+            //    //let nm = cgm.WhitePlayer + " v. " + cgm.BlackPlayer
+            //    //let dr = MessageBox.Show("Do you want to save the game: " + nm + " ?","Save Game",MessageBoxButtons.YesNoCancel)
+            //    if dr=DialogResult.Yes then
+            //        dosave()
+            //        //TODO
+            //        cgm|>selEvt.Trigger
+            //    elif dr=DialogResult.No then
+            //        //TODO
+            //        cgm|>selEvt.Trigger
+            //else
+            //    //TODO
+            //    cgm|>selEvt.Trigger
             gms.CurrentCell <- gms.Rows.[rw].Cells.[0]
         
         let setup() =
@@ -151,66 +147,67 @@ module Library4 =
             dosave()
 
         ///Sets the Board to be filtered on
-        member gms.SetBoard(ibd:Brd) =
-            cbd <- ibd
-            gmsui.Clear()
-            //TODO - need to filter by board
-            gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
-            //filtgms|>filtEvt.Trigger
+        //member gms.SetBoard(ibd:Brd) =
+        //    cbd <- ibd
+        //    gmsui.Clear()
+        //    //TODO - need to filter by board
+        //    gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
+        //    //filtgms|>filtEvt.Trigger
 
         ///Changes the contents of the Game that is selected
-        member _.ChangeGame(igm:Game) =
-            cgm <- igm
-            gmchg <- true
+        //member _.ChangeGame(igm:Game) =
+        //    cgm <- igm
+        //    gmchg <- true
 
         ///Changes the header of the Game that is selected
-        member _.ChangeGameHdr(igm:Game) =
-            cgm <- igm
-            gmchg <- true
-            let rw = gms.SelectedCells.[0].RowIndex
-            let chdr = gmsui.[rw]
-            //let nchdr = {chdr with White=cgm.WhitePlayer;W_Elo=cgm.WhiteElo;Black=cgm.BlackPlayer;B_Elo=cgm.BlackElo;Result=cgm.Result|>Result.ToUnicode;
-            //                       Date=cgm|>GameDate.ToStr;Event=cgm.Event;Round=cgm.Round;Site=cgm.Site}
-            //gmsui.[rw] <- nchdr
-            ()
+        //member _.ChangeGameHdr(igm:Game) =
+        //    cgm <- igm
+        //    gmchg <- true
+        //    let rw = gms.SelectedCells.[0].RowIndex
+        //    let chdr = gmsui.[rw]
+        //    //let nchdr = {chdr with White=cgm.WhitePlayer;W_Elo=cgm.WhiteElo;Black=cgm.BlackPlayer;B_Elo=cgm.BlackElo;Result=cgm.Result|>Result.ToUnicode;
+        //    //                       Date=cgm|>GameDate.ToStr;Event=cgm.Event;Round=cgm.Round;Site=cgm.Site}
+        //    //gmsui.[rw] <- nchdr
+        //    ()
 
         ///Creates a new Game
         member _.NewGame() =
             //need to check if want to save
-            if gmchg then
-                let nm = cgm.WhitePlayer + " v. " + cgm.BlackPlayer
-                let dr = MessageBox.Show("Do you want to save the game: " + nm + " ?","Save Game",MessageBoxButtons.YesNo)
-                if dr=DialogResult.Yes then
-                    dosave()
-            cbd <- Board.Start
-            cgm <- GameEMP
+            //if gmchg then
+            //    let nm = cgm.WhitePlayer + " v. " + cgm.BlackPlayer
+            //    let dr = MessageBox.Show("Do you want to save the game: " + nm + " ?","Save Game",MessageBoxButtons.YesNo)
+            //    if dr=DialogResult.Yes then
+            //        dosave()
+            //cbd <- Board.Start
+            //cgm <- GameEMP
             crw <- 0 //TODO
             gmsui.Clear()
             //TODO
             gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
             //filtgms|>filtEvt.Trigger
             gmchg <- false
-            cgm|>selEvt.Trigger
+            //cgm|>selEvt.Trigger
 
         ///Deletes selected Game
         member gms.DeleteGame() =
-            let nm = cgm.WhitePlayer + " v. " + cgm.BlackPlayer
-            let dr = MessageBox.Show("Do you really want to permanently delete the game: " + nm + " ?","Delete Game",MessageBoxButtons.YesNo)
-            if dr=DialogResult.Yes then
-                let orw = gms.SelectedCells.[0].RowIndex
-                //save without gams
-                //reload saves pgn
-                cbd <- Board.Start
-                gmsui.Clear()
-                //TODO
-                gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
-                //filtgms|>filtEvt.Trigger
-                gmchg <- false
-                //select row
-                let rw = if orw=0 then 0 else orw-1
-                //TODO
-                cgm|>selEvt.Trigger
-                gms.CurrentCell <- gms.Rows.[rw].Cells.[0]
+            //let nm = cgm.WhitePlayer + " v. " + cgm.BlackPlayer
+            //let dr = MessageBox.Show("Do you really want to permanently delete the game: " + nm + " ?","Delete Game",MessageBoxButtons.YesNo)
+            //if dr=DialogResult.Yes then
+            //    let orw = gms.SelectedCells.[0].RowIndex
+            //    //save without gams
+            //    //reload saves pgn
+            //    cbd <- Board.Start
+            //    gmsui.Clear()
+            //    //TODO
+            //    gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
+            //    //filtgms|>filtEvt.Trigger
+            //    gmchg <- false
+            //    //select row
+            //    let rw = if orw=0 then 0 else orw-1
+            //    //TODO
+            //    cgm|>selEvt.Trigger
+            //    gms.CurrentCell <- gms.Rows.[rw].Cells.[0]
+            ()
 
         ///Export filtered games
         member gms.ExportFilter(filtfil:string) =

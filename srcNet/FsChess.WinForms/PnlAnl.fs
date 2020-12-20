@@ -2,10 +2,9 @@
 
 open System.Drawing
 open System.Windows.Forms
-//open State
 
 [<AutoOpen>]
-module Library7 =
+module PnlAnlLib =
     type PnlAnl() as this =
         inherit Panel(Width = 400)
         let pnlt = new Panel(Dock = DockStyle.Top, Height = 30)

@@ -26,8 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1B8B9CAA-F
 		docfx_project\articles\tcl2fsx.md = docfx_project\articles\tcl2fsx.md
 	EndProjectSection
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FsChessPgn", "srcNet\FsChessPgn\FsChessPgn.fsproj", "{DB4C06B0-C293-4C54-83C5-63F55AA64638}"
-EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FsChess.WinForms", "srcNet\FsChess.WinForms\FsChess.WinForms.fsproj", "{AE05B54F-B247-4BC4-B676-B19B48B272D5}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "ScincNet", "srcNet\ScincNet\ScincNet.fsproj", "{18E59D9F-3AD9-4801-9DAB-493518AA768D}"
@@ -50,10 +48,6 @@ Global
 		{AA0013D6-DC2E-48B8-B07E-BCC8BE47E87F}.Debug|x64.Build.0 = Debug|x64
 		{AA0013D6-DC2E-48B8-B07E-BCC8BE47E87F}.Release|x64.ActiveCfg = Release|x64
 		{AA0013D6-DC2E-48B8-B07E-BCC8BE47E87F}.Release|x64.Build.0 = Release|x64
-		{DB4C06B0-C293-4C54-83C5-63F55AA64638}.Debug|x64.ActiveCfg = Debug|x64
-		{DB4C06B0-C293-4C54-83C5-63F55AA64638}.Debug|x64.Build.0 = Debug|x64
-		{DB4C06B0-C293-4C54-83C5-63F55AA64638}.Release|x64.ActiveCfg = Release|x64
-		{DB4C06B0-C293-4C54-83C5-63F55AA64638}.Release|x64.Build.0 = Release|x64
 		{AE05B54F-B247-4BC4-B676-B19B48B272D5}.Debug|x64.ActiveCfg = Debug|x64
 		{AE05B54F-B247-4BC4-B676-B19B48B272D5}.Debug|x64.Build.0 = Debug|x64
 		{AE05B54F-B247-4BC4-B676-B19B48B272D5}.Release|x64.ActiveCfg = Release|x64

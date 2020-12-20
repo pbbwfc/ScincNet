@@ -1,16 +1,7 @@
-﻿namespace FsChess
-
-module AssemblyInfo=
-
-    open System.Runtime.CompilerServices
-
-    [<assembly: InternalsVisibleTo("FsChessPgn.Test")>]
-    do()
+﻿namespace FsChess.WinForms
 
 [<AutoOpen>]
 module Types = 
-    type Move = uint32
-    let MoveEmpty:Move = 0u
     
     type PieceType = 
         | EMPTY = 0
@@ -244,17 +235,8 @@ module Types =
           Fullmove = 0
           }
 
-    type aMove =
-        {
-            PreBrd : Brd
-            Mno : int
-            Isw : bool
-            Mv : Move
-            PostBrd : Brd
-        }
-
     type MoveTextEntry =
-        |HalfMoveEntry of int option * bool * pMove * aMove option
+        |HalfMoveEntry of int option * bool * pMove
         |CommentEntry of string
         |GameEndEntry of GameResult
         |NAGEntry of NAG
@@ -273,7 +255,7 @@ module Types =
             Result : GameResult
             WhiteElo : string
             BlackElo : string
-            BoardSetup : Brd option
+            BoardSetup : string
             AdditionalInfo : Map<string,string>
             MoveText : MoveTextEntry list
         }
@@ -291,43 +273,7 @@ module Types =
             Result = GameResult.Open
             WhiteElo = "-"
             BlackElo = "-"
-            BoardSetup = None
+            BoardSetup = ""
             AdditionalInfo = Map.empty
             MoveText = []
-        }
-
-    type MvStats =
-        {
-            Mvstr : string
-            Count : int
-            Pc : float
-            WhiteWins : int 
-            Draws : int 
-            BlackWins :int
-            Score : float
-            DrawPc : float
-        }
-    
-    type BrdStats = 
-        {
-            Mvstats : MvStats list
-            TotCount : int
-            Pc : float
-            TotWhiteWins : int 
-            TotDraws : int 
-            TotBlackWins :int
-            TotScore : float
-            TotDrawPc : float
-        }
-
-    let BrdStatsEMP = 
-        {
-            Mvstats = []
-            TotCount = 0
-            Pc = 0.0
-            TotWhiteWins = 0 
-            TotDraws = 0
-            TotBlackWins = 0
-            TotScore = 0.0
-            TotDrawPc = 0.0
         }
