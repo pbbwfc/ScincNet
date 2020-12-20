@@ -50,7 +50,15 @@ module Form =
             pgn.Refrsh()
             bd.Refrsh()
             //update gmlbl
-            //let w = ScincFuncs.ScidGame.GetTag()
+            let mutable wnm = ""
+            ScincFuncs.ScidGame.GetTag("White",&wnm)|>ignore
+            let mutable bnm = ""
+            ScincFuncs.ScidGame.GetTag("Black",&bnm)|>ignore
+            gmlbl.Text <- "Game: " + wnm + " v. " + bnm
+            //update fllbl
+            let numgms = ScincFuncs.Base.NumGames()
+            let fnum = ScincFuncs.Filt.Count()
+            fllbl.Text <- "Filter: " + fnum.ToString() + "/" + numgms.ToString()
             
         let donew() =
             if ScincFuncs.Base.CountFree()=0 then

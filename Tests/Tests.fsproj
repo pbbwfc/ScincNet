@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Filt.fs" />
     <Compile Include="Pos.fs" />
     <Compile Include="ScidGame.fs" />
     <Compile Include="Eco.fs" />

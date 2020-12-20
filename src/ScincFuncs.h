@@ -153,4 +153,12 @@ namespace ScincFuncs {
 	public:
 		static int Board(String^% bdstr);
 	};
+	/// <summary>
+	/// Class that hold functions relating to databse filter
+	/// </summary>
+	public ref class Filt
+	{
+	public:
+		static int Count();
+	};
 }

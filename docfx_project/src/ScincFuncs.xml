@@ -4,6 +4,12 @@
         "ScincFuncs"
     </assembly>
     <members>
+        <member name="M:ScincFuncs.Filt.Count">
+            <summary>
+Count: returns the current filter size
+</summary>
+            <returns>the current filter size</returns>
+        </member>
         <member name="M:ScincFuncs.Pos.Board(System.String@)">
             <summary>
 Board: Returns a string representation of the position:
@@ -166,6 +172,11 @@ Autoloadgame: Sets or returns the autoload number for the database - the game nu
             <param name="getbase">Whether to get or set the database</param>
             <param name="basenum">The number to set</param>
             <returns>returns 0 if successful</returns>
+        </member>
+        <member name="T:ScincFuncs.Filt">
+            <summary>
+Class that hold functions relating to databse filter
+</summary>
         </member>
         <member name="T:ScincFuncs.Pos">
             <summary>

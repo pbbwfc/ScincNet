@@ -9,7 +9,6 @@ type TestPos () =
     let tfol = @"D:\GitHub\ScincNet\Tests\data\"
     let testdb = tfol + "test"
     let posdb = tfol + "pos"
-    let eco = tfol + "scid.eco"
     
     [<TestCleanup>]  
     member this.testClean() = 

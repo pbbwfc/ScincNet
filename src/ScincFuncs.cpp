@@ -1632,7 +1632,7 @@ int ScincFuncs::Eco::Base(String^% msgs)
 }
 
 
-//POS functions
+// POS functions
 
 /// <summary>
 /// Board: Returns a string representation of the position:
@@ -1647,3 +1647,16 @@ int ScincFuncs::Pos::Board(String^% bdstr)
 	bdstr = gcnew System::String(boardStr);
 	return 0;
 }
+
+// FILT functions
+
+/// <summary>
+/// Count: returns the current filter size
+/// </summary>
+/// <returns>the current filter size</returns>
+int ScincFuncs::Filt::Count()
+{
+	scidBaseT* basePtr = db;
+	return basePtr->inUse ? basePtr->filter->Count() : 0;
+}
+

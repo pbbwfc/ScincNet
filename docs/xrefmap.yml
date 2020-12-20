@@ -238,6 +238,36 @@ references:
   commentId: Overload:ScincFuncs.Eco.Read
   fullName: ScincFuncs.Eco.Read
   nameWithType: Eco.Read
+- uid: ScincFuncs.Filt
+  name: Filt
+  href: api/ScincFuncs.Filt.html
+  commentId: T:ScincFuncs.Filt
+  fullName: ScincFuncs.Filt
+  nameWithType: Filt
+- uid: ScincFuncs.Filt.#ctor
+  name: Filt()
+  href: api/ScincFuncs.Filt.html#ScincFuncs_Filt__ctor
+  commentId: M:ScincFuncs.Filt.#ctor
+  fullName: ScincFuncs.Filt.Filt()
+  nameWithType: Filt.Filt()
+- uid: ScincFuncs.Filt.#ctor*
+  name: Filt
+  href: api/ScincFuncs.Filt.html#ScincFuncs_Filt__ctor_
+  commentId: Overload:ScincFuncs.Filt.#ctor
+  fullName: ScincFuncs.Filt.Filt
+  nameWithType: Filt.Filt
+- uid: ScincFuncs.Filt.Count
+  name: Count()
+  href: api/ScincFuncs.Filt.html#ScincFuncs_Filt_Count
+  commentId: M:ScincFuncs.Filt.Count
+  fullName: ScincFuncs.Filt.Count()
+  nameWithType: Filt.Count()
+- uid: ScincFuncs.Filt.Count*
+  name: Count
+  href: api/ScincFuncs.Filt.html#ScincFuncs_Filt_Count_
+  commentId: Overload:ScincFuncs.Filt.Count
+  fullName: ScincFuncs.Filt.Count
+  nameWithType: Filt.Count
 - uid: ScincFuncs.Pos
   name: Pos
   href: api/ScincFuncs.Pos.html
