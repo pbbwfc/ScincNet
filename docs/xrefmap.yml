@@ -289,6 +289,21 @@ references:
   commentId: Overload:ScincFuncs.ScidGame.#ctor
   fullName: ScincFuncs.ScidGame.ScidGame
   nameWithType: ScidGame.ScidGame
+- uid: ScincFuncs.ScidGame.GetTag(System.String,System.String@)
+  name: GetTag(String, ref String)
+  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_GetTag_System_String_System_String__
+  commentId: M:ScincFuncs.ScidGame.GetTag(System.String,System.String@)
+  name.vb: GetTag(String, ByRef String)
+  fullName: ScincFuncs.ScidGame.GetTag(System.String, ref System.String)
+  fullName.vb: ScincFuncs.ScidGame.GetTag(System.String, ByRef System.String)
+  nameWithType: ScidGame.GetTag(String, ref String)
+  nameWithType.vb: ScidGame.GetTag(String, ByRef String)
+- uid: ScincFuncs.ScidGame.GetTag*
+  name: GetTag
+  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_GetTag_
+  commentId: Overload:ScincFuncs.ScidGame.GetTag
+  fullName: ScincFuncs.ScidGame.GetTag
+  nameWithType: ScidGame.GetTag
 - uid: ScincFuncs.ScidGame.List(System.String@,System.UInt32,System.UInt32,System.String)
   name: List(ref String, UInt32, UInt32, String)
   href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_List_System_String__System_UInt32_System_UInt32_System_String_

@@ -129,6 +129,7 @@ namespace ScincFuncs {
 		static int Load(unsigned int gnum);
 		static int Save(unsigned int gnum);
 		static int StripComments();
+		static int GetTag(String^ tag, String^% val);
 		static int SetTag(String^ tag, String^ val);
 		static int List(String^% glist, unsigned int start, unsigned int count, String^ formatStr);
 		static int ScincFuncs::ScidGame::Pgn(String^% pgn);

@@ -47,6 +47,14 @@ type TestScidGame () =
         Assert.AreEqual(0, actual)
 
     [<TestMethod>]
+    member this.ScidGameGetTag () =
+        ScidGame.Load(1u)|>ignore
+        let mutable wnm = "" 
+        let actual = ScidGame.GetTag("White",&wnm)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual("A Kalaiyalahan",wnm)
+
+    [<TestMethod>]
     member this.ScidGameSetTag () =
         ScidGame.Load(1u)|>ignore
         let actual = ScidGame.SetTag("White","White Name")
@@ -68,4 +76,5 @@ type TestScidGame () =
         let actual = ScidGame.Pgn(&pgn)
         Assert.AreEqual(0, actual)
         Assert.AreEqual("[Event",pgn.Substring(0,6))
+
         

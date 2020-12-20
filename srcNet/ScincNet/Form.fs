@@ -28,6 +28,8 @@ module Form =
         let anl = new PnlAnl(Dock=DockStyle.Fill)
         let ts = new ToolStrip()
         let ms = new MenuStrip()
+        let gmlbl = new Label(Text="Game: White v. Black",Width=400,TextAlign=ContentAlignment.MiddleLeft,Font = new Font(new FontFamily("Arial"), 12.0f))
+        let fllbl = new Label(Text="Filter: 99999999/99999999",Width=400,TextAlign=ContentAlignment.MiddleLeft,Font = new Font(new FontFamily("Arial"), 12.0f))
         
 
         let updateMenuStates() =
@@ -47,6 +49,8 @@ module Form =
         let updateBoard() =
             pgn.Refrsh()
             bd.Refrsh()
+            //update gmlbl
+            //let w = ScincFuncs.ScidGame.GetTag()
             
         let donew() =
             if ScincFuncs.Base.CountFree()=0 then
@@ -88,7 +92,6 @@ module Form =
                     ()
 
 
-        //TODO
         let createts() = 
             // new
             let newb = new ToolStripButton(Image = img "new.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&New")
@@ -118,9 +121,6 @@ module Form =
 
 
 
-        let gmlbl = new Label(Text="Game: White v. Black",Width=400,TextAlign=ContentAlignment.MiddleLeft,Font = new Font(new FontFamily("Arial"), 12.0f))
-        //TODO need to set this
-        let fllbl = new Label(Text="Filter: 99999999/99999999",Width=400,TextAlign=ContentAlignment.MiddleLeft,Font = new Font(new FontFamily("Arial"), 12.0f))
         let vpnl = new FlowLayoutPanel(Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown)
 
         let bgpnl = new Panel(Dock=DockStyle.Fill,BorderStyle=BorderStyle.Fixed3D)

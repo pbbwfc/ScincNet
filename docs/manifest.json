@@ -12,7 +12,7 @@
           "hash": "9dbOggMORLYmE3jBSCTYVw=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -24,7 +24,7 @@
           "hash": "F2WpmdKb/QVDEf58PS8dWQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -36,7 +36,7 @@
           "hash": "MVbmwiwzASK98KGvzV/aeA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.Pos.html",
-          "hash": "H7UmS/5wbQUWZ/Ogc2FRLw=="
+          "hash": "G06tUqgXmBMF1KQSNU6JGA=="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.ScidGame.html",
-          "hash": "793ADdksybYfhBKsr1qmEQ=="
+          "hash": "6xdvNVt8B2ql9SavXESJNw=="
         }
       },
       "is_incremental": false,
@@ -84,7 +84,7 @@
           "hash": "k4Lz0lla+ePdw+Hgq5c2Ew=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -182,7 +182,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 6,
-          "skipped_file_count": 3
+          "skipped_file_count": 4
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

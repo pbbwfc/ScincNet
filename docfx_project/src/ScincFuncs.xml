@@ -6,7 +6,8 @@
     <members>
         <member name="M:ScincFuncs.Pos.Board(System.String@)">
             <summary>
-Board: Returns a string representation of the position
+Board: Returns a string representation of the position:
+RNBQKBNRPPPPPPPP................................pppppppprnbqkbnr w
 </summary>
             <param name="bdstr">The string returned</param>
             <returns>returns 0 if successful</returns>
@@ -50,6 +51,15 @@ SetTag: Set a standard tag for this game.
 </summary>
             <param name="tag">Tag as a string, such as White</param>
             <param name="val">Value as a string</param>
+            <returns>returns 0 if successful</returns>
+        </member>
+        <member name="M:ScincFuncs.ScidGame.GetTag(System.String,System.String@)">
+            <summary>
+GetTag: Gets a tag for the active game given its name.
+Valid names are:  Event, Site, Date, Round, White, Black, ECO, EDate
+</summary>
+            <param name="tag">Tag as a string, such as White</param>
+            <param name="val">Value returned as a string</param>
             <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.ScidGame.StripComments">

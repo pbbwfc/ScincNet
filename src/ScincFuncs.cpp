@@ -1211,6 +1211,112 @@ int ScincFuncs::ScidGame::StripComments()
 }
 
 /// <summary>
+/// GetTag: Gets a tag for the active game given its name.
+/// Valid names are:  Event, Site, Date, Round, White, Black, ECO, EDate
+/// </summary>
+/// <param name="tag">Tag as a string, such as White</param>
+/// <param name="val">Value returned as a string</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::ScidGame::GetTag(String^ tag, String^% val)
+{
+	msclr::interop::marshal_context oMarshalContext;
+
+	const char* tg = oMarshalContext.marshal_as<const char*>(tag);
+
+	static const char* options[] = {
+		"Event", "Site", "Date", "Round", 
+		"White", "Black", "ECO", "EDate", 
+		NULL };
+	enum
+	{
+		T_Event,
+		T_Site,
+		T_Date,
+		T_Round,
+		T_White,
+		T_Black,
+		T_ECO,
+		T_EDate
+	};
+
+	Game* g = db->game;
+
+	const char* s;
+	int index = strExactMatch(tg, options);
+
+	switch (index)
+	{
+	case T_Event:
+		s = g->GetEventStr();
+		if (!s)
+		{
+			s = "?";
+		}
+		val = gcnew System::String(s);
+		break;
+
+	case T_Site:
+		s = g->GetSiteStr();
+		if (!s)
+		{
+			s = "?";
+		}
+		val = gcnew System::String(s);
+		break;
+
+	case T_Date:
+		char dateStr[20];
+		date_DecodeToString(g->GetDate(), dateStr);
+		val = gcnew System::String(dateStr);
+		break;
+
+	case T_Round:
+		s = g->GetRoundStr();
+		if (!s)
+		{
+			s = "?";
+		}
+		val = gcnew System::String(s);
+		break;
+
+	case T_White:
+		s = g->GetWhiteStr();
+		if (!s)
+		{
+			s = "?";
+		}
+		val = gcnew System::String(s);
+		break;
+
+	case T_Black:
+		s = g->GetBlackStr();
+		if (!s)
+		{
+			s = "?";
+		}
+		val = gcnew System::String(s);
+		break;
+
+	case T_ECO:
+		ecoStringT ecoStr;
+		eco_ToExtendedString(g->GetEco(), ecoStr);
+		val = gcnew System::String(ecoStr);
+		break;
+
+	case T_EDate:
+		char edateStr[20];
+		date_DecodeToString(g->GetEventDate(), edateStr);
+		val = gcnew System::String(dateStr);
+		break;
+
+	default: // Not a valid tag name.
+		return -1;
+	}
+
+	return 0;
+}
+
+/// <summary>
 /// SetTag: Set a standard tag for this game.
 /// </summary>
 /// <param name="tag">Tag as a string, such as White</param>
