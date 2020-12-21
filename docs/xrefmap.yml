@@ -268,39 +268,6 @@ references:
   commentId: Overload:ScincFuncs.Filt.Count
   fullName: ScincFuncs.Filt.Count
   nameWithType: Filt.Count
-- uid: ScincFuncs.Pos
-  name: Pos
-  href: api/ScincFuncs.Pos.html
-  commentId: T:ScincFuncs.Pos
-  fullName: ScincFuncs.Pos
-  nameWithType: Pos
-- uid: ScincFuncs.Pos.#ctor
-  name: Pos()
-  href: api/ScincFuncs.Pos.html#ScincFuncs_Pos__ctor
-  commentId: M:ScincFuncs.Pos.#ctor
-  fullName: ScincFuncs.Pos.Pos()
-  nameWithType: Pos.Pos()
-- uid: ScincFuncs.Pos.#ctor*
-  name: Pos
-  href: api/ScincFuncs.Pos.html#ScincFuncs_Pos__ctor_
-  commentId: Overload:ScincFuncs.Pos.#ctor
-  fullName: ScincFuncs.Pos.Pos
-  nameWithType: Pos.Pos
-- uid: ScincFuncs.Pos.Board(System.String@)
-  name: Board(ref String)
-  href: api/ScincFuncs.Pos.html#ScincFuncs_Pos_Board_System_String__
-  commentId: M:ScincFuncs.Pos.Board(System.String@)
-  name.vb: Board(ByRef String)
-  fullName: ScincFuncs.Pos.Board(ref System.String)
-  fullName.vb: ScincFuncs.Pos.Board(ByRef System.String)
-  nameWithType: Pos.Board(ref String)
-  nameWithType.vb: Pos.Board(ByRef String)
-- uid: ScincFuncs.Pos.Board*
-  name: Board
-  href: api/ScincFuncs.Pos.html#ScincFuncs_Pos_Board_
-  commentId: Overload:ScincFuncs.Pos.Board
-  fullName: ScincFuncs.Pos.Board
-  nameWithType: Pos.Board
 - uid: ScincFuncs.ScidGame
   name: ScidGame
   href: api/ScincFuncs.ScidGame.html

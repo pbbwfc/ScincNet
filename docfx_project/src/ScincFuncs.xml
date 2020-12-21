@@ -17,14 +17,6 @@ Count: returns the current filter size
 </summary>
             <returns>the current filter size</returns>
         </member>
-        <member name="M:ScincFuncs.Pos.Board(System.String@)">
-            <summary>
-Board: Returns a string representation of the position:
-RNBQKBNRPPPPPPPP................................pppppppprnbqkbnr w
-</summary>
-            <param name="bdstr">The string returned</param>
-            <returns>returns 0 if successful</returns>
-        </member>
         <member name="M:ScincFuncs.Eco.Base(System.String@)">
             <summary>
 Base: Reclassifies all games in the current base by ECO code.
@@ -188,11 +180,6 @@ Class that hold functions relating to the stats tree
         <member name="T:ScincFuncs.Filt">
             <summary>
 Class that hold functions relating to databse filter
-</summary>
-        </member>
-        <member name="T:ScincFuncs.Pos">
-            <summary>
-Class that hold functions relating to the position
 </summary>
         </member>
         <member name="T:ScincFuncs.Eco">
