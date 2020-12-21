@@ -148,14 +148,6 @@ namespace ScincFuncs {
 
 	};
 	/// <summary>
-	/// Class that hold functions relating to the position
-	/// </summary>
-	public ref class Pos
-	{
-	public:
-		static int Board(String^% bdstr);
-	};
-	/// <summary>
 	/// Class that hold functions relating to databse filter
 	/// </summary>
 	public ref class Filt

@@ -16,6 +16,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+    <None Include="scid.eco">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
     <EmbeddedResource Include="Images\opn.png" />
     <EmbeddedResource Include="Images\new.png" />

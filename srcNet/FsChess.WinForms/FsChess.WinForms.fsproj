@@ -59,8 +59,6 @@
     <Compile Include="PnlAnl.fs" />
     <Compile Include="PnlBoard.fs" />
     <Compile Include="WbStats.fs" />
-    <Compile Include="WbPgnTypes.fs" />
-    <Compile Include="WbPgnFuncs.fs" />
     <Compile Include="WbPgn.fs" />
     <Compile Include="LinkBrdPgn.fs" />
     <Compile Include="LinkAll.fs" />
@@ -68,6 +66,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ScincFuncs.vcxproj" />
+    <ProjectReference Include="..\FsChessPgn\FsChessPgn.fsproj" />
   </ItemGroup>
 
 </Project>

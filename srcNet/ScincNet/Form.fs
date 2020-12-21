@@ -48,7 +48,7 @@ module Form =
 
         let updateBoard() =
             pgn.Refrsh()
-            bd.Refrsh()
+            //bd.Refrsh()
             //update gmlbl
             let mutable wnm = ""
             ScincFuncs.ScidGame.GetTag("White",&wnm)|>ignore
@@ -60,6 +60,7 @@ module Form =
             let fnum = ScincFuncs.Filt.Count()
             fllbl.Text <- "Filter: " + fnum.ToString() + "/" + numgms.ToString()
             //update stats
+            ScincFuncs.Eco.Read("scid.eco")|>ignore
             sts.Refrsh()
             
         let donew() =
@@ -148,10 +149,10 @@ module Form =
             rtbpnl|>rtpnl.Controls.Add
             anl|>rtmpnl.Controls.Add
             rtmpnl|>rtpnl.Controls.Add
-            pgn|>rttpnl.Controls.Add
+            sts|>rttpnl.Controls.Add
             rttpnl|>rtpnl.Controls.Add
             rtpnl|>bgpnl.Controls.Add
-            sts|>lfbpnl.Controls.Add
+            pgn|>lfbpnl.Controls.Add
             lfbpnl|>lfpnl.Controls.Add
             gmlbl|>vpnl.Controls.Add
             fllbl|>vpnl.Controls.Add

@@ -1634,20 +1634,7 @@ int ScincFuncs::Eco::Base(String^% msgs)
 
 
 // POS functions
-
-/// <summary>
-/// Board: Returns a string representation of the position:
-/// RNBQKBNRPPPPPPPP................................pppppppprnbqkbnr w
-/// </summary>
-/// <param name="bdstr">The string returned</param>
-/// <returns>returns 0 if successful</returns>
-int ScincFuncs::Pos::Board(String^% bdstr)
-{
-	char boardStr[200];
-	db->game->GetCurrentPos()->MakeLongStr(boardStr);
-	bdstr = gcnew System::String(boardStr);
-	return 0;
-}
+// DONT USE AS HANDLED IN F#
 
 // FILT functions
 
@@ -1694,8 +1681,6 @@ void updateMainFilter2(scidBaseT* dbase)
 		}
 	}
 }
-
-
 
 // TREE functions
 

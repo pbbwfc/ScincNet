@@ -83,7 +83,8 @@ module WbStatsLib =
             "<tr id=\"" + i.ToString() + "\"><td>" + mvst.Mvstr + "</td><td>" + mvst.Count.ToString() + "</td>" + 
             "<td>" + mvst.Pc.ToString("##0.0%") + "</td><td>" + (getdiv mvst.WhiteWins mvst.Draws mvst.BlackWins) + "</td>" + 
             "<td>" + mvst.Score.ToString("##0.0%") + "</td><td>" + mvst.DrawPc.ToString("##0.0%") +
-            "</td><td>" + mvst.AvElo.ToString() +
+            "</td><td>" + mvst.AvElo.ToString() + "</td><td>" + mvst.Perf.ToString() +
+            "</td><td>" + mvst.AvYear.ToString() + "</td><td>" + mvst.ECO +
             "</td></tr>" + nl
 
         let bdsttags() = 
@@ -94,7 +95,8 @@ module WbStatsLib =
                 "<tr><th style=\"text-align: left;\">Move</th><th style=\"text-align: left;\">Count</th>" +
                 "<th style=\"text-align: left;\">Percent</th><th style=\"text-align: left;\">Results</th>" + 
                 "<th style=\"text-align: left;\">Score</th><th style=\"text-align: left;\">DrawPc</th>" +
-                "<th style=\"text-align: left;\">AvElo</th>" +
+                "<th style=\"text-align: left;\">AvElo</th>" + "<th style=\"text-align: left;\">Perf</th>" +
+                "<th style=\"text-align: left;\">AvYear</th>" + "<th style=\"text-align: left;\">ECO</th>" +
                 "</tr>" + nl + 
                 (mvsts|>List.mapi mvsttag|>List.reduce(+)) +
                 "<tr><td style=\"border-top: 1px solid black;\"></td><td style=\"border-top: 1px solid black;\">" + 
@@ -102,7 +104,9 @@ module WbStatsLib =
                 "<td style=\"border-top: 1px solid black;\">" + (getdiv cbdst.TotWhiteWins cbdst.TotDraws cbdst.TotBlackWins) + "</td><td style=\"border-top: 1px solid black;\">" + 
                 cbdst.TotScore.ToString("##0.0%") + "</td><td style=\"border-top: 1px solid black;\">" + 
                 cbdst.TotDrawPc.ToString("##0.0%") + "</td><td style=\"border-top: 1px solid black;\">" +  
-                cbdst.TotAvElo.ToString() +
+                cbdst.TotAvElo.ToString() + "</td><td style=\"border-top: 1px solid black;\">" +
+                cbdst.TotPerf.ToString() + "</td><td style=\"border-top: 1px solid black;\">" +
+                cbdst.TotAvYear.ToString() + "</td><td style=\"border-top: 1px solid black;\">" +
                 "</td></tr>" + nl
                 + ftr
 

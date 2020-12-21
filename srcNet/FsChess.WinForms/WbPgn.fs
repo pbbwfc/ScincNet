@@ -2,7 +2,7 @@
 
 open System.Windows.Forms
 open System.Drawing
-//open FsChess
+open FsChess
 
 [<AutoOpen>]
 module WbPgnLib =
@@ -11,8 +11,8 @@ module WbPgnLib =
         inherit WebBrowser(AllowWebBrowserDrop = false,IsWebBrowserContextMenuEnabled = false,WebBrowserShortcutsEnabled = false)
         
         //mutables
-        let mutable game = GameEMP
-        //let mutable board = Board.Start
+        let mutable game = Game.Start
+        let mutable board = Board.Start
         let mutable oldstyle:(HtmlElement*string) option = None
         let mutable irs = [-1]
         let mutable rirs = [-1]
@@ -58,18 +58,18 @@ module WbPgnLib =
 
             let idstr = "id = \"" + ir.ToString() + "\""
             match mte with
-            |HalfMoveEntry(_,_,_) ->
-                let str = mte|>PgnWrite.MoveTextEntryStr
+            |HalfMoveEntry(_,_,_,_) ->
+                let str = mte|>Game.MoveStr
                 if ravno=0L then " <span " + idstr + " class=\"mv\" style=\"color:black\">" + str + "</span>"
                 else " <span " + idstr + " class=\"mv\" style=\"color:darkslategray\">" + str + "</span>"
             |CommentEntry(_) ->
-                let str = (mte|>PgnWrite.MoveTextEntryStr).Trim([|'{';'}'|])
+                let str = (mte|>Game.MoveStr).Trim([|'{';'}'|])
                 "<div " + idstr + " class=\"cm\" style=\"color:green\">" + str + "</div>"
             |GameEndEntry(_) ->
-                let str = mte|>PgnWrite.MoveTextEntryStr
+                let str = mte|>Game.MoveStr
                 " <span " + idstr + " class=\"ge\" style=\"color:blue\">" + str + "</span>"
             |NAGEntry(ng) ->
-                let str = ng|>NagUtil.ToHtm
+                let str = ng|>Game.NAGHtm
                 "<span " + idstr + " class=\"ng\" style=\"color:darkred\">" + str + "</span>"
             |RAVEntry(mtel) ->
                 let indent = 
@@ -104,13 +104,13 @@ module WbPgnLib =
             let dook(e) = 
                 //write comm.Text to comment
                 if offset = -1 then
-                    //game <- Game.CommentBefore game rirs comm.Text
+                    game <- Game.CommentBefore game rirs comm.Text
                     pgn.DocumentText <- mvtags()
                 elif offset = 1 then 
-                    //game <- Game.CommentAfter game rirs comm.Text
+                    game <- Game.CommentAfter game rirs comm.Text
                     pgn.DocumentText <- mvtags()
                 else 
-                    //game <- Game.EditComment game rirs comm.Text
+                    game <- Game.EditComment game rirs comm.Text
                     pgn.DocumentText <- mvtags()
 
                 game|>gmchngEvt.Trigger
@@ -147,24 +147,24 @@ module WbPgnLib =
             let nags =
                 //need to add radio buttons for each possible NAG
                 let rbs = 
-                   NagUtil.All|>List.toArray
-                   |>Array.map(fun ng -> (ng|>NagUtil.ToStr) + "   " + (ng|>NagUtil.Desc),ng)
+                   Game.NAGlist|>List.toArray
+                   |>Array.map(fun ng -> (ng|>Game.NAGStr) + "   " + (ng|>Game.NAGDesc),ng)
                    |>Array.map(fun (lb,ng) -> new RadioButton(Text=lb,Width=200,Checked=(ng=ing)))
                 rbs
 
             let dook(e) = 
                 //get selected nag
                 let indx = nags|>Array.findIndex(fun rb -> rb.Checked)
-                let selNag = NagUtil.All.[indx]
+                let selNag = Game.NAGlist.[indx]
                 //write nag to NAGEntry
                 if offset = 1 && indx<>0 then 
-                    //game <- Game.AddNag game rirs selNag
+                    game <- Game.AddNag game rirs selNag
                     pgn.DocumentText <- mvtags()
                 elif offset = 0 && indx<>0 then 
-                    //game <- Game.EditNag game rirs selNag
+                    game <- Game.EditNag game rirs selNag
                     pgn.DocumentText <- mvtags()
                 else 
-                    //game <- Game.DeleteNag game rirs
+                    game <- Game.DeleteNag game rirs
                     pgn.DocumentText <- mvtags()
 
                 game|>gmchngEvt.Trigger
@@ -208,9 +208,9 @@ module WbPgnLib =
             let belbl = new Label(Text="Black Elo")
             let betb = new TextBox(Text=game.BlackElo,Width=200)
             let rslbl = new Label(Text="Result")
-            let rscb = new ComboBox(Text=(game.Result|>GameResult.ToStr),Width=200)
+            let rscb = new ComboBox(Text=(game.Result|>Result.ToStr),Width=200)
             let dtlbl = new Label(Text="Date")
-            let dttb = new TextBox(Text=(game|>DateUtil.ToStr),Width=200)
+            let dttb = new TextBox(Text=(game|>GameDate.ToStr),Width=200)
             let evlbl = new Label(Text="Event")
             let evtb = new TextBox(Text=game.Event,Width=200)
             let rdlbl = new Label(Text="Round")
@@ -259,7 +259,7 @@ module WbPgnLib =
                 tc.Controls.Add(betb,1,3)
                 tc.Controls.Add(rslbl,0,4)
                 [|GameResult.WhiteWins;GameResult.BlackWins;GameResult.Draw;GameResult.Open|]
-                |>Array.map(GameResult.ToStr)
+                |>Array.map(Result.ToStr)
                 |>Array.iter(fun r -> rscb.Items.Add(r)|>ignore)
                 tc.Controls.Add(rscb,1,4)
                 tc.Controls.Add(dtlbl,0,5)
@@ -296,16 +296,18 @@ module WbPgnLib =
                 else
                     game.MoveText.[i|>int]
             match mv with
-            |HalfMoveEntry(_,_,_) ->
-                //board <- amv.Value.PostBrd
-                //board|>bdchngEvt.Trigger
-                mve|>highlight
+            |HalfMoveEntry(_,_,_,amv) ->
+                if amv.IsNone then failwith "should have valid aMove"
+                else
+                    board <- amv.Value.PostBrd
+                    board|>bdchngEvt.Trigger
+                    mve|>highlight
 
             |_ -> failwith "not done yet"
         
         let mvctxmnu = 
             let delrav(e) =
-                //game <- Game.DeleteRav game rirs
+                game <- Game.DeleteRav game rirs
                 pgn.DocumentText <- mvtags()
 
             let m = new ContextMenuStrip()
@@ -338,7 +340,7 @@ module WbPgnLib =
 
         let cmctxmnu = 
             let delcm(e) =
-                //game <- Game.DeleteComment game rirs
+                game <- Game.DeleteComment game rirs
                 pgn.DocumentText <- mvtags()
             
             let m = new ContextMenuStrip()
@@ -370,7 +372,7 @@ module WbPgnLib =
                 ccm <- el.InnerText
                 cmctxmnu.Show(pgn,psn)
             elif el.GetAttribute("className") = "ng" then 
-                cng <- el.InnerText|>NagUtil.FromStr
+                cng <- el.InnerText|>Game.NAGFromStr
                 ngctxmnu.Show(pgn,psn)
 
 
@@ -401,257 +403,256 @@ module WbPgnLib =
             game
 
         ///Switches to another game with the same position
-        //member pgn.SwitchGame(gm:Game) = 
-        //    game <- gm|>Game.GetaMoves
-        //    pgn.DocumentText <- mvtags()
-        //    //need to select move that matches current board
-        //    let rec getnxt ci (mtel:MoveTextEntry list) =
-        //        if mtel.IsEmpty then -1
-        //        else
-        //            let mte = mtel.Head
-        //            match mte with
-        //            |HalfMoveEntry(_,_,_,amv) ->
-        //                if amv.IsNone then failwith "should have valid aMove"
-        //                elif board = amv.Value.PostBrd then ci
-        //                else getnxt (ci+1) mtel.Tail
-        //            |_ -> getnxt (ci+1) mtel.Tail
-        //    let ni = getnxt 0 game.MoveText
-        //    irs <- [ni]
-        //    //now need to select the element
-        //    let id = getir irs
-        //    for el in pgn.Document.GetElementsByTagName("span") do
-        //        if el.GetAttribute("className") = "mv" then
-        //            if el.Id=id.ToString() then
-        //                el|>highlight
+        member pgn.SwitchGame(gm:Game) = 
+            game <- gm|>Game.GetaMoves
+            pgn.DocumentText <- mvtags()
+            //need to select move that matches current board
+            let rec getnxt ci (mtel:MoveTextEntry list) =
+                if mtel.IsEmpty then -1
+                else
+                    let mte = mtel.Head
+                    match mte with
+                    |HalfMoveEntry(_,_,_,amv) ->
+                        if amv.IsNone then failwith "should have valid aMove"
+                        elif board = amv.Value.PostBrd then ci
+                        else getnxt (ci+1) mtel.Tail
+                    |_ -> getnxt (ci+1) mtel.Tail
+            let ni = getnxt 0 game.MoveText
+            irs <- [ni]
+            //now need to select the element
+            let id = getir irs
+            for el in pgn.Document.GetElementsByTagName("span") do
+                if el.GetAttribute("className") = "mv" then
+                    if el.Id=id.ToString() then
+                        el|>highlight
 
  
         ///Sets the Game to be displayed
         member pgn.SetGame(gm:Game) = 
-            game <- gm
+            game <- gm|>Game.GetaMoves
             pgn.DocumentText <- mvtags()
-            //board <- Board.Start
+            board <- Board.Start
             oldstyle <- None
             irs <- [-1]
-            //board|>bdchngEvt.Trigger
-
+            board|>bdchngEvt.Trigger
 
         member pgn.Refrsh() =
             let mutable pgnstr = ""
             if ScincFuncs.ScidGame.Pgn(&pgnstr)=0 then
-                let gm = RegParse.GameFromString(pgnstr)
+                let gm = Game.FromStr(pgnstr)
                 pgn.SetGame(gm)
 
         ///Goes to the next Move in the Game
-        //member pgn.NextMove() = 
-        //    let rec getnxt oi ci (mtel:MoveTextEntry list) =
-        //        if ci=mtel.Length then oi
-        //        else
-        //            let mte = mtel.[ci]
-        //            match mte with
-        //            |HalfMoveEntry(_,_,_,amv) ->
-        //                if amv.IsNone then failwith "should have valid aMove"
-        //                else
-        //                    board <- amv.Value.PostBrd
-        //                    board|>bdchngEvt.Trigger
-        //                ci
-        //            |_ -> getnxt oi (ci+1) mtel
-        //    if irs.Length>1 then 
-        //        let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
-        //            if intl.Length=1 then
-        //                let oi = intl.Head
-        //                let ni = getnxt oi (oi+1) mtel
-        //                let st = irs|>List.rev|>List.tail|>List.rev
-        //                irs <- st@[ni]
-        //            else
-        //                let ih = intl.Head
-        //                let mte = mtel.[ih]
-        //                match mte with
-        //                |RAVEntry(nmtel) -> getmv nmtel intl.Tail
-        //                |_ -> failwith "should be a RAV"
-        //        getmv game.MoveText irs
-        //    else
-        //        let ni = getnxt irs.Head (irs.Head+1) game.MoveText
-        //        irs <- [ni]
-        //    //now need to select the element
-        //    let id = getir irs
-        //    for el in pgn.Document.GetElementsByTagName("span") do
-        //        if el.GetAttribute("className") = "mv" then
-        //            if el.Id=id.ToString() then
-        //                el|>highlight
+        member pgn.NextMove() = 
+            let rec getnxt oi ci (mtel:MoveTextEntry list) =
+                if ci=mtel.Length then oi
+                else
+                    let mte = mtel.[ci]
+                    match mte with
+                    |HalfMoveEntry(_,_,_,amv) ->
+                        if amv.IsNone then failwith "should have valid aMove"
+                        else
+                            board <- amv.Value.PostBrd
+                            board|>bdchngEvt.Trigger
+                        ci
+                    |_ -> getnxt oi (ci+1) mtel
+            if irs.Length>1 then 
+                let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
+                    if intl.Length=1 then
+                        let oi = intl.Head
+                        let ni = getnxt oi (oi+1) mtel
+                        let st = irs|>List.rev|>List.tail|>List.rev
+                        irs <- st@[ni]
+                    else
+                        let ih = intl.Head
+                        let mte = mtel.[ih]
+                        match mte with
+                        |RAVEntry(nmtel) -> getmv nmtel intl.Tail
+                        |_ -> failwith "should be a RAV"
+                getmv game.MoveText irs
+            else
+                let ni = getnxt irs.Head (irs.Head+1) game.MoveText
+                irs <- [ni]
+            //now need to select the element
+            let id = getir irs
+            for el in pgn.Document.GetElementsByTagName("span") do
+                if el.GetAttribute("className") = "mv" then
+                    if el.Id=id.ToString() then
+                        el|>highlight
         
         ///Goes to the last Move in the Variation
-        //member pgn.LastMove() = 
-        //    let rec gofwd lirs =
-        //        pgn.NextMove()
-        //        if irs<>lirs then gofwd irs
-        //    gofwd irs
+        member pgn.LastMove() = 
+            let rec gofwd lirs =
+                pgn.NextMove()
+                if irs<>lirs then gofwd irs
+            gofwd irs
         
         ///Goes to the previous Move in the Game
-        //member pgn.PrevMove() = 
-        //    let rec getprv oi ci (mtel:MoveTextEntry list) =
-        //        if ci<0 then oi
-        //        else
-        //            let mte = mtel.[ci]
-        //            match mte with
-        //            |HalfMoveEntry(_,_,_,amv) ->
-        //                if amv.IsNone then failwith "should have valid aMove"
-        //                else
-        //                    board <- amv.Value.PostBrd
-        //                    board|>bdchngEvt.Trigger
-        //                ci
-        //            |_ -> getprv oi (ci-1) mtel
-        //    if irs.Length>1 then 
-        //        let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
-        //            if intl.Length=1 then
-        //                let oi = intl.Head
-        //                let ni = getprv oi (oi-1) mtel
-        //                let st = irs|>List.rev|>List.tail|>List.rev
-        //                irs <- st@[ni]
-        //            else
-        //                let ih = intl.Head
-        //                let mte = mtel.[ih]
-        //                match mte with
-        //                |RAVEntry(nmtel) -> getmv nmtel intl.Tail
-        //                |_ -> failwith "should be a RAV"
-        //        getmv game.MoveText irs
-        //    else
-        //        let ni = getprv irs.Head (irs.Head-1) game.MoveText
-        //        irs <- [ni]
-        //    //now need to select the element
-        //    let id = getir irs
-        //    for el in pgn.Document.GetElementsByTagName("span") do
-        //        if el.GetAttribute("className") = "mv" then
-        //            if el.Id=id.ToString() then
-        //                el|>highlight
+        member pgn.PrevMove() = 
+            let rec getprv oi ci (mtel:MoveTextEntry list) =
+                if ci<0 then oi
+                else
+                    let mte = mtel.[ci]
+                    match mte with
+                    |HalfMoveEntry(_,_,_,amv) ->
+                        if amv.IsNone then failwith "should have valid aMove"
+                        else
+                            board <- amv.Value.PostBrd
+                            board|>bdchngEvt.Trigger
+                        ci
+                    |_ -> getprv oi (ci-1) mtel
+            if irs.Length>1 then 
+                let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
+                    if intl.Length=1 then
+                        let oi = intl.Head
+                        let ni = getprv oi (oi-1) mtel
+                        let st = irs|>List.rev|>List.tail|>List.rev
+                        irs <- st@[ni]
+                    else
+                        let ih = intl.Head
+                        let mte = mtel.[ih]
+                        match mte with
+                        |RAVEntry(nmtel) -> getmv nmtel intl.Tail
+                        |_ -> failwith "should be a RAV"
+                getmv game.MoveText irs
+            else
+                let ni = getprv irs.Head (irs.Head-1) game.MoveText
+                irs <- [ni]
+            //now need to select the element
+            let id = getir irs
+            for el in pgn.Document.GetElementsByTagName("span") do
+                if el.GetAttribute("className") = "mv" then
+                    if el.Id=id.ToString() then
+                        el|>highlight
 
         ///Goes to the first Move in the Variation
-        //member pgn.FirstMove() = 
-        //    let rec goback lirs =
-        //        pgn.PrevMove()
-        //        if irs<>lirs then goback irs
-        //    goback irs
+        member pgn.FirstMove() = 
+            let rec goback lirs =
+                pgn.PrevMove()
+                if irs<>lirs then goback irs
+            goback irs
 
         ///Make a Move in the Game - may change the Game or just select a Move
-        //member pgn.DoMove(mv:Move) =
-        //    let rec getnxt oi ci (mtel:MoveTextEntry list) =
-        //        if ci=mtel.Length then ci,false,true//implies is an extension
-        //        else
-        //            let mte = mtel.[ci]
-        //            match mte with
-        //            |HalfMoveEntry(_,_,_,amv) ->
-        //                if amv.IsNone then failwith "should have valid aMove"
-        //                elif amv.Value.Mv=mv then
-        //                    board <- amv.Value.PostBrd
-        //                    ci,true,false
-        //                else ci,false,false
-        //            |_ -> getnxt oi (ci+1) mtel
-        //    let isnxt,isext =
-        //        if irs.Length>1 then 
-        //            let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
-        //                if intl.Length=1 then
-        //                    let oi = intl.Head
-        //                    let ni,fnd,isext = getnxt oi (oi+1) mtel
-        //                    if fnd then
-        //                        let st = irs|>List.rev|>List.tail|>List.rev
-        //                        irs <- st@[ni]
-        //                    fnd,isext
-        //                else
-        //                    let ih = intl.Head
-        //                    let mte = mtel.[ih]
-        //                    match mte with
-        //                    |RAVEntry(nmtel) -> getmv nmtel intl.Tail
-        //                    |_ -> failwith "should be a RAV"
-        //            getmv game.MoveText irs
-        //        else
-        //            let ni,fnd,isext = getnxt irs.Head (irs.Head+1) game.MoveText
-        //            if fnd then irs <- [ni]
-        //            fnd,isext
-        //    if isnxt then
-        //        //now need to select the element
-        //        let id = getir irs
-        //        for el in pgn.Document.GetElementsByTagName("span") do
-        //            if el.GetAttribute("className") = "mv" then
-        //                if el.Id=id.ToString() then
-        //                    el|>highlight
-        //    elif isext then
-        //        let pmv = mv|>Move.TopMove board
-        //        let ngame,nirs = Game.AddMv game irs pmv 
-        //        game <- ngame
-        //        irs <- nirs
-        //        board <- board|>Board.Push mv
-        //        pgn.DocumentText <- mvtags()
-        //        game|>gmchngEvt.Trigger
-        //    else
-        //        //Check if first move in RAV
-        //        let rec inrav oi ci (mtel:MoveTextEntry list) =
-        //            if ci=mtel.Length then ci,false //Should not hit this as means has no moves
-        //            else
-        //                let mte = mtel.[ci]
-        //                match mte with
-        //                |HalfMoveEntry(_,_,_,amv) ->
-        //                    if amv.IsNone then failwith "should have valid aMove"
-        //                    elif amv.Value.Mv=mv then
-        //                        board <- amv.Value.PostBrd
-        //                        ci,true
-        //                    else ci,false
-        //                |_ -> inrav oi (ci+1) mtel
-        //        //next see if moving into RAV
-        //        let rec getnxtrv oi ci mct (mtel:MoveTextEntry list) =
-        //            if ci=mtel.Length then ci,0,false //TODO this is an extension to RAV or Moves
-        //            else
-        //                let mte = mtel.[ci]
-        //                if mct = 0 then
-        //                    match mte with
-        //                    |HalfMoveEntry(_,_,_,amv) ->
-        //                        getnxtrv oi (ci+1) (mct+1) mtel
-        //                    |_ -> getnxtrv oi (ci+1) mct mtel
-        //                else
-        //                    match mte with
-        //                    |HalfMoveEntry(_,_,_,amv) ->
-        //                        ci,0,false
-        //                    |RAVEntry(nmtel) ->
-        //                        //now need to see if first move in rav is mv
-        //                        let sci,fnd = inrav 0 0 nmtel
-        //                        if fnd then
-        //                            ci,sci,fnd
-        //                        else getnxtrv oi (ci+1) mct mtel
-        //                    |_ -> getnxtrv oi (ci+1) mct mtel
-        //        let isnxtrv =
-        //            if irs.Length>1 then 
-        //                let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
-        //                    if intl.Length=1 then
-        //                        let oi = intl.Head
-        //                        let ni,sci,fnd = getnxtrv oi (oi+1) 0 mtel
-        //                        if fnd then
-        //                            let st = irs|>List.rev|>List.tail|>List.rev
-        //                            irs <- st@[ni;sci]
-        //                        fnd
-        //                    else
-        //                        let ih = intl.Head
-        //                        let mte = mtel.[ih]
-        //                        match mte with
-        //                        |RAVEntry(nmtel) -> getmv nmtel intl.Tail
-        //                        |_ -> failwith "should be a RAV"
-        //                getmv game.MoveText irs
-        //            else
-        //                let ni,sci,fnd = getnxtrv irs.Head (irs.Head+1) 0 game.MoveText
-        //                if fnd then irs <- [ni;sci]
-        //                fnd
-        //        if isnxtrv then
-        //            //now need to select the element
-        //            let id = getir irs
-        //            for el in pgn.Document.GetElementsByTagName("span") do
-        //                if el.GetAttribute("className") = "mv" then
-        //                    if el.Id=id.ToString() then
-        //                        el|>highlight
-        //            else
-        //                //need to create a new RAV
-        //                let ngame,nirs = Game.AddRav game irs (mv|>Move.TopMove board) 
-        //                game <- ngame
-        //                irs <- nirs
-        //                board <- board|>Board.Push mv
-        //                pgn.DocumentText <- mvtags()
-        //                game|>gmchngEvt.Trigger
+        member pgn.DoMove(mv:Move) =
+            let rec getnxt oi ci (mtel:MoveTextEntry list) =
+                if ci=mtel.Length then ci,false,true//implies is an extension
+                else
+                    let mte = mtel.[ci]
+                    match mte with
+                    |HalfMoveEntry(_,_,_,amv) ->
+                        if amv.IsNone then failwith "should have valid aMove"
+                        elif amv.Value.Mv=mv then
+                            board <- amv.Value.PostBrd
+                            ci,true,false
+                        else ci,false,false
+                    |_ -> getnxt oi (ci+1) mtel
+            let isnxt,isext =
+                if irs.Length>1 then 
+                    let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
+                        if intl.Length=1 then
+                            let oi = intl.Head
+                            let ni,fnd,isext = getnxt oi (oi+1) mtel
+                            if fnd then
+                                let st = irs|>List.rev|>List.tail|>List.rev
+                                irs <- st@[ni]
+                            fnd,isext
+                        else
+                            let ih = intl.Head
+                            let mte = mtel.[ih]
+                            match mte with
+                            |RAVEntry(nmtel) -> getmv nmtel intl.Tail
+                            |_ -> failwith "should be a RAV"
+                    getmv game.MoveText irs
+                else
+                    let ni,fnd,isext = getnxt irs.Head (irs.Head+1) game.MoveText
+                    if fnd then irs <- [ni]
+                    fnd,isext
+            if isnxt then
+                //now need to select the element
+                let id = getir irs
+                for el in pgn.Document.GetElementsByTagName("span") do
+                    if el.GetAttribute("className") = "mv" then
+                        if el.Id=id.ToString() then
+                            el|>highlight
+            elif isext then
+                let pmv = mv|>Move.TopMove board
+                let ngame,nirs = Game.AddMv game irs pmv 
+                game <- ngame
+                irs <- nirs
+                board <- board|>Board.Push mv
+                pgn.DocumentText <- mvtags()
+                game|>gmchngEvt.Trigger
+            else
+                //Check if first move in RAV
+                let rec inrav oi ci (mtel:MoveTextEntry list) =
+                    if ci=mtel.Length then ci,false //Should not hit this as means has no moves
+                    else
+                        let mte = mtel.[ci]
+                        match mte with
+                        |HalfMoveEntry(_,_,_,amv) ->
+                            if amv.IsNone then failwith "should have valid aMove"
+                            elif amv.Value.Mv=mv then
+                                board <- amv.Value.PostBrd
+                                ci,true
+                            else ci,false
+                        |_ -> inrav oi (ci+1) mtel
+                //next see if moving into RAV
+                let rec getnxtrv oi ci mct (mtel:MoveTextEntry list) =
+                    if ci=mtel.Length then ci,0,false //TODO this is an extension to RAV or Moves
+                    else
+                        let mte = mtel.[ci]
+                        if mct = 0 then
+                            match mte with
+                            |HalfMoveEntry(_,_,_,amv) ->
+                                getnxtrv oi (ci+1) (mct+1) mtel
+                            |_ -> getnxtrv oi (ci+1) mct mtel
+                        else
+                            match mte with
+                            |HalfMoveEntry(_,_,_,amv) ->
+                                ci,0,false
+                            |RAVEntry(nmtel) ->
+                                //now need to see if first move in rav is mv
+                                let sci,fnd = inrav 0 0 nmtel
+                                if fnd then
+                                    ci,sci,fnd
+                                else getnxtrv oi (ci+1) mct mtel
+                            |_ -> getnxtrv oi (ci+1) mct mtel
+                let isnxtrv =
+                    if irs.Length>1 then 
+                        let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
+                            if intl.Length=1 then
+                                let oi = intl.Head
+                                let ni,sci,fnd = getnxtrv oi (oi+1) 0 mtel
+                                if fnd then
+                                    let st = irs|>List.rev|>List.tail|>List.rev
+                                    irs <- st@[ni;sci]
+                                fnd
+                            else
+                                let ih = intl.Head
+                                let mte = mtel.[ih]
+                                match mte with
+                                |RAVEntry(nmtel) -> getmv nmtel intl.Tail
+                                |_ -> failwith "should be a RAV"
+                        getmv game.MoveText irs
+                    else
+                        let ni,sci,fnd = getnxtrv irs.Head (irs.Head+1) 0 game.MoveText
+                        if fnd then irs <- [ni;sci]
+                        fnd
+                if isnxtrv then
+                    //now need to select the element
+                    let id = getir irs
+                    for el in pgn.Document.GetElementsByTagName("span") do
+                        if el.GetAttribute("className") = "mv" then
+                            if el.Id=id.ToString() then
+                                el|>highlight
+                    else
+                        //need to create a new RAV
+                        let ngame,nirs = Game.AddRav game irs (mv|>Move.TopMove board) 
+                        game <- ngame
+                        irs <- nirs
+                        board <- board|>Board.Push mv
+                        pgn.DocumentText <- mvtags()
+                        game|>gmchngEvt.Trigger
 
         //publish
         ///Provides the new Board after a change
