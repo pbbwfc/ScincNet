@@ -2052,8 +2052,6 @@ int ScincFuncs::Tree::Search(String^% treestr)
 
 	DString* output = new DString;
 	char temp[200];
-	const char* titleRow = "      Move        Frequency    Score  %Draws AvElo Perf AvYear ECO ";
-	output->Append(titleRow);
 
 	// Now we print the list into the return string:
 	node = tree->node;
@@ -2086,7 +2084,7 @@ int ScincFuncs::Tree::Search(String^% treestr)
 
 		strcpy(tempTrans, node->san);
 
-		sprintf(temp, "\n%2u: %-6s%7u:%3u%c%1u%%  %3u%c%1u%%",
+		sprintf(temp, "%2u|%-6s|%7u|%3u%c%1u%|%3u%c%1u%",
 			count + 1,
 			tempTrans, //node->san,
 			node->total,
@@ -2098,39 +2096,16 @@ int ScincFuncs::Tree::Search(String^% treestr)
 			node->score % 10);
 		output->Append(temp);
 		uint pctDraws = node->freq[RESULT_Draw] * 1000 / node->total;
-		sprintf(temp, " %3u%%", (pctDraws + 5) / 10);
+		sprintf(temp, "|%3u%", (pctDraws + 5) / 10);
 		output->Append(temp);
 
-		if (avgElo == 0)
-		{
-			strCopy(temp, "      ");
-		}
-		else
-		{
-			sprintf(temp, "  %4u", avgElo);
-		}
+		sprintf(temp, "|%4u", avgElo);
 		output->Append(temp);
-
-		if (perf == 0)
-		{
-			strCopy(temp, "      ");
-		}
-		else
-		{
-			sprintf(temp, "  %4u", perf);
-		}
+		sprintf(temp, "|%4u", perf);
 		output->Append(temp);
-		if (avgYear == 0)
-		{
-			strCopy(temp, "      ");
-		}
-		else
-		{
-			sprintf(temp, "  %4llu", avgYear);
-		}
+		sprintf(temp, "|%4llu", avgYear);
 		output->Append(temp);
-
-		sprintf(temp, " %-5s", ecoStr);
+		sprintf(temp, "|%-5s\n", ecoStr);
 		output->Append(temp);
 	}
 
@@ -2171,44 +2146,18 @@ int ScincFuncs::Tree::Search(String^% treestr)
 			perf = perfSum / perfCount;
 		}
 
-		const char* totalString = "TOTAL:";
-		output->Append("\n__________________________________________________________________\n");
-		sprintf(temp, "%-10s%7u:100%c0%%  %3d%c%1d%%",
-			totalString, tree->totalCount, decimalPointChar,
-			totalScore / 10, decimalPointChar, totalScore % 10);
+		sprintf(temp, "%7u|%3d%c%1d%",
+			tree->totalCount, totalScore / 10, decimalPointChar, totalScore % 10);
 		output->Append(temp);
 		uint pctDraws = nDraws * 1000 / tree->totalCount;
-		sprintf(temp, " %3u%%", (pctDraws + 5) / 10);
+		sprintf(temp, "|%3u%", (pctDraws + 5) / 10);
 		output->Append(temp);
-
-		if (avgElo == 0)
-		{
-			output->Append("      ");
-		}
-		else
-		{
-			sprintf(temp, "  %4llu", avgElo);
-			output->Append(temp);
-		}
-		if (perf == 0)
-		{
-			output->Append("      ");
-		}
-		else
-		{
-			sprintf(temp, "  %4u", perf);
-			output->Append(temp);
-		}
-		if (yearCount == 0)
-		{
-			output->Append("      ");
-		}
-		else
-		{
-			sprintf(temp, "  %4llu", (yearSum + (yearCount / 2)) / yearCount);
-			output->Append(temp);
-		}
-		output->Append("\n");
+		sprintf(temp, "|%4llu", avgElo);
+		output->Append(temp);
+		sprintf(temp, "|%4u", perf);
+		output->Append(temp);
+		sprintf(temp, "|%4llu", (yearSum + (yearCount / 2)) / yearCount);
+		output->Append(temp);
 	}
 
 	treestr = gcnew System::String(output->Data());
