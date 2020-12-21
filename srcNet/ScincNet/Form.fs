@@ -59,6 +59,8 @@ module Form =
             let numgms = ScincFuncs.Base.NumGames()
             let fnum = ScincFuncs.Filt.Count()
             fllbl.Text <- "Filter: " + fnum.ToString() + "/" + numgms.ToString()
+            //update stats
+            sts.Refrsh()
             
         let donew() =
             if ScincFuncs.Base.CountFree()=0 then

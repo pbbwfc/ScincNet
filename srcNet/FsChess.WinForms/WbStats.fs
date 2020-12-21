@@ -115,6 +115,10 @@ module WbStatsLib =
         //member stats.CalcStats(fgms:(int * Game * string) list) = 
         //    cbdst <- fgms|>Stats.Get
         //    stats.DocumentText <- bdsttags()
+
+        //Refresh the stats after board change
+        member stats.Refrsh() =
+            ()
   
         //publish
         ///Provides the selected move in SAN format

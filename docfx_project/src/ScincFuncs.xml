@@ -4,6 +4,13 @@
         "ScincFuncs"
     </assembly>
     <members>
+        <member name="M:ScincFuncs.Tree.Search(System.String@)">
+            <summary>
+Search: Gets the stats tree for the current database
+</summary>
+            <param name="treestr">the stats tree returned</param>
+            <returns>returns 0 if successful</returns>
+        </member>
         <member name="M:ScincFuncs.Filt.Count">
             <summary>
 Count: returns the current filter size
@@ -172,6 +179,11 @@ Autoloadgame: Sets or returns the autoload number for the database - the game nu
             <param name="getbase">Whether to get or set the database</param>
             <param name="basenum">The number to set</param>
             <returns>returns 0 if successful</returns>
+        </member>
+        <member name="T:ScincFuncs.Tree">
+            <summary>
+Class that hold functions relating to the stats tree
+</summary>
         </member>
         <member name="T:ScincFuncs.Filt">
             <summary>

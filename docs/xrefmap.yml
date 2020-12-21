@@ -412,3 +412,36 @@ references:
   commentId: Overload:ScincFuncs.ScidGame.StripComments
   fullName: ScincFuncs.ScidGame.StripComments
   nameWithType: ScidGame.StripComments
+- uid: ScincFuncs.Tree
+  name: Tree
+  href: api/ScincFuncs.Tree.html
+  commentId: T:ScincFuncs.Tree
+  fullName: ScincFuncs.Tree
+  nameWithType: Tree
+- uid: ScincFuncs.Tree.#ctor
+  name: Tree()
+  href: api/ScincFuncs.Tree.html#ScincFuncs_Tree__ctor
+  commentId: M:ScincFuncs.Tree.#ctor
+  fullName: ScincFuncs.Tree.Tree()
+  nameWithType: Tree.Tree()
+- uid: ScincFuncs.Tree.#ctor*
+  name: Tree
+  href: api/ScincFuncs.Tree.html#ScincFuncs_Tree__ctor_
+  commentId: Overload:ScincFuncs.Tree.#ctor
+  fullName: ScincFuncs.Tree.Tree
+  nameWithType: Tree.Tree
+- uid: ScincFuncs.Tree.Search(System.String@)
+  name: Search(ref String)
+  href: api/ScincFuncs.Tree.html#ScincFuncs_Tree_Search_System_String__
+  commentId: M:ScincFuncs.Tree.Search(System.String@)
+  name.vb: Search(ByRef String)
+  fullName: ScincFuncs.Tree.Search(ref System.String)
+  fullName.vb: ScincFuncs.Tree.Search(ByRef System.String)
+  nameWithType: Tree.Search(ref String)
+  nameWithType.vb: Tree.Search(ByRef String)
+- uid: ScincFuncs.Tree.Search*
+  name: Search
+  href: api/ScincFuncs.Tree.html#ScincFuncs_Tree_Search_
+  commentId: Overload:ScincFuncs.Tree.Search
+  fullName: ScincFuncs.Tree.Search
+  nameWithType: Tree.Search

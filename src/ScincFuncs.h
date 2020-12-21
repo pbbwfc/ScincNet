@@ -8,6 +8,8 @@
 #include "pbook.h"
 #include "pgnparse.h"
 #include "timer.h"
+#include "stored.h"
+
 
 // TreeCache size for each open database:
 const uint SCID_TreeCacheSize = 1000; //250
@@ -160,5 +162,13 @@ namespace ScincFuncs {
 	{
 	public:
 		static int Count();
+	};
+	/// <summary>
+	/// Class that hold functions relating to the stats tree
+	/// </summary>
+	public ref class Tree
+	{
+	public:
+		static int Search(String^% treestr);
 	};
 }

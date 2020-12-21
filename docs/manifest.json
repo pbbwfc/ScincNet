@@ -77,11 +77,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/ScincFuncs.Tree.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ScincFuncs.Tree.html",
+          "hash": "m7Co+GwAj5vd/OtNSyvdiA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/ScincFuncs.yml",
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.html",
-          "hash": "ZES6nSkkQAPF1sO/HlKHCQ=="
+          "hash": "8yv+l1XiZ1SFQXCEI7XvBg=="
         }
       },
       "is_incremental": false,
@@ -105,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "U7PMhfnrHLcFEzQIHuq+YQ=="
+          "hash": "jFE6FoiQA2xnxVHdmmko4w=="
         }
       },
       "is_incremental": false,
@@ -193,8 +205,8 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 7,
-          "skipped_file_count": 5
+          "total_file_count": 8,
+          "skipped_file_count": 6
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
