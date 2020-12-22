@@ -172,6 +172,11 @@ Autoloadgame: Sets or returns the autoload number for the database - the game nu
             <param name="basenum">The number to set</param>
             <returns>returns 0 if successful</returns>
         </member>
+        <member name="T:ScincFuncs.Search">
+            <summary>
+Class that hold functions relating to search
+</summary>
+        </member>
         <member name="T:ScincFuncs.Tree">
             <summary>
 Class that hold functions relating to the stats tree

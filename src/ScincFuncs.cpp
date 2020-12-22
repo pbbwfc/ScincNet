@@ -1638,6 +1638,19 @@ int ScincFuncs::Eco::Base(String^% msgs)
 
 // FILT functions
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// filter_reset:
+//    Resets the filter of the specified base to include all or no games.
+void filter_reset(scidBaseT* base, byte value)
+{
+	if (base->inUse)
+	{
+		base->dbFilter->Fill(value);
+		if (base->dbFilter != base->filter)
+			base->filter->Fill(value);
+	}
+}
+
 /// <summary>
 /// Count: returns the current filter size
 /// </summary>
@@ -1681,6 +1694,18 @@ void updateMainFilter2(scidBaseT* dbase)
 		}
 	}
 }
+
+void setMainFilter(scidBaseT* dbase)
+{
+	if (dbase->filter != dbase->dbFilter)
+	{
+		for (uint i = 0; i < dbase->numGames; i++)
+		{
+			dbase->filter->Set(i, dbase->dbFilter->Get(i));
+		}
+	}
+}
+
 
 // TREE functions
 
@@ -2095,6 +2120,164 @@ int ScincFuncs::Tree::Search(String^ fenstr, String^% treestr)
 
 	treestr = gcnew System::String(output->Data());
 	delete output;
+
+	return 0;
+}
+
+// SEARCH functions
+
+inline uint
+startFilterSize(scidBaseT* base, filterOpT filterOp)
+{
+	// &&& if( base->dbFilter == NULL)
+	// &&&     initDbFilter( base, 1);
+
+	if (filterOp == FILTEROP_AND)
+	{
+		return base->dbFilter->Count();
+	}
+	return base->numGames;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// sc_search_board:
+//    Searches for exact match for the current position.
+//    if <base> is present, search for current position in base <base>,
+//    and sets <base> filter accordingly
+//int sc_search_board(ClientData cd, Tcl_Interp* ti, int argc, const char** argv)
+int ScincFuncs::Search::Board(String^ fenstr)
+{
+	msclr::interop::marshal_context oMarshalContext;
+
+	const char* fen = oMarshalContext.marshal_as<const char*>(fenstr);
+	if (!db->inUse)
+	{
+		return -1;
+	}
+
+	filterOpT filterOp = FILTEROP_RESET;
+
+	bool useHpSigSpeedup = false;
+	gameExactMatchT searchType = GAME_EXACT_MATCH_Exact;
+
+	bool searchInVars = false;
+
+	Position* pos = db->game->GetCurrentPos();
+	pos->ReadFromFEN(fen);
+
+	int oldCurrentBase = currentBase;
+
+	matSigT msig = matsig_Make(pos->GetMaterial());
+	uint hpSig = pos->GetHPSig();
+
+	uint skipcount = 0;
+
+	// If filter operation is to reset the filter, reset it:
+	if (filterOp == FILTEROP_RESET)
+	{
+		filter_reset(db, 1);
+		filterOp = FILTEROP_AND;
+	}
+	uint startFilterCount = startFilterSize(db, filterOp);
+
+	// Here is the loop that searches on each game:
+	IndexEntry* ie;
+	Game* g = scratchGame;
+	uint gameNum;
+	for (gameNum = 0; gameNum < db->numGames; gameNum++)
+	{
+		// First, apply the filter operation:
+		if (filterOp == FILTEROP_AND)
+		{ // Skip any games not in the filter:
+			if (db->dbFilter->Get(gameNum) == 0)
+			{
+				skipcount++;
+				continue;
+			}
+		}
+		else /* filterOp==FILTEROP_OR*/
+		{    // Skip any games in the filter:
+			if (db->dbFilter->Get(gameNum) != 0)
+			{
+				skipcount++;
+				continue;
+			}
+			else
+			{
+				// OK, this game is NOT in the filter.
+				// Add it so filterCounts are kept up to date:
+				db->dbFilter->Set(gameNum, 1);
+			}
+		}
+
+		ie = db->idx->FetchEntry(gameNum);
+		if (ie->GetLength() == 0)
+		{
+			// Skip games with no gamefile record:
+			db->dbFilter->Set(gameNum, 0);
+			skipcount++;
+			continue;
+		}
+
+		bool possibleMatch = true;
+
+		// Apply speedups if we are not searching in variations:
+		if (!ie->GetStartFlag())
+		{
+			// Speedups that only apply to standard start games:
+			if (useHpSigSpeedup && hpSig != 0xFFFF)
+			{
+				const byte* hpData = ie->GetHomePawnData();
+				if (!hpSig_PossibleMatch(hpSig, hpData))
+				{
+					possibleMatch = false;
+				}
+			}
+		}
+
+		// If this game has no promotions, check the material of its final
+		// position, since the searched position might be unreachable:
+		if (possibleMatch)
+		{
+			if (!matsig_isReachable(msig, ie->GetFinalMatSig(),
+				ie->GetPromotionsFlag(),
+				ie->GetUnderPromoFlag()))
+			{
+				possibleMatch = false;
+			}
+		}
+
+		if (!possibleMatch)
+		{
+			db->dbFilter->Set(gameNum, 0);
+			skipcount++;
+			continue;
+		}
+
+		// At this point, the game needs to be loaded:
+		if (db->gfile->ReadGame(db->bbuf, ie->GetOffset(),
+			ie->GetLength()) != OK)
+		{
+			return -2;//Error reading game file.
+		}
+		uint ply = 0;
+		// No searching in variations:
+		if (possibleMatch)
+		{
+			if (g->ExactMatch(pos, db->bbuf, NULL, searchType))
+			{
+				// Set its auto-load move number to the matching move:
+				ply = g->GetCurrentPly() + 1;
+			}
+		}
+		if (ply > 255)
+		{
+			ply = 255;
+		}
+		db->dbFilter->Set(gameNum, ply);
+	}
+
+	setMainFilter(db);
 
 	return 0;
 }

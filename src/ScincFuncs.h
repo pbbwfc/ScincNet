@@ -10,6 +10,12 @@
 #include "timer.h"
 #include "stored.h"
 
+// Filter operations:
+
+typedef uint filterOpT;
+const filterOpT FILTEROP_AND = 0;
+const filterOpT FILTEROP_OR = 1;
+const filterOpT FILTEROP_RESET = 2;
 
 // TreeCache size for each open database:
 const uint SCID_TreeCacheSize = 1000; //250
@@ -163,4 +169,13 @@ namespace ScincFuncs {
 	public:
 		static int Search(String^ fenstr, String^% treestr);
 	};
+	/// <summary>
+	/// Class that hold functions relating to search
+	/// </summary>
+	public ref class Search
+	{
+	public:
+		static int Board(String^ fenstr);
+	};
+
 }

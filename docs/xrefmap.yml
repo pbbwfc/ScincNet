@@ -379,6 +379,36 @@ references:
   commentId: Overload:ScincFuncs.ScidGame.StripComments
   fullName: ScincFuncs.ScidGame.StripComments
   nameWithType: ScidGame.StripComments
+- uid: ScincFuncs.Search
+  name: Search
+  href: api/ScincFuncs.Search.html
+  commentId: T:ScincFuncs.Search
+  fullName: ScincFuncs.Search
+  nameWithType: Search
+- uid: ScincFuncs.Search.#ctor
+  name: Search()
+  href: api/ScincFuncs.Search.html#ScincFuncs_Search__ctor
+  commentId: M:ScincFuncs.Search.#ctor
+  fullName: ScincFuncs.Search.Search()
+  nameWithType: Search.Search()
+- uid: ScincFuncs.Search.#ctor*
+  name: Search
+  href: api/ScincFuncs.Search.html#ScincFuncs_Search__ctor_
+  commentId: Overload:ScincFuncs.Search.#ctor
+  fullName: ScincFuncs.Search.Search
+  nameWithType: Search.Search
+- uid: ScincFuncs.Search.Board(System.String)
+  name: Board(String)
+  href: api/ScincFuncs.Search.html#ScincFuncs_Search_Board_System_String_
+  commentId: M:ScincFuncs.Search.Board(System.String)
+  fullName: ScincFuncs.Search.Board(System.String)
+  nameWithType: Search.Board(String)
+- uid: ScincFuncs.Search.Board*
+  name: Board
+  href: api/ScincFuncs.Search.html#ScincFuncs_Search_Board_
+  commentId: Overload:ScincFuncs.Search.Board
+  fullName: ScincFuncs.Search.Board
+  nameWithType: Search.Board
 - uid: ScincFuncs.Tree
   name: Tree
   href: api/ScincFuncs.Tree.html

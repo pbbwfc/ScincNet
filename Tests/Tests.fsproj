@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Search.fs" />
     <Compile Include="Filt.fs" />
     <Compile Include="Tree.fs" />
     <Compile Include="ScidGame.fs" />
