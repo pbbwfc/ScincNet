@@ -42,26 +42,24 @@ module Form =
                 this.Text <- "ScincNet - " + Path.GetFileNameWithoutExtension(fname)
         
         let refreshWindows() =
-            gms.Reload()
+            gms.Refrsh()
             updateMenuStates()
             updateTitle()
 
-        let updateBoard() =
-            pgn.Refrsh()
-            //bd.Refrsh()
-            //update gmlbl
+        let updategmlbl() =
             let mutable wnm = ""
             ScincFuncs.ScidGame.GetTag("White",&wnm)|>ignore
             let mutable bnm = ""
             ScincFuncs.ScidGame.GetTag("Black",&bnm)|>ignore
             gmlbl.Text <- "Game: " + wnm + " v. " + bnm
+        
+        let updateBoard() =
+            pgn.Refrsh()
             //update fllbl
             let numgms = ScincFuncs.Base.NumGames()
             let fnum = ScincFuncs.Filt.Count()
             fllbl.Text <- "Filter: " + fnum.ToString() + "/" + numgms.ToString()
-            //update stats
             ScincFuncs.Eco.Read("scid.eco")|>ignore
-            sts.Refrsh()
             
         let donew() =
             if ScincFuncs.Base.CountFree()=0 then
@@ -145,6 +143,7 @@ module Form =
         let rtbpnl = new Panel(Dock=DockStyle.Fill,BorderStyle=BorderStyle.Fixed3D)
  
         do
+            ScincFuncs.Eco.Read("scid.eco")|>ignore
             gms|>rtbpnl.Controls.Add
             rtbpnl|>rtpnl.Controls.Add
             anl|>rtmpnl.Controls.Add
@@ -166,4 +165,18 @@ module Form =
             ts|>this.Controls.Add
             createms()
             ms|>this.Controls.Add
+            //Events
+            pgn.BdChng |> Observable.add bd.SetBoard
+            bd.MvMade |> Observable.add pgn.DoMove
+            pgn.BdChng |> Observable.add sts.UpdateFen
+            //bd.BdChng |> Observable.add gms.SetBoard
+            //pgn.BdChng |> Observable.add gms.SetBoard
+            //gms.FiltChng |> Observable.add sts.CalcStats
+            sts.MvSel |> Observable.add bd.DoMove
+            gms.GmSel |> Observable.add pgn.SwitchGame
+            gms.GmSel |> Observable.add (fun _ -> updategmlbl())
+            //pgn.GmChng |> Observable.add gms.ChangeGame
+            //pgn.HdrChng |> Observable.add gms.ChangeGameHdr
+            //gms.PgnChng |> Observable.add bd.SetBoard 
+
     

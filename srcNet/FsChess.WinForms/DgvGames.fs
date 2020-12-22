@@ -42,7 +42,6 @@ module DgvGamesLib =
                 GridColor = Color.Black, MultiSelect = false,
                 RowHeadersVisible=false)
 
-        let mutable pgn = ""
         let mutable crw = -1
         let mutable gmchg = false
         let mutable gmsui = new System.ComponentModel.BindingList<GmUI>()
@@ -90,8 +89,8 @@ module DgvGamesLib =
             ()
             
         
-        let doclick(e:DataGridViewCellEventArgs) =
-            let rw = e.RowIndex
+        let dodoubleclick(e:DataGridViewCellEventArgs) =
+            crw <- e.RowIndex
             //need to check if want to save
             //if gmchg then
             //    //let nm = cgm.WhitePlayer + " v. " + cgm.BlackPlayer
@@ -106,7 +105,8 @@ module DgvGamesLib =
             //else
             //    //TODO
             //    cgm|>selEvt.Trigger
-            gms.CurrentCell <- gms.Rows.[rw].Cells.[0]
+            gms.CurrentCell <- gms.Rows.[crw].Cells.[0]
+            crw|>selEvt.Trigger
         
         let setup() =
             bs.DataSource <- gmsui
@@ -114,12 +114,7 @@ module DgvGamesLib =
 
         do 
             setup()
-            gms.CellClick.Add(doclick)
-
-        ///Reloads the list
-        member this.Reload() =
-            //b <- ScincFuncs.Base.Current
-            this.Refrsh()
+            gms.CellDoubleClick.Add(dodoubleclick)
 
         ///Refresh the list
         member this.Refrsh() =

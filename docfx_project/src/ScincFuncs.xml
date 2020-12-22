@@ -4,7 +4,7 @@
         "ScincFuncs"
     </assembly>
     <members>
-        <member name="M:ScincFuncs.Tree.Search(System.String@)">
+        <member name="M:ScincFuncs.Tree.Search(System.String,System.String@)">
             <summary>
 Search: Gets the stats tree for the current database
 </summary>

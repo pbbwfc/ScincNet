@@ -403,7 +403,13 @@ module WbPgnLib =
             game
 
         ///Switches to another game with the same position
-        member pgn.SwitchGame(gm:Game) = 
+        member pgn.SwitchGame(rw:int) = 
+            //select game
+            ScincFuncs.ScidGame.Load(uint32(rw+1))|>ignore
+            //load game
+            let mutable pgnstr = ""
+            ScincFuncs.ScidGame.Pgn(&pgnstr)|>ignore
+            let gm = Game.FromStr(pgnstr)
             game <- gm|>Game.GetaMoves
             pgn.DocumentText <- mvtags()
             //need to select move that matches current board

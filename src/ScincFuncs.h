@@ -161,6 +161,6 @@ namespace ScincFuncs {
 	public ref class Tree
 	{
 	public:
-		static int Search(String^% treestr);
+		static int Search(String^ fenstr, String^% treestr);
 	};
 }

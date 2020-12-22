@@ -69,10 +69,10 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.Tree.html",
-          "hash": "m7Co+GwAj5vd/OtNSyvdiA=="
+          "hash": "imiVT4I9Hjus6zi63NZHQg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -84,7 +84,7 @@
           "hash": "fNOoNFAeazsjh/MpM9M5PQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -194,7 +194,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 7,
-          "skipped_file_count": 7
+          "skipped_file_count": 6
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

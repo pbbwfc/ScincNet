@@ -1,6 +1,7 @@
 namespace FsChess.WinForms
 
 open System.Windows.Forms
+open FsChess
 
 [<AutoOpen>]
 module WbStatsLib =
@@ -55,6 +56,7 @@ module WbStatsLib =
 
         //mutables
         let mutable cbdst = BrdStatsEMP
+        let mutable fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
         //events
         let mvselEvt = new Event<_>()
@@ -68,7 +70,6 @@ module WbStatsLib =
         let ftr = 
             "</table>" + nl +
             "</body></html>" + nl
-
 
         let getdiv ww dr bw =
             let sww = if ww+dr+bw=0 then "0" else ((80*ww)/(ww+dr+bw)).ToString()
@@ -110,7 +111,6 @@ module WbStatsLib =
                 "</td></tr>" + nl
                 + ftr
 
-
         let onclick(el:HtmlElement) = 
             let i = el.Id|>int
             let san = cbdst.Mvstats.[i].Mvstr
@@ -125,21 +125,10 @@ module WbStatsLib =
             stats.DocumentCompleted.Add(setclicks)
             stats.ObjectForScripting <- stats
 
-
-        ///Sets the Stats to be displayed
-        member stats.SetStats(sts:BrdStats) = 
-            cbdst <- sts
-            stats.DocumentText <- bdsttags()
-  
-        ///Calculates the Stats to be displayed
-        //member stats.CalcStats(fgms:(int * Game * string) list) = 
-        //    cbdst <- fgms|>Stats.Get
-        //    stats.DocumentText <- bdsttags()
-
-        //Refresh the stats after board change
+        ///Refresh the stats after board change
         member stats.Refrsh() =
             let mutable statsstr = "" 
-            if ScincFuncs.Tree.Search(&statsstr)=0 then
+            if ScincFuncs.Tree.Search(fen, &statsstr)=0 then
                 let lns = statsstr.Split('\n')
                 let mvlns = lns.[0..lns.Length-2]
                 let totln = lns.[lns.Length-1]
@@ -171,7 +160,11 @@ module WbStatsLib =
                 let bw = totnm * int(100.0 - 100.0 * totscr - 50.0 * totpctDraws)
                 cbdst <- {Mvstats=mvsts;TotCount=totnm;Pc=100.0;TotWhiteWins=ww;TotDraws=dw;TotBlackWins=bw;TotScore=totscr;TotDrawPc=totpctDraws;TotAvElo=totavgElo;TotPerf=totperf;TotAvYear=totavgYear}
                 stats.DocumentText <- bdsttags()
-      
+
+        member stats.UpdateFen(bd:Brd) =
+            fen <- bd|>Board.ToStr
+            stats.Refrsh()
+        
         //publish
         ///Provides the selected move in SAN format
         member __.MvSel = mvselEvt.Publish

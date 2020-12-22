@@ -1756,8 +1756,12 @@ void sortTreeMoves(treeT* tree, int sortMethod, colorT toMove)
 /// </summary>
 /// <param name="treestr">the stats tree returned</param>
 /// <returns>returns 0 if successful</returns>
-int ScincFuncs::Tree::Search(String^% treestr)
+int ScincFuncs::Tree::Search(String^ fenstr, String^% treestr)
 {
+	msclr::interop::marshal_context oMarshalContext;
+
+	const char* fen = oMarshalContext.marshal_as<const char*>(fenstr);
+	
 	char tempTrans[10];
 
 	scidBaseT* base = db;
@@ -1778,223 +1782,174 @@ int ScincFuncs::Tree::Search(String^% treestr)
 		base->treeFilter = new Filter(base->numGames);
 	}
 
-	Timer timer; // Start timing this search.
+	// Set vars
+	Position* pos = db->game->GetCurrentPos();
+	//set to fen
+	pos->ReadFromFEN(fen);
 
-	// 1. Cache Search
-	bool foundInCache = false;
-	// Check if there is a TreeCache file to open:
-	base->treeCache->ReadFile(base->fileName);
+	treeT* tree = &(base->tree);
+	tree->moveCount = tree->totalCount = 0;
+	matSigT msig = matsig_Make(pos->GetMaterial());
+	uint hpSig = pos->GetHPSig();
+	simpleMoveT sm;
+	base->treeFilter->Fill(0); // Reset the filter to be empty
+	uint skipcount = 0;
 
-	// Lookup the cache before searching:
-	cachedTreeT* pct = base->treeCache->Lookup(db->game->GetCurrentPos());
-	if (pct != NULL)
+	// Set up the stored line code matches:
+	StoredLine stored_line(pos);
+
+	// Search through each game:
+	for (uint i = 0; i < base->numGames; i++)
 	{
-		// It was in the cache! Use it to save time:
-		if (pct->cfilter->Size() == base->numGames)
-		{
-			if (pct->cfilter->UncompressTo(base->treeFilter) == OK)
-			{
-				base->tree = pct->tree;
+		const byte* oldFilterData = base->treeFilter->GetOldDataTree();
 
-				foundInCache = true;
-			}
+		IndexEntry* ie = base->idx->FetchEntry(i);
+		if (ie->GetLength() == 0)
+		{
+			skipcount++;
+			continue;
 		}
-	}
 
-	// Lookup the backup cache which is useful for storing recent nodes
-	// when the main disk-file cache is full:
-	if (!foundInCache)
-	{
-		pct = base->backupCache->Lookup(db->game->GetCurrentPos());
-		if (pct != NULL)
+		bool foundMatch = false;
+		uint ply = 0;
+
+		// Check the stored line result for this game:
+		if (!stored_line.CanMatch(ie->GetStoredLineCode(), &ply, &sm))
 		{
-			// It was in the backup cache! Use it to save time:
-			if (pct->cfilter->Size() == base->numGames)
-			{
-				if (pct->cfilter->UncompressTo(base->treeFilter) == OK)
+			skipcount++;
+			continue;
+		}
+		if (ply > 0)
+			foundMatch = true;
+
+		pieceT* bd = pos->GetBoard();
+		bool isStartPos =
+			(bd[A1] == WR && bd[B1] == WN && bd[C1] == WB && bd[D1] == WQ &&
+				bd[E1] == WK && bd[F1] == WB && bd[G1] == WN && bd[H1] == WR &&
+				bd[A2] == WP && bd[B2] == WP && bd[C2] == WP && bd[D2] == WP &&
+				bd[E2] == WP && bd[F2] == WP && bd[G2] == WP && bd[H2] == WP &&
+				bd[A7] == BP && bd[B7] == BP && bd[C7] == BP && bd[D7] == BP &&
+				bd[E7] == BP && bd[F7] == BP && bd[G7] == BP && bd[H7] == BP &&
+				bd[A8] == BR && bd[B8] == BN && bd[C8] == BB && bd[D8] == BQ &&
+				bd[E8] == BK && bd[F8] == BB && bd[G8] == BN && bd[H8] == BR);
+
+		if (!isStartPos && ie->GetNumHalfMoves() == 0)
+		{
+			skipcount++;
+			continue;
+		}
+
+		if (!foundMatch && !ie->GetStartFlag())
+		{
+			// Speedups that only apply to standard start games:
+			if (hpSig != HPSIG_StdStart)
+			{ // Not the start mask
+				if (!hpSig_PossibleMatch(hpSig, ie->GetHomePawnData()))
 				{
-					base->tree = pct->tree;
-					foundInCache = true;
+					skipcount++;
+					continue;
 				}
 			}
 		}
-	}
 
-	// we went back before the saved filter data
-	if (base->treeFilter->oldDataTreePly > db->game->GetCurrentPly())
-	{
-		base->treeFilter->isValidOldDataTree = false;
-	}
-
-	if (!foundInCache)
-	{
-		// OK, not in the cache so do the search:
-		// 2. Set vars
-		Position* pos = db->game->GetCurrentPos();
-		treeT* tree = &(base->tree);
-		tree->moveCount = tree->totalCount = 0;
-		matSigT msig = matsig_Make(pos->GetMaterial());
-		uint hpSig = pos->GetHPSig();
-		simpleMoveT sm;
-		base->treeFilter->Fill(0); // Reset the filter to be empty
-		uint skipcount = 0;
-
-		// 3. Set up the stored line code matches:
-		StoredLine stored_line(pos);
-
-		// 4. Search through each game:
-		for (uint i = 0; i < base->numGames; i++)
+		if (!foundMatch && msig != MATSIG_StdStart && !matsig_isReachable(msig, ie->GetFinalMatSig(), ie->GetPromotionsFlag(), ie->GetUnderPromoFlag()))
 		{
-			const byte* oldFilterData = base->treeFilter->GetOldDataTree();
+			skipcount++;
+			continue;
+		}
 
-			IndexEntry* ie = base->idx->FetchEntry(i);
-			if (ie->GetLength() == 0)
+		if (!foundMatch)
+		{
+			if (base->gfile->ReadGame(base->bbuf, ie->GetOffset(),
+				ie->GetLength()) != OK)
 			{
-				skipcount++;
-				continue;
+				search_pool.erase(&base);
+				return -2;//Error reading game file
 			}
-
-			bool foundMatch = false;
-			uint ply = 0;
-
-			// Check the stored line result for this game:
-			if (!stored_line.CanMatch(ie->GetStoredLineCode(), &ply, &sm))
+			Game* g = scratchGame;
+			if (g->ExactMatch(pos, base->bbuf, &sm))
 			{
-				skipcount++;
-				continue;
-			}
-			if (ply > 0)
+				ply = g->GetCurrentPly() + 1;
+				//if (ply > 255) { ply = 255; }
 				foundMatch = true;
-
-			pieceT* bd = pos->GetBoard();
-			bool isStartPos =
-				(bd[A1] == WR && bd[B1] == WN && bd[C1] == WB && bd[D1] == WQ &&
-					bd[E1] == WK && bd[F1] == WB && bd[G1] == WN && bd[H1] == WR &&
-					bd[A2] == WP && bd[B2] == WP && bd[C2] == WP && bd[D2] == WP &&
-					bd[E2] == WP && bd[F2] == WP && bd[G2] == WP && bd[H2] == WP &&
-					bd[A7] == BP && bd[B7] == BP && bd[C7] == BP && bd[D7] == BP &&
-					bd[E7] == BP && bd[F7] == BP && bd[G7] == BP && bd[H7] == BP &&
-					bd[A8] == BR && bd[B8] == BN && bd[C8] == BB && bd[D8] == BQ &&
-					bd[E8] == BK && bd[F8] == BB && bd[G8] == BN && bd[H8] == BR);
-
-			if (!isStartPos && ie->GetNumHalfMoves() == 0)
-			{
-				skipcount++;
-				continue;
+				//base->filter->Set (i, (byte) ply);
 			}
+		}
 
-			if (!foundMatch && !ie->GetStartFlag())
+		// If match was found, add it to the list of found moves:
+		if (foundMatch)
+		{
+			if (ply > 255)
 			{
-				// Speedups that only apply to standard start games:
-				if (hpSig != HPSIG_StdStart)
-				{ // Not the start mask
-					if (!hpSig_PossibleMatch(hpSig, ie->GetHomePawnData()))
-					{
-						skipcount++;
-						continue;
-					}
+				ply = 255;
+			}
+			base->treeFilter->Set(i, (byte)ply);
+			uint search;
+			treeNodeT* node = tree->node;
+			for (search = 0; search < tree->moveCount; search++, node++)
+			{
+				if (sm.from == node->sm.from && sm.to == node->sm.to && sm.promote == node->sm.promote)
+				{
+					break;
 				}
 			}
 
-			if (!foundMatch && msig != MATSIG_StdStart && !matsig_isReachable(msig, ie->GetFinalMatSig(), ie->GetPromotionsFlag(), ie->GetUnderPromoFlag()))
+			// Now node is the node to update or add.
+			// Check for exceeding max number of nodes:
+			if (search >= MAX_TREE_NODES)
 			{
-				skipcount++;
-				continue;
+				search_pool.erase(&base);
+				return -3;//Too many moves
 			}
 
-			if (!foundMatch)
+			if (search == tree->moveCount)
 			{
-				if (base->gfile->ReadGame(base->bbuf, ie->GetOffset(),
-					ie->GetLength()) != OK)
+				// A new move to add:
+				initTreeNode(node);
+				node->sm = sm;
+				if (sm.from == NULL_SQUARE)
 				{
-					search_pool.erase(&base);
-					return -2;//Error reading game file
-				}
-				Game* g = scratchGame;
-				if (g->ExactMatch(pos, base->bbuf, &sm))
-				{
-					ply = g->GetCurrentPly() + 1;
-					//if (ply > 255) { ply = 255; }
-					foundMatch = true;
-					//base->filter->Set (i, (byte) ply);
-				}
-			}
-
-			// If match was found, add it to the list of found moves:
-			if (foundMatch)
-			{
-				if (ply > 255)
-				{
-					ply = 255;
-				}
-				base->treeFilter->Set(i, (byte)ply);
-				uint search;
-				treeNodeT* node = tree->node;
-				for (search = 0; search < tree->moveCount; search++, node++)
-				{
-					if (sm.from == node->sm.from && sm.to == node->sm.to && sm.promote == node->sm.promote)
-					{
-						break;
-					}
-				}
-
-				// Now node is the node to update or add.
-				// Check for exceeding max number of nodes:
-				if (search >= MAX_TREE_NODES)
-				{
-					search_pool.erase(&base);
-					return -3;//Too many moves
-				}
-
-				if (search == tree->moveCount)
-				{
-					// A new move to add:
-					initTreeNode(node);
-					node->sm = sm;
-					if (sm.from == NULL_SQUARE)
-					{
-						strCopy(node->san, "[end]");
-					}
-					else
-					{
-						pos->MakeSANString(&sm, node->san, SAN_CHECKTEST);
-					}
-					tree->moveCount++;
-				}
-				node->total++;
-				node->freq[ie->GetResult()]++;
-				eloT elo = 0;
-				eloT oppElo = 0;
-				uint year = ie->GetYear();
-				if (pos->GetToMove() == WHITE)
-				{
-					elo = ie->GetWhiteElo();
-					oppElo = ie->GetBlackElo();
+					strCopy(node->san, "[end]");
 				}
 				else
 				{
-					elo = ie->GetBlackElo();
-					oppElo = ie->GetWhiteElo();
+					pos->MakeSANString(&sm, node->san, SAN_CHECKTEST);
 				}
-				if (elo > 0)
-				{
-					node->eloSum += elo;
-					node->eloCount++;
-				}
-				if (oppElo > 0)
-				{
-					node->perfSum += oppElo;
-					node->perfCount++;
-				}
-				if (year != 0)
-				{
-					node->yearSum += year;
-					node->yearCount++;
-				}
-				tree->totalCount++;
-			} // end: if (foundMatch) ...
-		}     // end: for
-	}
+				tree->moveCount++;
+			}
+			node->total++;
+			node->freq[ie->GetResult()]++;
+			eloT elo = 0;
+			eloT oppElo = 0;
+			uint year = ie->GetYear();
+			if (pos->GetToMove() == WHITE)
+			{
+				elo = ie->GetWhiteElo();
+				oppElo = ie->GetBlackElo();
+			}
+			else
+			{
+				elo = ie->GetBlackElo();
+				oppElo = ie->GetWhiteElo();
+			}
+			if (elo > 0)
+			{
+				node->eloSum += elo;
+				node->eloCount++;
+			}
+			if (oppElo > 0)
+			{
+				node->perfSum += oppElo;
+				node->perfCount++;
+			}
+			if (year != 0)
+			{
+				node->yearSum += year;
+				node->yearCount++;
+			}
+			tree->totalCount++;
+		} 
+	}     
 
 	updateMainFilter2(base);
 
@@ -2002,7 +1957,6 @@ int ScincFuncs::Tree::Search(String^% treestr)
 	// 1000 games. Also generate the ECO code of each move.
 
 	DString dstr;
-	treeT* tree = &(base->tree);
 	treeNodeT* node = tree->node;
 	for (uint i = 0; i < tree->moveCount; i++, node++)
 	{
@@ -2026,12 +1980,6 @@ int ScincFuncs::Tree::Search(String^% treestr)
 
 	// Now we sort the move list:
 	sortTreeMoves(tree, SORT_FREQUENCY, db->game->GetCurrentPos()->GetToMove());
-
-	// If it wasn't in the cache, maybe it belongs there:
-	// But only add to the cache if not in fastmode
-	base->treeCache->Add(db->game->GetCurrentPos(), tree, base->treeFilter);
-	base->backupCache->Add(db->game->GetCurrentPos(), tree, base->treeFilter);
-	base->treeFilter->saveFilterForFastMode(db->game->GetCurrentPly());
 
 	search_pool.erase(&base);
 
@@ -2147,7 +2095,6 @@ int ScincFuncs::Tree::Search(String^% treestr)
 
 	treestr = gcnew System::String(output->Data());
 	delete output;
-	base->treeSearchTime = timer.MilliSecs();
 
 	return 0;
 }

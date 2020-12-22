@@ -397,15 +397,15 @@ references:
   commentId: Overload:ScincFuncs.Tree.#ctor
   fullName: ScincFuncs.Tree.Tree
   nameWithType: Tree.Tree
-- uid: ScincFuncs.Tree.Search(System.String@)
-  name: Search(ref String)
-  href: api/ScincFuncs.Tree.html#ScincFuncs_Tree_Search_System_String__
-  commentId: M:ScincFuncs.Tree.Search(System.String@)
-  name.vb: Search(ByRef String)
-  fullName: ScincFuncs.Tree.Search(ref System.String)
-  fullName.vb: ScincFuncs.Tree.Search(ByRef System.String)
-  nameWithType: Tree.Search(ref String)
-  nameWithType.vb: Tree.Search(ByRef String)
+- uid: ScincFuncs.Tree.Search(System.String,System.String@)
+  name: Search(String, ref String)
+  href: api/ScincFuncs.Tree.html#ScincFuncs_Tree_Search_System_String_System_String__
+  commentId: M:ScincFuncs.Tree.Search(System.String,System.String@)
+  name.vb: Search(String, ByRef String)
+  fullName: ScincFuncs.Tree.Search(System.String, ref System.String)
+  fullName.vb: ScincFuncs.Tree.Search(System.String, ByRef System.String)
+  nameWithType: Tree.Search(String, ref String)
+  nameWithType.vb: Tree.Search(String, ByRef String)
 - uid: ScincFuncs.Tree.Search*
   name: Search
   href: api/ScincFuncs.Tree.html#ScincFuncs_Tree_Search_
