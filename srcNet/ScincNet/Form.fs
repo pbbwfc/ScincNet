@@ -18,13 +18,10 @@ module Form =
     type FrmMain() as this =
         inherit Form(Text = "ScincNet", WindowState = FormWindowState.Maximized, IsMdiContainer = true)
 
-        let mutable gms = []
-        let mutable ct = 0
-     
         let bd = new PnlBoard(Dock=DockStyle.Fill)
         let pgn = new WbPgn(Dock=DockStyle.Fill)
         let sts = new WbStats(Dock=DockStyle.Fill)
-        let gms = new DgvGames(Dock=DockStyle.Fill)
+        let gmtbs = new TcGames(Dock=DockStyle.Fill)
         let anl = new PnlAnl(Dock=DockStyle.Fill)
         let ts = new ToolStrip()
         let ms = new MenuStrip()
@@ -42,7 +39,6 @@ module Form =
                 this.Text <- "ScincNet - " + Path.GetFileNameWithoutExtension(fname)
         
         let refreshWindows() =
-            gms.Refrsh()
             updateMenuStates()
             updateTitle()
 
@@ -59,7 +55,6 @@ module Form =
             let numgms = ScincFuncs.Base.NumGames()
             let fnum = ScincFuncs.Filt.Count()
             fllbl.Text <- "Filter: " + fnum.ToString() + "/" + numgms.ToString()
-            ScincFuncs.Eco.Read("scid.eco")|>ignore
             
         let donew() =
             if ScincFuncs.Base.CountFree()=0 then
@@ -94,13 +89,16 @@ module Form =
                         let auto = ScincFuncs.Base.Autoloadgame(true,uint32(current))
                         ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
                         Recents.add fn
+                        gmtbs.AddTab()
                         refreshWindows()
                         updateBoard()
-                        ()
-                else
-                    ()
-
-
+ 
+        let dobdchg(nbd) =
+            bd.SetBoard(nbd)
+            sts.UpdateFen(nbd)
+            gmtbs.Refrsh()
+        
+        
         let createts() = 
             // new
             let newb = new ToolStripButton(Image = img "new.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&New")
@@ -122,10 +120,6 @@ module Form =
             let openm = new ToolStripMenuItem(Image = img "opn.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.O), Text = "&Open")
             openm.Click.Add(fun _ -> doopen())
             filem.DropDownItems.Add(openm)|>ignore
-            
-            
-            
-            
             ms.Items.Add(filem)|>ignore
 
 
@@ -144,7 +138,7 @@ module Form =
  
         do
             ScincFuncs.Eco.Read("scid.eco")|>ignore
-            gms|>rtbpnl.Controls.Add
+            gmtbs|>rtbpnl.Controls.Add
             rtbpnl|>rtpnl.Controls.Add
             anl|>rtmpnl.Controls.Add
             rtmpnl|>rtpnl.Controls.Add
@@ -166,15 +160,15 @@ module Form =
             createms()
             ms|>this.Controls.Add
             //Events
-            pgn.BdChng |> Observable.add bd.SetBoard
-            bd.MvMade |> Observable.add pgn.DoMove
-            pgn.BdChng |> Observable.add sts.UpdateFen
+            pgn.BdChng  |> Observable.add dobdchg //bd.SetBoard
+            //bd.MvMade |> ()//TODO dr changes hereObservable.add pgn.DoMove
+            //pgn.BdChng |> Observable.add sts.UpdateFen
             //bd.BdChng |> Observable.add gms.SetBoard
-            //pgn.BdChng |> Observable.add gms.SetBoard
+            //pgn.BdChng |> Observable.add (fun _ -> gmtbs.Refrsh())
             //gms.FiltChng |> Observable.add sts.CalcStats
-            sts.MvSel |> Observable.add bd.DoMove
-            gms.GmSel |> Observable.add pgn.SwitchGame
-            gms.GmSel |> Observable.add (fun _ -> updategmlbl())
+            //sts.MvSel |> Observable.add bd.DoMove
+            //gms.GmSel |> Observable.add pgn.SwitchGame
+            //gms.GmSel |> Observable.add (fun _ -> updategmlbl())
             //pgn.GmChng |> Observable.add gms.ChangeGame
             //pgn.HdrChng |> Observable.add gms.ChangeGameHdr
             //gms.PgnChng |> Observable.add bd.SetBoard 

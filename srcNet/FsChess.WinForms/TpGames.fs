@@ -4,7 +4,7 @@ open System.Drawing
 open System.Windows.Forms
 
 [<AutoOpen>]
-module DgvGamesLib =
+module TpGamesLib =
     type GmUI =
         {
             Num : int
@@ -31,24 +31,24 @@ module DgvGamesLib =
             EndMaterial : string
         }
 
-    type DgvGames() as gms =
-        inherit DataGridView(Width = 800, Height = 250, 
-                AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders, 
-                ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single,
-                AllowUserToAddRows = false,
-                AllowUserToDeleteRows = false,
-                ReadOnly = true,
-                CellBorderStyle = DataGridViewCellBorderStyle.Single,
-                GridColor = Color.Black, MultiSelect = false,
-                RowHeadersVisible=false)
-
+    type TpGames() as gmstp =
+        inherit TabPage(Width = 800, Height = 250, 
+                Text = "Clipbase")
+        let gms = new DataGridView(Width = 800, Height = 250, 
+                        AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders, 
+                        ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single,
+                        AllowUserToAddRows = false,
+                        AllowUserToDeleteRows = false,
+                        ReadOnly = true,
+                        CellBorderStyle = DataGridViewCellBorderStyle.Single,
+                        GridColor = Color.Black, MultiSelect = false,
+                        RowHeadersVisible=false, Dock=DockStyle.Fill)
         let mutable crw = -1
         let mutable gmchg = false
         let mutable gmsui = new System.ComponentModel.BindingList<GmUI>()
         let bs = new BindingSource()
         //scinc related
-        let mutable b = 0 //base number
-
+        let mutable b = 9 //base number
 
         //events
         let filtEvt = new Event<_>()
@@ -111,13 +111,15 @@ module DgvGamesLib =
         let setup() =
             bs.DataSource <- gmsui
             gms.DataSource <- bs
+            gmstp.Controls.Add(gms)
+            gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
 
         do 
             setup()
             gms.CellDoubleClick.Add(dodoubleclick)
 
         ///Refresh the list
-        member this.Refrsh() =
+        member _.Refrsh() =
             b <- ScincFuncs.Base.Current()
             gmsui.Clear()
             //set chunk [sc_game list $glstart $c $glistCodes]
@@ -130,9 +132,6 @@ module DgvGamesLib =
             lines|>Array.map str2gmui|>Array.iter(fun gmui -> gmsui.Add(gmui))
             gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
 
-            ()
-
-
         ///Saves the database
         member _.Save() = dosave()
 
@@ -140,14 +139,6 @@ module DgvGamesLib =
         member _.SaveAs(inm:string) = 
             //TODO
             dosave()
-
-        ///Sets the Board to be filtered on
-        //member gms.SetBoard(ibd:Brd) =
-        //    cbd <- ibd
-        //    gmsui.Clear()
-        //    //TODO - need to filter by board
-        //    gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
-        //    //filtgms|>filtEvt.Trigger
 
         ///Changes the contents of the Game that is selected
         //member _.ChangeGame(igm:Game) =
@@ -184,7 +175,7 @@ module DgvGamesLib =
             //cgm|>selEvt.Trigger
 
         ///Deletes selected Game
-        member gms.DeleteGame() =
+        member gmstp.DeleteGame() =
             //let nm = cgm.WhitePlayer + " v. " + cgm.BlackPlayer
             //let dr = MessageBox.Show("Do you really want to permanently delete the game: " + nm + " ?","Delete Game",MessageBoxButtons.YesNo)
             //if dr=DialogResult.Yes then
@@ -205,7 +196,7 @@ module DgvGamesLib =
             ()
 
         ///Export filtered games
-        member gms.ExportFilter(filtfil:string) =
+        member gmstp.ExportFilter(filtfil:string) =
             //TODO
             ()
         

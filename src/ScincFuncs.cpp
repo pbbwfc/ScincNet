@@ -1976,7 +1976,9 @@ int ScincFuncs::Tree::Search(String^ fenstr, String^% treestr)
 		} 
 	}     
 
-	updateMainFilter2(base);
+	//updateMainFilter2(base);
+	
+	updateMainFilter(base);
 
 	// Now we generate the score of each move: it is the expected score per
 	// 1000 games. Also generate the ECO code of each move.
