@@ -5,11 +5,14 @@ open System.Drawing
 open FsChess
 
 [<AutoOpen>]
-module WbPgnLib =
+module PnlPgnLib =
 
-    type WbPgn() as pgn =
-        inherit WebBrowser(AllowWebBrowserDrop = false,IsWebBrowserContextMenuEnabled = false,WebBrowserShortcutsEnabled = false)
+    type PnlPgn() as pgnpnl =
+        inherit Panel()
         
+        let tppnl = new Panel(Dock=DockStyle.Top,BorderStyle=BorderStyle.Fixed3D,Height=25)
+        let gmlbl = new Label(Text="Game: White v. Black",Width=400,TextAlign=ContentAlignment.MiddleLeft,Font = new Font(new FontFamily("Arial"), 12.0f))
+        let pgn = new WebBrowser(AllowWebBrowserDrop = false,IsWebBrowserContextMenuEnabled = false,WebBrowserShortcutsEnabled = false,Dock=DockStyle.Fill)
         //mutables
         let mutable game = Game.Start
         let mutable board = Board.Start
@@ -25,6 +28,9 @@ module WbPgnLib =
         let hdrchngEvt = new Event<_>()
         
         //functions
+        let sethdr() =
+            gmlbl.Text <- game.WhitePlayer + " v. " + game.BlackPlayer
+
         let hdr = "<html><body>"
         let ftr = "</body></html>"
         //given a rav id get then list of indexes to locate
@@ -375,7 +381,6 @@ module WbPgnLib =
                 cng <- el.InnerText|>Game.NAGFromStr
                 ngctxmnu.Show(pgn,psn)
 
-
         let setclicks e = 
             for el in pgn.Document.GetElementsByTagName("span") do
                 if el.GetAttribute("className") = "mv" then
@@ -391,19 +396,21 @@ module WbPgnLib =
                 if el.GetAttribute("className") = "mv" then
                     if el.Id=id.ToString() then
                         el|>highlight
-        
 
         do
             pgn.DocumentText <- mvtags()
             pgn.DocumentCompleted.Add(setclicks)
             pgn.ObjectForScripting <- pgn
+            pgnpnl.Controls.Add(pgn)
+            tppnl.Controls.Add(gmlbl)
+            pgnpnl.Controls.Add(tppnl)
 
         ///Gets the Game that is displayed
-        member pgn.GetGame() = 
+        member _.GetGame() = 
             game
 
         ///Switches to another game with the same position
-        member pgn.SwitchGame(rw:int) = 
+        member pgnpnl.SwitchGame(rw:int) = 
             //select game
             ScincFuncs.ScidGame.Load(uint32(rw+1))|>ignore
             //load game
@@ -434,21 +441,22 @@ module WbPgnLib =
 
  
         ///Sets the Game to be displayed
-        member pgn.SetGame(gm:Game) = 
+        member pgnpnl.SetGame(gm:Game) = 
             game <- gm|>Game.GetaMoves
             pgn.DocumentText <- mvtags()
             board <- Board.Start
             oldstyle <- None
             irs <- [-1]
+            sethdr()
 
-        member pgn.Refrsh() =
+        member pgnpnl.Refrsh() =
             let mutable pgnstr = ""
             if ScincFuncs.ScidGame.Pgn(&pgnstr)=0 then
                 let gm = Game.FromStr(pgnstr)
-                pgn.SetGame(gm)
+                pgnpnl.SetGame(gm)
 
         ///Goes to the next Move in the Game
-        member pgn.NextMove() = 
+        member pgnpnl.NextMove() = 
             let rec getnxt oi ci (mtel:MoveTextEntry list) =
                 if ci=mtel.Length then oi
                 else
@@ -486,14 +494,14 @@ module WbPgnLib =
                         el|>highlight
         
         ///Goes to the last Move in the Variation
-        member pgn.LastMove() = 
+        member pgnpnl.LastMove() = 
             let rec gofwd lirs =
-                pgn.NextMove()
+                pgnpnl.NextMove()
                 if irs<>lirs then gofwd irs
             gofwd irs
         
         ///Goes to the previous Move in the Game
-        member pgn.PrevMove() = 
+        member pgnpnl.PrevMove() = 
             let rec getprv oi ci (mtel:MoveTextEntry list) =
                 if ci<0 then oi
                 else
@@ -531,14 +539,14 @@ module WbPgnLib =
                         el|>highlight
 
         ///Goes to the first Move in the Variation
-        member pgn.FirstMove() = 
+        member pgnpnl.FirstMove() = 
             let rec goback lirs =
-                pgn.PrevMove()
+                pgnpnl.PrevMove()
                 if irs<>lirs then goback irs
             goback irs
 
         ///Make a Move in the Game - may change the Game or just select a Move
-        member pgn.DoMove(mv:Move) =
+        member pgnpnl.DoMove(mv:Move) =
             let rec getnxt oi ci (mtel:MoveTextEntry list) =
                 if ci=mtel.Length then ci,false,true//implies is an extension
                 else

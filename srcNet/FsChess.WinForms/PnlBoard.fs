@@ -19,7 +19,7 @@ module Library1 =
         new Cursor(file)
  
     type PnlBoard() as bd =
-        inherit Panel(Width = 400, Height = 450)
+        inherit Panel(Width = 400, Height = 480)
 
         let mutable board = Board.Start
         let mutable sqTo = -1
@@ -27,6 +27,7 @@ module Library1 =
         let mutable prompctp = PieceType.EMPTY
         let bdpnl = new Panel(Dock = DockStyle.Top, Height = 400)
         let sqpnl = new Panel(Width = 420, Height = 420, Left = 29, Top = 13)
+        let ts = new ToolStrip(Dock=DockStyle.Bottom)
         
         let edges =
             [ new Panel(BackgroundImage = img "Back.jpg", Width = 342, 
@@ -266,7 +267,16 @@ module Library1 =
             sq.GiveFeedback.Add(giveFeedback)
             sqs.[i] <- sq
         
+        let createts() = 
+            // new
+            let homeb = new ToolStripButton(Image = img "homeButton.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "Home")
+            homeb.Click.Add(fun _ -> ())
+            ts.Items.Add(homeb)|>ignore
+
+
         do 
+            createts()
+            bd.Controls.Add(ts)
             sqs |> Array.iteri setsq
             sqs |> Array.iter sqpnl.Controls.Add
             setpcsmvs()

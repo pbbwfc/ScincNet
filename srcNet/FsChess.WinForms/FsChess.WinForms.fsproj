@@ -27,6 +27,11 @@
     <EmbeddedResource Include="Cursors\WhitePawn.cur" />
     <EmbeddedResource Include="Cursors\WhiteQueen.cur" />
     <EmbeddedResource Include="Cursors\WhiteRook.cur" />
+    <EmbeddedResource Include="Images\endButton.png" />
+    <EmbeddedResource Include="Images\homeButton.png" />
+    <EmbeddedResource Include="Images\nextButton.png" />
+    <EmbeddedResource Include="Images\nextLineButton.png" />
+    <EmbeddedResource Include="Images\prevButton.png" />
     <EmbeddedResource Include="Images\Back.jpg" />
     <EmbeddedResource Include="Images\BlackBishop.png" />
     <EmbeddedResource Include="Images\BlackKing.png" />
@@ -36,14 +41,7 @@
     <EmbeddedResource Include="Images\BlackRook.png" />
     <EmbeddedResource Include="Images\down-32-red.png" />
     <EmbeddedResource Include="Images\down-32-yell.png" />
-    <EmbeddedResource Include="Images\endButton.png" />
-    <EmbeddedResource Include="Images\homeButton.png" />
-    <EmbeddedResource Include="Images\new.png" />
-    <EmbeddedResource Include="Images\nextButton.png" />
-    <EmbeddedResource Include="Images\nextLineButton.png" />
-    <EmbeddedResource Include="Images\opn.png" />
     <EmbeddedResource Include="Images\plus-minus-32.png" />
-    <EmbeddedResource Include="Images\prevButton.png" />
     <EmbeddedResource Include="Images\prevLineButton.png" />
     <EmbeddedResource Include="Images\sav.png" />
     <EmbeddedResource Include="Images\sava.png" />
@@ -60,8 +58,10 @@
     <Compile Include="PnlAnl.fs" />
     <Compile Include="PnlBoard.fs" />
     <Compile Include="WbStats.fs" />
-    <Compile Include="WbPgn.fs" />
+    <Compile Include="PnlPgn.fs" />
   </ItemGroup>
+
+  <ItemGroup />
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ScincFuncs.vcxproj" />

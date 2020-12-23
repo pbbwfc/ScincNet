@@ -19,15 +19,12 @@ module Form =
         inherit Form(Text = "ScincNet", WindowState = FormWindowState.Maximized, IsMdiContainer = true)
 
         let bd = new PnlBoard(Dock=DockStyle.Fill)
-        let pgn = new WbPgn(Dock=DockStyle.Fill)
+        let pgn = new PnlPgn(Dock=DockStyle.Fill)
         let sts = new WbStats(Dock=DockStyle.Fill)
         let gmtbs = new TcGames(Dock=DockStyle.Fill)
         let anl = new PnlAnl(Dock=DockStyle.Fill)
         let ts = new ToolStrip()
         let ms = new MenuStrip()
-        let gmlbl = new Label(Text="Game: White v. Black",Width=400,TextAlign=ContentAlignment.MiddleLeft,Font = new Font(new FontFamily("Arial"), 12.0f))
-        let fllbl = new Label(Text="Filter: 99999999/99999999",Width=400,TextAlign=ContentAlignment.MiddleLeft,Font = new Font(new FontFamily("Arial"), 12.0f))
-        
 
         let updateMenuStates() =
             //TODO - do updates such as recents
@@ -107,15 +104,10 @@ module Form =
             filem.DropDownItems.Add(openm)|>ignore
             ms.Items.Add(filem)|>ignore
 
-
-
-        let vpnl = new FlowLayoutPanel(Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown)
-
         let bgpnl = new Panel(Dock=DockStyle.Fill,BorderStyle=BorderStyle.Fixed3D)
         let lfpnl = new Panel(Dock=DockStyle.Left,BorderStyle=BorderStyle.Fixed3D,Width=400)
         let rtpnl = new Panel(Dock=DockStyle.Fill,BorderStyle=BorderStyle.Fixed3D)
-        let lftpnl = new Panel(Dock=DockStyle.Top,BorderStyle=BorderStyle.Fixed3D,Height=400)
-        let lfmpnl = new Panel(Dock=DockStyle.Top,BorderStyle=BorderStyle.Fixed3D,Height=50)
+        let lftpnl = new Panel(Dock=DockStyle.Top,BorderStyle=BorderStyle.Fixed3D,Height=420)
         let lfbpnl = new Panel(Dock=DockStyle.Fill,BorderStyle=BorderStyle.Fixed3D)
         let rttpnl = new Panel(Dock=DockStyle.Top,BorderStyle=BorderStyle.Fixed3D,Height=350)
         let rtmpnl = new Panel(Dock=DockStyle.Top,BorderStyle=BorderStyle.Fixed3D,Height=100)
@@ -132,10 +124,6 @@ module Form =
             rtpnl|>bgpnl.Controls.Add
             pgn|>lfbpnl.Controls.Add
             lfbpnl|>lfpnl.Controls.Add
-            gmlbl|>vpnl.Controls.Add
-            fllbl|>vpnl.Controls.Add
-            vpnl|>lfmpnl.Controls.Add
-            lfmpnl|>lfpnl.Controls.Add
             bd|>lftpnl.Controls.Add
             lftpnl|>lfpnl.Controls.Add
             lfpnl|>bgpnl.Controls.Add
