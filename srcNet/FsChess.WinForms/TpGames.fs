@@ -1,6 +1,7 @@
 ﻿namespace FsChess.WinForms
 
 open System.Drawing
+open System.IO
 open System.Windows.Forms
 
 [<AutoOpen>]
@@ -49,12 +50,19 @@ module TpGamesLib =
         let bs = new BindingSource()
         //scinc related
         let mutable b = 9 //base number
+        let mutable nm = "" //base name
+        let mutable gn = 0 //number of games
+        let mutable fn = 0 //number of games in filter
 
         //events
         let filtEvt = new Event<_>()
         let selEvt = new Event<_>()
         let pgnEvt = new Event<_>()
 
+        let settxt() =
+            let txt = b.ToString() + "-" + nm + "-" + fn.ToString() + "/" + gn.ToString()
+            gmstp.Text <- txt
+ 
         let str2gmui (ln:string) =
             let f = ln.Split([|'|'|])
             {
@@ -118,11 +126,13 @@ module TpGamesLib =
             setup()
             gms.CellDoubleClick.Add(dodoubleclick)
 
-        ///Refresh the list
-        member _.Refrsh() =
+        /// initialise
+        member _.Init() =
+            ScincFuncs.Base.Getfilename(&nm)|>ignore
+            nm <- Path.GetFileNameWithoutExtension(nm)
             b <- ScincFuncs.Base.Current()
+            gn <- ScincFuncs.Base.NumGames()
             gmsui.Clear()
-            //set chunk [sc_game list $glstart $c $glistCodes]
             let formatStr = "g*|w*|b*|r*|m*|d*|e*|W*|B*|n*|s*|D*|V*|C*|A*|o*|O*|U*|S*|c*|E*|F*"
             let mutable glist = ""
             let chunk = ScincFuncs.ScidGame.List(&glist,1u,100u,formatStr)
@@ -131,6 +141,23 @@ module TpGamesLib =
                 glist1.Split([|'\n'|])
             lines|>Array.map str2gmui|>Array.iter(fun gmui -> gmsui.Add(gmui))
             gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
+            fn <- gn
+            settxt()
+        
+        ///Refresh the list
+        member _.Refrsh() =
+            gmsui.Clear()
+            let formatStr = "g*|w*|b*|r*|m*|d*|e*|W*|B*|n*|s*|D*|V*|C*|A*|o*|O*|U*|S*|c*|E*|F*"
+            let mutable glist = ""
+            let chunk = ScincFuncs.ScidGame.List(&glist,1u,100u,formatStr)
+            let lines =
+                let glist1 = glist.TrimEnd('\n')
+                glist1.Split([|'\n'|])
+            lines|>Array.map str2gmui|>Array.iter(fun gmui -> gmsui.Add(gmui))
+            gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
+            //update filter count
+            fn <- ScincFuncs.Filt.Count()
+            settxt()
 
         ///Saves the database
         member _.Save() = dosave()

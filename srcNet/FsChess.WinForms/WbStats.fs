@@ -164,6 +164,9 @@ module WbStatsLib =
         member stats.UpdateFen(bd:Brd) =
             fen <- bd|>Board.ToStr
             stats.Refrsh()
+
+        member ststat.Init() =
+            stats.Refrsh()
         
         //publish
         ///Provides the selected move in SAN format

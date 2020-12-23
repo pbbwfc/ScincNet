@@ -10,22 +10,18 @@ module TcGamesLib =
         
         let cliptp = new TpGames()
 
- 
-
         do
             gmstc.TabPages.Add(cliptp)
 
-        ///Refresh the list
+        ///Refresh the selected tab
         member gmstc.Refrsh() =
             let tp = gmstc.SelectedTab:?>TpGames
             tp.Refrsh()
 
+        ///Add a new tab
         member gmstc.AddTab() =
             let tp = new TpGames()
-            let mutable dbnm = ""
-            ScincFuncs.Base.Getfilename(&dbnm)|>ignore
-            let dbno = ScincFuncs.Base.Current()
-            let txt = dbno.ToString() + "-" + Path.GetFileNameWithoutExtension(dbnm)
-            tp.Text <- txt
+            tp.Init()
             gmstc.TabPages.Add(tp)
+            gmstc.SelectedTab<-gmstc.TabPages.[gmstc.TabPages.Count-1]
 

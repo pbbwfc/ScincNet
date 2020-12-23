@@ -440,7 +440,6 @@ module WbPgnLib =
             board <- Board.Start
             oldstyle <- None
             irs <- [-1]
-            board|>bdchngEvt.Trigger
 
         member pgn.Refrsh() =
             let mutable pgnstr = ""

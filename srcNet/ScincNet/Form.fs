@@ -42,20 +42,6 @@ module Form =
             updateMenuStates()
             updateTitle()
 
-        let updategmlbl() =
-            let mutable wnm = ""
-            ScincFuncs.ScidGame.GetTag("White",&wnm)|>ignore
-            let mutable bnm = ""
-            ScincFuncs.ScidGame.GetTag("Black",&bnm)|>ignore
-            gmlbl.Text <- "Game: " + wnm + " v. " + bnm
-        
-        let updateBoard() =
-            pgn.Refrsh()
-            //update fllbl
-            let numgms = ScincFuncs.Base.NumGames()
-            let fnum = ScincFuncs.Filt.Count()
-            fllbl.Text <- "Filter: " + fnum.ToString() + "/" + numgms.ToString()
-            
         let donew() =
             if ScincFuncs.Base.CountFree()=0 then
                 MessageBox.Show("Too many databases open; close one first","Scinc Error")|>ignore
@@ -69,10 +55,8 @@ module Form =
                     else
                         Recents.add fn
                         refreshWindows()
-                        updateBoard()
-                        ()
-                else
-                    ()
+                        pgn.Refrsh()
+                        sts.Init()
 
         let doopen() = 
             if ScincFuncs.Base.CountFree()=0 then
@@ -91,7 +75,8 @@ module Form =
                         Recents.add fn
                         gmtbs.AddTab()
                         refreshWindows()
-                        updateBoard()
+                        pgn.Refrsh()
+                        sts.Init()
  
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
