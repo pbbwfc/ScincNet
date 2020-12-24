@@ -10,6 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="stockfish.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="imgs\Chess_bdd44.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -116,10 +119,11 @@
     <Compile Include="RegParse.fs" />
     <Compile Include="Games.fs" />
     <Compile Include="PgnWriter.fs" />
-    <Compile Include="Stockfish.fs" />
     <Compile Include="FsChess.fs" />
     <Compile Include="FsChess.Pgn.fs" />
   </ItemGroup>
+
+  <ItemGroup />
 
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />

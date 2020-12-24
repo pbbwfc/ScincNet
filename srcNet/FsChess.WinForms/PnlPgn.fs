@@ -6,12 +6,18 @@ open FsChess
 
 [<AutoOpen>]
 module PnlPgnLib =
+    let private img nm =
+        let thisExe = System.Reflection.Assembly.GetExecutingAssembly()
+        let file = thisExe.GetManifestResourceStream("FsChess.WinForms.Images." + nm)
+        Image.FromStream(file)
 
     type PnlPgn() as pgnpnl =
         inherit Panel()
         
-        let tppnl = new Panel(Dock=DockStyle.Top,BorderStyle=BorderStyle.Fixed3D,Height=25)
-        let gmlbl = new Label(Text="Game: White v. Black",Width=400,TextAlign=ContentAlignment.MiddleLeft,Font = new Font(new FontFamily("Arial"), 12.0f))
+        let tppnl = new Panel(Dock=DockStyle.Top,BorderStyle=BorderStyle.Fixed3D,Height=50)
+        let gmlbl = new Label(Text="Game: White v. Black",Width=400,TextAlign=ContentAlignment.MiddleLeft,Font = new Font(new FontFamily("Arial"), 12.0f),Dock=DockStyle.Bottom)
+        let ttpnl = new Panel(Left=100)
+        let ts = new ToolStrip()
         let pgn = new WebBrowser(AllowWebBrowserDrop = false,IsWebBrowserContextMenuEnabled = false,WebBrowserShortcutsEnabled = false,Dock=DockStyle.Fill)
         //mutables
         let mutable game = Game.Start
@@ -397,11 +403,32 @@ module PnlPgnLib =
                     if el.Id=id.ToString() then
                         el|>highlight
 
+        let createts() = 
+            // new
+            let homeb = new ToolStripButton(Image = img "homeButton.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "Home")
+            homeb.Click.Add(fun _ -> pgnpnl.FirstMove())
+            ts.Items.Add(homeb)|>ignore
+            let prevb = new ToolStripButton(Image = img "prevButton.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "Previous")
+            prevb.Click.Add(fun _ -> pgnpnl.PrevMove())
+            ts.Items.Add(prevb)|>ignore
+            let nextb = new ToolStripButton(Image = img "nextButton.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "Next")
+            nextb.Click.Add(fun _ -> pgnpnl.NextMove())
+            ts.Items.Add(nextb)|>ignore
+            let endb = new ToolStripButton(Image = img "endButton.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "End")
+            endb.Click.Add(fun _ -> pgnpnl.LastMove())
+            ts.Items.Add(endb)|>ignore
+            
+
+ 
+ 
         do
             pgn.DocumentText <- mvtags()
             pgn.DocumentCompleted.Add(setclicks)
             pgn.ObjectForScripting <- pgn
             pgnpnl.Controls.Add(pgn)
+            createts()
+            ttpnl.Controls.Add(ts)
+            tppnl.Controls.Add(ttpnl)
             tppnl.Controls.Add(gmlbl)
             pgnpnl.Controls.Add(tppnl)
 

@@ -175,7 +175,7 @@ module Game =
 module Stockfish =
 
     ///Get best move for current Board and move number
-    let GetBestMove = FsChessPgn.Stockfish.GetBestMove
+    //let GetBestMove = FsChessPgn.Stockfish.GetBestMove
 
 
 module Pretty =
