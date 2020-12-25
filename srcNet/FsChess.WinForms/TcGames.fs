@@ -1,6 +1,5 @@
 ﻿namespace FsChess.WinForms
 
-open System.IO
 open System.Windows.Forms
 
 [<AutoOpen>]

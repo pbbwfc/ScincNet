@@ -22,7 +22,7 @@ module Form =
         let pgn = new PnlPgn(Dock=DockStyle.Fill)
         let sts = new WbStats(Dock=DockStyle.Fill)
         let gmtbs = new TcGames(Dock=DockStyle.Fill)
-        let anl = new PnlAnl(Dock=DockStyle.Fill)
+        let anl = new TcAnl(Dock=DockStyle.Fill)
         let ts = new ToolStrip()
         let ms = new MenuStrip()
 

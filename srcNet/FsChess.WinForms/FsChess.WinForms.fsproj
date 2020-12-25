@@ -15,6 +15,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Engines\2\cublas64_100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Engines\2\cudart64_100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Engines\2\cudnn64_7.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Engines\2\lc0.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Engines\2\leela.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Engines\2\LS15-20x256SE-jj-9-75000000.pb.gz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Engines\1\stockfish.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Engines\1\stockfish_20090216_x64_modern.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="Cursors\BlackBishop.cur" />
     <EmbeddedResource Include="Cursors\BlackKing.cur" />
     <EmbeddedResource Include="Cursors\BlackKnight.cur" />
@@ -55,7 +79,7 @@
     <EmbeddedResource Include="Images\WhiteRook.png" />
     <Compile Include="TpGames.fs" />
     <Compile Include="TcGames.fs" />
-    <Compile Include="PnlAnl.fs" />
+    <Compile Include="TcAnl.fs" />
     <Compile Include="PnlBoard.fs" />
     <Compile Include="WbStats.fs" />
     <Compile Include="PnlPgn.fs" />

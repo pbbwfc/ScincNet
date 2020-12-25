@@ -354,3 +354,5 @@ MigrationBackup/
 *.dll
 *.lib
 docfx_project/src/*
+*.gz
+*.zip

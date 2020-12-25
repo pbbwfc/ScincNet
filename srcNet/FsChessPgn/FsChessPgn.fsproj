@@ -10,9 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="stockfish.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="imgs\Chess_bdd44.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
