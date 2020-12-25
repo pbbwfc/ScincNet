@@ -16,7 +16,7 @@ module PnlPgnLib =
         
         let tppnl = new Panel(Dock=DockStyle.Top,BorderStyle=BorderStyle.Fixed3D,Height=50)
         let gmlbl = new Label(Text="Game: White v. Black",Width=400,TextAlign=ContentAlignment.MiddleLeft,Font = new Font(new FontFamily("Arial"), 12.0f),Dock=DockStyle.Bottom)
-        let ttpnl = new Panel(Left=100)
+        let ttpnl = new Panel(Left=100,Height=25)
         let ts = new ToolStrip()
         let pgn = new WebBrowser(AllowWebBrowserDrop = false,IsWebBrowserContextMenuEnabled = false,WebBrowserShortcutsEnabled = false,Dock=DockStyle.Fill)
         //mutables
@@ -31,7 +31,6 @@ module PnlPgnLib =
         //events
         let bdchngEvt = new Event<_>()
         let gmchngEvt = new Event<_>()
-        let hdrchngEvt = new Event<_>()
         
         //functions
         let sethdr() =
@@ -57,10 +56,13 @@ module PnlPgnLib =
                     dogetir irl.Tail nir
             dogetir iirl 0L
         
-        let highlight (mve:HtmlElement) =
+        let removehighlight() =
             if oldstyle.IsSome then
                 let omve,ostyle = oldstyle.Value
                 omve.Style <- ostyle
+
+        let highlight (mve:HtmlElement) =
+            removehighlight()
             let curr = mve.Style
             oldstyle <- Some(mve,curr)
             mve.Style <- "BACKGROUND-COLOR: powderblue"
@@ -249,7 +251,6 @@ module PnlPgnLib =
                                    Result=res;Year=yo;Month=mo;Day=dyo;
                                    Event=evtb.Text;Round=rdtb.Text;Site=sttb.Text}
                 game|>gmchngEvt.Trigger
-                game|>hdrchngEvt.Trigger
                 dlg.Close()
 
 
@@ -409,17 +410,14 @@ module PnlPgnLib =
             homeb.Click.Add(fun _ -> pgnpnl.FirstMove())
             ts.Items.Add(homeb)|>ignore
             let prevb = new ToolStripButton(Image = img "prevButton.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "Previous")
-            prevb.Click.Add(fun _ -> pgnpnl.PrevMove())
+            prevb.Click.Add(fun _ -> pgnpnl.PrevMove(true))
             ts.Items.Add(prevb)|>ignore
             let nextb = new ToolStripButton(Image = img "nextButton.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "Next")
-            nextb.Click.Add(fun _ -> pgnpnl.NextMove())
+            nextb.Click.Add(fun _ -> pgnpnl.NextMove(true))
             ts.Items.Add(nextb)|>ignore
             let endb = new ToolStripButton(Image = img "endButton.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "End")
             endb.Click.Add(fun _ -> pgnpnl.LastMove())
             ts.Items.Add(endb)|>ignore
-            
-
- 
  
         do
             pgn.DocumentText <- mvtags()
@@ -439,7 +437,7 @@ module PnlPgnLib =
         ///Switches to another game with the same position
         member pgnpnl.SwitchGame(rw:int) = 
             //select game
-            ScincFuncs.ScidGame.Load(uint32(rw+1))|>ignore
+            ScincFuncs.ScidGame.Load(uint32(rw))|>ignore
             //load game
             let mutable pgnstr = ""
             ScincFuncs.ScidGame.Pgn(&pgnstr)|>ignore
@@ -465,7 +463,7 @@ module PnlPgnLib =
                 if el.GetAttribute("className") = "mv" then
                     if el.Id=id.ToString() then
                         el|>highlight
-
+            sethdr()
  
         ///Sets the Game to be displayed
         member pgnpnl.SetGame(gm:Game) = 
@@ -483,7 +481,7 @@ module PnlPgnLib =
                 pgnpnl.SetGame(gm)
 
         ///Goes to the next Move in the Game
-        member pgnpnl.NextMove() = 
+        member pgnpnl.NextMove(one:bool) = 
             let rec getnxt oi ci (mtel:MoveTextEntry list) =
                 if ci=mtel.Length then oi
                 else
@@ -493,7 +491,7 @@ module PnlPgnLib =
                         if amv.IsNone then failwith "should have valid aMove"
                         else
                             board <- amv.Value.PostBrd
-                            board|>bdchngEvt.Trigger
+                            if one then board|>bdchngEvt.Trigger
                         ci
                     |_ -> getnxt oi (ci+1) mtel
             if irs.Length>1 then 
@@ -523,12 +521,13 @@ module PnlPgnLib =
         ///Goes to the last Move in the Variation
         member pgnpnl.LastMove() = 
             let rec gofwd lirs =
-                pgnpnl.NextMove()
+                pgnpnl.NextMove(false)
                 if irs<>lirs then gofwd irs
             gofwd irs
+            board|>bdchngEvt.Trigger
         
         ///Goes to the previous Move in the Game
-        member pgnpnl.PrevMove() = 
+        member pgnpnl.PrevMove(one:bool) = 
             let rec getprv oi ci (mtel:MoveTextEntry list) =
                 if ci<0 then oi
                 else
@@ -538,39 +537,53 @@ module PnlPgnLib =
                         if amv.IsNone then failwith "should have valid aMove"
                         else
                             board <- amv.Value.PostBrd
-                            board|>bdchngEvt.Trigger
+                            if one then board|>bdchngEvt.Trigger
                         ci
                     |_ -> getprv oi (ci-1) mtel
-            if irs.Length>1 then 
-                let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
-                    if intl.Length=1 then
-                        let oi = intl.Head
-                        let ni = getprv oi (oi-1) mtel
-                        let st = irs|>List.rev|>List.tail|>List.rev
-                        irs <- st@[ni]
+            if irs=[0] then
+                let mte = game.MoveText.[0]
+                match mte with
+                |HalfMoveEntry(_,_,_,amv) ->
+                    if amv.IsNone then failwith "should have valid aMove"
                     else
-                        let ih = intl.Head
-                        let mte = mtel.[ih]
-                        match mte with
-                        |RAVEntry(nmtel) -> getmv nmtel intl.Tail
-                        |_ -> failwith "should be a RAV"
-                getmv game.MoveText irs
+                        board <- amv.Value.PreBrd
+                        if one then board|>bdchngEvt.Trigger
+                        removehighlight()
+                        irs<-[-1]
+                |_ -> ()
             else
-                let ni = getprv irs.Head (irs.Head-1) game.MoveText
-                irs <- [ni]
-            //now need to select the element
-            let id = getir irs
-            for el in pgn.Document.GetElementsByTagName("span") do
-                if el.GetAttribute("className") = "mv" then
-                    if el.Id=id.ToString() then
-                        el|>highlight
+                if irs.Length>1 then 
+                    let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
+                        if intl.Length=1 then
+                            let oi = intl.Head
+                            let ni = getprv oi (oi-1) mtel
+                            let st = irs|>List.rev|>List.tail|>List.rev
+                            irs <- st@[ni]
+                        else
+                            let ih = intl.Head
+                            let mte = mtel.[ih]
+                            match mte with
+                            |RAVEntry(nmtel) -> getmv nmtel intl.Tail
+                            |_ -> failwith "should be a RAV"
+                    getmv game.MoveText irs
+                else
+                    let ni = getprv irs.Head (irs.Head-1) game.MoveText
+                    irs <- [ni]
+                //now need to select the element
+                if one then
+                    let id = getir irs
+                    for el in pgn.Document.GetElementsByTagName("span") do
+                        if el.GetAttribute("className") = "mv" then
+                            if el.Id=id.ToString() then
+                                el|>highlight
 
         ///Goes to the first Move in the Variation
         member pgnpnl.FirstMove() = 
             let rec goback lirs =
-                pgnpnl.PrevMove()
+                pgnpnl.PrevMove(false)
                 if irs<>lirs then goback irs
             goback irs
+            board|>bdchngEvt.Trigger
 
         ///Make a Move in the Game - may change the Game or just select a Move
         member pgnpnl.DoMove(mv:Move) =
@@ -700,6 +713,3 @@ module PnlPgnLib =
 
         ///Provides the new Game after a change
         member __.GmChng = gmchngEvt.Publish
-
-        ///Provides the new Game after a change to the header
-        member __.HdrChng = hdrchngEvt.Publish

@@ -18,6 +18,8 @@ module Form =
     type FrmMain() as this =
         inherit Form(Text = "ScincNet", WindowState = FormWindowState.Maximized, IsMdiContainer = true)
 
+        let mutable gmchg = false
+
         let bd = new PnlBoard(Dock=DockStyle.Fill)
         let pgn = new PnlPgn(Dock=DockStyle.Fill)
         let sts = new WbStats(Dock=DockStyle.Fill)
@@ -80,6 +82,44 @@ module Form =
             sts.UpdateFen(nbd)
             gmtbs.Refrsh()
             anl.SetBoard(nbd)
+
+        let dogmchg(gm) =
+            gmchg <- true
+
+        let domvsel(mvstr) =
+            let board = bd.GetBoard()
+            let mv = mvstr|>FsChess.Move.FromSan board
+            bd.DoMove(mvstr)
+            pgn.DoMove(mv)
+            let nbd = bd.GetBoard()
+            anl.SetBoard(nbd)
+            sts.UpdateFen(nbd)
+            gmtbs.Refrsh()
+
+        let domvmade(mv) =
+            pgn.DoMove(mv)
+            let nbd = bd.GetBoard()
+            anl.SetBoard(nbd)
+            sts.UpdateFen(nbd)
+            gmtbs.Refrsh()
+
+        let dogmsel(rw) =
+            //need to check if want to save
+             //if gmchg then
+             //    //let nm = cgm.WhitePlayer + " v. " + cgm.BlackPlayer
+             //    //let dr = MessageBox.Show("Do you want to save the game: " + nm + " ?","Save Game",MessageBoxButtons.YesNoCancel)
+             //    if dr=DialogResult.Yes then
+             //        dosave()
+             //        //TODO
+             //        cgm|>selEvt.Trigger
+             //    elif dr=DialogResult.No then
+             //        //TODO
+             //        cgm|>selEvt.Trigger
+             //else
+             //    //TODO
+             //    cgm|>selEvt.Trigger
+            pgn.SwitchGame(rw)
+            ()
         
         let createts() = 
             // new
@@ -133,17 +173,10 @@ module Form =
             createms()
             ms|>this.Controls.Add
             //Events
-            pgn.BdChng  |> Observable.add dobdchg //bd.SetBoard
-            //bd.MvMade |> ()//TODO dr changes hereObservable.add pgn.DoMove
-            //pgn.BdChng |> Observable.add sts.UpdateFen
-            //bd.BdChng |> Observable.add gms.SetBoard
-            //pgn.BdChng |> Observable.add (fun _ -> gmtbs.Refrsh())
-            //gms.FiltChng |> Observable.add sts.CalcStats
-            //sts.MvSel |> Observable.add bd.DoMove
-            //gms.GmSel |> Observable.add pgn.SwitchGame
-            //gms.GmSel |> Observable.add (fun _ -> updategmlbl())
-            //pgn.GmChng |> Observable.add gms.ChangeGame
-            //pgn.HdrChng |> Observable.add gms.ChangeGameHdr
-            //gms.PgnChng |> Observable.add bd.SetBoard 
+            pgn.BdChng  |> Observable.add dobdchg 
+            pgn.GmChng |> Observable.add dogmchg
+            sts.MvSel |> Observable.add domvsel
+            bd.MvMade |> Observable.add domvmade
+            gmtbs.GmSel |> Observable.add dogmsel //pgn.SwitchGame
 
-    
+   

@@ -82,7 +82,6 @@ module PnlBoardLib =
 
         //events
         let mvEvt = new Event<_>()
-        let bdEvt = new Event<_>()
 
         //functions
         /// get cursor given char
@@ -204,7 +203,6 @@ module PnlBoardLib =
                         board <- board|>Board.Push mvl.Head
                         setpcsmvs()
                         mvl.Head|>mvEvt.Trigger
-                        board|>bdEvt.Trigger
                     //need to allow for promotion
                     elif mvl.Length=4 then
                         dlgprom.ShowDialog() |> ignore
@@ -212,7 +210,6 @@ module PnlBoardLib =
                         board <- board|>Board.Push nmvl.Head
                         setpcsmvs()
                         nmvl.Head|>mvEvt.Trigger
-                        board|>bdEvt.Trigger
                     else p.Image <- oimg
                 else p.Image <- oimg
                 sqpnl.Cursor <- Cursors.Default
@@ -283,6 +280,10 @@ module PnlBoardLib =
             board<-ibd
             setpcsmvs()
 
+        ///Gets the Board to be displayed
+        member bd.GetBoard() =
+            board
+        
         ///Orients the Board depending on whether White
         member bd.Orient(isw:bool) =
             isw|>orient
@@ -292,12 +293,7 @@ module PnlBoardLib =
             let mv = san|>Move.FromSan board
             board <- board|>Board.Push mv
             setpcsmvs()
-            mv|>mvEvt.Trigger
-            board|>bdEvt.Trigger
-
-
+            
         //publish
         ///Provides the Move made on the board
         member __.MvMade = mvEvt.Publish
-        ///Provides the New Board after a move
-        member __.BdChng = bdEvt.Publish

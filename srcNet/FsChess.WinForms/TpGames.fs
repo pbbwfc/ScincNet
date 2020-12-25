@@ -45,7 +45,6 @@ module TpGamesLib =
                         GridColor = Color.Black, MultiSelect = false,
                         RowHeadersVisible=false, Dock=DockStyle.Fill)
         let mutable crw = -1
-        let mutable gmchg = false
         let mutable gmsui = new System.ComponentModel.BindingList<GmUI>()
         let bs = new BindingSource()
         //scinc related
@@ -55,9 +54,7 @@ module TpGamesLib =
         let mutable fn = 0 //number of games in filter
 
         //events
-        let filtEvt = new Event<_>()
         let selEvt = new Event<_>()
-        let pgnEvt = new Event<_>()
 
         let settxt() =
             let txt = b.ToString() + "-" + nm + "-" + fn.ToString() + "/" + gn.ToString()
@@ -89,31 +86,15 @@ module TpGamesLib =
                 EventDate = f.[20]
                 EndMaterial = f.[21]
             }
-
-        
         
         let dosave() =
             ///TODO
             ()
             
-        
         let dodoubleclick(e:DataGridViewCellEventArgs) =
-            crw <- e.RowIndex
-            //need to check if want to save
-            //if gmchg then
-            //    //let nm = cgm.WhitePlayer + " v. " + cgm.BlackPlayer
-            //    //let dr = MessageBox.Show("Do you want to save the game: " + nm + " ?","Save Game",MessageBoxButtons.YesNoCancel)
-            //    if dr=DialogResult.Yes then
-            //        dosave()
-            //        //TODO
-            //        cgm|>selEvt.Trigger
-            //    elif dr=DialogResult.No then
-            //        //TODO
-            //        cgm|>selEvt.Trigger
-            //else
-            //    //TODO
-            //    cgm|>selEvt.Trigger
-            gms.CurrentCell <- gms.Rows.[crw].Cells.[0]
+            let rw = e.RowIndex
+            gms.CurrentCell <- gms.Rows.[rw].Cells.[0]
+            crw <- gms.Rows.[rw].Cells.[0].Value:?>int
             crw|>selEvt.Trigger
         
         let setup() =
@@ -198,7 +179,6 @@ module TpGamesLib =
             //TODO
             gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
             //filtgms|>filtEvt.Trigger
-            gmchg <- false
             //cgm|>selEvt.Trigger
 
         ///Deletes selected Game
@@ -227,11 +207,5 @@ module TpGamesLib =
             //TODO
             ()
         
-        ///Provides the revised filtered list of Games
-        member __.FiltChng = filtEvt.Publish
-        
         ///Provides the selected Game
         member __.GmSel = selEvt.Publish
-
-        ///Provides the initial Board when the PGN file selected changes
-        member __.PgnChng = pgnEvt.Publish
