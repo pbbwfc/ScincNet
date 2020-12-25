@@ -108,3 +108,34 @@ module MoveUtil =
     let ApplySAN (move : string) (bd : Brd) = 
         let mv = move|>fromSAN bd
         bd|>Board.MoveApply mv
+
+    let UcisToSans (bd:Brd) (ucis:string) =
+        let rec getsan cbd (ucil:string list) sanl =
+            if ucil.IsEmpty then sanl|>List.rev|>List.reduce(fun a b -> a + " " + b)
+            else
+                let uci = ucil.Head
+                if uci.Length=4 then
+                    let sqf = uci.Substring(0,2)|>Square.Parse
+                    let sqt = uci.Substring(2,2)|>Square.Parse
+                    let psmvs = sqf|>MoveGenerate.PossMoves cbd
+                    let mvl = psmvs|>List.filter(fun m ->m|>Move.To=sqt)
+                    let mv = mvl.Head
+                    let san = mv|>toPgn cbd
+                    let nbd = cbd|>Board.MoveApply mv
+                    let nsanl = san::sanl
+                    getsan nbd ucil.Tail nsanl
+                else
+                    let sqf = uci.Substring(0,2)|>Square.Parse
+                    let sqt = uci.Substring(2,2)|>Square.Parse
+                    let ppc = uci.[4]|>PieceType.Parse
+                    let psmvs = sqf|>MoveGenerate.PossMoves cbd
+                    let mvl = psmvs|>List.filter(fun m ->m|>Move.To=sqt)
+                    let nmvl = mvl|>List.filter(fun mv -> mv|>Move.PromoteType=ppc)
+                    let mv = nmvl.Head
+                    let san = mv|>toPgn cbd
+                    let nbd = cbd|>Board.MoveApply mv
+                    let nsanl = san::sanl
+                    getsan nbd ucil.Tail nsanl
+        let ucil = ucis.Trim().Split([|' '|])|>List.ofArray
+        let sanstr = getsan bd ucil []
+        sanstr

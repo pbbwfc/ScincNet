@@ -79,7 +79,7 @@ module Form =
             bd.SetBoard(nbd)
             sts.UpdateFen(nbd)
             gmtbs.Refrsh()
-        
+            anl.SetBoard(nbd)
         
         let createts() = 
             // new

@@ -5,7 +5,7 @@ open System.Windows.Forms
 open FsChess
 
 [<AutoOpen>]
-module Library1 =
+module PnlBoardLib =
     
     let private img nm =
         let thisExe = System.Reflection.Assembly.GetExecutingAssembly()

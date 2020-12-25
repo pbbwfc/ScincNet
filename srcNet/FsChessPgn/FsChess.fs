@@ -171,17 +171,3 @@ module Game =
     //Get form a PGN string
     let FromStr = FsChessPgn.RegParse.GameFromString
 
-
-module Stockfish =
-
-    ///Get best move for current Board and move number
-    //let GetBestMove = FsChessPgn.Stockfish.GetBestMove
-
-
-module Pretty =
-
-    let Square = FsChessPgn.Square.Name
-    let Move = FsChessPgn.MoveUtil.toUci
-    let Board = FsChessPgn.Board.ToStr
-    let Game = FsChessPgn.Game.pretty
-    let BrdStats = FsChessPgn.Stats.pretty
