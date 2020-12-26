@@ -4,6 +4,13 @@
         "ScincFuncs"
     </assembly>
     <members>
+        <member name="M:ScincFuncs.Search.Board(System.String)">
+            <summary>
+Board: Searches for exact match for the current position and sets the filter accordingly.
+</summary>
+            <param name="fenstr">the position to search</param>
+            <returns>returns 0 if successful</returns>
+        </member>
         <member name="M:ScincFuncs.Tree.Search(System.String,System.String@)">
             <summary>
 Search: Gets the stats tree for the current database

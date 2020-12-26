@@ -1,6 +1,7 @@
 ﻿namespace FsChess.WinForms
 
 open System.Windows.Forms
+open FsChess
 
 [<AutoOpen>]
 module TcGamesLib =
@@ -17,9 +18,10 @@ module TcGamesLib =
             cliptp.GmSel|>Observable.add selEvt.Trigger
 
         ///Refresh the selected tab
-        member gmstc.Refrsh() =
+        member gmstc.Refrsh(bd:Brd) =
             let tp = gmstc.SelectedTab:?>TpGames
-            tp.Refrsh()
+            let fen = bd|>Board.ToStr
+            tp.Refrsh(fen)
 
         ///Add a new tab
         member gmstc.AddTab() =

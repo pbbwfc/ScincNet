@@ -167,7 +167,7 @@ namespace ScincFuncs {
 	public ref class Tree
 	{
 	public:
-		static int Search(String^ fenstr, String^% treestr);
+		static int Search(String^ fenstr, String^% treestr, int basenum);
 	};
 	/// <summary>
 	/// Class that hold functions relating to search
@@ -175,7 +175,7 @@ namespace ScincFuncs {
 	public ref class Search
 	{
 	public:
-		static int Board(String^ fenstr);
+		static int Board(String^ fenstr, int basenum);
 	};
 
 }

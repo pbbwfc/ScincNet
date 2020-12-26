@@ -48,14 +48,15 @@ module Form =
                 let ndlg = new SaveFileDialog(Title="Create New Database",Filter="Scid databases(*.si4)|*.si4",AddExtension=true,OverwritePrompt=false)
                 if ndlg.ShowDialog() = DialogResult.OK then
                     //create database
-                    let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), Path.GetFileNameWithoutExtension(ndlg.FileName))
+                    let nm = Path.GetFileNameWithoutExtension(ndlg.FileName)
+                    let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), nm)
                     if ScincFuncs.Base.Create(fn)<0 then
                         MessageBox.Show("Unable to create database: " + fn,"Scinc Error")|>ignore
                     else
                         Recents.add fn
                         refreshWindows()
                         pgn.Refrsh()
-                        sts.Init()
+                        if sts.BaseNum()= -1 then sts.Init(nm,ScincFuncs.Base.Current())
 
         let doopen() = 
             if ScincFuncs.Base.CountFree()=0 then
@@ -64,7 +65,8 @@ module Form =
                 let ndlg = new OpenFileDialog(Title="Open Database",Filter="Scid databases(*.si4)|*.si4")
                 if ndlg.ShowDialog() = DialogResult.OK then
                     //open database
-                    let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), Path.GetFileNameWithoutExtension(ndlg.FileName))
+                    let nm = Path.GetFileNameWithoutExtension(ndlg.FileName)
+                    let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), nm)
                     if ScincFuncs.Base.Open(fn)<0 then
                         MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
                     else
@@ -75,12 +77,12 @@ module Form =
                         gmtbs.AddTab()
                         refreshWindows()
                         pgn.Refrsh()
-                        sts.Init()
+                        if sts.BaseNum()= -1 then sts.Init(nm,ScincFuncs.Base.Current())
  
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
             sts.UpdateFen(nbd)
-            gmtbs.Refrsh()
+            gmtbs.Refrsh(nbd)
             anl.SetBoard(nbd)
 
         let dogmchg(gm) =
@@ -94,14 +96,14 @@ module Form =
             let nbd = bd.GetBoard()
             anl.SetBoard(nbd)
             sts.UpdateFen(nbd)
-            gmtbs.Refrsh()
+            gmtbs.Refrsh(nbd)
 
         let domvmade(mv) =
             pgn.DoMove(mv)
             let nbd = bd.GetBoard()
             anl.SetBoard(nbd)
             sts.UpdateFen(nbd)
-            gmtbs.Refrsh()
+            gmtbs.Refrsh(nbd)
 
         let dogmsel(rw) =
             //need to check if want to save

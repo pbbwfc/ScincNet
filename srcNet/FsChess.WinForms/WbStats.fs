@@ -57,14 +57,17 @@ module WbStatsLib =
         //mutables
         let mutable cbdst = BrdStatsEMP
         let mutable fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+        let mutable basenm = ""
+        let mutable basenum = -1
 
         //events
         let mvselEvt = new Event<_>()
 
         //functions
         let nl = System.Environment.NewLine
-        let hdr = 
+        let hdr() = 
             "<html><body>" + nl +
+            "<h4>Tree - " + basenm + "</h4>" + nl +
             "<table style=\"width:100%;border-collapse: collapse;\">" + nl
 
         let ftr = 
@@ -90,9 +93,9 @@ module WbStatsLib =
 
         let bdsttags() = 
             let mvsts = cbdst.Mvstats
-            if mvsts.IsEmpty then hdr+ftr
+            if mvsts.IsEmpty then hdr()+ftr
             else
-                hdr +
+                hdr() +
                 "<tr><th style=\"text-align: left;\">Move</th><th style=\"text-align: left;\">Count</th>" +
                 "<th style=\"text-align: left;\">Percent</th><th style=\"text-align: left;\">Results</th>" + 
                 "<th style=\"text-align: left;\">Score</th><th style=\"text-align: left;\">DrawPc</th>" +
@@ -128,7 +131,7 @@ module WbStatsLib =
         ///Refresh the stats after board change
         member stats.Refrsh() =
             let mutable statsstr = "" 
-            if ScincFuncs.Tree.Search(fen, &statsstr)=0 then
+            if ScincFuncs.Tree.Search(fen, &statsstr,basenum)=0 then
                 let lns = statsstr.Split('\n')
                 let mvlns = lns.[0..lns.Length-2]
                 let totln = lns.[lns.Length-1]
@@ -165,8 +168,13 @@ module WbStatsLib =
             fen <- bd|>Board.ToStr
             stats.Refrsh()
 
-        member ststat.Init() =
+        member ststat.Init(nm:string, num:int) =
+            basenm <- nm
+            basenum <- num
             stats.Refrsh()
+
+        member ststat.BaseNum() =
+            basenum
         
         //publish
         ///Provides the selected move in SAN format

@@ -29,7 +29,7 @@ type TestTree () =
     [<TestMethod>]
      member this.TreeSearch () =
         let mutable treestr = ""
-        let actual = Tree.Search("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",&treestr)
+        let actual = Tree.Search("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",&treestr,1)
         Assert.AreEqual(0, actual)
         let lines = treestr.Split('\n')
         let bits = lines.[0].Split('|')

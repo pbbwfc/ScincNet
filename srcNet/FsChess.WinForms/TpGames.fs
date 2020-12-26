@@ -126,9 +126,12 @@ module TpGamesLib =
             settxt()
         
         ///Refresh the list
-        member _.Refrsh() =
+        member _.Refrsh(fen:string) =
             gmsui.Clear()
             let formatStr = "g*|w*|b*|r*|m*|d*|e*|W*|B*|n*|s*|D*|V*|C*|A*|o*|O*|U*|S*|c*|E*|F*"
+            //apply filter
+            ScincFuncs.Search.Board(fen,b)|>ignore
+            
             let mutable glist = ""
             let chunk = ScincFuncs.ScidGame.List(&glist,1u,100u,formatStr)
             let lines =

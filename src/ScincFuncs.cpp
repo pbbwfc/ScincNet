@@ -1780,8 +1780,9 @@ void sortTreeMoves(treeT* tree, int sortMethod, colorT toMove)
 /// Search: Gets the stats tree for the current database
 /// </summary>
 /// <param name="treestr">the stats tree returned</param>
+/// <param name="basenum">the number of the base</param>
 /// <returns>returns 0 if successful</returns>
-int ScincFuncs::Tree::Search(String^ fenstr, String^% treestr)
+int ScincFuncs::Tree::Search(String^ fenstr, String^% treestr, int basenum)
 {
 	msclr::interop::marshal_context oMarshalContext;
 
@@ -1791,6 +1792,11 @@ int ScincFuncs::Tree::Search(String^ fenstr, String^% treestr)
 
 	scidBaseT* base = db;
 	db->bbuf->Empty();
+
+	if (basenum >= 1 && basenum <= MAX_BASES)
+	{
+		base = &(dbList[basenum - 1]);
+	}
 
 	static std::set<scidBaseT**> search_pool;
 
@@ -2141,13 +2147,13 @@ startFilterSize(scidBaseT* base, filterOpT filterOp)
 	return base->numGames;
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sc_search_board:
-//    Searches for exact match for the current position.
-//    if <base> is present, search for current position in base <base>,
-//    and sets <base> filter accordingly
-//int sc_search_board(ClientData cd, Tcl_Interp* ti, int argc, const char** argv)
-int ScincFuncs::Search::Board(String^ fenstr)
+/// <summary>
+/// Board: Searches for exact match for the current position and sets the filter accordingly.
+/// </summary>
+/// <param name="fenstr">the position to search</param>
+/// <param name="basenum">number of base</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::Search::Board(String^ fenstr,int basenum)
 {
 	msclr::interop::marshal_context oMarshalContext;
 
@@ -2157,30 +2163,23 @@ int ScincFuncs::Search::Board(String^ fenstr)
 		return -1;
 	}
 
-	filterOpT filterOp = FILTEROP_RESET;
-
 	bool useHpSigSpeedup = false;
 	gameExactMatchT searchType = GAME_EXACT_MATCH_Exact;
-
-	bool searchInVars = false;
-
+	
 	Position* pos = db->game->GetCurrentPos();
 	pos->ReadFromFEN(fen);
 
 	int oldCurrentBase = currentBase;
+	currentBase = basenum - 1;
+	db = &(dbList[currentBase]);
 
 	matSigT msig = matsig_Make(pos->GetMaterial());
 	uint hpSig = pos->GetHPSig();
 
 	uint skipcount = 0;
 
-	// If filter operation is to reset the filter, reset it:
-	if (filterOp == FILTEROP_RESET)
-	{
-		filter_reset(db, 1);
-		filterOp = FILTEROP_AND;
-	}
-	uint startFilterCount = startFilterSize(db, filterOp);
+	filter_reset(db, 1);
+	uint startFilterCount = startFilterSize(db, FILTEROP_AND);
 
 	// Here is the loop that searches on each game:
 	IndexEntry* ie;
@@ -2188,30 +2187,13 @@ int ScincFuncs::Search::Board(String^ fenstr)
 	uint gameNum;
 	for (gameNum = 0; gameNum < db->numGames; gameNum++)
 	{
-		// First, apply the filter operation:
-		if (filterOp == FILTEROP_AND)
-		{ // Skip any games not in the filter:
-			if (db->dbFilter->Get(gameNum) == 0)
-			{
-				skipcount++;
-				continue;
-			}
+		// Skip any games not in the filter:
+		if (db->dbFilter->Get(gameNum) == 0)
+		{
+			skipcount++;
+			continue;
 		}
-		else /* filterOp==FILTEROP_OR*/
-		{    // Skip any games in the filter:
-			if (db->dbFilter->Get(gameNum) != 0)
-			{
-				skipcount++;
-				continue;
-			}
-			else
-			{
-				// OK, this game is NOT in the filter.
-				// Add it so filterCounts are kept up to date:
-				db->dbFilter->Set(gameNum, 1);
-			}
-		}
-
+		
 		ie = db->idx->FetchEntry(gameNum);
 		if (ie->GetLength() == 0)
 		{
@@ -2280,6 +2262,9 @@ int ScincFuncs::Search::Board(String^ fenstr)
 	}
 
 	setMainFilter(db);
+
+	currentBase = oldCurrentBase;
+	db = &(dbList[currentBase]);
 
 	return 0;
 }

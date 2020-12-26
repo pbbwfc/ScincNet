@@ -30,11 +30,11 @@ type TestSearch () =
      member this.SearchBoard () =
         let ct0 = Filt.Count()
         Assert.AreEqual(6, ct0)
-        let actual = Search.Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+        let actual = Search.Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",1)
         Assert.AreEqual(0, actual)
         let ct1 = Filt.Count()
         Assert.AreEqual(5, ct1)
-        let actual = Search.Board("r2qkb1r/p2n1ppp/b1p1pn2/1p1p4/2PP4/1P3NP1/P3PPBP/RNBQ1RK1 w kq - 1 8")
+        let actual = Search.Board("r2qkb1r/p2n1ppp/b1p1pn2/1p1p4/2PP4/1P3NP1/P3PPBP/RNBQ1RK1 w kq - 1 8",1)
         Assert.AreEqual(0, actual)
         let ct1 = Filt.Count()
         Assert.AreEqual(6, ct1)
