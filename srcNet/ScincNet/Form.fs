@@ -55,7 +55,7 @@ module Form =
                     else
                         Recents.add fn
                         refreshWindows()
-                        pgn.Refrsh()
+                        pgn.Refrsh(0)
                         if sts.BaseNum()= -1 then sts.Init(nm,ScincFuncs.Base.Current())
 
         let doopen() = 
@@ -76,8 +76,11 @@ module Form =
                         Recents.add fn
                         gmtbs.AddTab()
                         refreshWindows()
-                        pgn.Refrsh()
+                        pgn.Refrsh(auto)
                         if sts.BaseNum()= -1 then sts.Init(nm,ScincFuncs.Base.Current())
+
+        let dosave() =
+            pgn.SaveGame()
  
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
@@ -128,8 +131,8 @@ module Form =
             let basenum = if index= 0 then 9 else index
             ScincFuncs.Base.Switch(basenum)|>ignore
             let auto = ScincFuncs.Base.Autoloadgame(true,uint32(basenum))
-            ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
-            pgn.Refrsh()
+            ScincFuncs.ScidGame.Load(uint(auto))|>ignore
+            pgn.Refrsh(auto)
             let nbd = FsChess.Board.Start
             bd.SetBoard(nbd)
             sts.UpdateFen(nbd)
@@ -145,6 +148,10 @@ module Form =
             let openb = new ToolStripButton(Image = img "opn.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Open")
             openb.Click.Add(fun _ -> doopen())
             ts.Items.Add(openb)|>ignore
+            // save
+            let saveb = new ToolStripButton(Image = img "sav.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Save")
+            saveb.Click.Add(fun _ -> dosave())
+            ts.Items.Add(saveb)|>ignore
 
         let createms() = 
             // file menu

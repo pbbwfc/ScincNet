@@ -27,6 +27,8 @@ module PnlPgnLib =
         let mutable rirs = [-1]
         let mutable ccm = ""
         let mutable cng = NAG.Null
+        //scinc related
+        let mutable gnum = 1
 
         //events
         let bdchngEvt = new Event<_>()
@@ -434,8 +436,16 @@ module PnlPgnLib =
         member _.GetGame() = 
             game
 
+        ///Gets the Game that is displayed
+        member _.SaveGame() = 
+            let pgnstr = Game.ToStr(game)
+            ScincFuncs.ScidGame.SavePgn(pgnstr,uint(gnum))|>ignore
+            //to do is to use exportpgn to do the initial save and then call the normal scid save
+            ()
+
         ///Switches to another game with the same position
         member pgnpnl.SwitchGame(rw:int) = 
+            gnum <- rw
             //select game
             ScincFuncs.ScidGame.Load(uint32(rw))|>ignore
             //load game
@@ -474,11 +484,12 @@ module PnlPgnLib =
             irs <- [-1]
             sethdr()
 
-        member pgnpnl.Refrsh() =
+        member pgnpnl.Refrsh(ignum:int) =
             let mutable pgnstr = ""
             if ScincFuncs.ScidGame.Pgn(&pgnstr)=0 then
                 let gm = Game.FromStr(pgnstr)
                 pgnpnl.SetGame(gm)
+                gnum <- ignum
 
         ///Goes to the next Move in the Game
         member pgnpnl.NextMove(one:bool) = 

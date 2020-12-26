@@ -168,6 +168,8 @@ module Game =
     //Deletes a comment in the Game at the address provided
     let DeleteComment = FsChessPgn.Game.DeleteComment
 
-    //Get form a PGN string
+    //Get from a PGN string
     let FromStr = FsChessPgn.RegParse.GameFromString
 
+    //Convert to a PGN string
+    let ToStr = FsChessPgn.PgnWrite.GameStr

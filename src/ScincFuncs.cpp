@@ -1120,11 +1120,6 @@ int ScincFuncs::ScidGame::Load(unsigned int gnum)
 	return 0;
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sc_game_save:
-//    Saves the current game. If the parameter is 0, a NEW
-//    game is added; otherwise, that game number is REPLACED.
-
 /// <summary>
 /// Save: Saves the current game. If the parameter is 0, a NEW
 /// game is added; otherwise, that game number is REPLACED.
@@ -1184,6 +1179,30 @@ int ScincFuncs::ScidGame::Save(unsigned int gnum)
 	}
 
 	return 0;
+}
+
+/// <summary>
+/// SavePgn: Saves the current game using the PGN string. 
+/// If the game number parameter is 0, a NEW
+/// game is added; otherwise, that game number is REPLACED.
+/// </summary>
+/// <param name="pgnstr">the string holding the PGN of the game</param>
+/// <param name="gnum">The game number</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::ScidGame::SavePgn(String^ pgnstr, unsigned int gnum)
+{
+	msclr::interop::marshal_context oMarshalContext;
+
+	const char* pgn = oMarshalContext.marshal_as<const char*>(pgnstr);
+
+	PgnParser parser(pgn);
+	errorT err = parser.ParseGame(db->game);
+	db->gameAltered = true;
+	if (err == ERROR_NotFound)
+	{
+		return -2;//ERROR: No PGN header tag 
+	}
+	return ScincFuncs::ScidGame::Save(gnum);
 }
 
 /// <summary>
