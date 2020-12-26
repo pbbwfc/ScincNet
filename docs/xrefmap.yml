@@ -163,6 +163,18 @@ references:
   commentId: Overload:ScincFuncs.Base.Open
   fullName: ScincFuncs.Base.Open
   nameWithType: Base.Open
+- uid: ScincFuncs.Base.Switch(System.Int32)
+  name: Switch(Int32)
+  href: api/ScincFuncs.Base.html#ScincFuncs_Base_Switch_System_Int32_
+  commentId: M:ScincFuncs.Base.Switch(System.Int32)
+  fullName: ScincFuncs.Base.Switch(System.Int32)
+  nameWithType: Base.Switch(Int32)
+- uid: ScincFuncs.Base.Switch*
+  name: Switch
+  href: api/ScincFuncs.Base.html#ScincFuncs_Base_Switch_
+  commentId: Overload:ScincFuncs.Base.Switch
+  fullName: ScincFuncs.Base.Switch
+  nameWithType: Base.Switch
 - uid: ScincFuncs.Clipbase
   name: Clipbase
   href: api/ScincFuncs.Clipbase.html
@@ -397,12 +409,12 @@ references:
   commentId: Overload:ScincFuncs.Search.#ctor
   fullName: ScincFuncs.Search.Search
   nameWithType: Search.Search
-- uid: ScincFuncs.Search.Board(System.String)
-  name: Board(String)
-  href: api/ScincFuncs.Search.html#ScincFuncs_Search_Board_System_String_
-  commentId: M:ScincFuncs.Search.Board(System.String)
-  fullName: ScincFuncs.Search.Board(System.String)
-  nameWithType: Search.Board(String)
+- uid: ScincFuncs.Search.Board(System.String,System.Int32)
+  name: Board(String, Int32)
+  href: api/ScincFuncs.Search.html#ScincFuncs_Search_Board_System_String_System_Int32_
+  commentId: M:ScincFuncs.Search.Board(System.String,System.Int32)
+  fullName: ScincFuncs.Search.Board(System.String, System.Int32)
+  nameWithType: Search.Board(String, Int32)
 - uid: ScincFuncs.Search.Board*
   name: Board
   href: api/ScincFuncs.Search.html#ScincFuncs_Search_Board_
@@ -427,15 +439,15 @@ references:
   commentId: Overload:ScincFuncs.Tree.#ctor
   fullName: ScincFuncs.Tree.Tree
   nameWithType: Tree.Tree
-- uid: ScincFuncs.Tree.Search(System.String,System.String@)
-  name: Search(String, ref String)
-  href: api/ScincFuncs.Tree.html#ScincFuncs_Tree_Search_System_String_System_String__
-  commentId: M:ScincFuncs.Tree.Search(System.String,System.String@)
-  name.vb: Search(String, ByRef String)
-  fullName: ScincFuncs.Tree.Search(System.String, ref System.String)
-  fullName.vb: ScincFuncs.Tree.Search(System.String, ByRef System.String)
-  nameWithType: Tree.Search(String, ref String)
-  nameWithType.vb: Tree.Search(String, ByRef String)
+- uid: ScincFuncs.Tree.Search(System.String,System.String@,System.Int32)
+  name: Search(String, ref String, Int32)
+  href: api/ScincFuncs.Tree.html#ScincFuncs_Tree_Search_System_String_System_String__System_Int32_
+  commentId: M:ScincFuncs.Tree.Search(System.String,System.String@,System.Int32)
+  name.vb: Search(String, ByRef String, Int32)
+  fullName: ScincFuncs.Tree.Search(System.String, ref System.String, System.Int32)
+  fullName.vb: ScincFuncs.Tree.Search(System.String, ByRef System.String, System.Int32)
+  nameWithType: Tree.Search(String, ref String, Int32)
+  nameWithType.vb: Tree.Search(String, ByRef String, Int32)
 - uid: ScincFuncs.Tree.Search*
   name: Search
   href: api/ScincFuncs.Tree.html#ScincFuncs_Tree_Search_

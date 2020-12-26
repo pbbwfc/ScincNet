@@ -998,6 +998,23 @@ int ScincFuncs::Base::Current()
 	return currentBase + 1;
 }
 
+/// <summary>
+/// Switch: Switch to a different database slot
+/// </summary>
+/// <param name="basenum">the slot to switch to</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::Base::Switch(int basenum)
+{
+	if (basenum < 1 || basenum > MAX_BASES)
+	{
+		return -1; //Invalid base number
+	}
+
+	currentBase = basenum - 1;
+	db = &(dbList[currentBase]);
+	return 0;
+}
+
 
 // CLIPBASE functions
 

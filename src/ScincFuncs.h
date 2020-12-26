@@ -117,7 +117,7 @@ namespace ScincFuncs {
 		static int Import(int% numgames, String^% msgs, String^ pgnfile);
 		static int CountFree();
 		static int Current();
-
+		static int Switch(int basenum);
 	};
 	/// <summary>
 	/// Class that hold functions relating to the SCID clipbase

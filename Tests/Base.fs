@@ -66,6 +66,14 @@ type TestBase1 () =
         let actual = Base.Current()
         Assert.AreEqual(1, actual)
 
+    [<TestMethod>]
+    member this.BaseSwitch () =
+        let actual = Base.Switch(9)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual(9, Base.Current())
+        let actual = Base.Switch(1)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual(1, Base.Current())
 
 [<TestClass>]
 type TestBase2 () =

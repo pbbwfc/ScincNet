@@ -121,7 +121,20 @@ module Form =
              //    //TODO
              //    cgm|>selEvt.Trigger
             pgn.SwitchGame(rw)
-            ()
+
+        let dotbselect(e:TabControlEventArgs) =
+            let index = e.TabPageIndex
+            //todo - need to set current
+            let basenum = if index= 0 then 9 else index
+            ScincFuncs.Base.Switch(basenum)|>ignore
+            let auto = ScincFuncs.Base.Autoloadgame(true,uint32(basenum))
+            ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
+            pgn.Refrsh()
+            let nbd = FsChess.Board.Start
+            bd.SetBoard(nbd)
+            sts.UpdateFen(nbd)
+            gmtbs.Refrsh(nbd)
+            anl.SetBoard(nbd)
         
         let createts() = 
             // new
@@ -179,6 +192,7 @@ module Form =
             pgn.GmChng |> Observable.add dogmchg
             sts.MvSel |> Observable.add domvsel
             bd.MvMade |> Observable.add domvmade
-            gmtbs.GmSel |> Observable.add dogmsel //pgn.SwitchGame
+            gmtbs.GmSel |> Observable.add dogmsel
+            gmtbs.Selected |>Observable.add dotbselect
 
    
