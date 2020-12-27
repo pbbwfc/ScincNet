@@ -156,15 +156,12 @@ Valid names are:  Event, Site, Date, Round, White, Black, ECO, EDate</p>
   
   
   <a id="ScincFuncs_ScidGame_List_" data-uid="ScincFuncs.ScidGame.List*"></a>
-  <h4 id="ScincFuncs_ScidGame_List_System_String__System_UInt32_System_UInt32_System_String_" data-uid="ScincFuncs.ScidGame.List(System.String@,System.UInt32,System.UInt32,System.String)">List(ref String, UInt32, UInt32, String)</h4>
-  <div class="markdown level1 summary"><p>List: Returns a portion of the game list according to the current filter.
-Takes start and count, where start is in the range (1..FilterCount).
-The next argument is the format string -- -- see index.cpp for details.,</p>
-</div>
+  <h4 id="ScincFuncs_ScidGame_List_System_Collections_Generic_List_ScincFuncs_gmui___System_UInt32_System_UInt32_" data-uid="ScincFuncs.ScidGame.List(System.Collections.Generic.List{ScincFuncs.gmui}@,System.UInt32,System.UInt32)">List(ref List&lt;gmui&gt;, UInt32, UInt32)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int List(ref string glist, uint start, uint count, string formatStr)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int List(ref List&lt;gmui&gt; gms, uint start, uint count)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -177,28 +174,19 @@ The next argument is the format string -- -- see index.cpp for details.,</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">glist</span></td>
-        <td><p>the game list returned</p>
-</td>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="ScincFuncs.gmui.html">gmui</a>&gt;</td>
+        <td><span class="parametername">gms</span></td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.UInt32</span></td>
         <td><span class="parametername">start</span></td>
-        <td><p>the gane number to start from</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.UInt32</span></td>
         <td><span class="parametername">count</span></td>
-        <td><p>the number of games to get</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">formatStr</span></td>
-        <td><p>the format string</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -213,8 +201,7 @@ The next argument is the format string -- -- see index.cpp for details.,</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><p>returns 0 if successful</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -330,6 +317,59 @@ game is added; otherwise, that game number is REPLACED.</p>
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td><span class="xref">System.UInt32</span></td>
+        <td><span class="parametername">gnum</span></td>
+        <td><p>The game number</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>returns 0 if successful</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="ScincFuncs_ScidGame_SavePgn_" data-uid="ScincFuncs.ScidGame.SavePgn*"></a>
+  <h4 id="ScincFuncs_ScidGame_SavePgn_System_String_System_UInt32_" data-uid="ScincFuncs.ScidGame.SavePgn(System.String,System.UInt32)">SavePgn(String, UInt32)</h4>
+  <div class="markdown level1 summary"><p>SavePgn: Saves the current game using the PGN string.
+If the game number parameter is 0, a NEW
+game is added; otherwise, that game number is REPLACED.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int SavePgn(string pgnstr, uint gnum)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">pgnstr</span></td>
+        <td><p>the string holding the PGN of the game</p>
+</td>
+      </tr>
       <tr>
         <td><span class="xref">System.UInt32</span></td>
         <td><span class="parametername">gnum</span></td>

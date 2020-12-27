@@ -1441,19 +1441,13 @@ int ScincFuncs::ScidGame::SetTag(String^ tag, String^ val)
 /// <summary>
 /// List: Returns a portion of the game list according to the current filter.
 /// Takes start and count, where start is in the range (1..FilterCount).
-/// The next argument is the format string -- -- see index.cpp for details.,
 /// </summary>
-/// <param name="glist">the game list returned</param>
+/// <param name="gms">the game list returned</param>
 /// <param name="start">the gane number to start from</param>
 /// <param name="count">the number of games to get</param>
-/// <param name="formatStr">the format string</param>
 /// <returns>returns 0 if successful</returns>
-int ScincFuncs::ScidGame::List(String^% glist,unsigned int start, unsigned int count, String^ formatStr)
+int ScincFuncs::ScidGame::List(System::Collections::Generic::List<gmui^>^% gms, unsigned int start, unsigned int count)
 {
-	msclr::interop::marshal_context oMarshalContext;
-
-	const char* format = oMarshalContext.marshal_as<const char*>(formatStr);
-	
 	if (!db->inUse)
 	{
 		return 0;
@@ -1468,20 +1462,47 @@ int ScincFuncs::ScidGame::List(String^% glist,unsigned int start, unsigned int c
 	{
 		fcount = count;
 	}
-
+	
 	uint index = db->filter->FilteredCountToIndex(start);
 	IndexEntry* ie;
 	char temp[2048];
-	glist = gcnew System::String("");
-
+	
 	while (index < db->numGames && count > 0)
 	{
 		if (db->filter->Get(index))
 		{
 			ie = db->idx->FetchEntry(index);
-			ie->PrintGameInfo(temp, start, index + 1, db->nb, format);
-			// separate lines by newline &&& Issues ?
-			glist = glist + gcnew System::String(temp) + gcnew System::String("\n");
+			//create struct
+			gmui^ gm = gcnew gmui;
+			gm->Num = index+1;
+			gm->White = gcnew System::String(ie->GetWhiteName(db->nb));
+			gm->Black = gcnew System::String(ie->GetBlackName(db->nb));
+			gm->Result = gcnew System::String((char*)RESULT_STR[ie->GetResult()]);
+			gm->Length = (ie->GetNumHalfMoves() + 1) / 2;
+			date_DecodeToString(ie->GetDate(), temp);
+			gm->Date = gcnew System::String(temp);
+			gm->Event = gcnew System::String(ie->GetEventName(db->nb));
+			gm->W_Elo = ie->GetWhiteElo();
+			gm->B_Elo = ie->GetBlackElo();
+			gm->Round = ie->GetRound();
+			gm->Site = gcnew System::String(ie->GetSiteName(db->nb));
+			gm->Deleted = gcnew System::String((ie->GetFlag(IDX_MASK_DELETE))?"D":"");
+			gm->Variations = ie->GetVariationCount();
+			gm->Comments = ie->GetCommentCount();
+			gm->Annos = ie->GetNagCount();
+			eco_ToExtendedString(ie->GetEcoCode(), temp);
+			gm->ECO = gcnew System::String(temp);
+			gm->Opening = gcnew System::String(StoredLine::GetText(ie->GetStoredLineCode()));
+			ie->GetFlagStr(temp, NULL);
+			gm->Flags = gcnew System::String(temp);
+			gm->Start = gcnew System::String((ie->GetFlag(IDX_MASK_START)) ? "D" : "");
+			int ln = gm->Site->Length;
+			gm->Country = gcnew System::String(ln>2 ?gm->Site->Substring(ln-3):"");
+			date_DecodeToString(ie->GetEventDate(), temp);
+			gm->EventDate = gcnew System::String(temp);
+			
+			gms->Add(gm);
+
 			count--;
 			start++;
 		}

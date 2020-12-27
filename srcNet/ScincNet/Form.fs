@@ -164,7 +164,16 @@ module Form =
             let openm = new ToolStripMenuItem(Image = img "opn.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.O), Text = "&Open")
             openm.Click.Add(fun _ -> doopen())
             filem.DropDownItems.Add(openm)|>ignore
+            // game menu
+            let gamem = new ToolStripMenuItem(Text = "&Game")
+            // game save
+            let savem = new ToolStripMenuItem(Image = img "sav.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.S), Text = "&Save")
+            savem.Click.Add(fun _ -> dosave())
+            gamem.DropDownItems.Add(savem)|>ignore
+            
+            
             ms.Items.Add(filem)|>ignore
+            ms.Items.Add(gamem)|>ignore
 
         let bgpnl = new Panel(Dock=DockStyle.Fill,BorderStyle=BorderStyle.Fixed3D)
         let lfpnl = new Panel(Dock=DockStyle.Left,BorderStyle=BorderStyle.Fixed3D,Width=400)

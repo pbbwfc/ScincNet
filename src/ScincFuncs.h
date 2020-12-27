@@ -99,6 +99,34 @@ struct scidBaseT {
 using System::String;
 using namespace System::Runtime::InteropServices;
 namespace ScincFuncs {
+	
+	/// <summary>
+	/// Class that holds properties to display in grid - need to be reversed!
+	/// </summary>
+	public ref class gmui {
+	public:
+		property String^ EventDate;
+		property String^ Country;
+		property String^ Start;
+		property String^ Flags;
+		property String^ Opening;
+		property String^ ECO;
+		property int Annos;
+		property int Comments;
+		property int Variations;
+		property String^ Deleted;
+		property String^ Site;
+		property int Round;
+		property int B_Elo;
+		property int W_Elo;
+		property String^ Event;
+		property String^ Date;
+		property int Length;
+		property String^ Result;
+		property String^ Black;
+		property String^ White;
+		property int Num;
+	};
 	///<summary>
 	/// Class that hold functions relating to the SCID database 
 	///</summary>
@@ -140,7 +168,7 @@ namespace ScincFuncs {
 		static int StripComments();
 		static int GetTag(String^ tag, String^% val);
 		static int SetTag(String^ tag, String^ val);
-		static int List(String^% glist, unsigned int start, unsigned int count, String^ formatStr);
+		static int List(System::Collections::Generic::List<gmui^>^% gms, unsigned int start, unsigned int count);
 		static int ScincFuncs::ScidGame::Pgn(String^% pgn);
 
 	};

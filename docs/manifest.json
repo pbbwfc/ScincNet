@@ -12,7 +12,7 @@
           "hash": "FFuwkByyEl60BWxh6WynkQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.ScidGame.html",
-          "hash": "6xdvNVt8B2ql9SavXESJNw=="
+          "hash": "qDrMYjsztoVE8zh4DBzmZA=="
         }
       },
       "is_incremental": true,
@@ -72,7 +72,7 @@
           "hash": "Jf/vi4MS7RWFJfDH8HTYtg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -84,6 +84,18 @@
           "hash": "Qe7ipf2Sy6DgSVzjyofMhg=="
         }
       },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ScincFuncs.gmui.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ScincFuncs.gmui.html",
+          "hash": "5w5FSM9W4bB2DDuZ3dm4yQ=="
+        }
+      },
       "is_incremental": false,
       "version": ""
     },
@@ -93,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/ScincFuncs.html",
-          "hash": "fAroV36yb+Jy2UoXg91NgQ=="
+          "hash": "8iXvA1OkYg4Nvymd/9JX+A=="
         }
       },
       "is_incremental": false,
@@ -117,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "gycJ6UKylV0FfXSr1Wv4WQ=="
+          "hash": "RWA3RGnmdy6F8rIKHtAuQg=="
         }
       },
       "is_incremental": false,
@@ -205,8 +217,8 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 8,
-          "skipped_file_count": 5
+          "total_file_count": 9,
+          "skipped_file_count": 8
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

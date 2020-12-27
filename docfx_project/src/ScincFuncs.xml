@@ -47,16 +47,14 @@ Pgn: Returns the PGN representation of the game.
             <param name="pgn">string that will hold the pgen representation</param>
             <returns>returns 0 if successful</returns>
         </member>
-        <member name="M:ScincFuncs.ScidGame.List(System.String@,System.UInt32,System.UInt32,System.String)">
+        <member name="M:ScincFuncs.ScidGame.List(System.Collections.Generic.List`1{ScincFuncs.gmui}@,System.UInt32,System.UInt32)">
             <summary>
 List: Returns a portion of the game list according to the current filter.
 Takes start and count, where start is in the range (1..FilterCount).
-The next argument is the format string -- -- see index.cpp for details.,
 </summary>
-            <param name="glist">the game list returned</param>
+            <param name="gms">the game list returned</param>
             <param name="start">the gane number to start from</param>
             <param name="count">the number of games to get</param>
-            <param name="formatStr">the format string</param>
             <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.ScidGame.SetTag(System.String,System.String)">
@@ -80,6 +78,16 @@ Valid names are:  Event, Site, Date, Round, White, Black, ECO, EDate
             <summary>
 StripComments: Strips all comments from a game.
 </summary>
+            <returns>returns 0 if successful</returns>
+        </member>
+        <member name="M:ScincFuncs.ScidGame.SavePgn(System.String,System.UInt32)">
+            <summary>
+SavePgn: Saves the current game using the PGN string. 
+If the game number parameter is 0, a NEW
+game is added; otherwise, that game number is REPLACED.
+</summary>
+            <param name="pgnstr">the string holding the PGN of the game</param>
+            <param name="gnum">The game number</param>
             <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.ScidGame.Save(System.UInt32)">
@@ -221,6 +229,11 @@ Class that hold functions relating to the SCID clipbase
         <member name="T:ScincFuncs.Base">
             <summary>
 Class that hold functions relating to the SCID database 
+</summary>
+        </member>
+        <member name="T:ScincFuncs.gmui">
+            <summary>
+Class that holds properties to display in grid - need to be reversed!
 </summary>
         </member>
     </members>

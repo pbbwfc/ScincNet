@@ -9,7 +9,6 @@ type TestScidGame () =
     let tfol = @"D:\GitHub\ScincNet\Tests\data\"
     let testdb = tfol + "test"
     let gmdb = tfol + "game"
-    let formatStr = "g*|w*|b*|r*|m*|d*|e*|W*|B*|n*|s*|D*|V*|C*|A*|o*|O*|U*|S*|c*|E*|F*"
     
     [<TestCleanup>]  
     member this.testClean() = 
@@ -63,12 +62,32 @@ type TestScidGame () =
 
     [<TestMethod>]
     member this.ScidGameList () =
-        let mutable glist = ""
-        let actual = ScidGame.List(&glist,1u,1u,formatStr)
+        let mutable gmsl = new ResizeArray<ScincFuncs.gmui>()
+        let actual = ScidGame.List(&gmsl,1u,1u)
         Assert.AreEqual(0, actual)
-        let exp = "1|A Kalaiyalahan|P Brooks|0-1|52|2016.10.17|V Wimbledon 1|     |     |?|Wimbledon| || 1| 4|E01|1.d4 e6 2.c4|| |don|2016.10.17|2:3\n"
-        Assert.AreEqual(exp, glist)
-
+        // "1|A Kalaiyalahan|P Brooks|0-1|52|2016.10.17|V Wimbledon 1|     |     |?|Wimbledon| || 1| 4|E01|1.d4 e6 2.c4|| |don|2016.10.17|2:3"
+        Assert.AreEqual(1,gmsl.[0].Num)
+        Assert.AreEqual("A Kalaiyalahan",gmsl.[0].White)
+        Assert.AreEqual("P Brooks",gmsl.[0].Black)
+        Assert.AreEqual("0-1",gmsl.[0].Result)
+        Assert.AreEqual(52,gmsl.[0].Length)
+        Assert.AreEqual("2016.10.17",gmsl.[0].Date)
+        Assert.AreEqual("V Wimbledon 1",gmsl.[0].Event)
+        Assert.AreEqual(0,gmsl.[0].W_Elo)
+        Assert.AreEqual(0,gmsl.[0].B_Elo)
+        Assert.AreEqual(0,gmsl.[0].Round)
+        Assert.AreEqual("Wimbledon",gmsl.[0].Site)
+        Assert.AreEqual("",gmsl.[0].Deleted)
+        Assert.AreEqual(0,gmsl.[0].Variations)
+        Assert.AreEqual(1,gmsl.[0].Comments)
+        Assert.AreEqual(4,gmsl.[0].Annos)
+        Assert.AreEqual("E01",gmsl.[0].ECO)
+        Assert.AreEqual("1.d4 e6 2.c4",gmsl.[0].Opening)
+        Assert.AreEqual("",gmsl.[0].Flags)
+        Assert.AreEqual("",gmsl.[0].Start)
+        Assert.AreEqual("don",gmsl.[0].Country)
+        Assert.AreEqual("2016.10.17",gmsl.[0].EventDate)
+        
     [<TestMethod>]
     member this.ScidGamePgn () =
         ScidGame.Load(1u)|>ignore

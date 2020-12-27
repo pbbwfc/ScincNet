@@ -280,6 +280,276 @@ references:
   commentId: Overload:ScincFuncs.Filt.Count
   fullName: ScincFuncs.Filt.Count
   nameWithType: Filt.Count
+- uid: ScincFuncs.gmui
+  name: gmui
+  href: api/ScincFuncs.gmui.html
+  commentId: T:ScincFuncs.gmui
+  fullName: ScincFuncs.gmui
+  nameWithType: gmui
+- uid: ScincFuncs.gmui.#ctor
+  name: gmui()
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui__ctor
+  commentId: M:ScincFuncs.gmui.#ctor
+  fullName: ScincFuncs.gmui.gmui()
+  nameWithType: gmui.gmui()
+- uid: ScincFuncs.gmui.#ctor*
+  name: gmui
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui__ctor_
+  commentId: Overload:ScincFuncs.gmui.#ctor
+  fullName: ScincFuncs.gmui.gmui
+  nameWithType: gmui.gmui
+- uid: ScincFuncs.gmui.Annos
+  name: Annos
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Annos
+  commentId: P:ScincFuncs.gmui.Annos
+  fullName: ScincFuncs.gmui.Annos
+  nameWithType: gmui.Annos
+- uid: ScincFuncs.gmui.Annos*
+  name: Annos
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Annos_
+  commentId: Overload:ScincFuncs.gmui.Annos
+  fullName: ScincFuncs.gmui.Annos
+  nameWithType: gmui.Annos
+- uid: ScincFuncs.gmui.B_Elo
+  name: B_Elo
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_B_Elo
+  commentId: P:ScincFuncs.gmui.B_Elo
+  fullName: ScincFuncs.gmui.B_Elo
+  nameWithType: gmui.B_Elo
+- uid: ScincFuncs.gmui.B_Elo*
+  name: B_Elo
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_B_Elo_
+  commentId: Overload:ScincFuncs.gmui.B_Elo
+  fullName: ScincFuncs.gmui.B_Elo
+  nameWithType: gmui.B_Elo
+- uid: ScincFuncs.gmui.Black
+  name: Black
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Black
+  commentId: P:ScincFuncs.gmui.Black
+  fullName: ScincFuncs.gmui.Black
+  nameWithType: gmui.Black
+- uid: ScincFuncs.gmui.Black*
+  name: Black
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Black_
+  commentId: Overload:ScincFuncs.gmui.Black
+  fullName: ScincFuncs.gmui.Black
+  nameWithType: gmui.Black
+- uid: ScincFuncs.gmui.Comments
+  name: Comments
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Comments
+  commentId: P:ScincFuncs.gmui.Comments
+  fullName: ScincFuncs.gmui.Comments
+  nameWithType: gmui.Comments
+- uid: ScincFuncs.gmui.Comments*
+  name: Comments
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Comments_
+  commentId: Overload:ScincFuncs.gmui.Comments
+  fullName: ScincFuncs.gmui.Comments
+  nameWithType: gmui.Comments
+- uid: ScincFuncs.gmui.Country
+  name: Country
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Country
+  commentId: P:ScincFuncs.gmui.Country
+  fullName: ScincFuncs.gmui.Country
+  nameWithType: gmui.Country
+- uid: ScincFuncs.gmui.Country*
+  name: Country
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Country_
+  commentId: Overload:ScincFuncs.gmui.Country
+  fullName: ScincFuncs.gmui.Country
+  nameWithType: gmui.Country
+- uid: ScincFuncs.gmui.Date
+  name: Date
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Date
+  commentId: P:ScincFuncs.gmui.Date
+  fullName: ScincFuncs.gmui.Date
+  nameWithType: gmui.Date
+- uid: ScincFuncs.gmui.Date*
+  name: Date
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Date_
+  commentId: Overload:ScincFuncs.gmui.Date
+  fullName: ScincFuncs.gmui.Date
+  nameWithType: gmui.Date
+- uid: ScincFuncs.gmui.Deleted
+  name: Deleted
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Deleted
+  commentId: P:ScincFuncs.gmui.Deleted
+  fullName: ScincFuncs.gmui.Deleted
+  nameWithType: gmui.Deleted
+- uid: ScincFuncs.gmui.Deleted*
+  name: Deleted
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Deleted_
+  commentId: Overload:ScincFuncs.gmui.Deleted
+  fullName: ScincFuncs.gmui.Deleted
+  nameWithType: gmui.Deleted
+- uid: ScincFuncs.gmui.ECO
+  name: ECO
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_ECO
+  commentId: P:ScincFuncs.gmui.ECO
+  fullName: ScincFuncs.gmui.ECO
+  nameWithType: gmui.ECO
+- uid: ScincFuncs.gmui.ECO*
+  name: ECO
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_ECO_
+  commentId: Overload:ScincFuncs.gmui.ECO
+  fullName: ScincFuncs.gmui.ECO
+  nameWithType: gmui.ECO
+- uid: ScincFuncs.gmui.Event
+  name: Event
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Event
+  commentId: P:ScincFuncs.gmui.Event
+  fullName: ScincFuncs.gmui.Event
+  nameWithType: gmui.Event
+- uid: ScincFuncs.gmui.Event*
+  name: Event
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Event_
+  commentId: Overload:ScincFuncs.gmui.Event
+  fullName: ScincFuncs.gmui.Event
+  nameWithType: gmui.Event
+- uid: ScincFuncs.gmui.EventDate
+  name: EventDate
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_EventDate
+  commentId: P:ScincFuncs.gmui.EventDate
+  fullName: ScincFuncs.gmui.EventDate
+  nameWithType: gmui.EventDate
+- uid: ScincFuncs.gmui.EventDate*
+  name: EventDate
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_EventDate_
+  commentId: Overload:ScincFuncs.gmui.EventDate
+  fullName: ScincFuncs.gmui.EventDate
+  nameWithType: gmui.EventDate
+- uid: ScincFuncs.gmui.Flags
+  name: Flags
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Flags
+  commentId: P:ScincFuncs.gmui.Flags
+  fullName: ScincFuncs.gmui.Flags
+  nameWithType: gmui.Flags
+- uid: ScincFuncs.gmui.Flags*
+  name: Flags
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Flags_
+  commentId: Overload:ScincFuncs.gmui.Flags
+  fullName: ScincFuncs.gmui.Flags
+  nameWithType: gmui.Flags
+- uid: ScincFuncs.gmui.Length
+  name: Length
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Length
+  commentId: P:ScincFuncs.gmui.Length
+  fullName: ScincFuncs.gmui.Length
+  nameWithType: gmui.Length
+- uid: ScincFuncs.gmui.Length*
+  name: Length
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Length_
+  commentId: Overload:ScincFuncs.gmui.Length
+  fullName: ScincFuncs.gmui.Length
+  nameWithType: gmui.Length
+- uid: ScincFuncs.gmui.Num
+  name: Num
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Num
+  commentId: P:ScincFuncs.gmui.Num
+  fullName: ScincFuncs.gmui.Num
+  nameWithType: gmui.Num
+- uid: ScincFuncs.gmui.Num*
+  name: Num
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Num_
+  commentId: Overload:ScincFuncs.gmui.Num
+  fullName: ScincFuncs.gmui.Num
+  nameWithType: gmui.Num
+- uid: ScincFuncs.gmui.Opening
+  name: Opening
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Opening
+  commentId: P:ScincFuncs.gmui.Opening
+  fullName: ScincFuncs.gmui.Opening
+  nameWithType: gmui.Opening
+- uid: ScincFuncs.gmui.Opening*
+  name: Opening
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Opening_
+  commentId: Overload:ScincFuncs.gmui.Opening
+  fullName: ScincFuncs.gmui.Opening
+  nameWithType: gmui.Opening
+- uid: ScincFuncs.gmui.Result
+  name: Result
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Result
+  commentId: P:ScincFuncs.gmui.Result
+  fullName: ScincFuncs.gmui.Result
+  nameWithType: gmui.Result
+- uid: ScincFuncs.gmui.Result*
+  name: Result
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Result_
+  commentId: Overload:ScincFuncs.gmui.Result
+  fullName: ScincFuncs.gmui.Result
+  nameWithType: gmui.Result
+- uid: ScincFuncs.gmui.Round
+  name: Round
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Round
+  commentId: P:ScincFuncs.gmui.Round
+  fullName: ScincFuncs.gmui.Round
+  nameWithType: gmui.Round
+- uid: ScincFuncs.gmui.Round*
+  name: Round
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Round_
+  commentId: Overload:ScincFuncs.gmui.Round
+  fullName: ScincFuncs.gmui.Round
+  nameWithType: gmui.Round
+- uid: ScincFuncs.gmui.Site
+  name: Site
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Site
+  commentId: P:ScincFuncs.gmui.Site
+  fullName: ScincFuncs.gmui.Site
+  nameWithType: gmui.Site
+- uid: ScincFuncs.gmui.Site*
+  name: Site
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Site_
+  commentId: Overload:ScincFuncs.gmui.Site
+  fullName: ScincFuncs.gmui.Site
+  nameWithType: gmui.Site
+- uid: ScincFuncs.gmui.Start
+  name: Start
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Start
+  commentId: P:ScincFuncs.gmui.Start
+  fullName: ScincFuncs.gmui.Start
+  nameWithType: gmui.Start
+- uid: ScincFuncs.gmui.Start*
+  name: Start
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Start_
+  commentId: Overload:ScincFuncs.gmui.Start
+  fullName: ScincFuncs.gmui.Start
+  nameWithType: gmui.Start
+- uid: ScincFuncs.gmui.Variations
+  name: Variations
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Variations
+  commentId: P:ScincFuncs.gmui.Variations
+  fullName: ScincFuncs.gmui.Variations
+  nameWithType: gmui.Variations
+- uid: ScincFuncs.gmui.Variations*
+  name: Variations
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Variations_
+  commentId: Overload:ScincFuncs.gmui.Variations
+  fullName: ScincFuncs.gmui.Variations
+  nameWithType: gmui.Variations
+- uid: ScincFuncs.gmui.W_Elo
+  name: W_Elo
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_W_Elo
+  commentId: P:ScincFuncs.gmui.W_Elo
+  fullName: ScincFuncs.gmui.W_Elo
+  nameWithType: gmui.W_Elo
+- uid: ScincFuncs.gmui.W_Elo*
+  name: W_Elo
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_W_Elo_
+  commentId: Overload:ScincFuncs.gmui.W_Elo
+  fullName: ScincFuncs.gmui.W_Elo
+  nameWithType: gmui.W_Elo
+- uid: ScincFuncs.gmui.White
+  name: White
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_White
+  commentId: P:ScincFuncs.gmui.White
+  fullName: ScincFuncs.gmui.White
+  nameWithType: gmui.White
+- uid: ScincFuncs.gmui.White*
+  name: White
+  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_White_
+  commentId: Overload:ScincFuncs.gmui.White
+  fullName: ScincFuncs.gmui.White
+  nameWithType: gmui.White
 - uid: ScincFuncs.ScidGame
   name: ScidGame
   href: api/ScincFuncs.ScidGame.html
@@ -313,15 +583,15 @@ references:
   commentId: Overload:ScincFuncs.ScidGame.GetTag
   fullName: ScincFuncs.ScidGame.GetTag
   nameWithType: ScidGame.GetTag
-- uid: ScincFuncs.ScidGame.List(System.String@,System.UInt32,System.UInt32,System.String)
-  name: List(ref String, UInt32, UInt32, String)
-  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_List_System_String__System_UInt32_System_UInt32_System_String_
-  commentId: M:ScincFuncs.ScidGame.List(System.String@,System.UInt32,System.UInt32,System.String)
-  name.vb: List(ByRef String, UInt32, UInt32, String)
-  fullName: ScincFuncs.ScidGame.List(ref System.String, System.UInt32, System.UInt32, System.String)
-  fullName.vb: ScincFuncs.ScidGame.List(ByRef System.String, System.UInt32, System.UInt32, System.String)
-  nameWithType: ScidGame.List(ref String, UInt32, UInt32, String)
-  nameWithType.vb: ScidGame.List(ByRef String, UInt32, UInt32, String)
+- uid: ScincFuncs.ScidGame.List(System.Collections.Generic.List{ScincFuncs.gmui}@,System.UInt32,System.UInt32)
+  name: List(ref List<gmui>, UInt32, UInt32)
+  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_List_System_Collections_Generic_List_ScincFuncs_gmui___System_UInt32_System_UInt32_
+  commentId: M:ScincFuncs.ScidGame.List(System.Collections.Generic.List{ScincFuncs.gmui}@,System.UInt32,System.UInt32)
+  name.vb: List(ByRef List(Of gmui), UInt32, UInt32)
+  fullName: ScincFuncs.ScidGame.List(ref System.Collections.Generic.List<ScincFuncs.gmui>, System.UInt32, System.UInt32)
+  fullName.vb: ScincFuncs.ScidGame.List(ByRef System.Collections.Generic.List(Of ScincFuncs.gmui), System.UInt32, System.UInt32)
+  nameWithType: ScidGame.List(ref List<gmui>, UInt32, UInt32)
+  nameWithType.vb: ScidGame.List(ByRef List(Of gmui), UInt32, UInt32)
 - uid: ScincFuncs.ScidGame.List*
   name: List
   href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_List_
@@ -367,6 +637,18 @@ references:
   commentId: Overload:ScincFuncs.ScidGame.Save
   fullName: ScincFuncs.ScidGame.Save
   nameWithType: ScidGame.Save
+- uid: ScincFuncs.ScidGame.SavePgn(System.String,System.UInt32)
+  name: SavePgn(String, UInt32)
+  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_SavePgn_System_String_System_UInt32_
+  commentId: M:ScincFuncs.ScidGame.SavePgn(System.String,System.UInt32)
+  fullName: ScincFuncs.ScidGame.SavePgn(System.String, System.UInt32)
+  nameWithType: ScidGame.SavePgn(String, UInt32)
+- uid: ScincFuncs.ScidGame.SavePgn*
+  name: SavePgn
+  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_SavePgn_
+  commentId: Overload:ScincFuncs.ScidGame.SavePgn
+  fullName: ScincFuncs.ScidGame.SavePgn
+  nameWithType: ScidGame.SavePgn
 - uid: ScincFuncs.ScidGame.SetTag(System.String,System.String)
   name: SetTag(String, String)
   href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_SetTag_System_String_System_String_
