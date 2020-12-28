@@ -444,6 +444,8 @@ module PnlPgnLib =
         member _.SaveGame() = 
             let pgnstr = Game.ToStr(game)
             ScincFuncs.ScidGame.SavePgn(pgnstr,uint(gnum))|>ignore
+            //need to reset gnum for new game
+            if gnum=0 then gnum<-ScincFuncs.Base.NumGames()
             gmchg<-false
             gmchg|>gmchngEvt.Trigger
 
@@ -500,6 +502,11 @@ module PnlPgnLib =
             oldstyle <- None
             irs <- [-1]
             sethdr()
+
+        member pgnpnl.NewGame() =
+            let gm = Game.Start
+            pgnpnl.SetGame(gm)
+            gnum <- 0
 
         member pgnpnl.Refrsh(ignum:int) =
             let mutable pgnstr = ""

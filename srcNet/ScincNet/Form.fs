@@ -118,6 +118,10 @@ module Form =
             if saveb.Enabled then
                 pgn.PromptSaveGame()
             this.Close()
+
+        let donewg() =
+            //clear pgn and set gnum to 0
+            pgn.NewGame()
  
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
@@ -221,6 +225,10 @@ module Form =
             
             // game menu
             let gamem = new ToolStripMenuItem(Text = "&Game")
+            // game new
+            let newgm = new ToolStripMenuItem(Text = "New")
+            newgm.Click.Add(fun _ -> donewg())
+            gamem.DropDownItems.Add(newgm)|>ignore
             // game save
             savem.Click.Add(fun _ -> dosave())
             gamem.DropDownItems.Add(savem)|>ignore
