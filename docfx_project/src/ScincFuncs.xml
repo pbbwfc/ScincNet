@@ -12,11 +12,13 @@ Board: Searches for exact match for the current position and sets the filter acc
             <param name="basenum">number of base</param>
             <returns>returns 0 if successful</returns>
         </member>
-        <member name="M:ScincFuncs.Tree.Search(System.String,System.String@,System.Int32)">
+        <member name="M:ScincFuncs.Tree.Search(System.Collections.Generic.List`1{ScincFuncs.mvstats}@,ScincFuncs.totstats@,System.String,System.Int32)">
             <summary>
-Search: Gets the stats tree for the current database
+Search: Gets the stats tree for the specified position for the specified database 
 </summary>
-            <param name="treestr">the stats tree returned</param>
+            <param name="mvsts">the class holding the move line data</param>
+            <param name="tsts">the class holding the total line data</param>
+            <param name="fenstr">the fen of the position</param>
             <param name="basenum">the number of the base</param>
             <returns>returns 0 if successful</returns>
         </member>
@@ -234,6 +236,16 @@ Class that hold functions relating to the SCID database
         <member name="T:ScincFuncs.gmui">
             <summary>
 Class that holds properties to display in grid - need to be reversed!
+</summary>
+        </member>
+        <member name="T:ScincFuncs.totstats">
+            <summary>
+Class that holds the tree totals for all moves
+</summary>
+        </member>
+        <member name="T:ScincFuncs.mvstats">
+            <summary>
+Class that holds the tree data for a move
 </summary>
         </member>
     </members>

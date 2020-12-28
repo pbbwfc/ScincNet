@@ -99,7 +99,40 @@ struct scidBaseT {
 using System::String;
 using namespace System::Runtime::InteropServices;
 namespace ScincFuncs {
-	
+	/// <summary>
+	/// Class that holds the tree data for a move
+	/// </summary>
+	public ref class mvstats {
+	public:
+		property String^ Mvstr;
+		property int Count;
+		property double Freq;
+		property int WhiteWins;
+		property int Draws;
+		property int BlackWins;
+		property double Score;
+		property double DrawPc;
+		property int AvElo;
+		property int Perf;
+		property int AvYear;
+		property String^ ECO;
+	};
+	/// <summary>
+	/// Class that holds the tree totals for all moves
+	/// </summary>
+	public ref class totstats {
+	public:
+		property int TotCount;
+		property double	TotFreq;
+		property int TotWhiteWins;
+		property int TotDraws;
+		property int TotBlackWins;
+		property double	TotScore;
+		property double	TotDrawPc;
+		property int TotAvElo;
+		property int TotPerf;
+		property int TotAvYear;
+	};
 	/// <summary>
 	/// Class that holds properties to display in grid - need to be reversed!
 	/// </summary>
@@ -196,7 +229,7 @@ namespace ScincFuncs {
 	public ref class Tree
 	{
 	public:
-		static int Search(String^ fenstr, String^% treestr, int basenum);
+		static int Search(System::Collections::Generic::List<mvstats^>^% mvsts, totstats^% tsts, String^ fenstr, int basenum);
 	};
 	/// <summary>
 	/// Class that hold functions relating to search

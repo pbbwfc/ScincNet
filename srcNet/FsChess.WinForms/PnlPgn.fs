@@ -27,6 +27,8 @@ module PnlPgnLib =
         let mutable rirs = [-1]
         let mutable ccm = ""
         let mutable cng = NAG.Null
+        let mutable gmchg = false
+        
         //scinc related
         let mutable gnum = 1
 
@@ -128,8 +130,8 @@ module PnlPgnLib =
                 else 
                     game <- Game.EditComment game rirs comm.Text
                     pgn.DocumentText <- mvtags()
-
-                game|>gmchngEvt.Trigger
+                gmchg <- true
+                gmchg|>gmchngEvt.Trigger
                 dlg.Close()
 
             do 
@@ -183,7 +185,8 @@ module PnlPgnLib =
                     game <- Game.DeleteNag game rirs
                     pgn.DocumentText <- mvtags()
 
-                game|>gmchngEvt.Trigger
+                gmchg<-true
+                gmchg|>gmchngEvt.Trigger
                 dlg.Close()
 
             do 
@@ -252,7 +255,8 @@ module PnlPgnLib =
                                    BlackPlayer=btb.Text;BlackElo=betb.Text;
                                    Result=res;Year=yo;Month=mo;Day=dyo;
                                    Event=evtb.Text;Round=rdtb.Text;Site=sttb.Text}
-                game|>gmchngEvt.Trigger
+                gmchg<-true
+                gmchg|>gmchngEvt.Trigger
                 dlg.Close()
 
 
@@ -436,13 +440,22 @@ module PnlPgnLib =
         member _.GetGame() = 
             game
 
-        ///Gets the Game that is displayed
+        ///Saves the Game that is displayed
         member _.SaveGame() = 
             let pgnstr = Game.ToStr(game)
             ScincFuncs.ScidGame.SavePgn(pgnstr,uint(gnum))|>ignore
-            //to do is to use exportpgn to do the initial save and then call the normal scid save
-            ()
+            gmchg<-false
+            gmchg|>gmchngEvt.Trigger
 
+        ///Saves the game with prompt
+        member _.PromptSaveGame() = 
+            let dr = MessageBox.Show("Do you want to save the game: " + gmlbl.Text + " ?","Save Game",MessageBoxButtons.YesNo)
+            if dr=DialogResult.Yes then 
+                pgnpnl.SaveGame()
+            else
+                gmchg<-false
+                gmchg|>gmchngEvt.Trigger
+            
         ///Switches to another game with the same position
         member pgnpnl.SwitchGame(rw:int) = 
             gnum <- rw
@@ -452,6 +465,8 @@ module PnlPgnLib =
             let mutable pgnstr = ""
             ScincFuncs.ScidGame.Pgn(&pgnstr)|>ignore
             let gm = Game.FromStr(pgnstr)
+            //need to check if want to save
+            if gmchg then pgnpnl.PromptSaveGame()
             game <- gm|>Game.GetaMoves
             pgn.DocumentText <- mvtags()
             //need to select move that matches current board
@@ -477,6 +492,8 @@ module PnlPgnLib =
  
         ///Sets the Game to be displayed
         member pgnpnl.SetGame(gm:Game) = 
+            //need to check if want to save
+            if gmchg then pgnpnl.PromptSaveGame()
             game <- gm|>Game.GetaMoves
             pgn.DocumentText <- mvtags()
             board <- Board.Start
@@ -645,7 +662,8 @@ module PnlPgnLib =
                 irs <- nirs
                 board <- board|>Board.Push mv
                 pgn.DocumentText <- mvtags()
-                game|>gmchngEvt.Trigger
+                gmchg<-true
+                gmchg|>gmchngEvt.Trigger
             else
                 //Check if first move in RAV
                 let rec inrav oi ci (mtel:MoveTextEntry list) =
@@ -716,7 +734,8 @@ module PnlPgnLib =
                         irs <- nirs
                         board <- board|>Board.Push mv
                         pgn.DocumentText <- mvtags()
-                        game|>gmchngEvt.Trigger
+                        gmchg<-true
+                        gmchg|>gmchngEvt.Trigger
 
         //publish
         ///Provides the new Board after a change

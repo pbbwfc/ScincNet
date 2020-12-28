@@ -18,8 +18,6 @@ module Form =
     type FrmMain() as this =
         inherit Form(Text = "ScincNet", WindowState = FormWindowState.Maximized, IsMdiContainer = true)
 
-        let mutable gmchg = false
-
         let bd = new PnlBoard(Dock=DockStyle.Fill)
         let pgn = new PnlPgn(Dock=DockStyle.Fill)
         let sts = new WbStats(Dock=DockStyle.Fill)
@@ -27,7 +25,9 @@ module Form =
         let anl = new TcAnl(Dock=DockStyle.Fill)
         let ts = new ToolStrip()
         let ms = new MenuStrip()
-
+        let saveb = new ToolStripButton(Image = img "sav.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Save", Enabled = false)
+        let savem = new ToolStripMenuItem(Image = img "sav.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.S), Text = "&Save", Enabled = false)
+        
         let updateMenuStates() =
             //TODO - do updates such as recents
             ()
@@ -88,8 +88,10 @@ module Form =
             gmtbs.Refrsh(nbd)
             anl.SetBoard(nbd)
 
-        let dogmchg(gm) =
-            gmchg <- true
+        let dogmchg(ischg) =
+            //set save menus
+            saveb.Enabled<-ischg
+            savem.Enabled<-ischg
 
         let domvsel(mvstr) =
             let board = bd.GetBoard()
@@ -109,21 +111,7 @@ module Form =
             gmtbs.Refrsh(nbd)
 
         let dogmsel(rw) =
-            //need to check if want to save
-             //if gmchg then
-             //    //let nm = cgm.WhitePlayer + " v. " + cgm.BlackPlayer
-             //    //let dr = MessageBox.Show("Do you want to save the game: " + nm + " ?","Save Game",MessageBoxButtons.YesNoCancel)
-             //    if dr=DialogResult.Yes then
-             //        dosave()
-             //        //TODO
-             //        cgm|>selEvt.Trigger
-             //    elif dr=DialogResult.No then
-             //        //TODO
-             //        cgm|>selEvt.Trigger
-             //else
-             //    //TODO
-             //    cgm|>selEvt.Trigger
-            pgn.SwitchGame(rw)
+             pgn.SwitchGame(rw)
 
         let dotbselect(e:TabControlEventArgs) =
             let index = e.TabPageIndex
@@ -149,7 +137,6 @@ module Form =
             openb.Click.Add(fun _ -> doopen())
             ts.Items.Add(openb)|>ignore
             // save
-            let saveb = new ToolStripButton(Image = img "sav.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Save")
             saveb.Click.Add(fun _ -> dosave())
             ts.Items.Add(saveb)|>ignore
 
@@ -167,7 +154,6 @@ module Form =
             // game menu
             let gamem = new ToolStripMenuItem(Text = "&Game")
             // game save
-            let savem = new ToolStripMenuItem(Image = img "sav.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.S), Text = "&Save")
             savem.Click.Add(fun _ -> dosave())
             gamem.DropDownItems.Add(savem)|>ignore
             

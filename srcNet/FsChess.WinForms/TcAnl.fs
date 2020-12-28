@@ -1,6 +1,5 @@
 ﻿namespace FsChess.WinForms
 
-open System.Drawing
 open System.Windows.Forms
 open FsChess
 open System.IO
@@ -61,7 +60,7 @@ module PnlAnlLib =
                 let ln = 
                     let st = msg.LastIndexOf("pv")
                     let ucis = msg.Substring(st+2)
-                    let sanstr = ucis|>FsChessPgn.MoveUtil.UcisToSans bd
+                    let sanstr = ucis|>Move.FromUcis bd
                     sanstr
                 let scr =
                     let st = msg.LastIndexOf("cp")

@@ -94,6 +94,9 @@ module Move =
     ///Get an encoded move from a UCI string such as g1f3 for this Board
     let FromUci = FsChessPgn.MoveUtil.fromUci
 
+    ///Get a string of encoded moves from a string of UCIs for this Board
+    let FromUcis = FsChessPgn.MoveUtil.UcisToSans
+
     ///Get the UCI string such as g1f3 for a move
     let ToUci = FsChessPgn.MoveUtil.toUci
 

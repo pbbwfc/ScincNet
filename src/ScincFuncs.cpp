@@ -1834,12 +1834,14 @@ void sortTreeMoves(treeT* tree, int sortMethod, colorT toMove)
 }
 
 /// <summary>
-/// Search: Gets the stats tree for the current database
+/// Search: Gets the stats tree for the specified position for the specified database 
 /// </summary>
-/// <param name="treestr">the stats tree returned</param>
+/// <param name="mvsts">the class holding the move line data</param>
+/// <param name="tsts">the class holding the total line data</param>
+/// <param name="fenstr">the fen of the position</param>
 /// <param name="basenum">the number of the base</param>
 /// <returns>returns 0 if successful</returns>
-int ScincFuncs::Tree::Search(String^ fenstr, String^% treestr, int basenum)
+int ScincFuncs::Tree::Search(System::Collections::Generic::List<mvstats^>^% mvsts, totstats^% tsts, String^ fenstr, int basenum)
 {
 	msclr::interop::marshal_context oMarshalContext;
 
@@ -2073,10 +2075,7 @@ int ScincFuncs::Tree::Search(String^ fenstr, String^% treestr, int basenum)
 
 	search_pool.erase(&base);
 
-	DString* output = new DString;
-	char temp[200];
-
-	// Now we print the list into the return string:
+	// Now we return the move list
 	node = tree->node;
 	for (uint count = 0; count < tree->moveCount; count++, node++)
 	{
@@ -2104,35 +2103,26 @@ int ScincFuncs::Tree::Search(String^ fenstr, String^% treestr, int basenum)
 			avgYear = (node->yearSum + (node->yearCount / 2)) / node->yearCount;
 		}
 		node->san[6] = 0;
-
 		strcpy(tempTrans, node->san);
 
-		sprintf(temp, "%2u|%-6s|%7u|%3u%c%1u%|%3u%c%1u%",
-			count + 1,
-			tempTrans, //node->san,
-			node->total,
-			100 * node->total / tree->totalCount,
-			decimalPointChar,
-			(1000 * node->total / tree->totalCount) % 10,
-			node->score / 10,
-			decimalPointChar,
-			node->score % 10);
-		output->Append(temp);
-		uint pctDraws = node->freq[RESULT_Draw] * 1000 / node->total;
-		sprintf(temp, "|%3u%", (pctDraws + 5) / 10);
-		output->Append(temp);
+		mvstats^ mvst = gcnew mvstats();
+		mvst->Mvstr = gcnew System::String(tempTrans);
+		mvst->Count = node->total;
+		mvst->Freq = static_cast<double>(node->total) / tree->totalCount;
+		mvst->WhiteWins = node->freq[RESULT_White];
+		mvst->Draws = node->freq[RESULT_Draw];
+		mvst->BlackWins = node->freq[RESULT_Black];
+		mvst->Score = node->score/1000.0;
+		mvst->DrawPc = static_cast<double>(node->freq[RESULT_Draw]) / node->total;
+		mvst->AvElo = avgElo;
+		mvst->Perf = perf;
+		mvst->AvYear = static_cast<int>(avgYear);
+		mvst->ECO = gcnew System::String(ecoStr);
 
-		sprintf(temp, "|%4u", avgElo);
-		output->Append(temp);
-		sprintf(temp, "|%4u", perf);
-		output->Append(temp);
-		sprintf(temp, "|%4llu", avgYear);
-		output->Append(temp);
-		sprintf(temp, "|%-5s\n", ecoStr);
-		output->Append(temp);
+		mvsts->Add(mvst);
 	}
 
-	// Print a totals line as well, if there are any moves in the tree:
+	// Now do the totals line as well, if there are any moves in the tree:
 
 	if (tree->moveCount > 0)
 	{
@@ -2144,6 +2134,8 @@ int ScincFuncs::Tree::Search(String^ fenstr, String^% treestr, int basenum)
 		unsigned long long yearCount = 0;
 		unsigned long long yearSum = 0;
 		uint nDraws = 0;
+		uint nWhite = 0;
+		uint nBlack = 0;
 		node = tree->node;
 		for (uint count = 0; count < tree->moveCount; count++, node++)
 		{
@@ -2156,35 +2148,31 @@ int ScincFuncs::Tree::Search(String^ fenstr, String^% treestr, int basenum)
 			yearCount += node->yearCount;
 			yearSum += node->yearSum;
 			nDraws += node->freq[RESULT_Draw];
+			nWhite += node->freq[RESULT_White];
+			nBlack += node->freq[RESULT_Black];
 		}
 		totalScore = totalScore * 500 / tree->totalCount;
-		unsigned long long avgElo = 0;
+		int avgElo = 0;
 		if (eloCount >= 10)
 		{
-			avgElo = eloSum / eloCount;
+			avgElo = static_cast<int>(eloSum / eloCount);
 		}
-		uint perf = 0;
+		int perf = 0;
 		if (perfCount >= 10)
 		{
-			perf = perfSum / perfCount;
+			perf = static_cast<int>(perfSum / perfCount);
 		}
-
-		sprintf(temp, "%7u|%3d%c%1d%",
-			tree->totalCount, totalScore / 10, decimalPointChar, totalScore % 10);
-		output->Append(temp);
-		uint pctDraws = nDraws * 1000 / tree->totalCount;
-		sprintf(temp, "|%3u%", (pctDraws + 5) / 10);
-		output->Append(temp);
-		sprintf(temp, "|%4llu", avgElo);
-		output->Append(temp);
-		sprintf(temp, "|%4u", perf);
-		output->Append(temp);
-		sprintf(temp, "|%4llu", (yearSum + (yearCount / 2)) / yearCount);
-		output->Append(temp);
+		tsts->TotCount = tree->totalCount;
+		tsts->TotFreq = 1.0;
+		tsts->TotWhiteWins = nWhite;
+		tsts->TotDraws = nDraws;
+		tsts->TotBlackWins = nBlack;
+		tsts->TotScore = totalScore / 1000.0;
+		tsts->TotDrawPc = static_cast<double>(nDraws) / tree->totalCount;
+		tsts->TotAvElo = avgElo;
+		tsts->TotPerf = perf;
+		tsts->TotAvYear = static_cast<int>((yearSum + (yearCount / 2)) / yearCount);
 	}
-
-	treestr = gcnew System::String(output->Data());
-	delete output;
 
 	return 0;
 }
