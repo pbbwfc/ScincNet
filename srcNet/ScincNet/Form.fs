@@ -28,7 +28,7 @@ module Form =
         let saveb = new ToolStripButton(Image = img "sav.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Save", Enabled = false)
         let savem = new ToolStripMenuItem(Image = img "sav.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.S), Text = "&Save", Enabled = false)
         let closeb = new ToolStripButton(Image = img "cls.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Close", Enabled = false)
-        let closem = new ToolStripMenuItem(Image = img "cls.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.S), Text = "&Close", Enabled = false)
+        let closem = new ToolStripMenuItem(Image = img "cls.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.W), Text = "&Close", Enabled = false)
                 
         let updateMenuStates() =
             //TODO - do updates such as recents
@@ -62,12 +62,12 @@ module Form =
                         pgn.Refrsh(0)
                         if sts.BaseNum()= -1 then sts.Init(nm,ScincFuncs.Base.Current())
 
-        let doopen() = 
+        let doopen(ifn:string,dotree:bool) = 
             if ScincFuncs.Base.CountFree()=0 then
                 MessageBox.Show("Too many databases open; close one first","Scinc Error")|>ignore
             else
                 let ndlg = new OpenFileDialog(Title="Open Database",Filter="Scid databases(*.si4)|*.si4")
-                if ndlg.ShowDialog() = DialogResult.OK then
+                if ifn="" && ndlg.ShowDialog() = DialogResult.OK then
                     //open database
                     let nm = Path.GetFileNameWithoutExtension(ndlg.FileName)
                     let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), nm)
@@ -81,7 +81,23 @@ module Form =
                         gmtbs.AddTab()
                         refreshWindows()
                         pgn.Refrsh(auto)
-                        if sts.BaseNum()= -1 then sts.Init(nm,ScincFuncs.Base.Current())
+                        if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
+                else
+                    //open database
+                    let nm = Path.GetFileNameWithoutExtension(ifn)
+                    let fn = ifn
+                    if ScincFuncs.Base.Open(fn)<0 then
+                        MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
+                    else
+                        let current = ScincFuncs.Base.Current()
+                        let auto = ScincFuncs.Base.Autoloadgame(true,uint32(current))
+                        ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
+                        Recents.add fn
+                        gmtbs.AddTab()
+                        refreshWindows()
+                        pgn.Refrsh(auto)
+                        if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
+
 
         let dosave() =
             pgn.SaveGame()
@@ -96,6 +112,12 @@ module Form =
             //now close tab
             gmtbs.Close()
             //assume this will switch tabs and then call dotbselect below?
+
+        let doexit() =
+            //offer to save game if has changed
+            if saveb.Enabled then
+                pgn.PromptSaveGame()
+            this.Close()
  
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
@@ -149,7 +171,7 @@ module Form =
             ts.Items.Add(newb)|>ignore
             // open
             let openb = new ToolStripButton(Image = img "opn.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Open")
-            openb.Click.Add(fun _ -> doopen())
+            openb.Click.Add(fun _ -> doopen("",false))
             ts.Items.Add(openb)|>ignore
             // close
             closeb.Click.Add(fun _ -> doclose())
@@ -167,17 +189,41 @@ module Form =
             filem.DropDownItems.Add(newm)|>ignore
             // file open
             let openm = new ToolStripMenuItem(Image = img "opn.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.O), Text = "&Open")
-            openm.Click.Add(fun _ -> doopen())
+            openm.Click.Add(fun _ -> doopen("",false))
             filem.DropDownItems.Add(openm)|>ignore
             // file close
             closem.Click.Add(fun _ -> doclose())
             filem.DropDownItems.Add(closem)|>ignore
+            // file open as tree
+            let opentreem = new ToolStripMenuItem(Text = "Open as &Tree")
+            opentreem.Click.Add(fun _ -> doopen("",true))
+            filem.DropDownItems.Add(opentreem)|>ignore
+            // recents
+            let recm = new ToolStripMenuItem(Text = "Recent")
+            let rectreem = new ToolStripMenuItem(Text = "Recent as Tree")
+            filem.DropDownItems.Add(recm)|>ignore
+            filem.DropDownItems.Add(rectreem)|>ignore
+            let addrec (rc:string) =
+                let mn = new ToolStripMenuItem(Text = Path.GetFileNameWithoutExtension(rc))
+                mn.Click.Add(fun _ -> doopen(rc,false))
+                recm.DropDownItems.Add(mn)|>ignore
+                let mn1 = new ToolStripMenuItem(Text = Path.GetFileNameWithoutExtension(rc))
+                mn1.Click.Add(fun _ -> doopen(rc,true))
+                rectreem.DropDownItems.Add(mn1)|>ignore
+            let rcs = 
+                Recents.get()
+                Recents.dbs
+            rcs|>Seq.iter addrec
+            // file exit
+            let exitm = new ToolStripMenuItem(Text = "Exit")
+            exitm.Click.Add(fun _ -> doexit())
+            filem.DropDownItems.Add(exitm)|>ignore
+            
             // game menu
             let gamem = new ToolStripMenuItem(Text = "&Game")
             // game save
             savem.Click.Add(fun _ -> dosave())
             gamem.DropDownItems.Add(savem)|>ignore
-            
             
             ms.Items.Add(filem)|>ignore
             ms.Items.Add(gamem)|>ignore
