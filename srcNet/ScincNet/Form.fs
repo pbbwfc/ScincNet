@@ -27,9 +27,13 @@ module Form =
         let ms = new MenuStrip()
         let saveb = new ToolStripButton(Image = img "sav.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Save", Enabled = false)
         let savem = new ToolStripMenuItem(Image = img "sav.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.S), Text = "&Save", Enabled = false)
-        
+        let closeb = new ToolStripButton(Image = img "cls.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Close", Enabled = false)
+        let closem = new ToolStripMenuItem(Image = img "cls.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.S), Text = "&Close", Enabled = false)
+                
         let updateMenuStates() =
             //TODO - do updates such as recents
+            closeb.Enabled<-gmtbs.TabCount>1
+            closem.Enabled<-gmtbs.TabCount>1
             ()
 
         let updateTitle() =
@@ -81,6 +85,17 @@ module Form =
 
         let dosave() =
             pgn.SaveGame()
+
+        let doclose() = 
+            //offer to save game if has changed
+            if saveb.Enabled then
+                pgn.PromptSaveGame()
+            //clear tree if holds current base
+            if sts.BaseNum()=ScincFuncs.Base.Current() then
+                sts.Close()
+            //now close tab
+            gmtbs.Close()
+            //assume this will switch tabs and then call dotbselect below?
  
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
@@ -116,7 +131,7 @@ module Form =
         let dotbselect(e:TabControlEventArgs) =
             let index = e.TabPageIndex
             //todo - need to set current
-            let basenum = if index= 0 then 9 else index
+            let basenum = if index = 0 then 9 else index
             ScincFuncs.Base.Switch(basenum)|>ignore
             let auto = ScincFuncs.Base.Autoloadgame(true,uint32(basenum))
             ScincFuncs.ScidGame.Load(uint(auto))|>ignore
@@ -136,6 +151,9 @@ module Form =
             let openb = new ToolStripButton(Image = img "opn.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Open")
             openb.Click.Add(fun _ -> doopen())
             ts.Items.Add(openb)|>ignore
+            // close
+            closeb.Click.Add(fun _ -> doclose())
+            ts.Items.Add(closeb)|>ignore
             // save
             saveb.Click.Add(fun _ -> dosave())
             ts.Items.Add(saveb)|>ignore
@@ -151,6 +169,9 @@ module Form =
             let openm = new ToolStripMenuItem(Image = img "opn.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.O), Text = "&Open")
             openm.Click.Add(fun _ -> doopen())
             filem.DropDownItems.Add(openm)|>ignore
+            // file close
+            closem.Click.Add(fun _ -> doclose())
+            filem.DropDownItems.Add(closem)|>ignore
             // game menu
             let gamem = new ToolStripMenuItem(Text = "&Game")
             // game save

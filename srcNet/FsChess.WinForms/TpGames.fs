@@ -71,6 +71,10 @@ module TpGamesLib =
             //update filter count
             fn <- ScincFuncs.Filt.Count()
             settxt()
+
+        /// initialise
+        member _.Close() =
+            ScincFuncs.Base.Close()|>ignore
  
         ///Provides the selected Game
         member __.GmSel = selEvt.Publish

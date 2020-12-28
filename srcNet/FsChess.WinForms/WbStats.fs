@@ -98,6 +98,13 @@ module WbStatsLib =
             basenum <- num
             stats.Refrsh()
 
+        member ststat.Close() =
+            basenm <- ""
+            basenum <- -1
+            fen <- "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+            mvsts.Clear()
+            stats.DocumentText <- bdsttags()
+        
         member ststat.BaseNum() =
             basenum
         

@@ -12,7 +12,6 @@ module TcGamesLib =
         //events
         let selEvt = new Event<_>()
 
-
         do
             gmstc.TabPages.Add(cliptp)
             cliptp.GmSel|>Observable.add selEvt.Trigger
@@ -30,6 +29,13 @@ module TcGamesLib =
             gmstc.TabPages.Add(tp)
             gmstc.SelectedTab<-gmstc.TabPages.[gmstc.TabPages.Count-1]
             tp.GmSel|>Observable.add selEvt.Trigger
+
+        ///Close the selected tab
+        member gmstc.Close() =
+            let tp = gmstc.SelectedTab:?>TpGames
+            tp.Close()
+            gmstc.TabPages.Remove(tp)
+
 
         ///Provides the selected Game
         member __.GmSel = selEvt.Publish
