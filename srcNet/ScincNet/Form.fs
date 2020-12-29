@@ -275,8 +275,6 @@ module Form =
                     (new System.Diagnostics.ProcessStartInfo("https://github.com/pbbwfc/ScincNet", UseShellExecute = true)) |> ignore)
             abtm.DropDownItems.Add(src) |> ignore
             
-
-           
           
             ms.Items.Add(filem)|>ignore
             ms.Items.Add(gamem)|>ignore

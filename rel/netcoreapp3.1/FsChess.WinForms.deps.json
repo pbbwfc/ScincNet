@@ -9,7 +9,8 @@
       "FsChess.WinForms/1.0.0": {
         "dependencies": {
           "FSharp.Core": "5.0.0",
-          "FsChessPgn": "1.0.0"
+          "FsChessPgn": "1.0.0",
+          "ScincFuncs": "1.0.0"
         },
         "runtime": {
           "FsChess.WinForms.dll": {}
@@ -84,6 +85,14 @@
         "runtime": {
           "FsChessPgn.dll": {}
         }
+      },
+      "ScincFuncs/1.0.0": {
+        "dependencies": {
+          "ScincLib": "1.0.0"
+        },
+        "runtime": {
+          "ScincFuncs.dll": {}
+        }
       }
     }
   },
@@ -122,6 +131,11 @@
       "hashPath": "system.drawing.common.4.7.0.nupkg.sha512"
     },
     "FsChessPgn/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ScincFuncs/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
