@@ -25,22 +25,41 @@ module TpGamesLib =
         let bs = new BindingSource()
         //scinc related
         let mutable b = 9 //base number
-        let mutable nm = "" //base name
+        let mutable nm = "clipbase" //base name
         let mutable gn = 0 //number of games
         let mutable fn = 0 //number of games in filter
 
         //events
         let selEvt = new Event<_>()
+        let cmpEvt = new Event<_>()
 
         let settxt() =
             let txt = b.ToString() + "-" + nm + "-" + fn.ToString() + "/" + gn.ToString()
             gmstp.Text <- txt
+
+        let color() =
+            for rwo in gms.Rows do
+                let rw = rwo:?>DataGridViewRow
+                if rw.Cells.["Deleted"].Value:?>string = "D" then
+                    rw.DefaultCellStyle.ForeColor <- Color.Red;
+
+        let docmp() =
+            b|>cmpEvt.Trigger
+        
+        let dodel(rw:int) =
+             let gnum = gms.Rows.[rw].Cells.[0].Value:?>int
+             if ScincFuncs.ScidGame.Delete(uint(gnum))=0 then
+                gms.Rows.[rw].Cells.["Deleted"].Value<-"D"
+                gms.Rows.[rw].DefaultCellStyle.ForeColor <- Color.Red;
  
-        let dodoubleclick(e:DataGridViewCellEventArgs) =
-            let rw = e.RowIndex
+        let doload(rw:int) =
             gms.CurrentCell <- gms.Rows.[rw].Cells.[0]
             crw <- gms.Rows.[rw].Cells.[0].Value:?>int
             crw|>selEvt.Trigger
+        
+        let dodoubleclick(e:DataGridViewCellEventArgs) =
+            let rw = e.RowIndex
+            doload(rw)
         
         let setup() =
             bs.DataSource <- gmsui
@@ -48,9 +67,36 @@ module TpGamesLib =
             gmstp.Controls.Add(gms)
             gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
 
+         
+        let dorightclick(e:DataGridViewCellMouseEventArgs) =
+            let rw = e.RowIndex
+
+            let ctxmnu = 
+                 let m = new ContextMenuStrip()
+                 //do load
+                 let load =
+                     new ToolStripMenuItem(Text = "Load")
+                 load.Click.Add(fun _ -> doload(rw))
+                 m.Items.Add(load) |> ignore
+                 //do delete
+                 let del =
+                     new ToolStripMenuItem(Text = "Delete")
+                 del.Click.Add(fun _ -> dodel(rw))
+                 m.Items.Add(del) |> ignore
+                 //do compact
+                 let cmp =
+                     new ToolStripMenuItem(Text = "Compact Base")
+                 del.Click.Add(fun _ -> docmp())
+                 m.Items.Add(cmp) |> ignore
+                 m
+            gms.ContextMenuStrip<-ctxmnu
+            if e.Button=MouseButtons.Right then
+                gms.ContextMenuStrip.Show()
+
         do 
             setup()
             gms.CellDoubleClick.Add(dodoubleclick)
+            gms.CellMouseDown.Add(dorightclick)
 
         /// initialise
         member _.Init() =
@@ -70,7 +116,9 @@ module TpGamesLib =
             gms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
             //update filter count
             fn <- ScincFuncs.Filt.Count()
+            gn <- ScincFuncs.Base.NumGames()
             settxt()
+            color()
 
         ///Refresh the list
         member _.SelNum(num:int) =
@@ -87,3 +135,7 @@ module TpGamesLib =
  
         ///Provides the selected Game
         member __.GmSel = selEvt.Publish
+
+        ///Provides the base needing to be compacted
+        member __.GmCmp = cmpEvt.Publish
+        

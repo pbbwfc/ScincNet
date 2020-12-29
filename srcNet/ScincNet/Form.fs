@@ -18,6 +18,10 @@ module Form =
     type FrmMain() as this =
         inherit Form(Text = "ScincNet", WindowState = FormWindowState.Maximized, IsMdiContainer = true)
 
+        let bfol = 
+            let pth = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),"ScincNet\\bases")
+            Directory.CreateDirectory(pth)|>ignore
+            pth
         let bd = new PnlBoard(Dock=DockStyle.Fill)
         let pgn = new PnlPgn(Dock=DockStyle.Fill)
         let sts = new WbStats(Dock=DockStyle.Fill)
@@ -29,11 +33,14 @@ module Form =
         let savem = new ToolStripMenuItem(Image = img "sav.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.S), Text = "&Save", Enabled = false)
         let closeb = new ToolStripButton(Image = img "cls.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Close", Enabled = false)
         let closem = new ToolStripMenuItem(Image = img "cls.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.W), Text = "&Close", Enabled = false)
+        let cmpm = new ToolStripMenuItem(Text = "Compact Base", Enabled = false)
+        
                 
         let updateMenuStates() =
             //TODO - do updates such as recents
             closeb.Enabled<-gmtbs.TabCount>1
             closem.Enabled<-gmtbs.TabCount>1
+            cmpm.Enabled<-gmtbs.TabCount>1
             ()
 
         let updateTitle() =
@@ -49,7 +56,7 @@ module Form =
             if ScincFuncs.Base.CountFree()=0 then
                 MessageBox.Show("Too many databases open; close one first","Scinc Error")|>ignore
             else
-                let ndlg = new SaveFileDialog(Title="Create New Database",Filter="Scid databases(*.si4)|*.si4",AddExtension=true,OverwritePrompt=false)
+                let ndlg = new SaveFileDialog(Title="Create New Database",Filter="Scid databases(*.si4)|*.si4",AddExtension=true,OverwritePrompt=false,InitialDirectory=bfol)
                 if ndlg.ShowDialog() = DialogResult.OK then
                     //create database
                     let nm = Path.GetFileNameWithoutExtension(ndlg.FileName)
@@ -66,7 +73,7 @@ module Form =
             if ScincFuncs.Base.CountFree()=0 then
                 MessageBox.Show("Too many databases open; close one first","Scinc Error")|>ignore
             else
-                let ndlg = new OpenFileDialog(Title="Open Database",Filter="Scid databases(*.si4)|*.si4")
+                let ndlg = new OpenFileDialog(Title="Open Database",Filter="Scid databases(*.si4)|*.si4",InitialDirectory=bfol)
                 if ifn="" && ndlg.ShowDialog() = DialogResult.OK then
                     //open database
                     let nm = Path.GetFileNameWithoutExtension(ndlg.FileName)
@@ -170,7 +177,11 @@ module Form =
             sts.UpdateFen(nbd)
             gmtbs.Refrsh(nbd)
             anl.SetBoard(nbd)
-        
+
+        let docompact() =
+            if ScincFuncs.Compact.Games()=0 then
+                gmtbs.Refrsh(bd.GetBoard())
+
         let createts() = 
             // new
             let newb = new ToolStripButton(Image = img "new.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&New")
@@ -239,9 +250,17 @@ module Form =
             let edithm = new ToolStripMenuItem(Text = "Edit Headers")
             edithm.Click.Add(fun _ -> pgn.EditHeaders())
             gamem.DropDownItems.Add(edithm)|>ignore
+
+            // tools menu
+            let toolsm = new ToolStripMenuItem(Text = "&Tools")
+            // tools compact
+            cmpm.Click.Add(fun _ -> docompact())
+            toolsm.DropDownItems.Add(cmpm)|>ignore
+           
           
             ms.Items.Add(filem)|>ignore
             ms.Items.Add(gamem)|>ignore
+            ms.Items.Add(toolsm)|>ignore
 
         let bgpnl = new Panel(Dock=DockStyle.Fill,BorderStyle=BorderStyle.Fixed3D)
         let lfpnl = new Panel(Dock=DockStyle.Left,BorderStyle=BorderStyle.Fixed3D,Width=400)
@@ -277,6 +296,7 @@ module Form =
             sts.MvSel |> Observable.add domvsel
             bd.MvMade |> Observable.add domvmade
             gmtbs.GmSel |> Observable.add dogmsel
+            gmtbs.GmCmp |> Observable.add (fun _ -> docompact())
             gmtbs.Selected |>Observable.add dotbselect
 
    

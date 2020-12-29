@@ -4,6 +4,15 @@
         "ScincFuncs"
     </assembly>
     <members>
+        <member name="M:ScincFuncs.Compact.Games">
+            <summary>
+Games: Compact the game file and index file of a database so all
+   deleted games are removed, the order of game file records
+   matches the index file order, and the game file is the
+   smallest possible size.
+</summary>
+            <returns>returns 0 if successful</returns>
+        </member>
         <member name="M:ScincFuncs.Search.Board(System.String,System.Int32)">
             <summary>
 Board: Searches for exact match for the current position and sets the filter accordingly.
@@ -90,6 +99,13 @@ game is added; otherwise, that game number is REPLACED.
 </summary>
             <param name="pgnstr">the string holding the PGN of the game</param>
             <param name="gnum">The game number</param>
+            <returns>returns 0 if successful</returns>
+        </member>
+        <member name="M:ScincFuncs.ScidGame.Delete(System.UInt32)">
+            <summary>
+Delete: sets the delete flag for the game number
+</summary>
+            <param name="gnum">the game number to change</param>
             <returns>returns 0 if successful</returns>
         </member>
         <member name="M:ScincFuncs.ScidGame.Save(System.UInt32)">
@@ -197,6 +213,11 @@ Autoloadgame: Sets or returns the autoload number for the database - the game nu
             <param name="getbase">Whether to get or set the database</param>
             <param name="basenum">The number to set</param>
             <returns>returns 0 if successful</returns>
+        </member>
+        <member name="T:ScincFuncs.Compact">
+            <summary>
+Class that hold functions relating to compacting the files
+</summary>
         </member>
         <member name="T:ScincFuncs.Search">
             <summary>

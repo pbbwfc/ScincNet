@@ -1182,6 +1182,31 @@ int ScincFuncs::ScidGame::Save(unsigned int gnum)
 }
 
 /// <summary>
+/// Delete: sets the delete flag for the game number
+/// </summary>
+/// <param name="gnum">the game number to change</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::ScidGame::Delete(unsigned int gnum)
+{
+	if (!db->inUse)
+	{
+		return -1;
+	}
+	if (db->fileMode == FMODE_ReadOnly)
+	{
+		return -2;
+	}
+	uint gNum = gnum - 1;
+	uint flagType = 1 << IDX_FLAG_DELETE;
+	IndexEntry* ie = db->idx->FetchEntry(gNum);
+	IndexEntry iE = *ie;
+	iE.SetFlag(flagType, 1);
+	db->idx->WriteEntries(&iE, gNum, 1);
+
+	return 0;
+}
+
+/// <summary>
 /// SavePgn: Saves the current game using the PGN string. 
 /// If the game number parameter is 0, a NEW
 /// game is added; otherwise, that game number is REPLACED.
@@ -2307,6 +2332,192 @@ int ScincFuncs::Search::Board(String^ fenstr,int basenum)
 
 	currentBase = oldCurrentBase;
 	db = &(dbList[currentBase]);
+
+	return 0;
+}
+
+// COMPACT functions
+
+void recalcNameFrequencies(NameBase* nb, Index* idx)
+{
+	for (nameT nt = NAME_FIRST; nt <= NAME_LAST; nt++)
+	{
+		nb->ZeroAllFrequencies(nt);
+	}
+	IndexEntry iE;
+	for (uint i = 0; i < idx->GetNumGames(); i++)
+	{
+		idx->ReadEntries(&iE, i, 1);
+		nb->IncFrequency(NAME_PLAYER, iE.GetWhite(), 1);
+		nb->IncFrequency(NAME_PLAYER, iE.GetBlack(), 1);
+		nb->IncFrequency(NAME_EVENT, iE.GetEvent(), 1);
+		nb->IncFrequency(NAME_SITE, iE.GetSite(), 1);
+		nb->IncFrequency(NAME_ROUND, iE.GetRound(), 1);
+	}
+}
+
+/// <summary>
+/// Games: Compact the game file and index file of a database so all
+///    deleted games are removed, the order of game file records
+///    matches the index file order, and the game file is the
+///    smallest possible size.
+/// </summary>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::Compact::Games()
+{
+	if (db->fileMode == FMODE_ReadOnly)
+	{
+		return -1;
+	}
+
+	// First, create new temporary index and game file:
+
+	fileNameT newName;
+	strCopy(newName, db->fileName);
+	strAppend(newName, "TEMP");
+
+	Index* newIdx = new Index;
+	GFile* newGfile = new GFile;
+	// Filter * newFilter = new Filter (0);
+	newIdx->SetFileName(newName);
+
+#define CLEANUP                        \
+    delete newIdx;                     \
+    delete newGfile;                   \
+    removeFile(newName, INDEX_SUFFIX); \
+    removeFile(newName, GFILE_SUFFIX)
+	// ; delete newFilter;
+
+	if (newIdx->CreateIndexFile(FMODE_WriteOnly) != OK)
+	{
+		CLEANUP;
+		return -2;//Error creating temporary file; compaction cancelled
+	}
+	if (newGfile->Create(newName, FMODE_WriteOnly) != OK)
+	{
+		CLEANUP;
+		return -3;//Error creating temporary file; compaction cancelled
+	}
+
+	gameNumberT newNumGames = 0;
+	bool interrupted = 0;
+	const char* errMsg = "";
+	const char* errWrite = "Error writing temporary file; compaction cancelled.";
+
+	for (uint i = 0; i < db->numGames; i++)
+	{
+		IndexEntry* ieOld = db->idx->FetchEntry(i);
+		if (ieOld->GetDeleteFlag())
+		{
+			continue;
+		}
+		IndexEntry ieNew;
+		errorT err;
+		db->bbuf->Empty();
+		err = db->gfile->ReadGame(db->bbuf, ieOld->GetOffset(),
+			ieOld->GetLength());
+		if (err != OK)
+		{
+			// Just skip corrupt games:
+			continue;
+		}
+		db->bbuf->BackToStart();
+		err = scratchGame->Decode(db->bbuf, GAME_DECODE_NONE);
+		if (err != OK)
+		{
+			// Just skip corrupt games:
+			continue;
+		}
+		err = newIdx->AddGame(&newNumGames, &ieNew);
+		if (err != OK)
+		{
+			errMsg = "Error in compaction operation; compaction cencelled.";
+			interrupted = true;
+			break;
+		}
+		ieNew = *ieOld;
+		db->bbuf->BackToStart();
+		uint offset = 0;
+		err = newGfile->AddGame(db->bbuf, &offset);
+		if (err != OK)
+		{
+			errMsg = errWrite;
+			interrupted = true;
+			break;
+		}
+		ieNew.SetOffset(offset);
+
+		// In 3.2, the maximum value for the game length in half-moves
+		// stored in the Index was raised from 255 (8 bits) to over
+		// 1000 (10 bits). So if the game and index values do not match,
+		// update the index value now:
+		if (scratchGame->GetNumHalfMoves() != ieNew.GetNumHalfMoves())
+		{
+			ieNew.SetNumHalfMoves(scratchGame->GetNumHalfMoves());
+		}
+
+		err = newIdx->WriteEntries(&ieNew, newNumGames, 1);
+		if (err != OK)
+		{
+			errMsg = errWrite;
+			interrupted = true;
+			break;
+		}
+		// newFilter->Append (db->filter->Get (i));
+	}
+
+	if (interrupted)
+	{
+		CLEANUP;
+		return -4;
+	}
+
+	newIdx->SetType(db->idx->GetType());
+	newIdx->SetDescription(db->idx->GetDescription());
+
+	// Copy custom flags description
+	char newDesc[CUSTOM_FLAG_DESC_LENGTH + 1];
+	for (byte b = 1; b <= CUSTOM_FLAG_MAX; b++)
+	{
+		db->idx->GetCustomFlagDesc(newDesc, b);
+		newIdx->SetCustomFlagDesc(newDesc, b);
+	}
+
+	newIdx->SetAutoLoad(db->idx->GetAutoLoad());
+	if (newIdx->CloseIndexFile() != OK || newGfile->Close() != OK)
+	{
+		CLEANUP;
+		errMsg = errWrite;
+		return -5;
+	}
+
+	// Success: remove old index and game files, and the old filter:
+
+	db->idx->CloseIndexFile();
+	db->gfile->Close();
+	// These four will fail on windows if a chess engine has been opened after the database
+	// due to file descriptor inheritance.  It's a bit hard to handle accurately :(
+	removeFile(db->fileName, INDEX_SUFFIX);
+	removeFile(db->fileName, GFILE_SUFFIX);
+	renameFile(newName, db->fileName, INDEX_SUFFIX);
+	renameFile(newName, db->fileName, GFILE_SUFFIX);
+	delete newIdx;
+	delete newGfile;
+	db->idx->SetFileName(db->fileName);
+	db->idx->OpenIndexFile(db->fileMode);
+	db->idx->ReadEntireFile();
+	db->gfile->Open(db->fileName, db->fileMode);
+
+	clearFilter(db, db->idx->GetNumGames());
+
+	db->gameNumber = -1;
+	db->numGames = db->idx->GetNumGames();
+	recalcNameFrequencies(db->nb, db->idx);
+	recalcFlagCounts(db);
+	// Remove the out-of-date treecache file:
+	db->treeCache->Clear();
+	db->backupCache->Clear();
+	removeFile(db->fileName, TREEFILE_SUFFIX);
 
 	return 0;
 }

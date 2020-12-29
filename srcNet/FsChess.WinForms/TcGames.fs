@@ -11,10 +11,12 @@ module TcGamesLib =
         let cliptp = new TpGames()
         //events
         let selEvt = new Event<_>()
-
+        let cmpEvt = new Event<_>()
+        
         do
             gmstc.TabPages.Add(cliptp)
             cliptp.GmSel|>Observable.add selEvt.Trigger
+            cliptp.GmCmp|>Observable.add cmpEvt.Trigger
 
         ///Refresh the selected tab
         member gmstc.Refrsh(bd:Brd) =
@@ -45,4 +47,6 @@ module TcGamesLib =
         ///Provides the selected Game
         member __.GmSel = selEvt.Publish
 
-
+        ///Provides the base needing to be compacted
+        member __.GmCmp = cmpEvt.Publish
+ 

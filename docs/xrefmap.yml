@@ -205,6 +205,36 @@ references:
   commentId: Overload:ScincFuncs.Clipbase.Clear
   fullName: ScincFuncs.Clipbase.Clear
   nameWithType: Clipbase.Clear
+- uid: ScincFuncs.Compact
+  name: Compact
+  href: api/ScincFuncs.Compact.html
+  commentId: T:ScincFuncs.Compact
+  fullName: ScincFuncs.Compact
+  nameWithType: Compact
+- uid: ScincFuncs.Compact.#ctor
+  name: Compact()
+  href: api/ScincFuncs.Compact.html#ScincFuncs_Compact__ctor
+  commentId: M:ScincFuncs.Compact.#ctor
+  fullName: ScincFuncs.Compact.Compact()
+  nameWithType: Compact.Compact()
+- uid: ScincFuncs.Compact.#ctor*
+  name: Compact
+  href: api/ScincFuncs.Compact.html#ScincFuncs_Compact__ctor_
+  commentId: Overload:ScincFuncs.Compact.#ctor
+  fullName: ScincFuncs.Compact.Compact
+  nameWithType: Compact.Compact
+- uid: ScincFuncs.Compact.Games
+  name: Games()
+  href: api/ScincFuncs.Compact.html#ScincFuncs_Compact_Games
+  commentId: M:ScincFuncs.Compact.Games
+  fullName: ScincFuncs.Compact.Games()
+  nameWithType: Compact.Games()
+- uid: ScincFuncs.Compact.Games*
+  name: Games
+  href: api/ScincFuncs.Compact.html#ScincFuncs_Compact_Games_
+  commentId: Overload:ScincFuncs.Compact.Games
+  fullName: ScincFuncs.Compact.Games
+  nameWithType: Compact.Games
 - uid: ScincFuncs.Eco
   name: Eco
   href: api/ScincFuncs.Eco.html
@@ -346,18 +376,6 @@ references:
   commentId: Overload:ScincFuncs.gmui.Comments
   fullName: ScincFuncs.gmui.Comments
   nameWithType: gmui.Comments
-- uid: ScincFuncs.gmui.Country
-  name: Country
-  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Country
-  commentId: P:ScincFuncs.gmui.Country
-  fullName: ScincFuncs.gmui.Country
-  nameWithType: gmui.Country
-- uid: ScincFuncs.gmui.Country*
-  name: Country
-  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Country_
-  commentId: Overload:ScincFuncs.gmui.Country
-  fullName: ScincFuncs.gmui.Country
-  nameWithType: gmui.Country
 - uid: ScincFuncs.gmui.Date
   name: Date
   href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Date
@@ -406,18 +424,6 @@ references:
   commentId: Overload:ScincFuncs.gmui.Event
   fullName: ScincFuncs.gmui.Event
   nameWithType: gmui.Event
-- uid: ScincFuncs.gmui.EventDate
-  name: EventDate
-  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_EventDate
-  commentId: P:ScincFuncs.gmui.EventDate
-  fullName: ScincFuncs.gmui.EventDate
-  nameWithType: gmui.EventDate
-- uid: ScincFuncs.gmui.EventDate*
-  name: EventDate
-  href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_EventDate_
-  commentId: Overload:ScincFuncs.gmui.EventDate
-  fullName: ScincFuncs.gmui.EventDate
-  nameWithType: gmui.EventDate
 - uid: ScincFuncs.gmui.Flags
   name: Flags
   href: api/ScincFuncs.gmui.html#ScincFuncs_gmui_Flags
@@ -730,6 +736,18 @@ references:
   commentId: Overload:ScincFuncs.ScidGame.#ctor
   fullName: ScincFuncs.ScidGame.ScidGame
   nameWithType: ScidGame.ScidGame
+- uid: ScincFuncs.ScidGame.Delete(System.UInt32)
+  name: Delete(UInt32)
+  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_Delete_System_UInt32_
+  commentId: M:ScincFuncs.ScidGame.Delete(System.UInt32)
+  fullName: ScincFuncs.ScidGame.Delete(System.UInt32)
+  nameWithType: ScidGame.Delete(UInt32)
+- uid: ScincFuncs.ScidGame.Delete*
+  name: Delete
+  href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_Delete_
+  commentId: Overload:ScincFuncs.ScidGame.Delete
+  fullName: ScincFuncs.ScidGame.Delete
+  nameWithType: ScidGame.Delete
 - uid: ScincFuncs.ScidGame.GetTag(System.String,System.String@)
   name: GetTag(String, ref String)
   href: api/ScincFuncs.ScidGame.html#ScincFuncs_ScidGame_GetTag_System_String_System_String__

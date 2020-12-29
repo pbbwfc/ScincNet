@@ -195,6 +195,7 @@ namespace ScincFuncs {
 	public:
 		static int Load(unsigned int gnum);
 		static int Save(unsigned int gnum);
+		static int Delete(unsigned int gnum);
 		static int SavePgn(String^ pgnstr, unsigned int gnum);
 		static int StripComments();
 		static int GetTag(String^ tag, String^% val);
@@ -237,5 +238,14 @@ namespace ScincFuncs {
 	public:
 		static int Board(String^ fenstr, int basenum);
 	};
+	/// <summary>
+	/// Class that hold functions relating to compacting the files
+	/// </summary>
+	public ref class Compact
+	{
+	public:
+		static int Games();
+	};
+
 
 }
