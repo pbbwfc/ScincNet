@@ -138,8 +138,6 @@ namespace ScincFuncs {
 	/// </summary>
 	public ref class gmui {
 	public:
-		property String^ EventDate;
-		property String^ Country;
 		property String^ Start;
 		property String^ Flags;
 		property String^ Opening;

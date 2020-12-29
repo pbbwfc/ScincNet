@@ -1495,11 +1495,8 @@ int ScincFuncs::ScidGame::List(System::Collections::Generic::List<gmui^>^% gms, 
 			gm->Opening = gcnew System::String(StoredLine::GetText(ie->GetStoredLineCode()));
 			ie->GetFlagStr(temp, NULL);
 			gm->Flags = gcnew System::String(temp);
-			gm->Start = gcnew System::String((ie->GetFlag(IDX_MASK_START)) ? "D" : "");
+			gm->Start = gcnew System::String((ie->GetFlag(IDX_MASK_START)) ? "S" : "");
 			int ln = gm->Site->Length;
-			gm->Country = gcnew System::String(ln>2 ?gm->Site->Substring(ln-3):"");
-			date_DecodeToString(ie->GetEventDate(), temp);
-			gm->EventDate = gcnew System::String(temp);
 			
 			gms->Add(gm);
 

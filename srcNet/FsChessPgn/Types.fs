@@ -226,7 +226,6 @@ module Types =
           Fullmove : int
           }
          member this.Item with get(sq:Square) = this.PieceAt.[int(sq)]
-              
 
     let BrdEMP = 
         { PieceAt = Array.create 64 Piece.EMPTY|>List.ofArray
@@ -262,17 +261,17 @@ module Types =
  
     type Game =
         {
-            Event : string
-            Site : string
-            Year : int option
-            Month : int option
-            Day : int option
-            Round :string
             WhitePlayer : string
             BlackPlayer : string
             Result : GameResult
+            Year : int option
+            Month : int option
+            Day : int option
+            Event : string
             WhiteElo : string
             BlackElo : string
+            Round :string
+            Site : string
             BoardSetup : Brd option
             AdditionalInfo : Map<string,string>
             MoveText : MoveTextEntry list

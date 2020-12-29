@@ -85,8 +85,6 @@ type TestScidGame () =
         Assert.AreEqual("1.d4 e6 2.c4",gmsl.[0].Opening)
         Assert.AreEqual("",gmsl.[0].Flags)
         Assert.AreEqual("",gmsl.[0].Start)
-        Assert.AreEqual("don",gmsl.[0].Country)
-        Assert.AreEqual("2016.10.17",gmsl.[0].EventDate)
         
     [<TestMethod>]
     member this.ScidGamePgn () =

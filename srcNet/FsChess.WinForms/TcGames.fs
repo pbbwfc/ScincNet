@@ -22,6 +22,11 @@ module TcGamesLib =
             let fen = bd|>Board.ToStr
             tp.Refrsh(fen)
 
+        ///Refresh the selected tab
+        member gmstc.SelNum(num:int) =
+            let tp = gmstc.SelectedTab:?>TpGames
+            tp.SelNum(num)
+
         ///Add a new tab
         member gmstc.AddTab() =
             let tp = new TpGames()

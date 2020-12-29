@@ -82,7 +82,7 @@ module Form =
                         refreshWindows()
                         pgn.Refrsh(auto)
                         if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
-                else
+                elif ifn<>"" then
                     //open database
                     let nm = Path.GetFileNameWithoutExtension(ifn)
                     let fn = ifn
@@ -98,9 +98,12 @@ module Form =
                         pgn.Refrsh(auto)
                         if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
 
-
         let dosave() =
             pgn.SaveGame()
+            //need to seload gms and selct the right row
+            let gnum = pgn.GetGameNumber()
+            gmtbs.Refrsh(bd.GetBoard())
+            gmtbs.SelNum(gnum)
 
         let doclose() = 
             //offer to save game if has changed
@@ -232,7 +235,11 @@ module Form =
             // game save
             savem.Click.Add(fun _ -> dosave())
             gamem.DropDownItems.Add(savem)|>ignore
-            
+            // game edit headers
+            let edithm = new ToolStripMenuItem(Text = "Edit Headers")
+            edithm.Click.Add(fun _ -> pgn.EditHeaders())
+            gamem.DropDownItems.Add(edithm)|>ignore
+          
             ms.Items.Add(filem)|>ignore
             ms.Items.Add(gamem)|>ignore
 

@@ -220,23 +220,22 @@ module PnlPgnLib =
                                     Height = 350, Width = 360,Dock=DockStyle.Fill)
             let wlbl = new Label(Text="White")
             let wtb = new TextBox(Text=game.WhitePlayer,Width=200)
-            let welbl = new Label(Text="White Elo")
-            let wetb = new TextBox(Text=game.WhiteElo,Width=200)
             let blbl = new Label(Text="Black")
             let btb = new TextBox(Text=game.BlackPlayer,Width=200)
-            let belbl = new Label(Text="Black Elo")
-            let betb = new TextBox(Text=game.BlackElo,Width=200)
             let rslbl = new Label(Text="Result")
             let rscb = new ComboBox(Text=(game.Result|>Result.ToStr),Width=200)
             let dtlbl = new Label(Text="Date")
             let dttb = new TextBox(Text=(game|>GameDate.ToStr),Width=200)
             let evlbl = new Label(Text="Event")
             let evtb = new TextBox(Text=game.Event,Width=200)
+            let welbl = new Label(Text="White Elo")
+            let wetb = new TextBox(Text=game.WhiteElo,Width=200)
+            let belbl = new Label(Text="Black Elo")
+            let betb = new TextBox(Text=game.BlackElo,Width=200)
             let rdlbl = new Label(Text="Round")
             let rdtb = new TextBox(Text=game.Round,Width=200)
             let stlbl = new Label(Text="Site")
             let sttb = new TextBox(Text=game.Site,Width=200)
-
             
             let dook(e) = 
                 let results = [|GameResult.WhiteWins;GameResult.BlackWins;GameResult.Draw;GameResult.Open|]
@@ -270,21 +269,21 @@ module PnlPgnLib =
                 dlg.Controls.Add(hc2)
                 tc.Controls.Add(wlbl,0,0)
                 tc.Controls.Add(wtb,1,0)
-                tc.Controls.Add(welbl,0,1)
-                tc.Controls.Add(wetb,1,1)
-                tc.Controls.Add(blbl,0,2)
-                tc.Controls.Add(btb,1,2)
-                tc.Controls.Add(belbl,0,3)
-                tc.Controls.Add(betb,1,3)
-                tc.Controls.Add(rslbl,0,4)
+                tc.Controls.Add(blbl,0,1)
+                tc.Controls.Add(btb,1,1)
+                tc.Controls.Add(rslbl,0,2)
                 [|GameResult.WhiteWins;GameResult.BlackWins;GameResult.Draw;GameResult.Open|]
                 |>Array.map(Result.ToStr)
                 |>Array.iter(fun r -> rscb.Items.Add(r)|>ignore)
-                tc.Controls.Add(rscb,1,4)
-                tc.Controls.Add(dtlbl,0,5)
-                tc.Controls.Add(dttb,1,5)
-                tc.Controls.Add(evlbl,0,6)
-                tc.Controls.Add(evtb,1,6)
+                tc.Controls.Add(rscb,1,2)
+                tc.Controls.Add(dtlbl,0,3)
+                tc.Controls.Add(dttb,1,3)
+                tc.Controls.Add(evlbl,0,4)
+                tc.Controls.Add(evtb,1,4)
+                tc.Controls.Add(welbl,0,5)
+                tc.Controls.Add(wetb,1,5)
+                tc.Controls.Add(belbl,0,6)
+                tc.Controls.Add(betb,1,6)
                 tc.Controls.Add(rdlbl,0,7)
                 tc.Controls.Add(rdtb,1,7)
                 tc.Controls.Add(stlbl,0,8)
@@ -347,7 +346,7 @@ module PnlPgnLib =
             m.Items.Add(nag) |> ignore
             //do edit hdrs
             let hdr =
-                new ToolStripMenuItem(Text = "Edit Game Headers")
+                new ToolStripMenuItem(Text = "Edit Headers")
             hdr.Click.Add(fun _ -> dlghdr().ShowDialog() |> ignore)
             m.Items.Add(hdr) |> ignore
             //do delete rav
@@ -440,6 +439,10 @@ module PnlPgnLib =
         member _.GetGame() = 
             game
 
+        ///Gets the Game that is displayed
+        member _.GetGameNumber() = 
+            gnum
+        
         ///Saves the Game that is displayed
         member _.SaveGame() = 
             let pgnstr = Game.ToStr(game)
@@ -743,6 +746,10 @@ module PnlPgnLib =
                         pgn.DocumentText <- mvtags()
                         gmchg<-true
                         gmchg|>gmchngEvt.Trigger
+
+        ///edit game headers
+        member pgnlpnl.EditHeaders() =
+            dlghdr().ShowDialog() |> ignore
 
         //publish
         ///Provides the new Board after a change

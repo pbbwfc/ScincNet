@@ -72,6 +72,15 @@ module TpGamesLib =
             fn <- ScincFuncs.Filt.Count()
             settxt()
 
+        ///Refresh the list
+        member _.SelNum(num:int) =
+            for rwo in gms.Rows do
+                let rw = rwo:?>DataGridViewRow
+                if rw.Cells.[0].Value:?>int = num then
+                    crw <- num
+                    gms.CurrentCell <- rw.Cells.[0]
+
+
         /// initialise
         member _.Close() =
             ScincFuncs.Base.Close()|>ignore
