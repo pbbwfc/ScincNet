@@ -2193,7 +2193,7 @@ int ScincFuncs::Tree::Search(System::Collections::Generic::List<mvstats^>^% mvst
 		tsts->TotDrawPc = static_cast<double>(nDraws) / tree->totalCount;
 		tsts->TotAvElo = avgElo;
 		tsts->TotPerf = perf;
-		tsts->TotAvYear = static_cast<int>((yearSum + (yearCount / 2)) / yearCount);
+		tsts->TotAvYear = yearCount==0 ? 0 : static_cast<int>((yearSum + (yearCount / 2)) / yearCount);
 	}
 
 	return 0;

@@ -16,14 +16,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-    <None Include="scid.eco">
+    <EmbeddedResource Include="Icons\scinc.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="App.config" />
+    </EmbeddedResource>
     <EmbeddedResource Include="Images\cls.png" />
     <EmbeddedResource Include="Images\sav.png" />
     <EmbeddedResource Include="Images\opn.png" />
     <EmbeddedResource Include="Images\new.png" />
+    <None Include="scid.eco">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="App.config" />
     <Compile Include="Recents.fs" />
     <Compile Include="Form.fs" />
     <Compile Include="Program.fs" />

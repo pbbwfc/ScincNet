@@ -12,11 +12,11 @@ module Form =
         Image.FromStream(file)
     let ico nm =
         let thisExe = System.Reflection.Assembly.GetExecutingAssembly()
-        let file = thisExe.GetManifestResourceStream("ScintNet.Icons." + nm)
+        let file = thisExe.GetManifestResourceStream("ScincNet.Icons." + nm)
         new Icon(file)
 
     type FrmMain() as this =
-        inherit Form(Text = "ScincNet", WindowState = FormWindowState.Maximized, IsMdiContainer = true)
+        inherit Form(Text = "ScincNet", WindowState = FormWindowState.Maximized, IsMdiContainer = true, Icon = ico "scinc.ico")
 
         let bfol = 
             let pth = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),"ScincNet\\bases")
@@ -65,6 +65,7 @@ module Form =
                         MessageBox.Show("Unable to create database: " + fn,"Scinc Error")|>ignore
                     else
                         Recents.add fn
+                        gmtbs.AddTab()
                         refreshWindows()
                         pgn.Refrsh(0)
                         if sts.BaseNum()= -1 then sts.Init(nm,ScincFuncs.Base.Current())
@@ -256,11 +257,31 @@ module Form =
             // tools compact
             cmpm.Click.Add(fun _ -> docompact())
             toolsm.DropDownItems.Add(cmpm)|>ignore
+
+            // about menu
+            let abtm = new ToolStripMenuItem("About")
+            // docs
+            let onl = new ToolStripMenuItem("Online Documentation")
+            onl.Click.Add
+                (fun _ -> 
+                System.Diagnostics.Process.Start
+                    (new System.Diagnostics.ProcessStartInfo("https://pbbwfc.github.io/ScincNet/", UseShellExecute = true)) |> ignore)
+            abtm.DropDownItems.Add(onl) |> ignore
+            // source code
+            let src = new ToolStripMenuItem("Source Code")
+            src.Click.Add
+                (fun _ -> 
+                System.Diagnostics.Process.Start
+                    (new System.Diagnostics.ProcessStartInfo("https://github.com/pbbwfc/ScincNet", UseShellExecute = true)) |> ignore)
+            abtm.DropDownItems.Add(src) |> ignore
+            
+
            
           
             ms.Items.Add(filem)|>ignore
             ms.Items.Add(gamem)|>ignore
             ms.Items.Add(toolsm)|>ignore
+            ms.Items.Add(abtm)|>ignore
 
         let bgpnl = new Panel(Dock=DockStyle.Fill,BorderStyle=BorderStyle.Fixed3D)
         let lfpnl = new Panel(Dock=DockStyle.Left,BorderStyle=BorderStyle.Fixed3D,Width=400)
