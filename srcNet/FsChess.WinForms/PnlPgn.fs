@@ -531,7 +531,10 @@ module PnlPgnLib =
         
         member pgnpnl.SetPgn(pgnstr:string) =
             let gm = Game.FromStr(pgnstr)
+            gmchg<-false
             pgnpnl.SetGame(gm)
+            gmchg<-true
+            gmchg|>gmchngEvt.Trigger
 
         member pgnpnl.GetPgn() =
             let pgnstr = Game.ToStr(game)

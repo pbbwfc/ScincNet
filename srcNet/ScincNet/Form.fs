@@ -110,10 +110,12 @@ module Form =
 
         let dosave() =
             pgn.SaveGame()
-            //need to seload gms and selct the right row
+            //need to reload gms and select the right row
             let gnum = pgn.GetGameNumber()
-            gmtbs.Refrsh(bd.GetBoard())
+            let nbd = bd.GetBoard()
+            gmtbs.Refrsh(nbd)
             gmtbs.SelNum(gnum)
+            sts.UpdateFen(nbd)
 
         let doclose() = 
             //offer to save game if has changed
@@ -152,6 +154,19 @@ module Form =
 
         let docopypgn() =
             Clipboard.SetText(pgn.GetPgn())
+
+        let dopastepgn() =
+            let pgnstr = Clipboard.GetText()
+            try
+                pgn.SetPgn(pgnstr)
+                let nbd = FsChess.Board.Start
+                gmtbs.Refrsh(nbd)
+                bd.SetBoard(nbd)
+                sts.UpdateFen(nbd)
+                anl.SetBoard(nbd)
+            with
+                |_ -> MessageBox.Show("Paste PGN", "Invalid PGN in Clipboard!")|>ignore
+        
         
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
@@ -266,7 +281,10 @@ module Form =
             let copypm = new ToolStripMenuItem(Text = "Copy PGN")
             copypm.Click.Add(fun _ -> docopypgn())
             gamem.DropDownItems.Add(copypm)|>ignore
-
+            // game copy PGN
+            let pastepm = new ToolStripMenuItem(Text = "Paste PGN")
+            pastepm.Click.Add(fun _ -> dopastepgn())
+            gamem.DropDownItems.Add(pastepm)|>ignore
             // game edit headers
             let edithm = new ToolStripMenuItem(Text = "Edit Headers")
             edithm.Click.Add(fun _ -> pgn.EditHeaders())
