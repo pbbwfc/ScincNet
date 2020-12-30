@@ -240,6 +240,16 @@ module PnlPgnLib =
             let dook(e) = 
                 let results = [|GameResult.WhiteWins;GameResult.BlackWins;GameResult.Draw;GameResult.Open|]
                 let res = if rscb.SelectedIndex= -1 then game.Result else results.[rscb.SelectedIndex]
+                //now update game end if result changed
+                if res<>game.Result then
+                    let chngres (mte:MoveTextEntry) =
+                        match mte with
+                        |GameEndEntry(_) -> GameEndEntry(res)
+                        |_ -> mte
+
+                    let nmvtxt = game.MoveText|>List.map chngres
+                    game <- {game with MoveText=nmvtxt}
+
                 let yo,mo,dyo =
                     let bits=dttb.Text.Split([|'.'|])
                     if bits.Length=3 then
@@ -254,6 +264,7 @@ module PnlPgnLib =
                                    BlackPlayer=btb.Text;BlackElo=betb.Text;
                                    Result=res;Year=yo;Month=mo;Day=dyo;
                                    Event=evtb.Text;Round=rdtb.Text;Site=sttb.Text}
+                
                 gmchg<-true
                 gmchg|>gmchngEvt.Trigger
                 dlg.Close()
