@@ -34,6 +34,7 @@ module Form =
         let closeb = new ToolStripButton(Image = img "cls.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Close", Enabled = false)
         let closem = new ToolStripMenuItem(Image = img "cls.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.W), Text = "&Close", Enabled = false)
         let cmpm = new ToolStripMenuItem(Text = "Compact Base", Enabled = false)
+        let impm = new ToolStripMenuItem(Text = "Import PGN file", Enabled = false)
         
                 
         let updateMenuStates() =
@@ -41,6 +42,7 @@ module Form =
             closeb.Enabled<-gmtbs.TabCount>1
             closem.Enabled<-gmtbs.TabCount>1
             cmpm.Enabled<-gmtbs.TabCount>1
+            impm.Enabled<-gmtbs.TabCount>1
             ()
 
         let updateTitle() =
@@ -134,6 +136,20 @@ module Form =
             //clear pgn and set gnum to 0
             pgn.NewGame()
  
+        let docompact() =
+            if ScincFuncs.Compact.Games()=0 then
+                gmtbs.Refrsh(bd.GetBoard())
+
+        let doimppgn() =
+            let ndlg = new OpenFileDialog(Title="Open PGN File",Filter="Pgn Files(*.pgn)|*.pgn",InitialDirectory=bfol)
+            if ndlg.ShowDialog() = DialogResult.OK then
+                let pgn = ndlg.FileName
+                let mutable num = 0
+                let mutable msgs = ""
+                if ScincFuncs.Base.Import(&num,&msgs,pgn)=0 then
+                    gmtbs.Refrsh(bd.GetBoard())
+                    if ScincFuncs.Base.Current()=sts.BaseNum() then sts.Refrsh()
+
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
             sts.UpdateFen(nbd)
@@ -178,10 +194,6 @@ module Form =
             sts.UpdateFen(nbd)
             gmtbs.Refrsh(nbd)
             anl.SetBoard(nbd)
-
-        let docompact() =
-            if ScincFuncs.Compact.Games()=0 then
-                gmtbs.Refrsh(bd.GetBoard())
 
         let createts() = 
             // new
@@ -257,6 +269,10 @@ module Form =
             // tools compact
             cmpm.Click.Add(fun _ -> docompact())
             toolsm.DropDownItems.Add(cmpm)|>ignore
+            // tools import pgn file
+            impm.Click.Add(fun _ -> doimppgn())
+            toolsm.DropDownItems.Add(impm)|>ignore
+
 
             // about menu
             let abtm = new ToolStripMenuItem("About")
