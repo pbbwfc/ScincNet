@@ -528,6 +528,14 @@ module PnlPgnLib =
                 let gm = Game.FromStr(pgnstr)
                 pgnpnl.SetGame(gm)
                 gnum <- ignum
+        
+        member pgnpnl.SetPgn(pgnstr:string) =
+            let gm = Game.FromStr(pgnstr)
+            pgnpnl.SetGame(gm)
+
+        member pgnpnl.GetPgn() =
+            let pgnstr = Game.ToStr(game)
+            pgnstr
 
         ///Goes to the next Move in the Game
         member pgnpnl.NextMove(one:bool) = 

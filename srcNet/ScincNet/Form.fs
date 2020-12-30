@@ -150,6 +150,9 @@ module Form =
                     gmtbs.Refrsh(bd.GetBoard())
                     if ScincFuncs.Base.Current()=sts.BaseNum() then sts.Refrsh()
 
+        let docopypgn() =
+            Clipboard.SetText(pgn.GetPgn())
+        
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
             sts.UpdateFen(nbd)
@@ -259,6 +262,11 @@ module Form =
             // game save
             savem.Click.Add(fun _ -> dosave())
             gamem.DropDownItems.Add(savem)|>ignore
+            // game copy PGN
+            let copypm = new ToolStripMenuItem(Text = "Copy PGN")
+            copypm.Click.Add(fun _ -> docopypgn())
+            gamem.DropDownItems.Add(copypm)|>ignore
+
             // game edit headers
             let edithm = new ToolStripMenuItem(Text = "Edit Headers")
             edithm.Click.Add(fun _ -> pgn.EditHeaders())
