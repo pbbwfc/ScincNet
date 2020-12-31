@@ -272,6 +272,7 @@ module Types =
             BlackElo : string
             Round :string
             Site : string
+            ECO : string
             BoardSetup : Brd option
             AdditionalInfo : Map<string,string>
             MoveText : MoveTextEntry list
@@ -290,6 +291,7 @@ module Types =
             Result = GameResult.Open
             WhiteElo = "-"
             BlackElo = "-"
+            ECO = ""
             BoardSetup = None
             AdditionalInfo = Map.empty
             MoveText = []

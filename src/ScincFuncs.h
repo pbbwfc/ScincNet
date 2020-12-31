@@ -141,11 +141,11 @@ namespace ScincFuncs {
 		property String^ Start;
 		property String^ Flags;
 		property String^ Opening;
-		property String^ ECO;
 		property int Annos;
 		property int Comments;
 		property int Variations;
 		property String^ Deleted;
+		property String^ ECO;
 		property String^ Site;
 		property int Round;
 		property int B_Elo;

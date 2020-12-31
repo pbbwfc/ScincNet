@@ -123,7 +123,8 @@ module PgnWrite =
         Tag("Result", ResultString(game.Result), writer)
         Tag("WhiteElo", game.WhiteElo, writer)
         Tag("BlackElo", game.BlackElo, writer)
-
+        Tag("ECO", game.ECO, writer)
+        
         for info in game.AdditionalInfo do
             Tag(info.Key, info.Value, writer)
 

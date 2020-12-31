@@ -90,7 +90,6 @@ module Form =
                         Recents.add fn
                         gmtbs.AddTab()
                         refreshWindows()
-                        pgn.Refrsh(auto)
                         if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
                 elif ifn<>"" then
                     //open database
@@ -105,7 +104,6 @@ module Form =
                         Recents.add fn
                         gmtbs.AddTab()
                         refreshWindows()
-                        pgn.Refrsh(auto)
                         if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
 
         let dosave() =
@@ -166,7 +164,6 @@ module Form =
                 anl.SetBoard(nbd)
             with
                 |_ -> MessageBox.Show("Paste PGN", "Invalid PGN in Clipboard!")|>ignore
-        
         
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
