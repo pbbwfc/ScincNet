@@ -4,7 +4,7 @@ module AssemblyInfo=
 
     open System.Runtime.CompilerServices
 
-    [<assembly: InternalsVisibleTo("FsChessPgn.Test")>]
+    [<assembly: InternalsVisibleTo("Tests")>]
     do()
 
 [<AutoOpen>]
