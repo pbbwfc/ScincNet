@@ -1556,6 +1556,49 @@ int ScincFuncs::ScidGame::Pgn(String^% pgn)
 // ECO functions
 
 /// <summary>
+/// ScidGame: Returns ECO code for the curent game.
+/// </summary>
+/// <param name="eco">the ECO code</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::Eco::ScidGame(String^% eco)
+{
+	int found = 0;
+	uint ply = 0;
+	if (!ecoBook)
+	{
+		return 0;
+	}
+
+	db->game->SaveState();
+	db->game->MoveToPly(0);
+	DString ecoStr;
+
+	do
+	{
+	} while (db->game->MoveForward() == OK);
+	do
+	{
+		if (ecoBook->FindOpcode(db->game->GetCurrentPos(), "eco",
+			&ecoStr) == OK)
+		{
+			found = 1;
+			ply = db->game->GetCurrentPly();
+			break;
+		}
+	} while (db->game->MoveBackup() == OK);
+
+	if (found)
+	{
+		ecoT ecoCode = eco_FromString(ecoStr.Data());
+		ecoStringT eecoStr;
+		eco_ToExtendedString(ecoCode, eecoStr);
+		eco = gcnew System::String(eecoStr);
+	}
+	db->game->RestoreState();
+	return 0;
+}
+
+/// <summary>
 /// Read: Reads a book file for ECO classification.
 /// </summary>
 /// <param name="econm">the ECO file name</param>
@@ -1601,14 +1644,11 @@ int ScincFuncs::Eco::Base(String^% msgs)
 	bool extendedCodes = true;
 	Game* g = scratchGame;
 	IndexEntry* ie;
-	uint updateStart, update;
-	updateStart = update = 1000; // Update progress bar every 1000 games
 	errorT err = OK;
 	uint countClassified = 0; // Count of games classified.
 	dateT startDate = ZERO_DATE;
 
-	Timer timer; // Time the classification operation.
-
+	
 	// Read each game:
 	for (uint i = 0; i < db->numGames; i++)
 	{
@@ -1702,11 +1742,9 @@ int ScincFuncs::Eco::Base(String^% msgs)
 
 	recalcFlagCounts(db);
 
-	int centisecs = timer.CentiSecs();
 	char tempStr[100];
-	sprintf(tempStr, "Classified %u game%s in %d%c%02d seconds",
-		countClassified, strPlural(countClassified),
-		centisecs / 100, decimalPointChar, centisecs % 100);
+	sprintf(tempStr, "Classified %u game%s",
+		countClassified, strPlural(countClassified));
 	msgs = gcnew System::String(tempStr);
 	return 0;
 }

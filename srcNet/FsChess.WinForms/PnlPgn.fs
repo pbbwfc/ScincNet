@@ -773,6 +773,15 @@ module PnlPgnLib =
         member pgnlpnl.EditHeaders() =
             dlghdr().ShowDialog() |> ignore
 
+        ///set ECO for game
+        member pgnlpnl.SetECO() =
+            let mutable eco = ""
+            if ScincFuncs.Eco.ScidGame(&eco)=0 then
+                game <- {game with ECO=eco}
+                gmchg<-true
+                gmchg|>gmchngEvt.Trigger
+
+
         //publish
         ///Provides the new Board after a change
         member __.BdChng = bdchngEvt.Publish

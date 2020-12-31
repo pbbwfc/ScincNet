@@ -286,6 +286,11 @@ module Form =
             let edithm = new ToolStripMenuItem(Text = "Edit Headers")
             edithm.Click.Add(fun _ -> pgn.EditHeaders())
             gamem.DropDownItems.Add(edithm)|>ignore
+            // game set eco
+            let setem = new ToolStripMenuItem(Text = "Set ECO")
+            setem.Click.Add(fun _ -> pgn.SetECO())
+            gamem.DropDownItems.Add(setem)|>ignore
+
 
             // tools menu
             let toolsm = new ToolStripMenuItem(Text = "&Tools")

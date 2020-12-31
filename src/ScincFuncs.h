@@ -210,6 +210,7 @@ namespace ScincFuncs {
 	public ref class Eco
 	{
 	public:
+		static int ScidGame(String^% eco);
 		static int Read(String^ econm);
 		static int Base(String^% msgs);
 

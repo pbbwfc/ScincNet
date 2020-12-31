@@ -42,4 +42,12 @@ type TestEco2 () =
         let mutable msgs = ""
         let actual = Eco.Base(&msgs)
         Assert.AreEqual(0, actual)
-        Assert.AreEqual("Classified 6 games in 0.00 seconds", msgs)
+        Assert.AreEqual("Classified 6 games", msgs)
+
+    [<TestMethod>]
+     member this.EcoScidGame () =
+        ScidGame.Load(1u)|>ignore
+        let mutable eco = ""
+        let actual = Eco.ScidGame(&eco)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual("E01", eco)

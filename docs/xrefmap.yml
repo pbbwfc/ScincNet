@@ -280,6 +280,21 @@ references:
   commentId: Overload:ScincFuncs.Eco.Read
   fullName: ScincFuncs.Eco.Read
   nameWithType: Eco.Read
+- uid: ScincFuncs.Eco.ScidGame(System.String@)
+  name: ScidGame(ref String)
+  href: api/ScincFuncs.Eco.html#ScincFuncs_Eco_ScidGame_System_String__
+  commentId: M:ScincFuncs.Eco.ScidGame(System.String@)
+  name.vb: ScidGame(ByRef String)
+  fullName: ScincFuncs.Eco.ScidGame(ref System.String)
+  fullName.vb: ScincFuncs.Eco.ScidGame(ByRef System.String)
+  nameWithType: Eco.ScidGame(ref String)
+  nameWithType.vb: Eco.ScidGame(ByRef String)
+- uid: ScincFuncs.Eco.ScidGame*
+  name: ScidGame
+  href: api/ScincFuncs.Eco.html#ScincFuncs_Eco_ScidGame_
+  commentId: Overload:ScincFuncs.Eco.ScidGame
+  fullName: ScincFuncs.Eco.ScidGame
+  nameWithType: Eco.ScidGame
 - uid: ScincFuncs.Filt
   name: Filt
   href: api/ScincFuncs.Filt.html
