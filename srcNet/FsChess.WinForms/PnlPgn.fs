@@ -781,7 +781,6 @@ module PnlPgnLib =
                 gmchg<-true
                 gmchg|>gmchngEvt.Trigger
 
-
         //publish
         ///Provides the new Board after a change
         member __.BdChng = bdchngEvt.Publish

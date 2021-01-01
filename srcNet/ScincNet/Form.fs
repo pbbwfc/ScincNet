@@ -35,6 +35,7 @@ module Form =
         let closem = new ToolStripMenuItem(Image = img "cls.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.W), Text = "&Close", Enabled = false)
         let cmpm = new ToolStripMenuItem(Text = "Compact Base", Enabled = false)
         let impm = new ToolStripMenuItem(Text = "Import PGN file", Enabled = false)
+        let ecom = new ToolStripMenuItem(Text = "Set ECOs", Enabled = false)
         
                 
         let updateMenuStates() =
@@ -43,6 +44,7 @@ module Form =
             closem.Enabled<-gmtbs.TabCount>1
             cmpm.Enabled<-gmtbs.TabCount>1
             impm.Enabled<-gmtbs.TabCount>1
+            ecom.Enabled<-gmtbs.TabCount>1
             ()
 
         let updateTitle() =
@@ -149,6 +151,13 @@ module Form =
                 if ScincFuncs.Base.Import(&num,&msgs,pgn)=0 then
                     gmtbs.Refrsh(bd.GetBoard())
                     if ScincFuncs.Base.Current()=sts.BaseNum() then sts.Refrsh()
+
+        let doeco() =
+            let mutable msgs = ""
+            if ScincFuncs.Eco.Base(&msgs)=0 then
+                gmtbs.Refrsh(bd.GetBoard())
+            else
+                MessageBox.Show("Set ECO Issues", "Process had issues: " + msgs)|>ignore
 
         let docopypgn() =
             Clipboard.SetText(pgn.GetPgn())
@@ -300,6 +309,9 @@ module Form =
             // tools import pgn file
             impm.Click.Add(fun _ -> doimppgn())
             toolsm.DropDownItems.Add(impm)|>ignore
+            // tools set eco
+            ecom.Click.Add(fun _ -> doeco())
+            toolsm.DropDownItems.Add(ecom)|>ignore
 
 
             // about menu
