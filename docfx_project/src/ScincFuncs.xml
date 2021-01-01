@@ -51,6 +51,13 @@ Read: Reads a book file for ECO classification.
             <param name="econm">the ECO file name</param>
             <returns>returns the book size (number of positions)</returns>
         </member>
+        <member name="M:ScincFuncs.Eco.ScidGame(System.String@)">
+            <summary>
+ScidGame: Returns ECO code for the curent game.
+</summary>
+            <param name="eco">the ECO code</param>
+            <returns>returns 0 if successful</returns>
+        </member>
         <member name="M:ScincFuncs.ScidGame.Pgn(System.String@)">
             <summary>
 Pgn: Returns the PGN representation of the game.
