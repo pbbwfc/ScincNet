@@ -1,5 +1,8 @@
 # ScincNet.
-.NET wrapper for the SCID chess database
+**S**hane's **C**hess **I**nformation database - **N**o **C**omplications using .**Net**
+
 ## Documentation:
-There is API documentation of functions that can be used by F# scripts: 
-[API docs](https://pbbwfc.github.io/ScincNet/api/ScincFuncs.html)
+
+For help using ScincNet, please see the [list of articles](https://pbbwfc.github.io/ScincNet/articles/intro.html).
+
+There is also [API documentation](https://pbbwfc.github.io/ScincNet/api/ScincFuncs.html) of functions that can be used by F# scripts. 
