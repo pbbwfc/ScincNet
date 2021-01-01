@@ -5,10 +5,12 @@
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 		<Platforms>x64</Platforms>
+		<ApplicationIcon>scinc.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+		<PackageIcon>scinc.ico</PackageIcon>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -34,6 +36,11 @@
     <Compile Include="Recents.fs" />
     <Compile Include="Form.fs" />
     <Compile Include="Program.fs" />
+    <None Include="scinc.ico">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 	<ItemGroup />

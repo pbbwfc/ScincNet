@@ -6,6 +6,7 @@
 #define MyAppPublisher "Phil Brooks"
 #define MyAppURL "https://pbbwfc.github.io/ScincNet/"
 #define MyAppExeName "ScincNet.exe"
+#define MyAppIcoName "scinc.ico"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -41,8 +42,8 @@ Source: "D:\GitHub\ScincNet\rel\netcoreapp3.1\*"; DestDir: "{app}"; Flags: ignor
 Source: "bases\*"; DestDir: "{userdocs}\ScincNet\bases"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}" ; IconFilename: "{app}\{#MyAppIcoName}"
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
