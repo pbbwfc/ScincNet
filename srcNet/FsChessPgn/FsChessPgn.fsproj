@@ -10,7 +10,11 @@
     <DocumentationFile />
   </PropertyGroup>
 
-  <ItemGroup>
+  <PropertyGroup>
+	<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+	<ItemGroup>
     <Content Include="imgs\Chess_bdd44.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

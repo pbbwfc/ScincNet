@@ -356,3 +356,9 @@ MigrationBackup/
 docfx_project/src/*
 *.gz
 *.zip
+rel/netcoreapp3.1/Engines/2/komodo-12.1.1-64bit.exe
+srcNet/FsChess.WinForms/Engines/2rel/komodo-12.1.1-64bit.exe
+inno/setup.exe
+inno/bases/SimonWilliams.sn4
+inno/bases/SimonWilliams.si4
+inno/bases/SimonWilliams.sg4

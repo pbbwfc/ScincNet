@@ -7,6 +7,10 @@
 		<Platforms>x64</Platforms>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
 	  <OutputPath>D:\GitHub\ScincNet\debug\</OutputPath>
 	</PropertyGroup>
@@ -41,5 +45,9 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\FsChess.WinForms\FsChess.WinForms.fsproj" />
 	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="if $(ConfigurationName) == Release (&#xD;&#xA;rmdir $(OutDir)Engines\2 /s/q&#xD;&#xA;cd /d $(OutDir)Engines&#xD;&#xA;rename 2Rel 2)" />
+	</Target>
 
 </Project>

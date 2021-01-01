@@ -6,7 +6,11 @@
     <Platforms>x64</Platforms>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PropertyGroup>
+	<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutputPath>D:\GitHub\ScincNet\debug\</OutputPath>
   </PropertyGroup>
 
@@ -15,6 +19,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Engines\2rel\komodo-12.1.1-64bit.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Engines\2rel\komodo.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Engines\2\cublas64_100.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -83,8 +93,6 @@
     <Compile Include="WbStats.fs" />
     <Compile Include="PnlPgn.fs" />
   </ItemGroup>
-
-  <ItemGroup />
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ScincFuncs.vcxproj" />
