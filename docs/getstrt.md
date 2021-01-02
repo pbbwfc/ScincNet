@@ -12,7 +12,7 @@ After runnning the setup, it will install the code in *C:\Program Files\ScincNet
 
 Open ScincNet using the shortcut. Then use *File -> New* and create a new base called **Sokolsky**.
 
-![File New](~/images/st1.png)
+![File New](images/st1.png)
 
 This will create 3 files in *Documents\ScincNet\bases*: **Sokolsky.si4**, **Sokolsky.sg4**, **Sokolsky.sn4** 
 
