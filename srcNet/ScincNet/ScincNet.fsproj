@@ -25,6 +25,7 @@
     <EmbeddedResource Include="Icons\scinc.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Images\orient.png" />
     <EmbeddedResource Include="Images\cls.png" />
     <EmbeddedResource Include="Images\sav.png" />
     <EmbeddedResource Include="Images\opn.png" />
@@ -42,8 +43,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
-	<ItemGroup />
 
 	<ItemGroup>
 	  <PackageReference Include="FSharp.Json" Version="0.4.0" />

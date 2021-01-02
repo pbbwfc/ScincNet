@@ -25,6 +25,7 @@ module PnlBoardLib =
         let mutable sqTo = -1
         let mutable cCur = Cursors.Default
         let mutable prompctp = PieceType.EMPTY
+        let mutable isw = true
         let bdpnl = new Panel(Dock = DockStyle.Top, Height = 400)
         let sqpnl = new Panel(Width = 420, Height = 420, Left = 29, Top = 13)
         
@@ -131,7 +132,8 @@ module PnlBoardLib =
             else setpcsmvs()
 
         ///orient board
-        let orient isw =
+        let orient() =
+            isw <- not isw
             let ori() =
                 let possq i (sq : PictureBox) =
                     let r = i / 8
@@ -285,8 +287,8 @@ module PnlBoardLib =
             board
         
         ///Orients the Board depending on whether White
-        member bd.Orient(isw:bool) =
-            isw|>orient
+        member bd.Orient() =
+            orient()
 
         ///Sets the board given a new move in SAN format
         member bd.DoMove(san:string) =

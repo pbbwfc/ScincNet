@@ -17,7 +17,7 @@ module PnlPgnLib =
         let tppnl = new Panel(Dock=DockStyle.Top,BorderStyle=BorderStyle.Fixed3D,Height=50)
         let gmlbl = new Label(Text="Game: White v. Black",Width=400,TextAlign=ContentAlignment.MiddleLeft,Font = new Font(new FontFamily("Arial"), 12.0f),Dock=DockStyle.Bottom)
         let ttpnl = new Panel(Left=100,Height=25)
-        let ts = new ToolStrip()
+        let ts = new ToolStrip(GripStyle=ToolStripGripStyle.Hidden)
         let pgn = new WebBrowser(AllowWebBrowserDrop = false,IsWebBrowserContextMenuEnabled = false,WebBrowserShortcutsEnabled = false,Dock=DockStyle.Fill)
         //mutables
         let mutable game = Game.Start
@@ -583,8 +583,9 @@ module PnlPgnLib =
             let rec gofwd lirs =
                 pgnpnl.NextMove(false)
                 if irs<>lirs then gofwd irs
-            gofwd irs
-            board|>bdchngEvt.Trigger
+            if irs<>[-1] then
+                gofwd irs
+                board|>bdchngEvt.Trigger
         
         ///Goes to the previous Move in the Game
         member pgnpnl.PrevMove(one:bool) = 
@@ -600,7 +601,8 @@ module PnlPgnLib =
                             if one then board|>bdchngEvt.Trigger
                         ci
                     |_ -> getprv oi (ci-1) mtel
-            if irs=[0] then
+            if irs=[-1] then ()
+            elif irs=[0] then
                 let mte = game.MoveText.[0]
                 match mte with
                 |HalfMoveEntry(_,_,_,amv) ->
@@ -642,8 +644,9 @@ module PnlPgnLib =
             let rec goback lirs =
                 pgnpnl.PrevMove(false)
                 if irs<>lirs then goback irs
-            goback irs
-            board|>bdchngEvt.Trigger
+            if irs<>[-1] then 
+                goback irs
+                board|>bdchngEvt.Trigger
 
         ///Make a Move in the Game - may change the Game or just select a Move
         member pgnpnl.DoMove(mv:Move) =

@@ -27,7 +27,7 @@ module Form =
         let sts = new WbStats(Dock=DockStyle.Fill)
         let gmtbs = new TcGames(Dock=DockStyle.Fill)
         let anl = new TcAnl(Dock=DockStyle.Fill)
-        let ts = new ToolStrip()
+        let ts = new ToolStrip(GripStyle=ToolStripGripStyle.Hidden)
         let ms = new MenuStrip()
         let saveb = new ToolStripButton(Image = img "sav.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Save", Enabled = false)
         let savem = new ToolStripMenuItem(Image = img "sav.png", ImageTransparentColor = Color.Magenta, ShortcutKeys = (Keys.Control|||Keys.S), Text = "&Save", Enabled = false)
@@ -234,6 +234,12 @@ module Form =
             // save
             saveb.Click.Add(fun _ -> dosave())
             ts.Items.Add(saveb)|>ignore
+            let split = new ToolStripSeparator()
+            ts.Items.Add(split)|>ignore
+            // orient
+            let orib = new ToolStripButton(Image = img "orient.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Orient")
+            orib.Click.Add(fun _ -> bd.Orient())
+            ts.Items.Add(orib)|>ignore
 
         let createms() = 
             // file menu
