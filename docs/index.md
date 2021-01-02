@@ -3,6 +3,6 @@
 
 ## Documentation:
 
-For help using ScincNet, please see the [list of articles](https://pbbwfc.github.io/ScincNet/articles/intro.html).
+For help using ScincNet, please see the [list of articles](intro).
 
-There is also [API documentation](https://pbbwfc.github.io/ScincNet/api/ScincFuncs.html) of functions that can be used by F# scripts. 
+There is also [API documentation](/api/html/index.html) of functions that can be used by F# scripts. 
