@@ -1,6 +1,6 @@
 # ScincNet
 
-![alt text](https://github.com/pbbwfc/ScincNet/blob/main/docs/Screen.png "Screen")
+![alt text](https://github.com/pbbwfc/ScincNet/blob/main/docs/imgs/Screen.png "Screen")
 
 ## **S**hane's **C**hess **I**nformation database - **N**o **C**omplications using .**Net**
 
