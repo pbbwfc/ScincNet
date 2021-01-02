@@ -177,10 +177,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/getstrt.html",
-          "hash": "a+qFULaVPHLZItaakihHwA=="
+          "hash": "qVFHpRekbRQtI2orluEaug=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -231,7 +231,7 @@
           "hash": "59DcS2kV/9EPge1SdXGXdA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
