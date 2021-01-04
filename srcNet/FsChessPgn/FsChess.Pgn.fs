@@ -26,8 +26,3 @@ module Games =
     //Does a fast search using the Index and the index list of Games
     let FastFindBoard = FsChessPgn.Games.FastFindBoard
 
-
-module Stats =
-
-    ///Get Statistics for the Board
-    let Get = FsChessPgn.Stats.Get

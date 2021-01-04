@@ -297,38 +297,9 @@ module Types =
             MoveText = []
         }
 
-    type MvStats =
-        {
-            Mvstr : string
-            Count : int
-            Pc : float
-            WhiteWins : int 
-            Draws : int 
-            BlackWins :int
-            Score : float
-            DrawPc : float
-        }
+    type RepOpt =
+        {San : string; Nag : NAG; Comm: string}
     
-    type BrdStats = 
-        {
-            Mvstats : MvStats list
-            TotCount : int
-            Pc : float
-            TotWhiteWins : int 
-            TotDraws : int 
-            TotBlackWins :int
-            TotScore : float
-            TotDrawPc : float
-        }
+    type RepOpts = Map<string,RepOpt list>
 
-    let BrdStatsEMP = 
-        {
-            Mvstats = []
-            TotCount = 0
-            Pc = 0.0
-            TotWhiteWins = 0 
-            TotDraws = 0
-            TotBlackWins = 0
-            TotScore = 0.0
-            TotDrawPc = 0.0
-        }
+    type RepMove = Map<string,RepOpt>

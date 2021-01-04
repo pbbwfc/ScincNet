@@ -36,6 +36,8 @@ module Form =
         let cmpm = new ToolStripMenuItem(Text = "Compact Base", Enabled = false)
         let impm = new ToolStripMenuItem(Text = "Import PGN file", Enabled = false)
         let ecom = new ToolStripMenuItem(Text = "Set ECOs", Enabled = false)
+        let showbm = new ToolStripMenuItem(Text = "Show Black", CheckState=CheckState.Unchecked)
+        
         
                 
         let updateMenuStates() =
@@ -174,6 +176,15 @@ module Form =
             with
                 |_ -> MessageBox.Show("Paste PGN", "Invalid PGN in Clipboard!")|>ignore
         
+        let doupdateblack() =
+            FsChess.Repertoire.UpdateBlack()
+        
+        let doshowblack() =
+            showbm.CheckState<-if showbm.CheckState=CheckState.Unchecked then CheckState.Checked else CheckState.Unchecked
+            sts.LoadBlackRep(showbm.CheckState=CheckState.Checked)
+        
+
+        
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
             sts.UpdateFen(nbd)
@@ -306,6 +317,17 @@ module Form =
             setem.Click.Add(fun _ -> pgn.SetECO())
             gamem.DropDownItems.Add(setem)|>ignore
 
+            // rep menu
+            let repm = new ToolStripMenuItem(Text = "&Repertoire")
+            // update black repertoire
+            let updbm = new ToolStripMenuItem(Text = "Update Black")
+            updbm.Click.Add(fun _ -> doupdateblack())
+            repm.DropDownItems.Add(updbm)|>ignore
+            // show black repertoire
+            showbm.Click.Add(fun _ -> doshowblack())
+            repm.DropDownItems.Add(showbm)|>ignore
+
+
 
             // tools menu
             let toolsm = new ToolStripMenuItem(Text = "&Tools")
@@ -340,6 +362,7 @@ module Form =
           
             ms.Items.Add(filem)|>ignore
             ms.Items.Add(gamem)|>ignore
+            ms.Items.Add(repm)|>ignore
             ms.Items.Add(toolsm)|>ignore
             ms.Items.Add(abtm)|>ignore
 

@@ -12,8 +12,11 @@ module WbStatsLib =
         let mutable mvsts = new ResizeArray<ScincFuncs.mvstats>()
         let mutable tsts = new ScincFuncs.totstats()
         let mutable fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+        let mutable isw = true
         let mutable basenm = ""
         let mutable basenum = -1
+        let mutable blkld = false
+        let mutable whtld = false
 
         //events
         let mvselEvt = new Event<_>()
@@ -21,7 +24,24 @@ module WbStatsLib =
         //functions
         let nl = System.Environment.NewLine
         let hdr() = 
-            "<html><body>" + nl +
+            "<html>" + nl +
+            "<head>" + nl +
+            "<style>" + nl +
+            ".cell.isbrep" + nl +
+            "{" + nl +
+            "background-color:black;color:white;" + nl +
+            "}" + nl +
+            ".cell.iwrep" + nl +
+            "{" + nl +
+            "background-color:white;" + nl +
+            "}" + nl +
+            "td" + nl +
+            "{" + nl +
+            "background-color:lightgray;" + nl +
+            "}" + nl +
+            "</style>" + nl +
+            "</head>" + nl +
+            "<body>" + nl +
             "<h4>Tree - " + basenm + "</h4>" + nl +
             "<table style=\"width:100%;border-collapse: collapse;\">" + nl
 
@@ -38,14 +58,112 @@ module WbStatsLib =
             let bwd = "<span style=\"border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;background-color:black;height:18px;width:" + sbw + "px\"></span>"
             wwd + drd + bwd
         
-        let mvsttag i (mvst:ScincFuncs.mvstats) =  
-            "<tr id=\"" + i.ToString() + "\"><td>" + mvst.Mvstr + "</td><td>" + mvst.Count.ToString() + "</td>" + 
-            "<td>" + mvst.Freq.ToString("##0.0%") + "</td><td>" + (getdiv mvst.WhiteWins mvst.Draws mvst.BlackWins) + "</td>" + 
-            "<td>" + mvst.Score.ToString("##0.0%") + "</td><td>" + mvst.DrawPc.ToString("##0.0%") +
-            "</td><td>" + mvst.AvElo.ToString() + "</td><td>" + mvst.Perf.ToString() +
-            "</td><td>" + mvst.AvYear.ToString() + "</td><td>" + mvst.ECO +
-            "</td></tr>" + nl
+        let mvstags() =
+            if blkld then Repertoire.LoadBlack()
+            if whtld then Repertoire.LoadWhite()
+            let bopts = 
+                if isw && blkld then
+                    let ro = (Repertoire.Black()|>fst) 
+                    if ro.ContainsKey(fen) then ro.[fen] else []
+                else []
+            let bmov =
+                if (not isw) && blkld then
+                    let rm = (Repertoire.Black()|>snd) 
+                    if rm.ContainsKey(fen) then rm.[fen]|>Some else None
+                else None
+            let wopts = 
+                if (not isw) && whtld then
+                    let ro = (Repertoire.White()|>fst) 
+                    if ro.ContainsKey(fen) then ro.[fen] else []
+                else []
+            let wmov =
+                if isw && whtld then
+                    let rm = (Repertoire.White()|>snd) 
+                    if rm.ContainsKey(fen) then rm.[fen]|>Some else None
+                else None
 
+            let mvsttag i (mvst:ScincFuncs.mvstats) isbrep iswrep nag comments =  
+                let tdstyle = 
+                    if isbrep then "<td class=\"isbrep\">"
+                    elif iswrep then "<td class=\"isbrep\">"
+                    else "<td>"
+                
+                "<tr id=\"" + i.ToString() + "\">" + tdstyle + mvst.Mvstr + nag + "</td><td>" + mvst.Count.ToString() + "</td>" + 
+                "<td>" + mvst.Freq.ToString("##0.0%") + "</td><td>" + (getdiv mvst.WhiteWins mvst.Draws mvst.BlackWins) + "</td>" + 
+                "<td>" + mvst.Score.ToString("##0.0%") + "</td><td>" + mvst.DrawPc.ToString("##0.0%") +
+                "</td><td>" + mvst.AvElo.ToString() + "</td><td>" + mvst.Perf.ToString() +
+                "</td><td>" + mvst.AvYear.ToString() + "</td><td>" + mvst.ECO +
+                "</td>" + tdstyle + comments + "</td></tr>" + nl
+            let addrep i (mvst:ScincFuncs.mvstats) =
+                if isw then
+                    //check if move is in bopts
+                    let isbrep,bnag,bcomment = 
+                        if Repertoire.OptsHaveSan mvst.Mvstr bopts then
+                            let rol = bopts|>List.filter(fun r -> r.San=mvst.Mvstr)
+                            let ro = rol.Head
+                            true,ro.Nag,ro.Comm
+                        else false,NAG.Null,""
+                    let iswrep,wnag,wcomment = 
+                        if wmov.IsSome && wmov.Value.San=mvst.Mvstr then
+                            true,wmov.Value.Nag,wmov.Value.Comm
+                        else false,NAG.Null,""
+                    let nagstr = (wnag|>Game.NAGStr) + (bnag|>Game.NAGStr)
+                    let comment = wcomment + bcomment
+                    mvsttag i mvst isbrep iswrep nagstr comment
+                else
+                    let isbrep,bnag,bcomment = 
+                        if bmov.IsSome && bmov.Value.San=mvst.Mvstr then
+                            true,bmov.Value.Nag,bmov.Value.Comm
+                        else false,NAG.Null,""
+                    let iswrep,wnag,wcomment = 
+                        if Repertoire.OptsHaveSan mvst.Mvstr wopts then
+                            let rol = wopts|>List.filter(fun r -> r.San=mvst.Mvstr)
+                            let ro = rol.Head
+                            true,ro.Nag,ro.Comm
+                        else false,NAG.Null,""
+                    let nagstr = (wnag|>Game.NAGStr) + (bnag|>Game.NAGStr)
+                    let comment = wcomment + bcomment
+                    mvsttag i mvst isbrep iswrep nagstr comment
+            
+            let notinmvsts (ro:RepOpt) =
+                let filt = mvsts|>Seq.filter(fun m -> m.Mvstr = ro.San)|>Seq.toList
+                filt.Length=0
+            
+            let doextras (fi) =
+                let doextraw i ro =
+                    "<tr id=\"" + (i+fi).ToString() + "\">" + "<td class=\"iswrep\">" + ro.San + (ro.Nag|>Game.NAGStr) + "</td><td>" + "</td>" + 
+                    "<td>" + "</td><td>" + "</td>" + 
+                    "<td>" + "</td><td>" +
+                    "</td><td>" + "</td><td>" +
+                    "</td><td>" + "</td><td>" + "</td><td class=\"iswrep\">" + ro.Comm +
+                    "</td></tr>" + nl
+                let doextrab i ro =
+                    "<tr id=\"" + (i+fi).ToString() + "\">" + "<td class=\"isbrep\">" + ro.San + (ro.Nag|>Game.NAGStr) + "</td><td>" + "</td>" + 
+                    "<td>" + "</td><td>" + "</td>" + 
+                    "<td>" + "</td><td>" +
+                    "</td><td>" + "</td><td>" +
+                    "</td><td>" + "</td><td>" + "</td><td class=\"isbrep\">" + ro.Comm +
+                    "</td></tr>" + nl
+                let extraws,extrabs = 
+                    if isw then
+                        //filter bopts not in mvsts
+                        let exbs = bopts|>List.filter notinmvsts
+                        //now add white if not included
+                        let exws = if wmov.IsSome && notinmvsts(wmov.Value) then [wmov.Value] else []
+                        exws,exbs
+                    else
+                        //filter wopts not in mvsts
+                        let exws = wopts|>List.filter notinmvsts
+                        //now add black if not included
+                        let exbs = if bmov.IsSome && notinmvsts(bmov.Value) then [bmov.Value] else []
+                        exws,exbs
+                let exwrws = if extraws.Length>0 then (extraws|>List.mapi doextraw|>List.reduce(+)) + nl else ""
+                let exbrws = if extrabs.Length>0 then (extrabs|>List.mapi doextrab|>List.reduce(+)) + nl else ""
+                exwrws + exbrws
+            
+            let mnrws = if mvsts.Count>0 then mvsts|>Seq.mapi addrep|>Seq.reduce(+) else ""
+            mnrws + doextras(mvsts.Count)
+            
         let bdsttags() = 
             if mvsts.Count=0 then hdr()+ftr
             else
@@ -55,8 +173,8 @@ module WbStatsLib =
                 "<th style=\"text-align: left;\">Score</th><th style=\"text-align: left;\">DrawPc</th>" +
                 "<th style=\"text-align: left;\">AvElo</th>" + "<th style=\"text-align: left;\">Perf</th>" +
                 "<th style=\"text-align: left;\">AvYear</th>" + "<th style=\"text-align: left;\">ECO</th>" +
-                "</tr>" + nl + 
-                (mvsts|>Seq.mapi mvsttag|>Seq.reduce(+)) +
+                "<th style=\"text-align: left;\">Comment</th>" + "</tr>" + nl + 
+                (mvstags()) +
                 "<tr><td style=\"border-top: 1px solid black;\"></td><td style=\"border-top: 1px solid black;\">" + 
                 tsts.TotCount.ToString() + "</td><td style=\"border-top: 1px solid black;\">" + tsts.TotFreq.ToString("##0.0%") + "</td>" +
                 "<td style=\"border-top: 1px solid black;\">" + (getdiv tsts.TotWhiteWins tsts.TotDraws tsts.TotBlackWins) + "</td><td style=\"border-top: 1px solid black;\">" + 
@@ -65,7 +183,7 @@ module WbStatsLib =
                 tsts.TotAvElo.ToString() + "</td><td style=\"border-top: 1px solid black;\">" +
                 tsts.TotPerf.ToString() + "</td><td style=\"border-top: 1px solid black;\">" +
                 tsts.TotAvYear.ToString() + "</td><td style=\"border-top: 1px solid black;\">" +
-                "</td></tr>" + nl
+                "</td><td style=\"border-top: 1px solid black;\">" + "</td></tr>" + nl
                 + ftr
 
         let onclick(el:HtmlElement) = 
@@ -90,23 +208,29 @@ module WbStatsLib =
                 stats.DocumentText <- bdsttags()
 
         member stats.UpdateFen(bd:Brd) =
+            isw <- bd.WhosTurn=Player.White
             fen <- bd|>Board.ToStr
             stats.Refrsh()
 
-        member ststat.Init(nm:string, num:int) =
+        member stats.Init(nm:string, num:int) =
             basenm <- nm
             basenum <- num
             stats.Refrsh()
 
-        member ststat.Close() =
+        member stats.Close() =
             basenm <- ""
             basenum <- -1
             fen <- "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+            isw <- true
             mvsts.Clear()
             stats.DocumentText <- bdsttags()
         
-        member ststat.BaseNum() =
+        member stats.BaseNum() =
             basenum
+
+        member stats.LoadBlackRep(shb) =
+            blkld <- shb
+            stats.Refrsh()
         
         //publish
         ///Provides the selected move in SAN format

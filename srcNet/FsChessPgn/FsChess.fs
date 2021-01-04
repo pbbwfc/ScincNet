@@ -135,44 +135,64 @@ module Game =
     ///Gets a list of all NAGs supported
     let NAGlist = FsChessPgn.NagUtil.All
 
-    //Adds a Nag in the Game after the address provided
+    ///Adds a Nag in the Game after the address provided
     let AddNag = FsChessPgn.Game.AddNag
 
-    //Deletes a Nag in the Game at the address provided
+    ///Deletes a Nag in the Game at the address provided
     let DeleteNag = FsChessPgn.Game.DeleteNag
 
-    //Edits a Nag in the Game at the address provided
+    ///Edits a Nag in the Game at the address provided
     let EditNag = FsChessPgn.Game.EditNag
 
     ///Gets the moves text as a string given the Game.MoveText
     let MovesStr = FsChessPgn.PgnWrite.MoveTextStr
 
-    //Gets the aMoves for the Game
+    ///Gets the aMoves for the Game
     let GetaMoves = FsChessPgn.Game.SetaMoves
 
-    //Adds a pMove to the Game given its address
+    ///Adds a pMove to the Game given its address
     let AddMv = FsChessPgn.Game.AddMv
 
-    //Adds a RAV to the Game given the pMove is contains and its address
+    ///Adds a RAV to the Game given the pMove is contains and its address
     let AddRav = FsChessPgn.Game.AddRav
 
-    //Deletes a RAV in the Game at the address provided
+    ///Deletes a RAV in the Game at the address provided
     let DeleteRav = FsChessPgn.Game.DeleteRav
 
-    //Adds a comment to the Game before the address provided
+    ///Adds a comment to the Game before the address provided
     let CommentBefore = FsChessPgn.Game.CommentBefore
 
-    //Adds a comment to the Game after the address provided
+    ///Adds a comment to the Game after the address provided
     let CommentAfter = FsChessPgn.Game.CommentAfter
 
-    //Edits a comment to the Game at the address provided
+    ///Edits a comment to the Game at the address provided
     let EditComment = FsChessPgn.Game.EditComment
 
-    //Deletes a comment in the Game at the address provided
+    ///Deletes a comment in the Game at the address provided
     let DeleteComment = FsChessPgn.Game.DeleteComment
 
-    //Get from a PGN string
+    ///Get from a PGN string
     let FromStr = FsChessPgn.RegParse.GameFromString
 
-    //Convert to a PGN string
+    ///Convert to a PGN string
     let ToStr = FsChessPgn.PgnWrite.GameStr
+
+module Repertoire =
+    
+    ///White Repertoire
+    let White() = FsChessPgn.Repertoire.WhiteRep
+    
+    ///Black Repertoire
+    let Black() = FsChessPgn.Repertoire.BlackRep
+    
+    ///Load White Repertoire
+    let LoadWhite = FsChessPgn.Repertoire.LoadWhite
+    
+    ///Load Black Repertoire
+    let LoadBlack = FsChessPgn.Repertoire.LoadBlack
+    
+    ///Update Black Repertoire from database
+    let UpdateBlack = FsChessPgn.Repertoire.BlackAddGame
+
+    ///Options contaion SAN
+    let OptsHaveSan = FsChessPgn.Repertoire.optsHasSan
