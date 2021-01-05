@@ -123,7 +123,7 @@ module Game =
             //before moves
             if irs.Head= -1 then
                 let amv = pmv|>pMove.ToaMove Board.Start 1
-                let nmte = HalfMoveEntry(1|>Some,true,pmv,Some(amv))
+                let nmte = HalfMoveEntry(1|>Some,false,pmv,Some(amv))
                 {gm with MoveText=gm.MoveText.Head::RAVEntry([nmte])::gm.MoveText.Tail},[1;0]
             else
                 let cmv = gm.MoveText.[irs.Head]
