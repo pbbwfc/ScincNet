@@ -36,18 +36,23 @@ module Form =
         let cmpm = new ToolStripMenuItem(Text = "Compact Base", Enabled = false)
         let impm = new ToolStripMenuItem(Text = "Import PGN file", Enabled = false)
         let ecom = new ToolStripMenuItem(Text = "Set ECOs", Enabled = false)
-        let showbm = new ToolStripMenuItem(Text = "Show Black", CheckState=CheckState.Unchecked)
+        let showwb = new ToolStripButton(Image = img "white.png", Enabled = false, Text = "Show White")
+        let showwm = new ToolStripMenuItem(Image = img "white.png", Text = "Show White", CheckState=CheckState.Unchecked, Enabled = false)
+        let showbb = new ToolStripButton(Image = img "black.png", Enabled = false, Text = "Show Black")
+        let showbm = new ToolStripMenuItem(Image = img "black.png", Text = "Show Black", CheckState=CheckState.Unchecked, Enabled = false)
         
         
                 
         let updateMenuStates() =
-            //TODO - do updates such as recents
             closeb.Enabled<-gmtbs.TabCount>1
             closem.Enabled<-gmtbs.TabCount>1
             cmpm.Enabled<-gmtbs.TabCount>1
             impm.Enabled<-gmtbs.TabCount>1
             ecom.Enabled<-gmtbs.TabCount>1
-            ()
+            showwb.Enabled<-gmtbs.TabCount>1
+            showwm.Enabled<-gmtbs.TabCount>1
+            showbb.Enabled<-gmtbs.TabCount>1
+            showbm.Enabled<-gmtbs.TabCount>1
 
         let updateTitle() =
             let mutable fname = ""
@@ -159,7 +164,7 @@ module Form =
             if ScincFuncs.Eco.Base(&msgs)=0 then
                 gmtbs.Refrsh(bd.GetBoard())
             else
-                MessageBox.Show("Set ECO Issues", "Process had issues: " + msgs)|>ignore
+                MessageBox.Show("Process had issues: " + msgs,"Set ECO Issues")|>ignore
 
         let docopypgn() =
             Clipboard.SetText(pgn.GetPgn())
@@ -174,14 +179,27 @@ module Form =
                 sts.UpdateFen(nbd)
                 anl.SetBoard(nbd)
             with
-                |_ -> MessageBox.Show("Paste PGN", "Invalid PGN in Clipboard!")|>ignore
+                |_ -> MessageBox.Show("Invalid PGN in Clipboard!", "Paste PGN")|>ignore
         
+        let doupdatewhite() =
+            let numerrs = FsChess.Repertoire.UpdateWhite()
+            if numerrs<>0 then
+                MessageBox.Show("Errors found iduring conversion. Please review contents of: " + FsChess.Repertoire.WhiteErrFile(),"Repertoire Errors")|>ignore
+        
+        let doshowwhite() =
+            showwm.Text<-if showwm.Text="Show White" then "Hide White" else "Show White"
+            showwb.Text<-if showwb.Text="Show White" then "Hide White" else "Show White"
+            sts.LoadWhiteRep(showwm.Text="Hide White")
+
         let doupdateblack() =
-            FsChess.Repertoire.UpdateBlack()
+            let numerrs = FsChess.Repertoire.UpdateBlack()
+            if numerrs<>0 then
+                MessageBox.Show("Errors found iduring conversion. Please review contents of: " + FsChess.Repertoire.BlackErrFile(),"Repertoire Errors")|>ignore
         
         let doshowblack() =
-            showbm.CheckState<-if showbm.CheckState=CheckState.Unchecked then CheckState.Checked else CheckState.Unchecked
-            sts.LoadBlackRep(showbm.CheckState=CheckState.Checked)
+            showbm.Text<-if showbm.Text="Show Black" then "Hide Black" else "Show Black"
+            showbb.Text<-if showbb.Text="Show Black" then "Hide Black" else "Show Black"
+            sts.LoadBlackRep(showbm.Text="Hide Black")
         
 
         
@@ -247,10 +265,17 @@ module Form =
             ts.Items.Add(saveb)|>ignore
             let split = new ToolStripSeparator()
             ts.Items.Add(split)|>ignore
-            // orient
-            let orib = new ToolStripButton(Image = img "orient.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Orient")
+            // flip
+            let orib = new ToolStripButton(Image = img "orient.png", ImageTransparentColor = Color.Magenta, DisplayStyle = ToolStripItemDisplayStyle.Image, Text = "&Flip")
             orib.Click.Add(fun _ -> bd.Orient())
             ts.Items.Add(orib)|>ignore
+            ts.Items.Add(split)|>ignore
+            //show white
+            showwb.Click.Add(fun _ -> doshowwhite())
+            ts.Items.Add(showwb)|>ignore
+            //show black
+            showbb.Click.Add(fun _ -> doshowblack())
+            ts.Items.Add(showbb)|>ignore
 
         let createms() = 
             // file menu
@@ -319,6 +344,13 @@ module Form =
 
             // rep menu
             let repm = new ToolStripMenuItem(Text = "&Repertoire")
+            // update white repertoire
+            let updwm = new ToolStripMenuItem(Text = "Update White")
+            updwm.Click.Add(fun _ -> doupdatewhite())
+            repm.DropDownItems.Add(updwm)|>ignore
+            // show white repertoire
+            showwm.Click.Add(fun _ -> doshowwhite())
+            repm.DropDownItems.Add(showwm)|>ignore
             // update black repertoire
             let updbm = new ToolStripMenuItem(Text = "Update Black")
             updbm.Click.Add(fun _ -> doupdateblack())

@@ -27,11 +27,15 @@ module WbStatsLib =
             "<html>" + nl +
             "<head>" + nl +
             "<style>" + nl +
+            ".cell.isboth" + nl +
+            "{" + nl +
+            "background-color:grey;color:white;" + nl +
+            "}" + nl +
             ".cell.isbrep" + nl +
             "{" + nl +
             "background-color:black;color:white;" + nl +
             "}" + nl +
-            ".cell.iwrep" + nl +
+            ".cell.iswrep" + nl +
             "{" + nl +
             "background-color:white;" + nl +
             "}" + nl +
@@ -84,8 +88,9 @@ module WbStatsLib =
 
             let mvsttag i (mvst:ScincFuncs.mvstats) isbrep iswrep nag comments =  
                 let tdstyle = 
-                    if isbrep then "<td class=\"isbrep\">"
-                    elif iswrep then "<td class=\"isbrep\">"
+                    if isbrep&&iswrep then "<td class=\"isboth\">" 
+                    elif isbrep then "<td class=\"isbrep\">"
+                    elif iswrep then "<td class=\"iswrep\">"
                     else "<td>"
                 
                 "<tr id=\"" + i.ToString() + "\">" + tdstyle + mvst.Mvstr + nag + "</td><td>" + mvst.Count.ToString() + "</td>" + 
@@ -228,6 +233,10 @@ module WbStatsLib =
         member stats.BaseNum() =
             basenum
 
+        member stats.LoadWhiteRep(shw) =
+            whtld <- shw
+            stats.Refrsh()
+        
         member stats.LoadBlackRep(shb) =
             blkld <- shb
             stats.Refrsh()

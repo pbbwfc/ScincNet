@@ -185,11 +185,20 @@ module Repertoire =
     ///Black Repertoire
     let Black() = FsChessPgn.Repertoire.BlackRep
     
+    ///White Error File
+    let WhiteErrFile() = FsChessPgn.Repertoire.whiteerrs
+
+    ///Black Error File
+    let BlackErrFile() = FsChessPgn.Repertoire.blackerrs
+
     ///Load White Repertoire
     let LoadWhite = FsChessPgn.Repertoire.LoadWhite
     
     ///Load Black Repertoire
     let LoadBlack = FsChessPgn.Repertoire.LoadBlack
+    
+    ///Update White Repertoire from database
+    let UpdateWhite = FsChessPgn.Repertoire.UpdateWhite
     
     ///Update Black Repertoire from database
     let UpdateBlack = FsChessPgn.Repertoire.UpdateBlack

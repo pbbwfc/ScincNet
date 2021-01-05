@@ -25,6 +25,8 @@
     <EmbeddedResource Include="Icons\scinc.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Images\black.png" />
+    <EmbeddedResource Include="Images\white.png" />
     <EmbeddedResource Include="Images\orient.png" />
     <EmbeddedResource Include="Images\cls.png" />
     <EmbeddedResource Include="Images\sav.png" />
