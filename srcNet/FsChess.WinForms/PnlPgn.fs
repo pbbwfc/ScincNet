@@ -338,6 +338,9 @@ module PnlPgnLib =
             let delrav(e) =
                 game <- Game.DeleteRav game rirs
                 pgn.DocumentText <- mvtags()
+                gmchg <- true
+                gmchg|>gmchngEvt.Trigger
+               
 
             let m = new ContextMenuStrip()
             //do edit comm before
@@ -371,6 +374,9 @@ module PnlPgnLib =
             let delcm(e) =
                 game <- Game.DeleteComment game rirs
                 pgn.DocumentText <- mvtags()
+                gmchg <- true
+                gmchg|>gmchngEvt.Trigger
+               
             
             let m = new ContextMenuStrip()
             //do edit comm 
@@ -387,7 +393,7 @@ module PnlPgnLib =
 
         let ngctxmnu = 
             let m = new ContextMenuStrip()
-            //do edit comm 
+            //do edit nag 
             let ed =
                 new ToolStripMenuItem(Text = "Edit NAG")
             ed.Click.Add(fun _ -> dlgnag(0,cng).ShowDialog() |> ignore)

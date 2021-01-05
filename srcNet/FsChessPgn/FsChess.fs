@@ -192,7 +192,7 @@ module Repertoire =
     let LoadBlack = FsChessPgn.Repertoire.LoadBlack
     
     ///Update Black Repertoire from database
-    let UpdateBlack = FsChessPgn.Repertoire.BlackAddGame
+    let UpdateBlack = FsChessPgn.Repertoire.UpdateBlack
 
     ///Options contaion SAN
     let OptsHaveSan = FsChessPgn.Repertoire.optsHasSan

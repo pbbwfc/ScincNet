@@ -495,7 +495,7 @@ module Game =
                         else
                             //fix Black by removing mn and cont
                             let pmte = 
-                                let hm = gm.MoveText.[i+1]
+                                let hm = mtel.[i+1]
                                 match hm with
                                 |HalfMoveEntry(_,_,pmv,amv) ->
                                     let isw = amv.Value.Isw
