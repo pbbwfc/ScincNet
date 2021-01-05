@@ -40,6 +40,7 @@ Source: "D:\GitHub\ScincNet\rel\netcoreapp3.1\ScincNet.exe"; DestDir: "{app}"; F
 Source: "D:\GitHub\ScincNet\rel\netcoreapp3.1\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: "bases\*"; DestDir: "{userdocs}\ScincNet\bases"; Flags: ignoreversion
+Source: "repertoire\*"; DestDir: "{userdocs}\ScincNet\repertoire"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}" ; IconFilename: "{app}\{#MyAppIcoName}"
