@@ -112,8 +112,16 @@ module WbStatsLib =
                         if wmov.IsSome && wmov.Value.San=mvst.Mvstr then
                             true,wmov.Value.Nag,wmov.Value.Comm
                         else false,NAG.Null,""
-                    let nagstr = (wnag|>Game.NAGStr) + (bnag|>Game.NAGStr)
-                    let comment = wcomment + bcomment
+                    let nagstr = 
+                        if isbrep&&iswrep then
+                            if wnag=NAG.Null then (bnag|>Game.NAGStr) else (wnag|>Game.NAGStr)
+                        elif iswrep then (wnag|>Game.NAGStr)
+                        else (bnag|>Game.NAGStr)
+                    let comment = 
+                        if isbrep&&iswrep then
+                            if wcomment="" then bcomment else wcomment
+                        elif iswrep then wcomment
+                        else bcomment
                     mvsttag i mvst isbrep iswrep nagstr comment
                 else
                     let isbrep,bnag,bcomment = 
@@ -126,8 +134,16 @@ module WbStatsLib =
                             let ro = rol.Head
                             true,ro.Nag,ro.Comm
                         else false,NAG.Null,""
-                    let nagstr = (wnag|>Game.NAGStr) + (bnag|>Game.NAGStr)
-                    let comment = wcomment + bcomment
+                    let nagstr = 
+                        if isbrep&&iswrep then
+                            if wnag=NAG.Null then (bnag|>Game.NAGStr) else (wnag|>Game.NAGStr)
+                        elif iswrep then (wnag|>Game.NAGStr)
+                        else (bnag|>Game.NAGStr)
+                    let comment = 
+                        if isbrep&&iswrep then
+                            if wcomment="" then bcomment else wcomment
+                        elif iswrep then wcomment
+                        else bcomment
                     mvsttag i mvst isbrep iswrep nagstr comment
             
             let notinmvsts (ro:RepOpt) =

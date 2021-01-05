@@ -44,8 +44,8 @@ module Form =
         
                 
         let updateMenuStates() =
-            closeb.Enabled<-gmtbs.TabCount>1
-            closem.Enabled<-gmtbs.TabCount>1
+            closeb.Enabled<-gmtbs.TabCount>1&&ScincFuncs.Base.Current()<>9
+            closem.Enabled<-gmtbs.TabCount>1&&ScincFuncs.Base.Current()<>9
             cmpm.Enabled<-gmtbs.TabCount>1
             impm.Enabled<-gmtbs.TabCount>1
             ecom.Enabled<-gmtbs.TabCount>1
@@ -125,15 +125,16 @@ module Form =
             sts.UpdateFen(nbd)
 
         let doclose() = 
+            let cb = ScincFuncs.Base.Current()
             //offer to save game if has changed
             if saveb.Enabled then
                 pgn.PromptSaveGame()
             //clear tree if holds current base
-            if sts.BaseNum()=ScincFuncs.Base.Current() then
+            if sts.BaseNum()=cb then
                 sts.Close()
             //now close tab
-            gmtbs.Close()
             //assume this will switch tabs and then call dotbselect below?
+            gmtbs.Close()
 
         let doexit() =
             //offer to save game if has changed
@@ -247,6 +248,7 @@ module Form =
             sts.UpdateFen(nbd)
             gmtbs.Refrsh(nbd)
             anl.SetBoard(nbd)
+            refreshWindows()
 
         let createts() = 
             // new

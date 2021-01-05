@@ -84,7 +84,7 @@ module Repertoire =
                                 repmove
                             else
                                 repmove.Add(fen,cro)
-                        domvt camv imtel.Tail repopts nrepmove
+                        domvt amvo imtel.Tail repopts nrepmove
                 |RAVEntry(mtel) -> 
                     let nrepopts,nrepmove = domvt camv mtel repopts repmove
                     domvt camv imtel.Tail nrepopts nrepmove
@@ -172,7 +172,7 @@ module Repertoire =
                                 repmove
                             else
                                 repmove.Add(fen,cro)
-                        domvt camv imtel.Tail repopts nrepmove
+                        domvt amvo imtel.Tail repopts nrepmove
                 |RAVEntry(mtel) -> 
                     let nrepopts,nrepmove = domvt camv mtel repopts repmove
                     domvt camv imtel.Tail nrepopts nrepmove
