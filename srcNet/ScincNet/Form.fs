@@ -63,6 +63,23 @@ module Form =
             updateMenuStates()
             updateTitle()
 
+        let waitify f =
+            let cu = this.Cursor
+            try
+                try
+                    this.Cursor <- Cursors.WaitCursor
+                    this.Enabled <-false
+                    let st = System.DateTime.Now
+                    f()
+                    let nd = System.DateTime.Now
+                    let el = (nd-st).Seconds
+                    ()
+                with 
+                | ex -> MessageBox.Show(ex.Message,"Process Failed")|>ignore
+            finally
+                this.Enabled <-true
+                this.Cursor <- cu
+        
         let donew() =
             if ScincFuncs.Base.CountFree()=0 then
                 MessageBox.Show("Too many databases open; close one first","Scinc Error")|>ignore
@@ -205,10 +222,12 @@ module Form =
 
         
         let dobdchg(nbd) =
-            bd.SetBoard(nbd)
-            sts.UpdateFen(nbd)
-            gmtbs.Refrsh(nbd)
-            anl.SetBoard(nbd)
+            let dofun() =
+                bd.SetBoard(nbd)
+                sts.UpdateFen(nbd)
+                gmtbs.Refrsh(nbd)
+                anl.SetBoard(nbd)
+            waitify(dofun)
 
         let dogmchg(ischg) =
             //set save menus
@@ -216,39 +235,45 @@ module Form =
             savem.Enabled<-ischg
 
         let domvsel(mvstr) =
-            let board = bd.GetBoard()
-            let mv = mvstr|>FsChess.Move.FromSan board
-            bd.DoMove(mvstr)
-            pgn.DoMove(mv)
-            let nbd = bd.GetBoard()
-            anl.SetBoard(nbd)
-            sts.UpdateFen(nbd)
-            gmtbs.Refrsh(nbd)
+            let dofun() =
+                let board = bd.GetBoard()
+                let mv = mvstr|>FsChess.Move.FromSan board
+                bd.DoMove(mvstr)
+                pgn.DoMove(mv)
+                let nbd = bd.GetBoard()
+                anl.SetBoard(nbd)
+                sts.UpdateFen(nbd)
+                gmtbs.Refrsh(nbd)
+            waitify(dofun)
 
         let domvmade(mv) =
-            pgn.DoMove(mv)
-            let nbd = bd.GetBoard()
-            anl.SetBoard(nbd)
-            sts.UpdateFen(nbd)
-            gmtbs.Refrsh(nbd)
+            let dofun() =
+                pgn.DoMove(mv)
+                let nbd = bd.GetBoard()
+                anl.SetBoard(nbd)
+                sts.UpdateFen(nbd)
+                gmtbs.Refrsh(nbd)
+            waitify(dofun)
 
         let dogmsel(rw) =
              pgn.SwitchGame(rw)
 
         let dotbselect(e:TabControlEventArgs) =
-            let index = e.TabPageIndex
-            //todo - need to set current
-            let basenum = if index = 0 then 9 else index
-            ScincFuncs.Base.Switch(basenum)|>ignore
-            let auto = ScincFuncs.Base.Autoloadgame(true,uint32(basenum))
-            ScincFuncs.ScidGame.Load(uint(auto))|>ignore
-            pgn.Refrsh(auto)
-            let nbd = FsChess.Board.Start
-            bd.SetBoard(nbd)
-            sts.UpdateFen(nbd)
-            gmtbs.Refrsh(nbd)
-            anl.SetBoard(nbd)
-            refreshWindows()
+            let dofun() =
+                let index = e.TabPageIndex
+                //todo - need to set current
+                let basenum = if index = 0 then 9 else index
+                ScincFuncs.Base.Switch(basenum)|>ignore
+                let auto = ScincFuncs.Base.Autoloadgame(true,uint32(basenum))
+                ScincFuncs.ScidGame.Load(uint(auto))|>ignore
+                pgn.Refrsh(auto)
+                let nbd = FsChess.Board.Start
+                bd.SetBoard(nbd)
+                sts.UpdateFen(nbd)
+                gmtbs.Refrsh(nbd)
+                anl.SetBoard(nbd)
+                refreshWindows()
+            waitify(dofun)
 
         let createts() = 
             // new
@@ -304,10 +329,10 @@ module Form =
             filem.DropDownItems.Add(rectreem)|>ignore
             let addrec (rc:string) =
                 let mn = new ToolStripMenuItem(Text = Path.GetFileNameWithoutExtension(rc))
-                mn.Click.Add(fun _ -> doopen(rc,false))
+                mn.Click.Add(fun _ -> waitify(fun () -> doopen(rc,false)))
                 recm.DropDownItems.Add(mn)|>ignore
                 let mn1 = new ToolStripMenuItem(Text = Path.GetFileNameWithoutExtension(rc))
-                mn1.Click.Add(fun _ -> doopen(rc,true))
+                mn1.Click.Add(fun _ -> waitify(fun () -> doopen(rc,true)))
                 rectreem.DropDownItems.Add(mn1)|>ignore
             let rcs = 
                 Recents.get()
