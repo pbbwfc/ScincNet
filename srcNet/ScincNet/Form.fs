@@ -99,38 +99,40 @@ module Form =
                         if sts.BaseNum()= -1 then sts.Init(nm,ScincFuncs.Base.Current())
 
         let doopen(ifn:string,dotree:bool) = 
-            if ScincFuncs.Base.CountFree()=0 then
-                MessageBox.Show("Too many databases open; close one first","Scinc Error")|>ignore
-            else
-                let ndlg = new OpenFileDialog(Title="Open Database",Filter="Scid databases(*.si4)|*.si4",InitialDirectory=bfol)
-                if ifn="" && ndlg.ShowDialog() = DialogResult.OK then
-                    //open database
-                    let nm = Path.GetFileNameWithoutExtension(ndlg.FileName)
-                    let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), nm)
-                    if ScincFuncs.Base.Open(fn)<0 then
-                        MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
-                    else
-                        let current = ScincFuncs.Base.Current()
-                        let auto = ScincFuncs.Base.Autoloadgame(true,uint32(current))
-                        ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
-                        Recents.add fn
-                        gmtbs.AddTab()
-                        refreshWindows()
-                        if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
-                elif ifn<>"" then
-                    //open database
-                    let nm = Path.GetFileNameWithoutExtension(ifn)
-                    let fn = ifn
-                    if ScincFuncs.Base.Open(fn)<0 then
-                        MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
-                    else
-                        let current = ScincFuncs.Base.Current()
-                        let auto = ScincFuncs.Base.Autoloadgame(true,uint32(current))
-                        ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
-                        Recents.add fn
-                        gmtbs.AddTab()
-                        refreshWindows()
-                        if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
+            let dofun() =
+                if ScincFuncs.Base.CountFree()=0 then
+                    MessageBox.Show("Too many databases open; close one first","Scinc Error")|>ignore
+                else
+                    let ndlg = new OpenFileDialog(Title="Open Database",Filter="Scid databases(*.si4)|*.si4",InitialDirectory=bfol)
+                    if ifn="" && ndlg.ShowDialog() = DialogResult.OK then
+                        //open database
+                        let nm = Path.GetFileNameWithoutExtension(ndlg.FileName)
+                        let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), nm)
+                        if ScincFuncs.Base.Open(fn)<0 then
+                            MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
+                        else
+                            let current = ScincFuncs.Base.Current()
+                            let auto = ScincFuncs.Base.Autoloadgame(true,uint32(current))
+                            ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
+                            Recents.add fn
+                            gmtbs.AddTab()
+                            refreshWindows()
+                            if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
+                    elif ifn<>"" then
+                        //open database
+                        let nm = Path.GetFileNameWithoutExtension(ifn)
+                        let fn = ifn
+                        if ScincFuncs.Base.Open(fn)<0 then
+                            MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
+                        else
+                            let current = ScincFuncs.Base.Current()
+                            let auto = ScincFuncs.Base.Autoloadgame(true,uint32(current))
+                            ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
+                            Recents.add fn
+                            gmtbs.AddTab()
+                            refreshWindows()
+                            if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
+            waitify(dofun)
 
         let dosave() =
             pgn.SaveGame()
@@ -222,8 +224,8 @@ module Form =
 
         
         let dobdchg(nbd) =
+            bd.SetBoard(nbd)
             let dofun() =
-                bd.SetBoard(nbd)
                 sts.UpdateFen(nbd)
                 gmtbs.Refrsh(nbd)
                 anl.SetBoard(nbd)
@@ -329,10 +331,10 @@ module Form =
             filem.DropDownItems.Add(rectreem)|>ignore
             let addrec (rc:string) =
                 let mn = new ToolStripMenuItem(Text = Path.GetFileNameWithoutExtension(rc))
-                mn.Click.Add(fun _ -> waitify(fun () -> doopen(rc,false)))
+                mn.Click.Add(fun _ -> doopen(rc,false))
                 recm.DropDownItems.Add(mn)|>ignore
                 let mn1 = new ToolStripMenuItem(Text = Path.GetFileNameWithoutExtension(rc))
-                mn1.Click.Add(fun _ -> waitify(fun () -> doopen(rc,true)))
+                mn1.Click.Add(fun _ -> doopen(rc,true))
                 rectreem.DropDownItems.Add(mn1)|>ignore
             let rcs = 
                 Recents.get()

@@ -329,9 +329,12 @@ module PnlPgnLib =
                 if amv.IsNone then failwith "should have valid aMove"
                 else
                     board <- amv.Value.PostBrd
-                    board|>bdchngEvt.Trigger
                     mve|>highlight
-
+                    pgn.Refresh()
+                    while(pgn.ReadyState <> WebBrowserReadyState.Complete) do
+                         Application.DoEvents()
+                    board|>bdchngEvt.Trigger
+                    
             |_ -> failwith "not done yet"
         
         let mvctxmnu = 
