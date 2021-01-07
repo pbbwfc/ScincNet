@@ -1,4 +1,4 @@
-# ScincNet.
+# ScincNet
 
 For help using ScincNet, please see the [List of Articles](intro).
 
