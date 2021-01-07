@@ -1923,7 +1923,7 @@ int ScincFuncs::Tree::Search(System::Collections::Generic::List<mvstats^>^% mvst
 	{
 		return -1;
 	}
-
+	search_pool.clear();
 	search_pool.insert(&base);
 
 	if (base->treeFilter == NULL)
@@ -1951,7 +1951,7 @@ int ScincFuncs::Tree::Search(System::Collections::Generic::List<mvstats^>^% mvst
 	// Search through each game:
 	for (uint i = 0; i < base->numGames; i++)
 	{
-		const byte* oldFilterData = base->treeFilter->GetOldDataTree();
+		//const byte* oldFilterData = base->treeFilter->GetOldDataTree();
 
 		IndexEntry* ie = base->idx->FetchEntry(i);
 		if (ie->GetLength() == 0)

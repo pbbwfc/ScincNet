@@ -108,8 +108,6 @@ module TpGamesLib =
         ///Refresh the list
         member _.Refrsh(fen:string) =
             gmsui.Clear()
-            //apply filter
-            ScincFuncs.Search.Board(fen,b)|>ignore
             let mutable gmsl = new ResizeArray<ScincFuncs.gmui>()
             let chunk = ScincFuncs.ScidGame.List(&gmsl,1u,100u)
             gmsl|>Seq.iter(fun gmui -> gmsui.Add(gmui))
