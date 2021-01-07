@@ -17,6 +17,7 @@ module WbStatsLib =
         let mutable basenum = -1
         let mutable blkld = false
         let mutable whtld = false
+        let sans = Array.create 99 ""
 
         //events
         let mvselEvt = new Event<_>()
@@ -87,6 +88,7 @@ module WbStatsLib =
                 else None
 
             let mvsttag i (mvst:ScincFuncs.mvstats) isbrep iswrep nag comments =  
+                sans.[i] <- mvst.Mvstr
                 let tdstyle = 
                     if isbrep&&iswrep then "<td class=\"isboth\">" 
                     elif isbrep then "<td class=\"isbrep\">"
@@ -152,6 +154,8 @@ module WbStatsLib =
             
             let doextras (fi) =
                 let doextraw i ro =
+                    sans.[i+fi] <- ro.San 
+                    
                     "<tr id=\"" + (i+fi).ToString() + "\">" + "<td class=\"iswrep\">" + ro.San + (ro.Nag|>Game.NAGStr) + "</td><td>" + "</td>" + 
                     "<td>" + "</td><td>" + "</td>" + 
                     "<td>" + "</td><td>" +
@@ -159,6 +163,8 @@ module WbStatsLib =
                     "</td><td>" + "</td><td>" + "</td><td class=\"iswrep\">" + ro.Comm +
                     "</td></tr>" + nl
                 let doextrab i ro =
+                    sans.[i+fi] <- ro.San
+
                     "<tr id=\"" + (i+fi).ToString() + "\">" + "<td class=\"isbrep\">" + ro.San + (ro.Nag|>Game.NAGStr) + "</td><td>" + "</td>" + 
                     "<td>" + "</td><td>" + "</td>" + 
                     "<td>" + "</td><td>" +
@@ -186,7 +192,7 @@ module WbStatsLib =
             mnrws + doextras(mvsts.Count)
             
         let bdsttags() = 
-            if mvsts.Count=0 then hdr()+ftr
+            if mvsts.Count=0 && (not blkld) && (not whtld) then hdr()+ftr
             else
                 hdr() +
                 "<tr><th style=\"text-align: left;\">Move</th><th style=\"text-align: left;\">Count</th>" +
@@ -209,7 +215,7 @@ module WbStatsLib =
 
         let onclick(el:HtmlElement) = 
             let i = el.Id|>int
-            let san = mvsts.[i].Mvstr
+            let san = sans.[i]
             san|>mvselEvt.Trigger
 
         let setclicks e = 

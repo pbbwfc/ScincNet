@@ -137,11 +137,13 @@ module Form =
         let dosave() =
             pgn.SaveGame()
             //need to reload gms and select the right row
+            //but only if new game
             let gnum = pgn.GetGameNumber()
-            let nbd = bd.GetBoard()
-            gmtbs.Refrsh(nbd)
-            gmtbs.SelNum(gnum)
-            sts.UpdateFen(nbd)
+            if gnum=ScincFuncs.Base.NumGames() then
+                let nbd = bd.GetBoard()
+                gmtbs.Refrsh(nbd)
+                gmtbs.SelNum(gnum)
+                sts.UpdateFen(nbd)
 
         let doclose() = 
             let cb = ScincFuncs.Base.Current()

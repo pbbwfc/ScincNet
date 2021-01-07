@@ -21,9 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{54A4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1B8B9CAA-FEE0-4CFA-91DA-6C10397F3999}"
 	ProjectSection(SolutionItems) = preProject
-		docfx_project\index.md = docfx_project\index.md
-		docfx_project\articles\intro.md = docfx_project\articles\intro.md
-		docfx_project\articles\tcl2fsx.md = docfx_project\articles\tcl2fsx.md
+		docs\getstrt.md = docs\getstrt.md
+		docs\index.md = docs\index.md
+		docs\intro.md = docs\intro.md
+		README.md = README.md
+		docs\repertoire.md = docs\repertoire.md
+		docs\tcl2fsx.md = docs\tcl2fsx.md
 	EndProjectSection
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FsChess.WinForms", "srcNet\FsChess.WinForms\FsChess.WinForms.fsproj", "{AE05B54F-B247-4BC4-B676-B19B48B272D5}"
