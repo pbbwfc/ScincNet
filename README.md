@@ -6,7 +6,7 @@
 
  The backend is based on the excellent [Scidvspc](http://scidvspc.sourceforge.net/ "Scidvspc").
 
- This repository includes a .NET wrapper to access this back end. This allow scripting in F# against SCID databases.
+ This repository includes a .NET wrapper to access this back end. This allows scripting in F# against SCID databases.
 
  The repository also includes a trimmed down front end, built using WinForms written in F#.
 

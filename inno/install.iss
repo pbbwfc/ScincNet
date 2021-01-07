@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "ScincNet"
-#define MyAppVersion "0.01"
+#define MyAppVersion "0.02"
 #define MyAppPublisher "Phil Brooks"
 #define MyAppURL "https://pbbwfc.github.io/ScincNet/"
 #define MyAppExeName "ScincNet.exe"
