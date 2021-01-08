@@ -95,13 +95,19 @@ module PnlAnlLib =
         
         let AnlpStart() = 
             prc <- new System.Diagnostics.Process()
+            let mutable oldln = ""
             //p_out
             let pOut (e : System.Diagnostics.DataReceivedEventArgs) = 
                 if not (e.Data = null || e.Data = "") then 
                     let msg = e.Data.ToString().Trim()
                     if not (msg.StartsWith("info") && not (msg.Contains(" cp "))) then 
                         let scr,ln = (msg,cbd)|>GetScrLn
-                        (scr,ln) |> addMsg
+                        //should only update ln if new or if new line is longer or at least 6 moves long
+                        let bits = ln.Split(' ')
+                        let oldbits = oldln.Split(' ') 
+                        if bits.[0]<>oldbits.[0]||bits.Length>oldbits.Length||bits.Length>5 then
+                            oldln <- ln
+                            (scr,ln) |> addMsg
             prc.OutputDataReceived.Add(pOut)
             //Start process
             SetUpPrc()
