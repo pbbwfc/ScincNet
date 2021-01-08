@@ -36,6 +36,7 @@ module TcGamesLib =
             gmstc.TabPages.Add(tp)
             gmstc.SelectedTab<-gmstc.TabPages.[gmstc.TabPages.Count-1]
             tp.GmSel|>Observable.add selEvt.Trigger
+            tp.GmCmp|>Observable.add cmpEvt.Trigger
 
         ///BaseNum for the selected tab
         member gmstc.BaseNum() =

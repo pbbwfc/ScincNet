@@ -37,12 +37,16 @@ module Form =
         let impm = new ToolStripMenuItem(Text = "Import PGN file", Enabled = false)
         let ecom = new ToolStripMenuItem(Text = "Set ECOs", Enabled = false)
         let showwb = new ToolStripButton(Image = img "white.png", Enabled = false, Text = "Show White")
-        let showwm = new ToolStripMenuItem(Image = img "white.png", Text = "Show White", CheckState=CheckState.Unchecked, Enabled = false)
+        let showwm = new ToolStripMenuItem(Image = img "white.png", Text = "Show White", CheckState = CheckState.Unchecked, Enabled = false)
         let showbb = new ToolStripButton(Image = img "black.png", Enabled = false, Text = "Show Black")
-        let showbm = new ToolStripMenuItem(Image = img "black.png", Text = "Show Black", CheckState=CheckState.Unchecked, Enabled = false)
-        
+        let showbm = new ToolStripMenuItem(Image = img "black.png", Text = "Show Black", CheckState = CheckState.Unchecked, Enabled = false)
+        let sb = new StatusBar(ShowPanels = false, Anchor=AnchorStyles.Bottom, Text = "No bases open", Dock = DockStyle.Bottom)
         
                 
+        let SbUpdate(txt) =
+            //TODO may add soem timing and logging
+            sb.Text <- txt
+
         let updateMenuStates() =
             closeb.Enabled<-gmtbs.TabCount>1&&ScincFuncs.Base.Current()<>9
             closem.Enabled<-gmtbs.TabCount>1&&ScincFuncs.Base.Current()<>9
@@ -89,14 +93,17 @@ module Form =
                     //create database
                     let nm = Path.GetFileNameWithoutExtension(ndlg.FileName)
                     let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), nm)
+                    SbUpdate("Creating base: " + fn)
                     if ScincFuncs.Base.Create(fn)<0 then
                         MessageBox.Show("Unable to create database: " + fn,"Scinc Error")|>ignore
                     else
+                        SbUpdate("Updating windows")
                         Recents.add fn
                         gmtbs.AddTab()
                         refreshWindows()
                         pgn.Refrsh(0,ScincFuncs.Base.Current())
                         if sts.BaseNum()= -1 then sts.Init(nm,ScincFuncs.Base.Current())
+                        SbUpdate("Ready")
 
         let doopen(ifn:string,dotree:bool) = 
             let dofun() =
@@ -108,54 +115,72 @@ module Form =
                         //open database
                         let nm = Path.GetFileNameWithoutExtension(ndlg.FileName)
                         let fn = Path.Combine(Path.GetDirectoryName(ndlg.FileName), nm)
+                        SbUpdate("Opening base: " + fn)
                         if ScincFuncs.Base.Open(fn)<0 then
                             MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
                         else
                             let current = ScincFuncs.Base.Current()
                             let auto = ScincFuncs.Base.Autoloadgame(true,uint32(current))
+                            SbUpdate("Opening game number: " + auto.ToString())
                             ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
                             Recents.add fn
+                            SbUpdate("Loading list of games")
                             gmtbs.AddTab()
                             refreshWindows()
-                            if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
+                            if sts.BaseNum()= -1||dotree then 
+                                SbUpdate("Updating tree")
+                                sts.Init(nm,ScincFuncs.Base.Current())
+                            SbUpdate("Ready")
                     elif ifn<>"" then
                         //open database
                         let nm = Path.GetFileNameWithoutExtension(ifn)
                         let fn = ifn
+                        SbUpdate("Opening base: " + fn)
                         if ScincFuncs.Base.Open(fn)<0 then
                             MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
                         else
                             let current = ScincFuncs.Base.Current()
                             let auto = ScincFuncs.Base.Autoloadgame(true,uint32(current))
+                            SbUpdate("Opening game number: " + auto.ToString())
                             ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
                             Recents.add fn
+                            SbUpdate("Loading list of games")
                             gmtbs.AddTab()
                             refreshWindows()
-                            if sts.BaseNum()= -1||dotree then sts.Init(nm,ScincFuncs.Base.Current())
+                            if sts.BaseNum()= -1||dotree then 
+                                SbUpdate("Updating tree")
+                                sts.Init(nm,ScincFuncs.Base.Current())
+                            SbUpdate("Ready")
             waitify(dofun)
 
         let dosave() =
+            SbUpdate("Saving game")
             pgn.SaveGame()
             //need to reload gms and select the right row
             //but only if new game
             let gnum = pgn.GetGameNumber()
             if gnum=ScincFuncs.Base.NumGames() then
+                SbUpdate("Reloading list of games")
                 let nbd = bd.GetBoard()
                 gmtbs.Refrsh(nbd,sts.BaseNum())
                 gmtbs.SelNum(gnum)
-                sts.UpdateFen(nbd)
+            SbUpdate("Ready")
 
         let doclose() = 
+            SbUpdate("Closing base")
             let cb = ScincFuncs.Base.Current()
             //offer to save game if has changed
             if saveb.Enabled then
                 pgn.PromptSaveGame()
             //clear tree if holds current base
             if sts.BaseNum()=cb then
+                SbUpdate("Closing tree")
                 sts.Close()
             //now close tab
             //assume this will switch tabs and then call dotbselect below?
+            SbUpdate("Closing list of games")
             gmtbs.Close()
+            SbUpdate("Ready")
             
         let doexit() =
             //offer to save game if has changed
@@ -164,30 +189,44 @@ module Form =
             this.Close()
 
         let donewg() =
+            SbUpdate("Creating game")
             //clear pgn and set gnum to 0
             let bnum = ScincFuncs.Base.Current()
             pgn.NewGame(bnum)
+            SbUpdate("Ready")
  
         let docompact() =
+            SbUpdate("Compacting base")
             if ScincFuncs.Compact.Games()=0 then
+                SbUpdate("Reloading list of games")
                 gmtbs.Refrsh(bd.GetBoard(),sts.BaseNum())
+            SbUpdate("Ready")
 
         let doimppgn() =
-            let ndlg = new OpenFileDialog(Title="Open PGN File",Filter="Pgn Files(*.pgn)|*.pgn",InitialDirectory=bfol)
+            let ndlg = new OpenFileDialog(Title="Import PGN File",Filter="Pgn Files(*.pgn)|*.pgn",InitialDirectory=bfol)
             if ndlg.ShowDialog() = DialogResult.OK then
                 let pgn = ndlg.FileName
+                SbUpdate("Importing pgn file: " + pgn)
                 let mutable num = 0
                 let mutable msgs = ""
                 if ScincFuncs.Base.Import(&num,&msgs,pgn)=0 then
+                    SbUpdate("Reloading list of games")
                     gmtbs.Refrsh(bd.GetBoard(),sts.BaseNum())
-                    if ScincFuncs.Base.Current()=sts.BaseNum() then sts.Refrsh()
+                    if ScincFuncs.Base.Current()=sts.BaseNum() then 
+                        SbUpdate("Reloading tree")
+                        sts.Refrsh()
+            SbUpdate("Ready")
+
 
         let doeco() =
+            SbUpdate("Adding ECO classifiers")
             let mutable msgs = ""
             if ScincFuncs.Eco.Base(&msgs)=0 then
+                SbUpdate("Reloading list of games")
                 gmtbs.Refrsh(bd.GetBoard(),sts.BaseNum())
             else
                 MessageBox.Show("Process had issues: " + msgs,"Set ECO Issues")|>ignore
+            SbUpdate("Ready")
 
         let docopypgn() =
             Clipboard.SetText(pgn.GetPgn())
@@ -195,19 +234,27 @@ module Form =
         let dopastepgn() =
             let pgnstr = Clipboard.GetText()
             try
+                SbUpdate("Pasting game")
                 pgn.SetPgn(pgnstr)
+                SbUpdate("Reloading list of games")
                 let nbd = FsChess.Board.Start
                 gmtbs.Refrsh(nbd,sts.BaseNum())
                 bd.SetBoard(nbd)
+                SbUpdate("Reloading tree")
                 sts.UpdateFen(nbd)
                 anl.SetBoard(nbd)
+                SbUpdate("Ready")
             with
-                |_ -> MessageBox.Show("Invalid PGN in Clipboard!", "Paste PGN")|>ignore
+                |_ -> 
+                    MessageBox.Show("Invalid PGN in Clipboard!", "Paste PGN")|>ignore
+                    SbUpdate("Ready")
         
         let doupdatewhite() =
+            SbUpdate("Updating white repertoire")
             let numerrs = FsChess.Repertoire.UpdateWhite()
             if numerrs<>0 then
                 MessageBox.Show("Errors found iduring conversion. Please review contents of: " + FsChess.Repertoire.WhiteErrFile(),"Repertoire Errors")|>ignore
+            SbUpdate("Ready")
         
         let doshowwhite() =
             showwm.Text<-if showwm.Text="Show White" then "Hide White" else "Show White"
@@ -215,9 +262,11 @@ module Form =
             sts.LoadWhiteRep(showwm.Text="Hide White")
 
         let doupdateblack() =
+            SbUpdate("Updating black repertoire")
             let numerrs = FsChess.Repertoire.UpdateBlack()
             if numerrs<>0 then
                 MessageBox.Show("Errors found iduring conversion. Please review contents of: " + FsChess.Repertoire.BlackErrFile(),"Repertoire Errors")|>ignore
+            SbUpdate("Ready")
         
         let doshowblack() =
             showbm.Text<-if showbm.Text="Show Black" then "Hide Black" else "Show Black"
@@ -229,10 +278,13 @@ module Form =
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
             let dofun() =
+                SbUpdate("Reloading tree")
                 sts.UpdateFen(nbd)
+                SbUpdate("Reloading list of games")
                 gmtbs.Refrsh(nbd,sts.BaseNum())
                 anl.SetBoard(nbd)
             waitify(dofun)
+            SbUpdate("Ready")
 
         let dogmchg(ischg) =
             //set save menus
@@ -247,21 +299,28 @@ module Form =
                 pgn.DoMove(mv)
                 let nbd = bd.GetBoard()
                 anl.SetBoard(nbd)
+                SbUpdate("Reloading tree")
                 sts.UpdateFen(nbd)
+                SbUpdate("Reloading list of games")
                 gmtbs.Refrsh(nbd,sts.BaseNum())
             waitify(dofun)
+            SbUpdate("Ready")
 
         let domvmade(mv) =
             let dofun() =
                 pgn.DoMove(mv)
                 let nbd = bd.GetBoard()
                 anl.SetBoard(nbd)
+                SbUpdate("Reloading tree")
                 sts.UpdateFen(nbd)
+                SbUpdate("Reloading list of games")
                 gmtbs.Refrsh(nbd,sts.BaseNum())
             waitify(dofun)
+            SbUpdate("Ready")
 
         let dogmsel(rw) =
              pgn.SwitchGame(rw)
+             SbUpdate("Ready")
 
         let dotbselect(e:TabControlEventArgs) =
             let dofun() =
@@ -274,11 +333,14 @@ module Form =
                 pgn.Refrsh(auto,ScincFuncs.Base.Current())
                 let nbd = FsChess.Board.Start
                 bd.SetBoard(nbd)
+                SbUpdate("Reloading tree")
                 sts.UpdateFen(nbd)
+                SbUpdate("Reloading list of games")
                 gmtbs.Refrsh(nbd,sts.BaseNum())
                 anl.SetBoard(nbd)
                 refreshWindows()
             waitify(dofun)
+            SbUpdate("Ready")
 
         let createts() = 
             // new
@@ -458,6 +520,7 @@ module Form =
             ts|>this.Controls.Add
             createms()
             ms|>this.Controls.Add
+            sb|>this.Controls.Add
             //Events
             pgn.BdChng  |> Observable.add dobdchg 
             pgn.GmChng |> Observable.add dogmchg

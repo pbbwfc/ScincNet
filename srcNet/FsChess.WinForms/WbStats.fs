@@ -257,11 +257,11 @@ module WbStatsLib =
 
         member stats.LoadWhiteRep(shw) =
             whtld <- shw
-            stats.Refrsh()
+            stats.DocumentText <- bdsttags()
         
         member stats.LoadBlackRep(shb) =
             blkld <- shb
-            stats.Refrsh()
+            stats.DocumentText <- bdsttags()
         
         //publish
         ///Provides the selected move in SAN format

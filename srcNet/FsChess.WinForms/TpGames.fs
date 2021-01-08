@@ -86,7 +86,7 @@ module TpGamesLib =
                  //do compact
                  let cmp =
                      new ToolStripMenuItem(Text = "Compact Base")
-                 del.Click.Add(fun _ -> docmp())
+                 cmp.Click.Add(fun _ -> docmp())
                  m.Items.Add(cmp) |> ignore
                  m
             gms.ContextMenuStrip<-ctxmnu
@@ -109,10 +109,12 @@ module TpGamesLib =
             
         ///Refresh the list
         member _.Refrsh(fen:string, stsbnum:int) =
-            gmsui.Clear()
-            //apply filter but only if b<>sts basenum
-            if b<>stsbnum then
-                ScincFuncs.Search.Board(fen,b)|>ignore
+            //different if new
+            if gmsui.Count<>0 then
+                gmsui.Clear()
+                //apply filter but only if b<>sts basenum
+                if b<>stsbnum then
+                    ScincFuncs.Search.Board(fen,b)|>ignore
             let mutable gmsl = new ResizeArray<ScincFuncs.gmui>()
             let chunk = ScincFuncs.ScidGame.List(&gmsl,1u,100u)
             gmsl|>Seq.iter(fun gmui -> gmsui.Add(gmui))

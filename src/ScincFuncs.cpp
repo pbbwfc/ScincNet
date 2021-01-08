@@ -2286,7 +2286,7 @@ int ScincFuncs::Search::Board(String^ fenstr,int basenum)
 		return -1;
 	}
 
-	bool useHpSigSpeedup = false;
+	bool useHpSigSpeedup = true;
 	gameExactMatchT searchType = GAME_EXACT_MATCH_Exact;
 	
 	Position* pos = db->game->GetCurrentPos();
