@@ -19,10 +19,10 @@ module TcGamesLib =
             cliptp.GmCmp|>Observable.add cmpEvt.Trigger
 
         ///Refresh the selected tab
-        member gmstc.Refrsh(bd:Brd) =
+        member gmstc.Refrsh(bd:Brd, stsbnum:int) =
             let tp = gmstc.SelectedTab:?>TpGames
             let fen = bd|>Board.ToStr
-            tp.Refrsh(fen)
+            tp.Refrsh(fen,stsbnum)
 
         ///Refresh the selected tab
         member gmstc.SelNum(num:int) =
@@ -37,6 +37,11 @@ module TcGamesLib =
             gmstc.SelectedTab<-gmstc.TabPages.[gmstc.TabPages.Count-1]
             tp.GmSel|>Observable.add selEvt.Trigger
 
+        ///BaseNum for the selected tab
+        member gmstc.BaseNum() =
+            let tp = gmstc.SelectedTab:?>TpGames
+            tp.BaseNum()
+        
         ///Close the selected tab
         member gmstc.Close() =
             let tp = gmstc.SelectedTab:?>TpGames

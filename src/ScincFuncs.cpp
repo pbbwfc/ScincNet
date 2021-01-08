@@ -1125,9 +1125,18 @@ int ScincFuncs::ScidGame::Load(unsigned int gnum)
 /// game is added; otherwise, that game number is REPLACED.
 /// </summary>
 /// <param name="gnum">The game number</param>
+/// <param name="basenum">the base containing the game</param>
 /// <returns>returns 0 if successful</returns>
-int ScincFuncs::ScidGame::Save(unsigned int gnum)
+int ScincFuncs::ScidGame::Save(unsigned int gnum, int basenum)
 {
+	if (basenum < 1 || basenum > MAX_BASES)
+	{
+		return -1; //Invalid base number
+	}
+
+	currentBase = basenum - 1;
+	db = &(dbList[currentBase]);
+	
 	if (!db->inUse)
 	{
 		return -1;
@@ -1213,13 +1222,22 @@ int ScincFuncs::ScidGame::Delete(unsigned int gnum)
 /// </summary>
 /// <param name="pgnstr">the string holding the PGN of the game</param>
 /// <param name="gnum">The game number</param>
+/// <param name="basenum">the base containing the game</param>
 /// <returns>returns 0 if successful</returns>
-int ScincFuncs::ScidGame::SavePgn(String^ pgnstr, unsigned int gnum)
+int ScincFuncs::ScidGame::SavePgn(String^ pgnstr, unsigned int gnum, int basenum)
 {
 	msclr::interop::marshal_context oMarshalContext;
 
 	const char* pgn = oMarshalContext.marshal_as<const char*>(pgnstr);
 
+	if (basenum < 1 || basenum > MAX_BASES)
+	{
+		return -1; //Invalid base number
+	}
+
+	currentBase = basenum - 1;
+	db = &(dbList[currentBase]);
+	
 	PgnParser parser(pgn);
 	errorT err = parser.ParseGame(db->game);
 	db->gameAltered = true;
@@ -1227,7 +1245,7 @@ int ScincFuncs::ScidGame::SavePgn(String^ pgnstr, unsigned int gnum)
 	{
 		return -2;//ERROR: No PGN header tag 
 	}
-	return ScincFuncs::ScidGame::Save(gnum);
+	return ScincFuncs::ScidGame::Save(gnum,basenum);
 }
 
 /// <summary>

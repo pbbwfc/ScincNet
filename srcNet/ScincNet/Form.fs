@@ -95,7 +95,7 @@ module Form =
                         Recents.add fn
                         gmtbs.AddTab()
                         refreshWindows()
-                        pgn.Refrsh(0)
+                        pgn.Refrsh(0,ScincFuncs.Base.Current())
                         if sts.BaseNum()= -1 then sts.Init(nm,ScincFuncs.Base.Current())
 
         let doopen(ifn:string,dotree:bool) = 
@@ -141,7 +141,7 @@ module Form =
             let gnum = pgn.GetGameNumber()
             if gnum=ScincFuncs.Base.NumGames() then
                 let nbd = bd.GetBoard()
-                gmtbs.Refrsh(nbd)
+                gmtbs.Refrsh(nbd,sts.BaseNum())
                 gmtbs.SelNum(gnum)
                 sts.UpdateFen(nbd)
 
@@ -156,7 +156,7 @@ module Form =
             //now close tab
             //assume this will switch tabs and then call dotbselect below?
             gmtbs.Close()
-
+            
         let doexit() =
             //offer to save game if has changed
             if saveb.Enabled then
@@ -165,11 +165,12 @@ module Form =
 
         let donewg() =
             //clear pgn and set gnum to 0
-            pgn.NewGame()
+            let bnum = ScincFuncs.Base.Current()
+            pgn.NewGame(bnum)
  
         let docompact() =
             if ScincFuncs.Compact.Games()=0 then
-                gmtbs.Refrsh(bd.GetBoard())
+                gmtbs.Refrsh(bd.GetBoard(),sts.BaseNum())
 
         let doimppgn() =
             let ndlg = new OpenFileDialog(Title="Open PGN File",Filter="Pgn Files(*.pgn)|*.pgn",InitialDirectory=bfol)
@@ -178,13 +179,13 @@ module Form =
                 let mutable num = 0
                 let mutable msgs = ""
                 if ScincFuncs.Base.Import(&num,&msgs,pgn)=0 then
-                    gmtbs.Refrsh(bd.GetBoard())
+                    gmtbs.Refrsh(bd.GetBoard(),sts.BaseNum())
                     if ScincFuncs.Base.Current()=sts.BaseNum() then sts.Refrsh()
 
         let doeco() =
             let mutable msgs = ""
             if ScincFuncs.Eco.Base(&msgs)=0 then
-                gmtbs.Refrsh(bd.GetBoard())
+                gmtbs.Refrsh(bd.GetBoard(),sts.BaseNum())
             else
                 MessageBox.Show("Process had issues: " + msgs,"Set ECO Issues")|>ignore
 
@@ -196,7 +197,7 @@ module Form =
             try
                 pgn.SetPgn(pgnstr)
                 let nbd = FsChess.Board.Start
-                gmtbs.Refrsh(nbd)
+                gmtbs.Refrsh(nbd,sts.BaseNum())
                 bd.SetBoard(nbd)
                 sts.UpdateFen(nbd)
                 anl.SetBoard(nbd)
@@ -229,7 +230,7 @@ module Form =
             bd.SetBoard(nbd)
             let dofun() =
                 sts.UpdateFen(nbd)
-                gmtbs.Refrsh(nbd)
+                gmtbs.Refrsh(nbd,sts.BaseNum())
                 anl.SetBoard(nbd)
             waitify(dofun)
 
@@ -247,7 +248,7 @@ module Form =
                 let nbd = bd.GetBoard()
                 anl.SetBoard(nbd)
                 sts.UpdateFen(nbd)
-                gmtbs.Refrsh(nbd)
+                gmtbs.Refrsh(nbd,sts.BaseNum())
             waitify(dofun)
 
         let domvmade(mv) =
@@ -256,7 +257,7 @@ module Form =
                 let nbd = bd.GetBoard()
                 anl.SetBoard(nbd)
                 sts.UpdateFen(nbd)
-                gmtbs.Refrsh(nbd)
+                gmtbs.Refrsh(nbd,sts.BaseNum())
             waitify(dofun)
 
         let dogmsel(rw) =
@@ -265,16 +266,16 @@ module Form =
         let dotbselect(e:TabControlEventArgs) =
             let dofun() =
                 let index = e.TabPageIndex
-                //todo - need to set current
-                let basenum = if index = 0 then 9 else index
+                //need to set current
+                let basenum = gmtbs.BaseNum()
                 ScincFuncs.Base.Switch(basenum)|>ignore
                 let auto = ScincFuncs.Base.Autoloadgame(true,uint32(basenum))
                 ScincFuncs.ScidGame.Load(uint(auto))|>ignore
-                pgn.Refrsh(auto)
+                pgn.Refrsh(auto,ScincFuncs.Base.Current())
                 let nbd = FsChess.Board.Start
                 bd.SetBoard(nbd)
                 sts.UpdateFen(nbd)
-                gmtbs.Refrsh(nbd)
+                gmtbs.Refrsh(nbd,sts.BaseNum())
                 anl.SetBoard(nbd)
                 refreshWindows()
             waitify(dofun)

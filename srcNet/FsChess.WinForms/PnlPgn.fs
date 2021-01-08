@@ -30,7 +30,8 @@ module PnlPgnLib =
         let mutable gmchg = false
         
         //scinc related
-        let mutable gnum = 1
+        let mutable gnum = 0
+        let mutable bnum = 0
 
         //events
         let bdchngEvt = new Event<_>()
@@ -466,7 +467,7 @@ module PnlPgnLib =
         ///Saves the Game that is displayed
         member _.SaveGame() = 
             let pgnstr = Game.ToStr(game)
-            ScincFuncs.ScidGame.SavePgn(pgnstr,uint(gnum))|>ignore
+            ScincFuncs.ScidGame.SavePgn(pgnstr,uint(gnum),bnum)|>ignore
             //need to reset gnum for new game
             if gnum=0 then gnum<-ScincFuncs.Base.NumGames()
             gmchg<-false
@@ -526,17 +527,19 @@ module PnlPgnLib =
             irs <- [-1]
             sethdr()
 
-        member pgnpnl.NewGame() =
+        member pgnpnl.NewGame(ibnum) =
             let gm = Game.Start
             pgnpnl.SetGame(gm)
             gnum <- 0
+            bnum <- ibnum
 
-        member pgnpnl.Refrsh(ignum:int) =
+        member pgnpnl.Refrsh(ignum:int,ibnum) =
             let mutable pgnstr = ""
             if ScincFuncs.ScidGame.Pgn(&pgnstr)=0 then
                 let gm = Game.FromStr(pgnstr)
                 pgnpnl.SetGame(gm)
                 gnum <- ignum
+                bnum <- ibnum
         
         member pgnpnl.SetPgn(pgnstr:string) =
             let gm = Game.FromStr(pgnstr)

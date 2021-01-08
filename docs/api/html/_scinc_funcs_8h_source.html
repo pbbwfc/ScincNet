@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="scinc.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ScincFuncs
-   &#160;<span id="projectnumber">0.01</span>
+   &#160;<span id="projectnumber">0.02</span>
    </div>
    <div id="projectbrief">.NET Wrapper for SCID</div>
   </td>
@@ -266,9 +266,9 @@ $(document).ready(function(){initNavTree('_scinc_funcs_8h_source.html',''); init
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    {</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> Load(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gnum);</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> Save(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gnum);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> Save(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gnum, <span class="keywordtype">int</span> basenum);</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> Delete(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gnum);</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> SavePgn(String^ pgnstr, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gnum);</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> SavePgn(String^ pgnstr, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gnum, <span class="keywordtype">int</span> basenum);</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> StripComments();</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> GetTag(String^ tag, String^% val);</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> SetTag(String^ tag, String^ val);</div>
@@ -313,7 +313,7 @@ $(document).ready(function(){initNavTree('_scinc_funcs_8h_source.html',''); init
 <div class="ttc" id="aclass_scinc_funcs_1_1_eco_html"><div class="ttname"><a href="class_scinc_funcs_1_1_eco.html">ScincFuncs::Eco</a></div><div class="ttdoc">Class that hold functions relating to the ECO book</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:211</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1_filt_html"><div class="ttname"><a href="class_scinc_funcs_1_1_filt.html">ScincFuncs::Filt</a></div><div class="ttdoc">Class that hold functions relating to databse filter</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:222</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1_scid_game_html"><div class="ttname"><a href="class_scinc_funcs_1_1_scid_game.html">ScincFuncs::ScidGame</a></div><div class="ttdoc">Class that hold functions relating to games in a SCID clipbase</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:194</div></div>
-<div class="ttc" id="aclass_scinc_funcs_1_1_scid_game_html_aff7e49c5ea7a9e255f55c03cde96c3d5"><div class="ttname"><a href="class_scinc_funcs_1_1_scid_game.html#aff7e49c5ea7a9e255f55c03cde96c3d5">ScincFuncs::ScidGame::Pgn</a></div><div class="ttdeci">static int Pgn(String^% pgn)</div><div class="ttdoc">Pgn: Returns the PGN representation of the game.</div><div class="ttdef"><b>Definition:</b> ScincFuncs.cpp:1541</div></div>
+<div class="ttc" id="aclass_scinc_funcs_1_1_scid_game_html_aff7e49c5ea7a9e255f55c03cde96c3d5"><div class="ttname"><a href="class_scinc_funcs_1_1_scid_game.html#aff7e49c5ea7a9e255f55c03cde96c3d5">ScincFuncs::ScidGame::Pgn</a></div><div class="ttdeci">static int Pgn(String^% pgn)</div><div class="ttdoc">Pgn: Returns the PGN representation of the game.</div><div class="ttdef"><b>Definition:</b> ScincFuncs.cpp:1559</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1_search_html"><div class="ttname"><a href="class_scinc_funcs_1_1_search.html">ScincFuncs::Search</a></div><div class="ttdoc">Class that hold functions relating to search</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:238</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1_tree_html"><div class="ttname"><a href="class_scinc_funcs_1_1_tree.html">ScincFuncs::Tree</a></div><div class="ttdoc">Class that hold functions relating to the stats tree</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:230</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1gmui_html"><div class="ttname"><a href="class_scinc_funcs_1_1gmui.html">ScincFuncs::gmui</a></div><div class="ttdoc">Class that holds properties to display in grid - need to be reversed!</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:139</div></div>

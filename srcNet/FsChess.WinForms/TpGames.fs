@@ -104,10 +104,15 @@ module TpGamesLib =
             nm <- Path.GetFileNameWithoutExtension(nm)
             b <- ScincFuncs.Base.Current()
             gn <- ScincFuncs.Base.NumGames()
+            fn <- ScincFuncs.Filt.Count()
+            settxt()
             
         ///Refresh the list
-        member _.Refrsh(fen:string) =
+        member _.Refrsh(fen:string, stsbnum:int) =
             gmsui.Clear()
+            //apply filter but only if b<>sts basenum
+            if b<>stsbnum then
+                ScincFuncs.Search.Board(fen,b)|>ignore
             let mutable gmsl = new ResizeArray<ScincFuncs.gmui>()
             let chunk = ScincFuncs.ScidGame.List(&gmsl,1u,100u)
             gmsl|>Seq.iter(fun gmui -> gmsui.Add(gmui))
@@ -126,8 +131,10 @@ module TpGamesLib =
                     crw <- num
                     gms.CurrentCell <- rw.Cells.[0]
 
+        //get baseNum
+        member _.BaseNum() = b
 
-        /// initialise
+        /// close
         member _.Close() =
             ScincFuncs.Base.Close()|>ignore
  

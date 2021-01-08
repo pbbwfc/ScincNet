@@ -194,9 +194,9 @@ namespace ScincFuncs {
 	{
 	public:
 		static int Load(unsigned int gnum);
-		static int Save(unsigned int gnum);
+		static int Save(unsigned int gnum, int basenum);
 		static int Delete(unsigned int gnum);
-		static int SavePgn(String^ pgnstr, unsigned int gnum);
+		static int SavePgn(String^ pgnstr, unsigned int gnum, int basenum);
 		static int StripComments();
 		static int GetTag(String^ tag, String^% val);
 		static int SetTag(String^ tag, String^ val);

@@ -29,20 +29,20 @@ type TestScidGame () =
     [<TestMethod>]
     member this.ScidGameLoad () =
         let actual = ScidGame.Load(1u)
-        ScidGame.Save(1u)|>ignore
+        ScidGame.Save(1u,Base.Current())|>ignore
         Assert.AreEqual(0, actual)
   
     [<TestMethod>]
     member this.ScidGameSave () =
         ScidGame.Load(1u)|>ignore
-        let actual = ScidGame.Save(1u)
+        let actual = ScidGame.Save(1u,Base.Current())
         Assert.AreEqual(0, actual)
 
     [<TestMethod>]
     member this.ScidGameStripComments () =
         ScidGame.Load(1u)|>ignore
         let actual = ScidGame.StripComments()
-        ScidGame.Save(1u)|>ignore
+        ScidGame.Save(1u,Base.Current())|>ignore
         Assert.AreEqual(0, actual)
 
     [<TestMethod>]
@@ -57,7 +57,7 @@ type TestScidGame () =
     member this.ScidGameSetTag () =
         ScidGame.Load(1u)|>ignore
         let actual = ScidGame.SetTag("White","White Name")
-        ScidGame.Save(1u)|>ignore
+        ScidGame.Save(1u,Base.Current())|>ignore
         Assert.AreEqual(0, actual)
 
     [<TestMethod>]

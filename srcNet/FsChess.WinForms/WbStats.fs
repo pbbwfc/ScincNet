@@ -231,7 +231,7 @@ module WbStatsLib =
         member stats.Refrsh() =
             tsts <- new ScincFuncs.totstats()
             mvsts.Clear()
-            if ScincFuncs.Tree.Search(&mvsts, &tsts, fen, basenum)=0 then
+            if basenum<> -1 && ScincFuncs.Tree.Search(&mvsts, &tsts, fen, basenum)=0 then
                 stats.DocumentText <- bdsttags()
 
         member stats.UpdateFen(bd:Brd) =

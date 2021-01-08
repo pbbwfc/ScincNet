@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['save_29',['Save',['../class_scinc_funcs_1_1_scid_game.html#af8edbb5ce280fc6edc2a94e9d4808a55',1,'ScincFuncs::ScidGame']]],
-  ['savepgn_30',['SavePgn',['../class_scinc_funcs_1_1_scid_game.html#af44d0797ba4f02d88fcab8b0e20cc0b9',1,'ScincFuncs::ScidGame']]],
+  ['save_29',['Save',['../class_scinc_funcs_1_1_scid_game.html#a249e66b3934b1b823b677c19c02837db',1,'ScincFuncs::ScidGame']]],
+  ['savepgn_30',['SavePgn',['../class_scinc_funcs_1_1_scid_game.html#af19a9fce1855db01a2a3f664d7862c82',1,'ScincFuncs::ScidGame']]],
   ['scidbaset_31',['scidBaseT',['../structscid_base_t.html',1,'']]],
   ['scidgame_32',['ScidGame',['../class_scinc_funcs_1_1_scid_game.html',1,'ScincFuncs::ScidGame'],['../class_scinc_funcs_1_1_eco.html#a208a9140da5e8cb0e62783fd9959b353',1,'ScincFuncs::Eco::ScidGame()']]],
   ['scidstatst_33',['scidStatsT',['../structscid_stats_t.html',1,'']]],
