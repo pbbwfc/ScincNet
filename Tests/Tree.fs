@@ -18,6 +18,7 @@ type TestTree () =
             File.Delete(treedb + ".si4")
             File.Delete(treedb + ".sg4")
             File.Delete(treedb + ".sn4")
+            File.Delete(treedb + ".stc")
   
     [<TestInitialize>]  
     member this.testInit()   =
@@ -57,7 +58,18 @@ type TestTree () =
         Assert.AreEqual(0,mvst.Perf)
         Assert.AreEqual(2016,mvst.AvYear)
         Assert.AreEqual("A40a",mvst.ECO)
-        
+
+    [<TestMethod>]
+     member this.TreeWrite () =
+        let mutable tsts = new ScincFuncs.totstats()
+        let mutable mvsts = new ResizeArray<ScincFuncs.mvstats>()
+        let actual = Tree.Search(&mvsts,&tsts,"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",1)
+        Assert.AreEqual(0, actual)
+        let actual = Tree.Write(1)
+        Assert.AreEqual(0, actual)
+        let actual = FileInfo(treedb + ".stc").Length
+        Assert.AreEqual(182L,actual)
+
         
         
         

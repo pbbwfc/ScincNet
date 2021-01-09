@@ -119,17 +119,11 @@ module Form =
                         if ScincFuncs.Base.Open(fn)<0 then
                             MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
                         else
-                            let current = ScincFuncs.Base.Current()
-                            let auto = ScincFuncs.Base.Autoloadgame(true,uint32(current))
-                            SbUpdate("Opening game number: " + auto.ToString())
-                            ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
                             Recents.add fn
-                            SbUpdate("Loading list of games")
-                            gmtbs.AddTab()
-                            refreshWindows()
                             if sts.BaseNum()= -1||dotree then 
-                                SbUpdate("Updating tree")
                                 sts.Init(nm,ScincFuncs.Base.Current())
+                            //dotbselect will be called to do the loading
+                            gmtbs.AddTab()
                             SbUpdate("Ready")
                     elif ifn<>"" then
                         //open database
@@ -139,17 +133,11 @@ module Form =
                         if ScincFuncs.Base.Open(fn)<0 then
                             MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
                         else
-                            let current = ScincFuncs.Base.Current()
-                            let auto = ScincFuncs.Base.Autoloadgame(true,uint32(current))
-                            SbUpdate("Opening game number: " + auto.ToString())
-                            ScincFuncs.ScidGame.Load(uint32(auto))|>ignore
                             Recents.add fn
-                            SbUpdate("Loading list of games")
-                            gmtbs.AddTab()
-                            refreshWindows()
                             if sts.BaseNum()= -1||dotree then 
-                                SbUpdate("Updating tree")
                                 sts.Init(nm,ScincFuncs.Base.Current())
+                            //dotbselect will be called to do the loading
+                            gmtbs.AddTab()
                             SbUpdate("Ready")
             waitify(dofun)
 

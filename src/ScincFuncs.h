@@ -230,6 +230,7 @@ namespace ScincFuncs {
 	{
 	public:
 		static int Search(System::Collections::Generic::List<mvstats^>^% mvsts, totstats^% tsts, String^ fenstr, int basenum);
+		static int Write(int basenum);
 	};
 	/// <summary>
 	/// Class that hold functions relating to search

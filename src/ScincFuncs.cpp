@@ -1912,14 +1912,14 @@ void sortTreeMoves(treeT* tree, int sortMethod, colorT toMove)
 }
 
 /// <summary>
-/// Search: Gets the stats tree for the specified position for the specified database 
+/// treeSearch: Local function to gets the stats tree for the specified position for the specified database 
 /// </summary>
 /// <param name="mvsts">the class holding the move line data</param>
 /// <param name="tsts">the class holding the total line data</param>
 /// <param name="fenstr">the fen of the position</param>
 /// <param name="basenum">the number of the base</param>
 /// <returns>returns 0 if successful</returns>
-int ScincFuncs::Tree::Search(System::Collections::Generic::List<mvstats^>^% mvsts, totstats^% tsts, String^ fenstr, int basenum)
+int treeSearch(System::Collections::Generic::List<ScincFuncs::mvstats^>^% mvsts, ScincFuncs::totstats^% tsts, String^ fenstr, int basenum, bool returnTree)
 {
 	msclr::interop::marshal_context oMarshalContext;
 
@@ -2182,122 +2182,156 @@ int ScincFuncs::Tree::Search(System::Collections::Generic::List<mvstats^>^% mvst
 
 	search_pool.erase(&base);
 
-	// Now we return the move list
-	node = tree->node;
-	for (uint count = 0; count < tree->moveCount; count++, node++)
+	// Now we return the move list if returnTree is true
+	if (returnTree)
 	{
-		ecoStringT ecoStr;
-		eco_ToExtendedString(node->ecoCode, ecoStr);
-		uint avgElo = 0;
-		if (node->eloCount >= 10)
-		{
-			// bool foundInCache = false;
-			avgElo = node->eloSum / node->eloCount;
-		}
-		uint perf = 0;
-		if (node->perfCount >= 10)
-		{
-			perf = node->perfSum / node->perfCount;
-			uint score = (node->score + 5) / 10;
-			if (db->game->GetCurrentPos()->GetToMove() == BLACK)
-			{
-				score = 100 - score;
-			}
-		}
-		unsigned long long avgYear = 0;
-		if (node->yearCount > 0)
-		{
-			avgYear = (node->yearSum + (node->yearCount / 2)) / node->yearCount;
-		}
-		node->san[6] = 0;
-		strcpy(tempTrans, node->san);
-
-		mvstats^ mvst = gcnew mvstats();
-		mvst->Mvstr = gcnew System::String(tempTrans);
-		mvst->Count = node->total;
-		mvst->Freq = static_cast<double>(node->total) / tree->totalCount;
-		mvst->WhiteWins = node->freq[RESULT_White];
-		mvst->Draws = node->freq[RESULT_Draw];
-		mvst->BlackWins = node->freq[RESULT_Black];
-		mvst->Score = node->score/1000.0;
-		mvst->DrawPc = static_cast<double>(node->freq[RESULT_Draw]) / node->total;
-		mvst->AvElo = avgElo;
-		mvst->Perf = perf;
-		mvst->AvYear = static_cast<int>(avgYear);
-		mvst->ECO = gcnew System::String(ecoStr);
-
-		mvsts->Add(mvst);
-	}
-
-	// Now do the totals line as well, if there are any moves in the tree:
-
-	if (tree->moveCount > 0)
-	{
-		int totalScore = 0;
-		unsigned long long eloSum = 0;
-		unsigned long long eloCount = 0;
-		unsigned long long perfSum = 0;
-		unsigned long long perfCount = 0;
-		unsigned long long yearCount = 0;
-		unsigned long long yearSum = 0;
-		uint nDraws = 0;
-		uint nWhite = 0;
-		uint nBlack = 0;
 		node = tree->node;
 		for (uint count = 0; count < tree->moveCount; count++, node++)
 		{
-			totalScore += node->freq[RESULT_White] * 2;
-			totalScore += node->freq[RESULT_Draw] + node->freq[RESULT_None];
-			eloCount += node->eloCount;
-			eloSum += node->eloSum;
-			perfCount += node->perfCount;
-			perfSum += node->perfSum;
-			yearCount += node->yearCount;
-			yearSum += node->yearSum;
-			nDraws += node->freq[RESULT_Draw];
-			nWhite += node->freq[RESULT_White];
-			nBlack += node->freq[RESULT_Black];
+			ecoStringT ecoStr;
+			eco_ToExtendedString(node->ecoCode, ecoStr);
+			uint avgElo = 0;
+			if (node->eloCount >= 10)
+			{
+				// bool foundInCache = false;
+				avgElo = node->eloSum / node->eloCount;
+			}
+			uint perf = 0;
+			if (node->perfCount >= 10)
+			{
+				perf = node->perfSum / node->perfCount;
+				uint score = (node->score + 5) / 10;
+				if (db->game->GetCurrentPos()->GetToMove() == BLACK)
+				{
+					score = 100 - score;
+				}
+			}
+			unsigned long long avgYear = 0;
+			if (node->yearCount > 0)
+			{
+				avgYear = (node->yearSum + (node->yearCount / 2)) / node->yearCount;
+			}
+			node->san[6] = 0;
+			strcpy(tempTrans, node->san);
+
+			ScincFuncs::mvstats^ mvst = gcnew ScincFuncs::mvstats();
+			mvst->Mvstr = gcnew System::String(tempTrans);
+			mvst->Count = node->total;
+			mvst->Freq = static_cast<double>(node->total) / tree->totalCount;
+			mvst->WhiteWins = node->freq[RESULT_White];
+			mvst->Draws = node->freq[RESULT_Draw];
+			mvst->BlackWins = node->freq[RESULT_Black];
+			mvst->Score = node->score / 1000.0;
+			mvst->DrawPc = static_cast<double>(node->freq[RESULT_Draw]) / node->total;
+			mvst->AvElo = avgElo;
+			mvst->Perf = perf;
+			mvst->AvYear = static_cast<int>(avgYear);
+			mvst->ECO = gcnew System::String(ecoStr);
+
+			mvsts->Add(mvst);
 		}
-		totalScore = totalScore * 500 / tree->totalCount;
-		int avgElo = 0;
-		if (eloCount >= 10)
+
+		// Now do the totals line as well, if there are any moves in the tree:
+
+		if (tree->moveCount > 0)
 		{
-			avgElo = static_cast<int>(eloSum / eloCount);
+			int totalScore = 0;
+			unsigned long long eloSum = 0;
+			unsigned long long eloCount = 0;
+			unsigned long long perfSum = 0;
+			unsigned long long perfCount = 0;
+			unsigned long long yearCount = 0;
+			unsigned long long yearSum = 0;
+			uint nDraws = 0;
+			uint nWhite = 0;
+			uint nBlack = 0;
+			node = tree->node;
+			for (uint count = 0; count < tree->moveCount; count++, node++)
+			{
+				totalScore += node->freq[RESULT_White] * 2;
+				totalScore += node->freq[RESULT_Draw] + node->freq[RESULT_None];
+				eloCount += node->eloCount;
+				eloSum += node->eloSum;
+				perfCount += node->perfCount;
+				perfSum += node->perfSum;
+				yearCount += node->yearCount;
+				yearSum += node->yearSum;
+				nDraws += node->freq[RESULT_Draw];
+				nWhite += node->freq[RESULT_White];
+				nBlack += node->freq[RESULT_Black];
+			}
+			totalScore = totalScore * 500 / tree->totalCount;
+			int avgElo = 0;
+			if (eloCount >= 10)
+			{
+				avgElo = static_cast<int>(eloSum / eloCount);
+			}
+			int perf = 0;
+			if (perfCount >= 10)
+			{
+				perf = static_cast<int>(perfSum / perfCount);
+			}
+			tsts->TotCount = tree->totalCount;
+			tsts->TotFreq = 1.0;
+			tsts->TotWhiteWins = nWhite;
+			tsts->TotDraws = nDraws;
+			tsts->TotBlackWins = nBlack;
+			tsts->TotScore = totalScore / 1000.0;
+			tsts->TotDrawPc = static_cast<double>(nDraws) / tree->totalCount;
+			tsts->TotAvElo = avgElo;
+			tsts->TotPerf = perf;
+			tsts->TotAvYear = yearCount == 0 ? 0 : static_cast<int>((yearSum + (yearCount / 2)) / yearCount);
 		}
-		int perf = 0;
-		if (perfCount >= 10)
-		{
-			perf = static_cast<int>(perfSum / perfCount);
-		}
-		tsts->TotCount = tree->totalCount;
-		tsts->TotFreq = 1.0;
-		tsts->TotWhiteWins = nWhite;
-		tsts->TotDraws = nDraws;
-		tsts->TotBlackWins = nBlack;
-		tsts->TotScore = totalScore / 1000.0;
-		tsts->TotDrawPc = static_cast<double>(nDraws) / tree->totalCount;
-		tsts->TotAvElo = avgElo;
-		tsts->TotPerf = perf;
-		tsts->TotAvYear = yearCount==0 ? 0 : static_cast<int>((yearSum + (yearCount / 2)) / yearCount);
 	}
 
 	return 0;
 }
 
-// SEARCH functions
-
-inline uint
-startFilterSize(scidBaseT* base, filterOpT filterOp)
+/// <summary>
+/// Search: Gets the stats tree for the specified position for the specified database 
+/// </summary>
+/// <param name="mvsts">the class holding the move line data</param>
+/// <param name="tsts">the class holding the total line data</param>
+/// <param name="fenstr">the fen of the position</param>
+/// <param name="basenum">the number of the base</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::Tree::Search(System::Collections::Generic::List<mvstats^>^% mvsts, totstats^% tsts, String^ fenstr, int basenum)
 {
-	// &&& if( base->dbFilter == NULL)
-	// &&&     initDbFilter( base, 1);
-
-	if (filterOp == FILTEROP_AND)
-	{
-		return base->dbFilter->Count();
-	}
-	return base->numGames;
+	return treeSearch(mvsts, tsts, fenstr, basenum, true);
 }
+
+/// <summary>
+/// Write: Writes the tree cache file for the specified database
+/// </summary>
+/// <param name="basenum">the number of the base</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::Tree::Write(int basenum)
+{
+	scidBaseT* base = db;
+	if (basenum >= 1 && basenum <= MAX_BASES)
+	{
+		base = &(dbList[basenum - 1]);
+	}
+	
+	if (!base->inUse)
+	{
+		return -1;
+	}
+	if (base->memoryOnly)
+	{
+		// Memory-only file, so ignore.
+		return 0;
+	}
+
+	if (base->treeCache->WriteFile(base->fileName) != OK)
+	{
+		return -2;//Error writing Scid tree cache file.
+	}
+	return 0;
+}
+
+
+// SEARCH functions
 
 /// <summary>
 /// Board: Searches for exact match for the current position and sets the filter accordingly.
@@ -2307,118 +2341,9 @@ startFilterSize(scidBaseT* base, filterOpT filterOp)
 /// <returns>returns 0 if successful</returns>
 int ScincFuncs::Search::Board(String^ fenstr,int basenum)
 {
-	msclr::interop::marshal_context oMarshalContext;
-
-	const char* fen = oMarshalContext.marshal_as<const char*>(fenstr);
-	if (!db->inUse)
-	{
-		return -1;
-	}
-
-	bool useHpSigSpeedup = true;
-	gameExactMatchT searchType = GAME_EXACT_MATCH_Exact;
-	
-	Position* pos = db->game->GetCurrentPos();
-	pos->ReadFromFEN(fen);
-
-	int oldCurrentBase = currentBase;
-	currentBase = basenum - 1;
-	db = &(dbList[currentBase]);
-
-	matSigT msig = matsig_Make(pos->GetMaterial());
-	uint hpSig = pos->GetHPSig();
-
-	uint skipcount = 0;
-
-	filter_reset(db, 1);
-	uint startFilterCount = startFilterSize(db, FILTEROP_AND);
-
-	// Here is the loop that searches on each game:
-	IndexEntry* ie;
-	Game* g = scratchGame;
-	uint gameNum;
-	for (gameNum = 0; gameNum < db->numGames; gameNum++)
-	{
-		// Skip any games not in the filter:
-		if (db->dbFilter->Get(gameNum) == 0)
-		{
-			skipcount++;
-			continue;
-		}
-		
-		ie = db->idx->FetchEntry(gameNum);
-		if (ie->GetLength() == 0)
-		{
-			// Skip games with no gamefile record:
-			db->dbFilter->Set(gameNum, 0);
-			skipcount++;
-			continue;
-		}
-
-		bool possibleMatch = true;
-
-		// Apply speedups if we are not searching in variations:
-		if (!ie->GetStartFlag())
-		{
-			// Speedups that only apply to standard start games:
-			if (useHpSigSpeedup && hpSig != 0xFFFF)
-			{
-				const byte* hpData = ie->GetHomePawnData();
-				if (!hpSig_PossibleMatch(hpSig, hpData))
-				{
-					possibleMatch = false;
-				}
-			}
-		}
-
-		// If this game has no promotions, check the material of its final
-		// position, since the searched position might be unreachable:
-		if (possibleMatch)
-		{
-			if (!matsig_isReachable(msig, ie->GetFinalMatSig(),
-				ie->GetPromotionsFlag(),
-				ie->GetUnderPromoFlag()))
-			{
-				possibleMatch = false;
-			}
-		}
-
-		if (!possibleMatch)
-		{
-			db->dbFilter->Set(gameNum, 0);
-			skipcount++;
-			continue;
-		}
-
-		// At this point, the game needs to be loaded:
-		if (db->gfile->ReadGame(db->bbuf, ie->GetOffset(),
-			ie->GetLength()) != OK)
-		{
-			return -2;//Error reading game file.
-		}
-		uint ply = 0;
-		// No searching in variations:
-		if (possibleMatch)
-		{
-			if (g->ExactMatch(pos, db->bbuf, NULL, searchType))
-			{
-				// Set its auto-load move number to the matching move:
-				ply = g->GetCurrentPly() + 1;
-			}
-		}
-		if (ply > 255)
-		{
-			ply = 255;
-		}
-		db->dbFilter->Set(gameNum, ply);
-	}
-
-	setMainFilter(db);
-
-	currentBase = oldCurrentBase;
-	db = &(dbList[currentBase]);
-
-	return 0;
+	System::Collections::Generic::List<mvstats^>^ mvsts = gcnew System::Collections::Generic::List<mvstats^> ();
+	totstats^ tsts = gcnew totstats();
+	return treeSearch(mvsts, tsts, fenstr, basenum, false);
 }
 
 // COMPACT functions

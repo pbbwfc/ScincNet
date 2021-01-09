@@ -242,8 +242,7 @@ module WbStatsLib =
         member stats.Init(nm:string, num:int) =
             basenm <- nm
             basenum <- num
-            stats.Refrsh()
-
+            
         member stats.Close() =
             basenm <- ""
             basenum <- -1
