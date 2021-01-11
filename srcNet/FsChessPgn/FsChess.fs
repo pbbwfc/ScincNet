@@ -158,6 +158,9 @@ module Game =
 
     ///Deletes a RAV in the Game at the address provided
     let DeleteRav = FsChessPgn.Game.DeleteRav
+    
+    ///Strips moves until end of game at the address provided
+    let Strip = FsChessPgn.Game.Strip
 
     ///Adds a comment to the Game before the address provided
     let CommentBefore = FsChessPgn.Game.CommentBefore

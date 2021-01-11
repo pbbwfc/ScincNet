@@ -653,3 +653,18 @@ module Game =
         let initbd = if gm.BoardSetup.IsSome then gm.BoardSetup.Value else Board.Start
         let fnd,mvstr = getbd initbd (gm.MoveText|>GetMoves)
         if fnd then Some(indx,gm,mvstr) else None
+
+    let Strip (gm:Game) (iirs:int list)  =
+        let rec getnmtel (cirs:int list) (mtel:MoveTextEntry list) =
+            if cirs.Length=1 then 
+                let i = cirs.Head
+                mtel.[..i]
+            else
+                let i = cirs.Head
+                let rav = mtel.[i]
+                match rav with
+                |RAVEntry(nmtel) ->
+                    mtel.[..i-1]@[RAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
+                |_ -> failwith "should be RAV"
+        let nmtel = getnmtel iirs gm.MoveText
+        {gm with MoveText=nmtel}

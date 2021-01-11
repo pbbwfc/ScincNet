@@ -345,6 +345,11 @@ module PnlPgnLib =
                 gmchg <- true
                 gmchg|>gmchngEvt.Trigger
                
+            let strip(e) =
+                game <- Game.Strip game rirs
+                pgn.DocumentText <- mvtags()
+                gmchg <- true
+                gmchg|>gmchngEvt.Trigger
 
             let m = new ContextMenuStrip()
             //do edit comm before
@@ -372,6 +377,11 @@ module PnlPgnLib =
                 new ToolStripMenuItem(Text = "Delete Variation")
             dlr.Click.Add(delrav)
             m.Items.Add(dlr) |> ignore
+            //do strip moves
+            let str =
+                new ToolStripMenuItem(Text = "Strip Moves to End")
+            str.Click.Add(strip)
+            m.Items.Add(str) |> ignore
             m
 
         let cmctxmnu = 
