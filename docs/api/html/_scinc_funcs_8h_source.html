@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('_scinc_funcs_8h_source.html',''); init
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">const</span> filterOpT FILTEROP_RESET = 2;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// TreeCache size for each open database:</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">const</span> uint SCID_TreeCacheSize = 1000; <span class="comment">//250</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">const</span> uint SCID_TreeCacheSize = 100000; <span class="comment">//250</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// Secondary (memory only) TreeCache size:</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">const</span> uint SCID_BackupCacheSize = 100;</div>
@@ -293,28 +293,30 @@ $(document).ready(function(){initNavTree('_scinc_funcs_8h_source.html',''); init
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    {</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="class_scinc_funcs_1_1_search.html">Search</a>(System::Collections::Generic::List&lt;mvstats^&gt;^% mvsts, <a class="code" href="class_scinc_funcs_1_1totstats.html">totstats</a>^% tsts, String^ fenstr, <span class="keywordtype">int</span> basenum);</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    };</div>
-<div class="line"><a name="l00237"></a><span class="lineno"><a class="line" href="class_scinc_funcs_1_1_search.html">  237</a></span>&#160;    <span class="keyword">public ref class</span> <a class="code" href="class_scinc_funcs_1_1_search.html">Search</a></div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    {</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> Board(String^ fenstr, <span class="keywordtype">int</span> basenum);</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    };</div>
-<div class="line"><a name="l00245"></a><span class="lineno"><a class="line" href="class_scinc_funcs_1_1_compact.html">  245</a></span>&#160;    <span class="keyword">public ref class</span> <a class="code" href="class_scinc_funcs_1_1_compact.html">Compact</a></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    {</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> Games();</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    };</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;}</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> Write(<span class="keywordtype">int</span> basenum);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> Populate(<span class="keywordtype">int</span> ply, <span class="keywordtype">int</span> basenum, uint numgames);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    };</div>
+<div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="class_scinc_funcs_1_1_search.html">  239</a></span>&#160;    <span class="keyword">public ref class</span> <a class="code" href="class_scinc_funcs_1_1_search.html">Search</a></div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    {</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> Board(String^ fenstr, <span class="keywordtype">int</span> basenum);</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    };</div>
+<div class="line"><a name="l00247"></a><span class="lineno"><a class="line" href="class_scinc_funcs_1_1_compact.html">  247</a></span>&#160;    <span class="keyword">public ref class</span> <a class="code" href="class_scinc_funcs_1_1_compact.html">Compact</a></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> Games();</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    };</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;}</div>
 <div class="ttc" id="aclass_scinc_funcs_1_1_base_html"><div class="ttname"><a href="class_scinc_funcs_1_1_base.html">ScincFuncs::Base</a></div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:165</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1_clipbase_html"><div class="ttname"><a href="class_scinc_funcs_1_1_clipbase.html">ScincFuncs::Clipbase</a></div><div class="ttdoc">Class that hold functions relating to the SCID clipbase</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:185</div></div>
-<div class="ttc" id="aclass_scinc_funcs_1_1_compact_html"><div class="ttname"><a href="class_scinc_funcs_1_1_compact.html">ScincFuncs::Compact</a></div><div class="ttdoc">Class that hold functions relating to compacting the files</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:246</div></div>
+<div class="ttc" id="aclass_scinc_funcs_1_1_compact_html"><div class="ttname"><a href="class_scinc_funcs_1_1_compact.html">ScincFuncs::Compact</a></div><div class="ttdoc">Class that hold functions relating to compacting the files</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:248</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1_eco_html"><div class="ttname"><a href="class_scinc_funcs_1_1_eco.html">ScincFuncs::Eco</a></div><div class="ttdoc">Class that hold functions relating to the ECO book</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:211</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1_filt_html"><div class="ttname"><a href="class_scinc_funcs_1_1_filt.html">ScincFuncs::Filt</a></div><div class="ttdoc">Class that hold functions relating to databse filter</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:222</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1_scid_game_html"><div class="ttname"><a href="class_scinc_funcs_1_1_scid_game.html">ScincFuncs::ScidGame</a></div><div class="ttdoc">Class that hold functions relating to games in a SCID clipbase</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:194</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1_scid_game_html_aff7e49c5ea7a9e255f55c03cde96c3d5"><div class="ttname"><a href="class_scinc_funcs_1_1_scid_game.html#aff7e49c5ea7a9e255f55c03cde96c3d5">ScincFuncs::ScidGame::Pgn</a></div><div class="ttdeci">static int Pgn(String^% pgn)</div><div class="ttdoc">Pgn: Returns the PGN representation of the game.</div><div class="ttdef"><b>Definition:</b> ScincFuncs.cpp:1559</div></div>
-<div class="ttc" id="aclass_scinc_funcs_1_1_search_html"><div class="ttname"><a href="class_scinc_funcs_1_1_search.html">ScincFuncs::Search</a></div><div class="ttdoc">Class that hold functions relating to search</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:238</div></div>
+<div class="ttc" id="aclass_scinc_funcs_1_1_search_html"><div class="ttname"><a href="class_scinc_funcs_1_1_search.html">ScincFuncs::Search</a></div><div class="ttdoc">Class that hold functions relating to search</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:240</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1_tree_html"><div class="ttname"><a href="class_scinc_funcs_1_1_tree.html">ScincFuncs::Tree</a></div><div class="ttdoc">Class that hold functions relating to the stats tree</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:230</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1gmui_html"><div class="ttname"><a href="class_scinc_funcs_1_1gmui.html">ScincFuncs::gmui</a></div><div class="ttdoc">Class that holds properties to display in grid - need to be reversed!</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:139</div></div>
 <div class="ttc" id="aclass_scinc_funcs_1_1mvstats_html"><div class="ttname"><a href="class_scinc_funcs_1_1mvstats.html">ScincFuncs::mvstats</a></div><div class="ttdoc">Class that holds the tree data for a move</div><div class="ttdef"><b>Definition:</b> ScincFuncs.h:105</div></div>

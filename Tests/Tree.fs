@@ -30,7 +30,7 @@ type TestTree () =
         Eco.Read(eco)|>ignore
 
     [<TestMethod>]
-     member this.TreeSearch () =
+    member this.TreeSearch () =
         let mutable tsts = new ScincFuncs.totstats()
         let mutable mvsts = new ResizeArray<ScincFuncs.mvstats>()
         let actual = Tree.Search(&mvsts,&tsts,"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",1)
@@ -60,7 +60,7 @@ type TestTree () =
         Assert.AreEqual("A40a",mvst.ECO)
 
     [<TestMethod>]
-     member this.TreeWrite () =
+    member this.TreeWrite () =
         let mutable tsts = new ScincFuncs.totstats()
         let mutable mvsts = new ResizeArray<ScincFuncs.mvstats>()
         let actual = Tree.Search(&mvsts,&tsts,"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",1)
@@ -70,7 +70,25 @@ type TestTree () =
         let actual = FileInfo(treedb + ".stc").Length
         Assert.AreEqual(182L,actual)
 
-        
+    [<TestMethod>]
+    member this.TreePopulate () =
+         //temp
+        //Base.Open(@"d:\tmp\Simonwilliams")|>ignore
+        //let actual = Tree.Populate(20,2)
+        //Assert.AreEqual(0, actual)
+        //let actual = Tree.Write(2)
+        //Assert.AreEqual(0, actual)
+        //let actual = FileInfo(@"d:\tmp\Simonwilliams.stc").Length
+        ////Assert.AreEqual(1928L,actual)
+        //Base.Close()|>ignore
+        //end temp
+        let actual = Tree.Populate(20,1,1000u)
+        Assert.AreEqual(0, actual)
+        let actual = Tree.Write(1)
+        Assert.AreEqual(0, actual)
+        let actual = FileInfo(treedb + ".stc").Length
+        Assert.AreEqual(17016L,actual)
+       
         
         
 

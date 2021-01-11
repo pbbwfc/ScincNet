@@ -1916,7 +1916,7 @@ void sortTreeMoves(treeT* tree, int sortMethod, colorT toMove)
 /// </summary>
 /// <param name="mvsts">the class holding the move line data</param>
 /// <param name="tsts">the class holding the total line data</param>
-/// <param name="fenstr">the fen of the position</param>
+/// <param name="fenstr">the fen of current position</param>
 /// <param name="basenum">the number of the base</param>
 /// <returns>returns 0 if successful</returns>
 int treeSearch(System::Collections::Generic::List<ScincFuncs::mvstats^>^% mvsts, ScincFuncs::totstats^% tsts, String^ fenstr, int basenum, bool returnTree)
@@ -1924,6 +1924,9 @@ int treeSearch(System::Collections::Generic::List<ScincFuncs::mvstats^>^% mvsts,
 	msclr::interop::marshal_context oMarshalContext;
 
 	const char* fen = oMarshalContext.marshal_as<const char*>(fenstr);
+
+	Position* pos = new Position;
+	pos->ReadFromFEN(fen);
 	
 	char tempTrans[10];
 
@@ -1954,11 +1957,6 @@ int treeSearch(System::Collections::Generic::List<ScincFuncs::mvstats^>^% mvsts,
 	bool foundInCache = false;
 	// Check if there is a TreeCache file to open:
 	base->treeCache->ReadFile(base->fileName);
-
-	// Set vars
-	Position* pos = db->game->GetCurrentPos();
-	//set to fen
-	pos->ReadFromFEN(fen);
 
 	// Lookup the cache before searching:
 	cachedTreeT* pct = base->treeCache->Lookup(pos);
@@ -2158,7 +2156,7 @@ int treeSearch(System::Collections::Generic::List<ScincFuncs::mvstats^>^% mvsts,
 		node->ecoCode = 0;
 		if (ecoBook != NULL)
 		{
-			scratchPos->CopyFrom(db->game->GetCurrentPos());
+			scratchPos->CopyFrom(pos);
 			if (node->sm.from != NULL_SQUARE)
 			{
 				scratchPos->DoSimpleMove(&(node->sm));
@@ -2172,12 +2170,12 @@ int treeSearch(System::Collections::Generic::List<ScincFuncs::mvstats^>^% mvsts,
 	}
 
 	// Now we sort the move list:
-	sortTreeMoves(tree, SORT_FREQUENCY, db->game->GetCurrentPos()->GetToMove());
+	sortTreeMoves(tree, SORT_FREQUENCY, pos->GetToMove());
 
 	//update cache
 	if (!foundInCache)
 	{
-		base->treeCache->Add(db->game->GetCurrentPos(), tree, base->treeFilter);
+		base->treeCache->Add(pos, tree, base->treeFilter);
 	}
 
 	search_pool.erase(&base);
@@ -2201,7 +2199,7 @@ int treeSearch(System::Collections::Generic::List<ScincFuncs::mvstats^>^% mvsts,
 			{
 				perf = node->perfSum / node->perfCount;
 				uint score = (node->score + 5) / 10;
-				if (db->game->GetCurrentPos()->GetToMove() == BLACK)
+				if (pos->GetToMove() == BLACK)
 				{
 					score = 100 - score;
 				}
@@ -2297,6 +2295,7 @@ int treeSearch(System::Collections::Generic::List<ScincFuncs::mvstats^>^% mvsts,
 /// <returns>returns 0 if successful</returns>
 int ScincFuncs::Tree::Search(System::Collections::Generic::List<mvstats^>^% mvsts, totstats^% tsts, String^ fenstr, int basenum)
 {
+
 	return treeSearch(mvsts, tsts, fenstr, basenum, true);
 }
 
@@ -2326,6 +2325,60 @@ int ScincFuncs::Tree::Write(int basenum)
 	if (base->treeCache->WriteFile(base->fileName) != OK)
 	{
 		return -2;//Error writing Scid tree cache file.
+	}
+	return 0;
+}
+
+/// <summary>
+/// Populate: pulates the treecach form the early moves in the games
+/// </summary>
+/// <param name="ply">the ply limit on early moves</param>
+/// <param name="basenum">the number of the base</param>
+/// <param name="numgames">the limit on the number of games to use</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::Tree::Populate(int ply, int basenum, uint numgames)
+{
+	scidBaseT* base = db;
+	if (basenum >= 1 && basenum <= MAX_BASES)
+	{
+		base = &(dbList[basenum - 1]);
+	}
+	if (!base->inUse)
+	{
+		return -1;
+	}
+	if (base->memoryOnly)
+	{
+		// Memory-only file, so ignore.
+		return 0;
+	}
+	Game* g = new Game;
+	IndexEntry* ie;
+	// Read each game:
+	uint last = db->numGames < numgames ? db->numGames : numgames;
+	for (uint i = 1; i <= last; i++)
+	{
+		if (ScidGame::Load(i)!= 0)
+		{
+			continue;
+		}
+		g = new Game(*db->game);
+		uint maxPly = ply;
+		errorT err = OK;
+		System::Collections::Generic::List<mvstats^>^ mvsts = gcnew System::Collections::Generic::List<mvstats^>();
+		totstats^ tsts = gcnew totstats();
+		do
+		{
+			//now need to do search
+			char boardStr[200];
+			g->GetCurrentPos()->PrintFEN(boardStr, FEN_ALL_FIELDS);
+			System::String^ fenstr = gcnew System::String(boardStr);
+			treeSearch(mvsts, tsts, fenstr, basenum, false);
+
+			err = g->MoveForward();
+			maxPly--;
+		} while (err == OK && maxPly > 0);
+
 	}
 	return 0;
 }

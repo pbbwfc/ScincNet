@@ -18,7 +18,7 @@ const filterOpT FILTEROP_OR = 1;
 const filterOpT FILTEROP_RESET = 2;
 
 // TreeCache size for each open database:
-const uint SCID_TreeCacheSize = 1000; //250
+const uint SCID_TreeCacheSize = 100000; //250
 
 // Secondary (memory only) TreeCache size:
 const uint SCID_BackupCacheSize = 100;
@@ -231,6 +231,7 @@ namespace ScincFuncs {
 	public:
 		static int Search(System::Collections::Generic::List<mvstats^>^% mvsts, totstats^% tsts, String^ fenstr, int basenum);
 		static int Write(int basenum);
+		static int Populate(int ply, int basenum, uint numgames);
 	};
 	/// <summary>
 	/// Class that hold functions relating to search

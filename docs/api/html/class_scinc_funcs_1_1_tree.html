@@ -102,10 +102,69 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a61f134efc2d3a7520b15da1a2d0af490"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scinc_funcs_1_1_tree.html#a61f134efc2d3a7520b15da1a2d0af490">Search</a> (System::Collections::Generic::List&lt; <a class="el" href="class_scinc_funcs_1_1mvstats.html">mvstats</a>^&gt;^% mvsts, <a class="el" href="class_scinc_funcs_1_1totstats.html">totstats</a>^% tsts, String^ fenstr, int basenum)</td></tr>
 <tr class="memdesc:a61f134efc2d3a7520b15da1a2d0af490"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_scinc_funcs_1_1_search.html" title="Class that hold functions relating to search">Search</a>: Gets the stats tree for the specified position for the specified database  <a href="class_scinc_funcs_1_1_tree.html#a61f134efc2d3a7520b15da1a2d0af490">More...</a><br /></td></tr>
 <tr class="separator:a61f134efc2d3a7520b15da1a2d0af490"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48d81cc4f7b204d423413c643e6650ed"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scinc_funcs_1_1_tree.html#a48d81cc4f7b204d423413c643e6650ed">Write</a> (int basenum)</td></tr>
+<tr class="memdesc:a48d81cc4f7b204d423413c643e6650ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write: Writes the tree cache file for the specified database  <a href="class_scinc_funcs_1_1_tree.html#a48d81cc4f7b204d423413c643e6650ed">More...</a><br /></td></tr>
+<tr class="separator:a48d81cc4f7b204d423413c643e6650ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41238a3ca569c067d532e9c82d90dcf1"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scinc_funcs_1_1_tree.html#a41238a3ca569c067d532e9c82d90dcf1">Populate</a> (int ply, int basenum, uint numgames)</td></tr>
+<tr class="memdesc:a41238a3ca569c067d532e9c82d90dcf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populate: pulates the treecach form the early moves in the games  <a href="class_scinc_funcs_1_1_tree.html#a41238a3ca569c067d532e9c82d90dcf1">More...</a><br /></td></tr>
+<tr class="separator:a41238a3ca569c067d532e9c82d90dcf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that hold functions relating to the stats tree </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a41238a3ca569c067d532e9c82d90dcf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41238a3ca569c067d532e9c82d90dcf1">&#9670;&nbsp;</a></span>Populate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ScincFuncs::Tree::Populate </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ply</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>basenum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>numgames</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Populate: pulates the treecach form the early moves in the games </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ply</td><td>the ply limit on early moves</td></tr>
+    <tr><td class="paramname">basenum</td><td>the number of the base</td></tr>
+    <tr><td class="paramname">numgames</td><td>the limit on the number of games to use</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns 0 if successful</dd></dl>
+
+</div>
+</div>
 <a id="a61f134efc2d3a7520b15da1a2d0af490"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a61f134efc2d3a7520b15da1a2d0af490">&#9670;&nbsp;</a></span>Search()</h2>
 
@@ -158,6 +217,41 @@ Static Public Member Functions</h2></td></tr>
     <tr><td class="paramname">mvsts</td><td>the class holding the move line data</td></tr>
     <tr><td class="paramname">tsts</td><td>the class holding the total line data</td></tr>
     <tr><td class="paramname">fenstr</td><td>the fen of the position</td></tr>
+    <tr><td class="paramname">basenum</td><td>the number of the base</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns 0 if successful</dd></dl>
+
+</div>
+</div>
+<a id="a48d81cc4f7b204d423413c643e6650ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48d81cc4f7b204d423413c643e6650ed">&#9670;&nbsp;</a></span>Write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ScincFuncs::Tree::Write </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>basenum</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write: Writes the tree cache file for the specified database </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
     <tr><td class="paramname">basenum</td><td>the number of the base</td></tr>
   </table>
   </dd>

@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{54A4
 	ProjectSection(SolutionItems) = preProject
 		scripts\importWhite.fsx = scripts\importWhite.fsx
 		scripts\importWhite.tcl = scripts\importWhite.tcl
+		scripts\popTree.fsx = scripts\popTree.fsx
 		scripts\runfsx.cmd = scripts\runfsx.cmd
 		scripts\runtcl.cmd = scripts\runtcl.cmd
 	EndProjectSection
