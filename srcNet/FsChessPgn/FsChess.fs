@@ -41,6 +41,9 @@ module Board =
     ///Create a FEN string from this Board 
     let ToStr = FsChessPgn.Board.ToStr
 
+    ///Create a simple string from this Board 
+    let ToSimpleStr = FsChessPgn.Board.ToSimpleStr
+
     ///The starting Board at the beginning of a game
     let Start = FsChessPgn.Board.Start
 

@@ -228,6 +228,12 @@ module Board =
     ///Gets a FEN string for this Board(bd) 
     let ToStr (bd : Brd) = bd|>FEN.FromBd|>FEN.ToStr
 
+    ///Produces a simple string of characters plu whether white or black to move
+    let ToSimpleStr (bd : Brd) =
+        let bdstr = bd.PieceAt|>List.map(fun p -> if p = Piece.EMPTY then "." else p|>Piece.PieceToString)|>List.reduce(+)
+        let tomv = if bd.WhosTurn=Player.White then "w" else "b"
+        bdstr + tomv
+    
     ///Prints an ASCII version of this Board(bd) 
     let PrintAscii (bd : Brd) = 
         for irank = 0 to 7 do

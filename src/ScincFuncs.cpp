@@ -1305,7 +1305,7 @@ int ScincFuncs::ScidGame::GetTag(String^ tag, String^% val)
 
 	static const char* options[] = {
 		"Event", "Site", "Date", "Round", 
-		"White", "Black", "ECO", "EDate", 
+		"White", "Black", "ECO", "EDate", "WhiteElo", "BlackElo", "Result",
 		NULL };
 	enum
 	{
@@ -1316,7 +1316,10 @@ int ScincFuncs::ScidGame::GetTag(String^ tag, String^% val)
 		T_White,
 		T_Black,
 		T_ECO,
-		T_EDate
+		T_EDate,
+		T_WhiteElo,
+		T_BlackElo,
+		T_Result
 	};
 
 	Game* g = db->game;
@@ -1387,6 +1390,24 @@ int ScincFuncs::ScidGame::GetTag(String^ tag, String^% val)
 		char edateStr[20];
 		date_DecodeToString(g->GetEventDate(), edateStr);
 		val = gcnew System::String(dateStr);
+		break;
+
+	case T_WhiteElo:
+		char weloStr[20];
+		sprintf(weloStr, "%u", g->GetWhiteElo());
+		val = gcnew System::String(weloStr);
+		break;
+
+	case T_BlackElo:
+		char beloStr[20];
+		sprintf(beloStr, "%u", g->GetBlackElo());
+		val = gcnew System::String(beloStr);
+		break;
+
+	case T_Result:
+		char resStr[20];
+		sprintf(resStr, "%u", g->GetResult());
+		val = gcnew System::String(resStr);
 		break;
 
 	default: // Not a valid tag name.
@@ -2353,7 +2374,6 @@ int ScincFuncs::Tree::Populate(int ply, int basenum, uint numgames)
 		return 0;
 	}
 	Game* g = new Game;
-	IndexEntry* ie;
 	// Read each game:
 	uint last = db->numGames < numgames ? db->numGames : numgames;
 	for (uint i = 1; i <= last; i++)

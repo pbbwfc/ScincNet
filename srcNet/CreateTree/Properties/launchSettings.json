@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CreateTree": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
