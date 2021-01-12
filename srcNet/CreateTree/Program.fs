@@ -19,8 +19,9 @@ type private State =
 
 type private GameBrds = {Bds:string list;Mvs:string list}
 type private GameInfo = {Gmno:int;Welo:int;Belo:int;Year:int;Result:int}
-type private MvGameInfos = Collections.Generic.IDictionary<string,GameInfo>
-type private BrdMvGameInfos = Collections.Generic.IDictionary<string,MvGameInfos>
+type private TreeData = {TotElo:int;EloCount:int;TotPerf:int;PerfCount:int;TotYear:int;YearCount:int;TotScore:int;DrawCount:int;TotCount:int}
+type private MvGameInfos = Collections.Generic.Dictionary<string,TreeData>
+type private BrdMvGameInfos = Collections.Generic.Dictionary<string,MvGameInfos>
 
 [<EntryPoint>]
 let main argv =
@@ -190,15 +191,32 @@ let main argv =
     let totaldict = new BrdMvGameInfos()
     for i = 1 to 3 do
         let gminfo,gmbds = GetGmBds i
+        
+        let wtd = 
+            let perf,ct =
+                if gminfo.Belo=0 then 0,0
+                elif gminfo.Result=1 then //draw
+                    gminfo.Belo,1
+                elif gminfo.Result=2 then //win
+                    gminfo.Belo+
+            
+            {TotElo = gminfo.Welo;EloCount = if gminfo.Welo=0 then 0 else 1;TotPerf = if gminfo.Result=1 && gminfo}
+        //;TotPerf:int;PerfCount:int;TotYear:int;YearCount:int;TotScore:int;DrawCount:int;TotCount:int}
+        //let btd = 
         //now need to go through the boarda and put in dictionary holding list of gminfos
-        for j = 0 to gmbds.Bds.Length-1 do
-            let bd = gmbds.Brds[j]
-            let mv = gmbds.Mvs.[j]
-            if totaldict.ContainsKey(bd)
-
-            else
-                let mvdct = new MvGameInfos()
-                mvdct
+        //for j = 0 to gmbds.Bds.Length-1 do
+        //    let bd = gmbds.Bds.[j]
+        //    let mv = gmbds.Mvs.[j]
+        //    if totaldict.ContainsKey(bd) then
+        //        let mvdct:MvGameInfos = totaldict.[bd]
+        //        if mvdct.ContainsKey(mv) then
+        //            mvdct.[mv]<-gminfo::mvdct.[mv]
+        //        else 
+        //            mvdct.[mv]<-[gminfo]
+        //    else
+        //        let mvdct = new MvGameInfos()
+        //        mvdct.[mv]<-[gminfo]
+        //        totaldict.[bd]<-mvdct
         ()
     
     
