@@ -20,8 +20,8 @@ type private State =
 type private GameBrds = {Bds:string list;Mvs:string list}
 type private GameInfo = {Gmno:int;Welo:int;Belo:int;Year:int;Result:int}
 type private TreeData = {TotElo:int;EloCount:int;TotPerf:int;PerfCount:int;TotYear:int;YearCount:int;TotScore:int;DrawCount:int;TotCount:int}
-type private MvGameInfos = Collections.Generic.Dictionary<string,TreeData>
-type private BrdMvGameInfos = Collections.Generic.Dictionary<string,MvGameInfos>
+type private MvTrees = Collections.Generic.Dictionary<string,TreeData>
+type private BrdMvGameInfos = Collections.Generic.Dictionary<string,MvTrees>
 
 [<EntryPoint>]
 let main argv =
@@ -164,6 +164,7 @@ let main argv =
         let lns = pgn.Split('\n')|>List.ofArray
     
         let mvl,bdl = GameRdr(lns,ply)
+        let nply = mvl.Length-1
         let mutable welo = ""
         ScidGame.GetTag("WhiteElo",&welo)|>ignore
         let mutable belo = ""
@@ -183,13 +184,13 @@ let main argv =
             }
         let gmbds =
             {
-                Bds = bdl.[..ply-1]|>List.map(fun b -> b|>Board.ToSimpleStr)
-                Mvs = mvl.[..ply-1]
+                Bds = bdl.[..nply]|>List.map(fun b -> b|>Board.ToSimpleStr)
+                Mvs = mvl.[..nply]
             }
         gminfo,gmbds
 
     let totaldict = new BrdMvGameInfos()
-    for i = 1 to 3 do
+    for i = 1 to numgames do
         let gminfo,gmbds = GetGmBds i
         
         let wtd = 
@@ -198,25 +199,44 @@ let main argv =
                 elif gminfo.Result=1 then //draw
                     gminfo.Belo,1
                 elif gminfo.Result=2 then //win
-                    gminfo.Belo+
-            
-            {TotElo = gminfo.Welo;EloCount = if gminfo.Welo=0 then 0 else 1;TotPerf = if gminfo.Result=1 && gminfo}
-        //;TotPerf:int;PerfCount:int;TotYear:int;YearCount:int;TotScore:int;DrawCount:int;TotCount:int}
-        //let btd = 
-        //now need to go through the boarda and put in dictionary holding list of gminfos
-        //for j = 0 to gmbds.Bds.Length-1 do
-        //    let bd = gmbds.Bds.[j]
-        //    let mv = gmbds.Mvs.[j]
-        //    if totaldict.ContainsKey(bd) then
-        //        let mvdct:MvGameInfos = totaldict.[bd]
-        //        if mvdct.ContainsKey(mv) then
-        //            mvdct.[mv]<-gminfo::mvdct.[mv]
-        //        else 
-        //            mvdct.[mv]<-[gminfo]
-        //    else
-        //        let mvdct = new MvGameInfos()
-        //        mvdct.[mv]<-[gminfo]
-        //        totaldict.[bd]<-mvdct
+                    (gminfo.Belo + 400),1
+                else (gminfo.Belo - 400),1
+            {TotElo = gminfo.Welo;EloCount = (if gminfo.Welo=0 then 0 else 1);TotPerf = perf;
+             PerfCount = ct;TotYear = gminfo.Year;YearCount = (if gminfo.Year=0 then 0 else 1);
+             TotScore = gminfo.Result; DrawCount = (if gminfo.Result=1 then 1 else 0); TotCount=1}
+        let btd = 
+            let perf,ct =
+                 if gminfo.Welo=0 then 0,0
+                 elif gminfo.Result=1 then //draw
+                     gminfo.Welo,1
+                 elif gminfo.Result=0 then //win
+                     (gminfo.Welo + 400),1
+                 else (gminfo.Welo - 400),1
+            {TotElo = gminfo.Belo;EloCount = (if gminfo.Belo=0 then 0 else 1);TotPerf = perf;
+             PerfCount = ct;TotYear = gminfo.Year;YearCount = (if gminfo.Year=0 then 0 else 1);
+             TotScore = gminfo.Result; DrawCount = (if gminfo.Result=1 then 1 else 0); TotCount=1}
+        //now need to go through the boarda and put in dictionary holding running totals
+        for j = 0 to gmbds.Bds.Length-1 do
+            let bd = gmbds.Bds.[j]
+            let mv = gmbds.Mvs.[j]
+            let isw = bd.EndsWith("w")
+            if totaldict.ContainsKey(bd) then
+                let mvdct:MvTrees = totaldict.[bd]
+                if mvdct.ContainsKey(mv) then
+                    let cmt =  mvdct.[mv]
+                    let nmt = if isw then wtd else btd
+                    mvdct.[mv]<-
+                        {TotElo = cmt.TotElo+nmt.TotElo;EloCount = cmt.EloCount+nmt.EloCount;
+                         TotPerf = cmt.TotPerf+nmt.TotPerf;PerfCount = cmt.PerfCount+nmt.PerfCount;
+                         TotYear = cmt.TotYear+nmt.TotYear;YearCount = cmt.YearCount+nmt.YearCount;
+                         TotScore = cmt.TotScore+nmt.TotScore; DrawCount = cmt.DrawCount+nmt.DrawCount; 
+                         TotCount=cmt.TotCount+nmt.TotCount}
+                else 
+                    mvdct.[mv]<-if isw then wtd else btd
+            else
+                let mvdct = new MvTrees()
+                mvdct.[mv]<-if isw then wtd else btd
+                totaldict.[bd]<-mvdct
         ()
     
     
