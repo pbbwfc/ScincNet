@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<Platforms>x64</Platforms>
+		<ApplicationIcon>tree.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+    <Compile Include="StaticTree.fs" />
+    <Compile Include="Form.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\ScincFuncs.vcxproj" />
+	  <ProjectReference Include="..\FsChess.WinForms\FsChess.WinForms.fsproj" />
+	  <ProjectReference Include="..\FsChessPgn\FsChessPgn.fsproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_DeploymentManifestIconFile Remove="tree.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="tree.ico" />
+	</ItemGroup>
+
+</Project>

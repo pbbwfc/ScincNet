@@ -1,7 +1,9 @@
-﻿
+﻿namespace FsChess
+//maybe change later
+
+
 open System
 open ScincFuncs
-open FsChess
 
 type private State = 
     | Unknown
@@ -23,12 +25,13 @@ type private TreeData = {TotElo:int;EloCount:int;TotPerf:int;PerfCount:int;TotYe
 type private MvTrees = Collections.Generic.Dictionary<string,TreeData>
 type private BrdMvGameInfos = Collections.Generic.Dictionary<string,MvTrees>
 
-[<EntryPoint>]
-let main argv =
-    
+module StaticTree =
     let nl = System.Environment.NewLine
+
+    let mutable ply = 20
+    let mutable private totaldict = BrdMvGameInfos()
     
-    let GameRdr(lns:string list,ply:int) = 
+    let private GameRdr(lns:string list,ply:int) = 
         let rec proclin st cstr s (imvl:string list) (ibdl:Brd list) = 
             if s = "" then 
                 match st with
@@ -141,22 +144,8 @@ let main argv =
         let mvl,bdl = getgm lns Unknown "" [] [Board.Start]
         mvl|>List.rev,bdl|>List.rev
 
-    // Open the database:
-    //let basename = @"C:\Users\phil\Documents\ScincNet\bases_extra\Caissabase_2020_11_14"
-    let basename = @"D:\tmp\SimonWilliams"
-    
-    if (Base.Open(basename)<>1) then
-        printfn "Error opening database %s" basename
-    
-    if (Base.Isreadonly()) then
-        printfn "Error database %s is read only" basename
-    
-    let basenum = Base.Current()
-    let ply = 20
-    let numgames = Base.NumGames()
-
     //load gamebds
-    let GetGmBds i =
+    let private GetGmBds i =
         ScidGame.Load(uint(i))|>ignore
         let mutable pgn = ""
         ScidGame.Pgn(&pgn)|>ignore
@@ -189,10 +178,12 @@ let main argv =
             }
         gminfo,gmbds
 
-    let totaldict = new BrdMvGameInfos()
-    for i = 1 to numgames do
+    let Init() =
+        totaldict <- new BrdMvGameInfos()
+
+    let ProcessGame i =
         let gminfo,gmbds = GetGmBds i
-        
+    
         let wtd = 
             let perf,ct =
                 if gminfo.Belo=0 then 0,0
@@ -237,8 +228,5 @@ let main argv =
                 let mvdct = new MvTrees()
                 mvdct.[mv]<-if isw then wtd else btd
                 totaldict.[bd]<-mvdct
-        ()
-    
-    
-    
-    0 // return an integer exit code
+
+
