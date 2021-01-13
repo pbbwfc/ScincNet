@@ -134,6 +134,14 @@ namespace ScincFuncs {
 		property int TotAvYear;
 	};
 	/// <summary>
+	/// Class that holds a list of tree data for each move and the tree totals for all moves
+	/// </summary>
+	public ref class stats {
+	public:
+		property System::Collections::Generic::List<mvstats^>^ MvsStats;
+		property totstats^ TotStats;
+	};
+	/// <summary>
 	/// Class that holds properties to display in grid - need to be reversed!
 	/// </summary>
 	public ref class gmui {

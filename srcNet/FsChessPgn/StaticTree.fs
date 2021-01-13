@@ -1,9 +1,10 @@
-﻿namespace FsChess
-//maybe change later
+﻿namespace FsChessPgn
 
 
 open System
 open ScincFuncs
+open System.Linq
+open FsChess
 
 type private State = 
     | Unknown
@@ -24,12 +25,14 @@ type private GameInfo = {Gmno:int;Welo:int;Belo:int;Year:int;Result:int}
 type private TreeData = {TotElo:int;EloCount:int;TotPerf:int;PerfCount:int;TotYear:int;YearCount:int;TotScore:int;DrawCount:int;TotCount:int}
 type private MvTrees = Collections.Generic.Dictionary<string,TreeData>
 type private BrdMvGameInfos = Collections.Generic.Dictionary<string,MvTrees>
+type private BrdStats = Collections.Generic.Dictionary<string,ScincFuncs.stats>
 
 module StaticTree =
     let nl = System.Environment.NewLine
 
     let mutable ply = 20
     let mutable private totaldict = BrdMvGameInfos()
+    let mutable private stsdict = BrdStats()
     
     let private GameRdr(lns:string list,ply:int) = 
         let rec proclin st cstr s (imvl:string list) (ibdl:Brd list) = 
@@ -180,6 +183,7 @@ module StaticTree =
 
     let Init() =
         totaldict <- new BrdMvGameInfos()
+        stsdict <- new BrdStats()
 
     let ProcessGame i =
         let gminfo,gmbds = GetGmBds i
@@ -229,4 +233,40 @@ module StaticTree =
                 mvdct.[mv]<-if isw then wtd else btd
                 totaldict.[bd]<-mvdct
 
+    let NumPos() = totaldict.Count
 
+    let ProcessPos i =
+        let pair = totaldict.ElementAt(i-1)
+        let key = pair.Key
+        let vl = pair.Value
+        let sts = new stats();
+        let mvsts = new ResizeArray<ScincFuncs.mvstats>()
+        let totsts = new ScincFuncs.totstats()
+        totsts.TotFreq<-1.0
+        for mtr in vl do
+            let tr = mtr.Value
+            totsts.TotCount<-totsts.TotCount+tr.TotCount
+
+
+        for mtr in vl do
+            let mv = mtr.Key
+            let tr = mtr.Value
+            let mvst = new ScincFuncs.mvstats()
+            mvst.Count<-tr.TotCount
+            mvst.Freq<-float(mvst.Count)/float(totsts.TotCount)
+            
+            
+            mvst.AvElo<-if tr.EloCount=0 then 0 else tr.TotElo/tr.EloCount
+            mvst.Mvstr<-mv
+            
+            ()
+            mvsts.Add(mvst)
+
+
+        //need to sort by count
+        mvsts.Sort(fun a b -> b.Count-a.Count)
+        sts.MvsStats<-mvsts
+        sts.TotStats<-totsts
+        stsdict.[key]<-sts
+
+    let GetStats(posstr:string) = stsdict.[posstr]

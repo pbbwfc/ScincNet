@@ -23,10 +23,16 @@ module Form =
             let pth = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),"ScincNet\\bases")
             Directory.CreateDirectory(pth)|>ignore
             pth
+        let mutable bd=Board.Start
 
         let sts = new WbStats(Dock=DockStyle.Fill)
         let crbtn = new Button(Text="Create Tree")
-        let prg = new ProgressBar()
+        let prg = new ProgressBar(Width=160)
+
+        let domvsel(mvstr) =
+            let mv = mvstr|>Move.FromSan bd
+            bd <- bd|>Board.Push mv
+            sts.UpdateStr(bd)
 
         let docreate(e) =
             let ndlg = new OpenFileDialog(Title="Open Database",Filter="Scid databases(*.si4)|*.si4",InitialDirectory=bfol)
@@ -45,12 +51,15 @@ module Form =
                     prg.Maximum<-numgames
                     for i = 1 to numgames do
                         StaticTree.ProcessGame(i)
-                        prg.Value<-i
-                    ()
-                
-            
-            
-
+                        if i%100=0 then prg.Value<-i
+                    //now create tree for each
+                    let numpos = StaticTree.NumPos()
+                    prg.Maximum<-numpos
+                    for i = 1 to numpos do
+                        StaticTree.ProcessPos(i)
+                        if i%100=0 then prg.Value<-i
+                    prg.Value<-0
+                    sts.RefrshStatic()
 
         let bgpnl = new Panel(Dock=DockStyle.Fill,BorderStyle=BorderStyle.Fixed3D)
         let btmpnl = new Panel(Dock=DockStyle.Bottom,BorderStyle=BorderStyle.Fixed3D,Height=30)
@@ -65,5 +74,5 @@ module Form =
             btmpnl.Controls.Add(prg)
             this.Controls.Add(btmpnl)
             crbtn.Click.Add(docreate)
-            
-            
+            sts.MvSel |> Observable.add domvsel
+           

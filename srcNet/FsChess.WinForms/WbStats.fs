@@ -12,6 +12,7 @@ module WbStatsLib =
         let mutable mvsts = new ResizeArray<ScincFuncs.mvstats>()
         let mutable tsts = new ScincFuncs.totstats()
         let mutable fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+        let mutable bdstr = "rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNRw"
         let mutable isw = true
         let mutable basenm = ""
         let mutable basenum = -1
@@ -234,10 +235,23 @@ module WbStatsLib =
             if basenum<> -1 && ScincFuncs.Tree.Search(&mvsts, &tsts, fen, basenum)=0 then
                 stats.DocumentText <- bdsttags()
 
+        ///Refresh the stats after board change
+        member stats.RefrshStatic() =
+            mvsts.Clear()
+            let sts = StaticTree.GetStats(bdstr)
+            mvsts<-sts.MvsStats
+            tsts <-sts.TotStats
+            stats.DocumentText <- bdsttags()
+
         member stats.UpdateFen(bd:Brd) =
             isw <- bd.WhosTurn=Player.White
             fen <- bd|>Board.ToStr
             stats.Refrsh()
+
+        member stats.UpdateStr(bd:Brd) =
+            isw <- bd.WhosTurn=Player.White
+            bdstr <- bd|>Board.ToSimpleStr
+            stats.RefrshStatic()
 
         member stats.Init(nm:string, num:int) =
             basenm <- nm

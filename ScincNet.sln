@@ -36,8 +36,6 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "ScincNet", "srcNet\ScincNet
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FsChessPgn", "srcNet\FsChessPgn\FsChessPgn.fsproj", "{19D69944-EE29-4BF2-88AF-670268A7E68D}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "CreateTree", "srcNet\CreateTree\CreateTree.fsproj", "{C78F281F-A9C3-4C1F-951F-B87AB1650EF4}"
-EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TreeUtils", "srcNet\TreeUtils\TreeUtils.fsproj", "{E0F7C6D1-9573-43AD-B01B-DC61B98836D7}"
 EndProject
 Global
@@ -70,9 +68,6 @@ Global
 		{19D69944-EE29-4BF2-88AF-670268A7E68D}.Debug|x64.Build.0 = Debug|x64
 		{19D69944-EE29-4BF2-88AF-670268A7E68D}.Release|x64.ActiveCfg = Release|x64
 		{19D69944-EE29-4BF2-88AF-670268A7E68D}.Release|x64.Build.0 = Release|x64
-		{C78F281F-A9C3-4C1F-951F-B87AB1650EF4}.Debug|x64.ActiveCfg = Debug|x64
-		{C78F281F-A9C3-4C1F-951F-B87AB1650EF4}.Debug|x64.Build.0 = Debug|x64
-		{C78F281F-A9C3-4C1F-951F-B87AB1650EF4}.Release|x64.ActiveCfg = Release|x64
 		{E0F7C6D1-9573-43AD-B01B-DC61B98836D7}.Debug|x64.ActiveCfg = Debug|x64
 		{E0F7C6D1-9573-43AD-B01B-DC61B98836D7}.Debug|x64.Build.0 = Debug|x64
 		{E0F7C6D1-9573-43AD-B01B-DC61B98836D7}.Release|x64.ActiveCfg = Release|x64

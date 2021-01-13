@@ -9,7 +9,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-    <Compile Include="StaticTree.fs" />
     <Compile Include="Form.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
