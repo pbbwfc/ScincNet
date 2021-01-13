@@ -247,22 +247,40 @@ module StaticTree =
             let tr = mtr.Value
             totsts.TotCount<-totsts.TotCount+tr.TotCount
 
-
+        let mutable ect = 0
+        let mutable pct = 0
+        let mutable yct = 0
         for mtr in vl do
             let mv = mtr.Key
             let tr = mtr.Value
             let mvst = new ScincFuncs.mvstats()
             mvst.Count<-tr.TotCount
             mvst.Freq<-float(mvst.Count)/float(totsts.TotCount)
-            
-            
-            mvst.AvElo<-if tr.EloCount=0 then 0 else tr.TotElo/tr.EloCount
+            mvst.WhiteWins<-(tr.TotScore-tr.DrawCount)/2
+            totsts.TotWhiteWins<-totsts.TotWhiteWins+mvst.WhiteWins
+            mvst.Draws<-tr.DrawCount
+            totsts.TotDraws<-totsts.TotDraws+mvst.Draws
+            mvst.BlackWins<-mvst.Count-mvst.WhiteWins-mvst.Draws
+            totsts.TotBlackWins<-totsts.TotBlackWins+mvst.BlackWins
+            mvst.Score<-float(tr.TotScore)/float(tr.TotCount*2)
+            totsts.TotScore<-totsts.TotScore+float(tr.TotScore)/float(totsts.TotCount*2)
+            mvst.DrawPc<-float(tr.DrawCount)/float(tr.TotCount)
+            totsts.TotDrawPc<-totsts.TotDrawPc+float(tr.DrawCount)/float(totsts.TotCount)
+            mvst.AvElo<-if tr.EloCount<=10 then 0 else tr.TotElo/tr.EloCount
+            totsts.TotAvElo<-totsts.TotAvElo+tr.TotElo
+            ect<-ect+tr.EloCount
+            mvst.Perf<-if tr.PerfCount<=10 then 0 else tr.TotPerf/tr.PerfCount
+            totsts.TotPerf<-totsts.TotPerf+tr.TotPerf
+            pct<-pct+tr.PerfCount
+            mvst.AvYear<-if tr.YearCount<=0 then 0 else tr.TotYear/tr.YearCount
+            totsts.TotAvYear<-totsts.TotAvYear+tr.TotYear
+            yct<-yct+tr.YearCount
             mvst.Mvstr<-mv
-            
-            ()
             mvsts.Add(mvst)
 
-
+        totsts.TotAvElo<-if ect=0 then 0 else totsts.TotAvElo/ect
+        totsts.TotPerf<-if pct=0 then 0 else totsts.TotPerf/pct
+        totsts.TotAvYear<-if yct=0 then 0 else totsts.TotAvYear/yct
         //need to sort by count
         mvsts.Sort(fun a b -> b.Count-a.Count)
         sts.MvsStats<-mvsts

@@ -18,16 +18,21 @@ module Form =
         new Icon(file)
 
     type FrmMain() as this =
-        inherit Form(Text = "TreeUtils", Icon = ico "tree.ico", Width=600, Height=400, FormBorderStyle = FormBorderStyle.FixedDialog, MaximizeBox = false, StartPosition = FormStartPosition.CenterScreen)
+        inherit Form(Text = "TreeUtils", Icon = ico "tree.ico", Width=800, Height=500, FormBorderStyle = FormBorderStyle.FixedDialog, MaximizeBox = false, StartPosition = FormStartPosition.CenterScreen)
         let bfol = 
             let pth = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),"ScincNet\\bases")
             Directory.CreateDirectory(pth)|>ignore
             pth
-        let mutable bd=Board.Start
+        let tfol = 
+            let pth = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),"ScincNet\\trees")
+            Directory.CreateDirectory(pth)|>ignore
+            pth
+
+        let mutable bd = Board.Start
 
         let sts = new WbStats(Dock=DockStyle.Fill)
         let crbtn = new Button(Text="Create Tree")
-        let prg = new ProgressBar(Width=160)
+        let prg = new ProgressBar(Width=200)
 
         let domvsel(mvstr) =
             let mv = mvstr|>Move.FromSan bd
@@ -60,6 +65,7 @@ module Form =
                         if i%100=0 then prg.Value<-i
                     prg.Value<-0
                     sts.RefrshStatic()
+
 
         let bgpnl = new Panel(Dock=DockStyle.Fill,BorderStyle=BorderStyle.Fixed3D)
         let btmpnl = new Panel(Dock=DockStyle.Bottom,BorderStyle=BorderStyle.Fixed3D,Height=30)
