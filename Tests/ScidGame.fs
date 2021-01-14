@@ -20,9 +20,10 @@ type TestScidGame () =
   
     [<TestInitialize>]  
     member this.testInit()   =
-        File.Copy(testdb + ".si4", gmdb + ".si4")
-        File.Copy(testdb + ".sg4", gmdb + ".sg4")
-        File.Copy(testdb + ".sn4", gmdb + ".sn4")
+        if not (File.Exists(gmdb + ".si4")) then
+            File.Copy(testdb + ".si4", gmdb + ".si4")
+            File.Copy(testdb + ".sg4", gmdb + ".sg4")
+            File.Copy(testdb + ".sn4", gmdb + ".sn4")
         Base.Open(gmdb)|>ignore
         //ScidGame.Load(1u)|>ignore
 
@@ -60,6 +61,47 @@ type TestScidGame () =
         ScidGame.Save(1u,Base.Current())|>ignore
         Assert.AreEqual(0, actual)
 
+    [<TestMethod>]
+    member this.ScidGameGetFen () =
+        ScidGame.Load(1u)|>ignore
+        let mutable fen = "" 
+        let actual = ScidGame.GetFen(&fen)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual("", fen)
+        ScidGame.Load(2u)|>ignore
+        let actual = ScidGame.GetFen(&fen)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual("r1bqkb1r/pppn1ppp/4pn2/3p4/2PP4/5NP1/PP2PP1P/RNBQKB1R w KQkq - 1 5", fen)
+    
+    [<TestMethod>]
+    member this.ScidGameHasNonStandardStart () =
+        ScidGame.Load(1u)|>ignore
+        let actual = ScidGame.HasNonStandardStart()
+        Assert.AreEqual(false, actual)
+        ScidGame.Load(2u)|>ignore
+        let actual = ScidGame.HasNonStandardStart()
+        Assert.AreEqual(true, actual)
+        
+    [<TestMethod>]
+    member this.ScidGameGetMoves () =
+        ScidGame.Load(1u)|>ignore
+        let mutable mvs = new ResizeArray<string>() 
+        let actual = ScidGame.GetMoves(&mvs,-1)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual("d4", mvs.[0])
+        Assert.AreEqual(104, mvs.Count)
+        ScidGame.Load(2u)|>ignore
+        mvs.Clear()
+        let actual = ScidGame.GetMoves(&mvs,-1)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual("Bg2", mvs.[0])
+        Assert.AreEqual(96, mvs.Count)
+        mvs.Clear()
+        let actual = ScidGame.GetMoves(&mvs,10)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual("Bg2", mvs.[0])
+        Assert.AreEqual(10, mvs.Count)
+        
     [<TestMethod>]
     member this.ScidGameList () =
         let mutable gmsl = new ResizeArray<ScincFuncs.gmui>()

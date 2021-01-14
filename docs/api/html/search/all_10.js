@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['write_41',['Write',['../class_scinc_funcs_1_1_tree.html#a48d81cc4f7b204d423413c643e6650ed',1,'ScincFuncs::Tree']]]
+  ['totstats_43',['totstats',['../class_scinc_funcs_1_1totstats.html',1,'ScincFuncs']]],
+  ['tree_44',['Tree',['../class_scinc_funcs_1_1_tree.html',1,'ScincFuncs']]]
 ];

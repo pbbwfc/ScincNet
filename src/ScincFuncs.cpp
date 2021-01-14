@@ -1503,6 +1503,61 @@ int ScincFuncs::ScidGame::SetTag(String^ tag, String^ val)
 }
 
 /// <summary>
+/// GetFen: getfens for game if non-standard start
+/// </summary>
+/// <param name="fen">fen returned, empty if standard start</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::ScidGame::GetFen(String^% fen)
+{
+	char boardStr[200];
+	if (db->game->HasNonStandardStart())
+	{
+		db->game->GetStartPos()->PrintFEN(boardStr, FEN_ALL_FIELDS);
+		fen = gcnew System::String(boardStr);
+		return 0;
+	}
+	return 0;
+}
+
+/// <summary>
+/// HasNonStandardStart: returns whether has a FEN, so does not start from normal start position
+/// </summary>
+/// <returns>returns true or false</returns>
+bool ScincFuncs::ScidGame::HasNonStandardStart()
+{
+	return db->game->HasNonStandardStart();
+}
+
+/// <summary>
+/// GetMoves: Gets a list of the moves up to the specified maximum ply
+/// </summary>
+/// <param name="mvs">the list of moves returned</param>
+/// <param name="maxply">the maximu ply to use, if set to -1 returns all moves</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::ScidGame::GetMoves(System::Collections::Generic::List<String^>^% mvs, int maxply)
+{
+	sanStringT* moveStrings = new sanStringT[400];
+	uint plyCount = 0;
+	int limply = maxply == -1 ? 400 : maxply;
+
+	db->game->SaveState();
+	db->game->MoveToPly(0);
+	do
+	{
+		simpleMoveT* sm = db->game->GetCurrentMove();
+		char* s = moveStrings[plyCount];
+		db->game->GetSAN(s);
+		String^ mv = gcnew System::String(moveStrings[plyCount]);
+		if (mv!="") mvs->Add(mv);
+		plyCount++;
+
+	} while ((db->game->MoveForward() == OK) && plyCount<maxply);
+	db->game->RestoreState();
+	delete[] moveStrings;
+	return 0;
+}
+
+/// <summary>
 /// List: Returns a portion of the game list according to the current filter.
 /// Takes start and count, where start is in the range (1..FilterCount).
 /// </summary>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['pgn_27',['Pgn',['../class_scinc_funcs_1_1_scid_game.html#aff7e49c5ea7a9e255f55c03cde96c3d5',1,'ScincFuncs::ScidGame']]],
-  ['populate_28',['Populate',['../class_scinc_funcs_1_1_tree.html#a41238a3ca569c067d532e9c82d90dcf1',1,'ScincFuncs::Tree']]]
+  ['open_29',['Open',['../class_scinc_funcs_1_1_base.html#a57ac6f478d6ef875509e32d88f0c2a04',1,'ScincFuncs::Base']]]
 ];

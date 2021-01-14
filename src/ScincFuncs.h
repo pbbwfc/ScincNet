@@ -208,8 +208,11 @@ namespace ScincFuncs {
 		static int StripComments();
 		static int GetTag(String^ tag, String^% val);
 		static int SetTag(String^ tag, String^ val);
+		static bool HasNonStandardStart();
+		static int GetFen(String^% fen);
+		static int GetMoves(System::Collections::Generic::List<String^>^% mvs, int maxply);
 		static int List(System::Collections::Generic::List<gmui^>^% gms, unsigned int start, unsigned int count);
-		static int ScincFuncs::ScidGame::Pgn(String^% pgn);
+		static int Pgn(String^% pgn);
 
 	};
 	/// <summary>

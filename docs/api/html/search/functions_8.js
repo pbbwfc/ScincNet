@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['open_75',['Open',['../class_scinc_funcs_1_1_base.html#a57ac6f478d6ef875509e32d88f0c2a04',1,'ScincFuncs::Base']]]
+  ['numgames_82',['NumGames',['../class_scinc_funcs_1_1_base.html#a08e4ab98508ce8585dae90bc6c47de82',1,'ScincFuncs::Base']]]
 ];

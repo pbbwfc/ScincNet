@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['import_69',['Import',['../class_scinc_funcs_1_1_base.html#a189268c321865e3da9632b06a0dd4c70',1,'ScincFuncs::Base']]],
-  ['inuse_70',['InUse',['../class_scinc_funcs_1_1_base.html#acb6e0ddf0084810bbcddab6cf50dfc2e',1,'ScincFuncs::Base']]],
-  ['isreadonly_71',['Isreadonly',['../class_scinc_funcs_1_1_base.html#a1db117d5f83434f12702e04ffd8e4c75',1,'ScincFuncs::Base']]]
+  ['hasnonstandardstart_76',['HasNonStandardStart',['../class_scinc_funcs_1_1_scid_game.html#aae5d12cb23141f5bd43a3cc311c91cf0',1,'ScincFuncs::ScidGame']]]
 ];

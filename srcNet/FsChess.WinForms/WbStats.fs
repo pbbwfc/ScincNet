@@ -12,6 +12,8 @@ module WbStatsLib =
         let mutable mvsts = new ResizeArray<ScincFuncs.mvstats>()
         let mutable tsts = new ScincFuncs.totstats()
         let mutable fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+        let mutable mvsts1 = new ResizeArray<FsChessPgn.mvstats>()
+        let mutable tsts1 = new FsChessPgn.totstats()
         let mutable bdstr = "rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNRw"
         let mutable isw = true
         let mutable basenm = ""
@@ -214,6 +216,158 @@ module WbStatsLib =
                 "</td><td style=\"border-top: 1px solid black;\">" + "</td></tr>" + nl
                 + ftr
 
+        let mvstags1() =
+            if blkld then Repertoire.LoadBlack()
+            if whtld then Repertoire.LoadWhite()
+            let bopts = 
+                if isw && blkld then
+                    let ro = (Repertoire.Black()|>fst) 
+                    if ro.ContainsKey(fen) then ro.[fen] else []
+                else []
+            let bmov =
+                if (not isw) && blkld then
+                    let rm = (Repertoire.Black()|>snd) 
+                    if rm.ContainsKey(fen) then rm.[fen]|>Some else None
+                else None
+            let wopts = 
+                if (not isw) && whtld then
+                    let ro = (Repertoire.White()|>fst) 
+                    if ro.ContainsKey(fen) then ro.[fen] else []
+                else []
+            let wmov =
+                if isw && whtld then
+                    let rm = (Repertoire.White()|>snd) 
+                    if rm.ContainsKey(fen) then rm.[fen]|>Some else None
+                else None
+
+            let mvsttag i (mvst:FsChessPgn.mvstats) isbrep iswrep nag comments =  
+                sans.[i] <- mvst.Mvstr
+                let tdstyle = 
+                    if isbrep&&iswrep then "<td class=\"isboth\">" 
+                    elif isbrep then "<td class=\"isbrep\">"
+                    elif iswrep then "<td class=\"iswrep\">"
+                    else "<td>"
+                
+                "<tr id=\"" + i.ToString() + "\">" + tdstyle + mvst.Mvstr + nag + "</td><td>" + mvst.Count.ToString() + "</td>" + 
+                "<td>" + mvst.Freq.ToString("##0.0%") + "</td><td>" + (getdiv mvst.WhiteWins mvst.Draws mvst.BlackWins) + "</td>" + 
+                "<td>" + mvst.Score.ToString("##0.0%") + "</td><td>" + mvst.DrawPc.ToString("##0.0%") +
+                "</td><td>" + mvst.AvElo.ToString() + "</td><td>" + mvst.Perf.ToString() +
+                "</td><td>" + mvst.AvYear.ToString() + 
+                "</td>" + tdstyle + comments + "</td></tr>" + nl
+            let addrep i (mvst:FsChessPgn.mvstats) =
+                if isw then
+                    //check if move is in bopts
+                    let isbrep,bnag,bcomment = 
+                        if Repertoire.OptsHaveSan mvst.Mvstr bopts then
+                            let rol = bopts|>List.filter(fun r -> r.San=mvst.Mvstr)
+                            let ro = rol.Head
+                            true,ro.Nag,ro.Comm
+                        else false,NAG.Null,""
+                    let iswrep,wnag,wcomment = 
+                        if wmov.IsSome && wmov.Value.San=mvst.Mvstr then
+                            true,wmov.Value.Nag,wmov.Value.Comm
+                        else false,NAG.Null,""
+                    let nagstr = 
+                        if isbrep&&iswrep then
+                            if wnag=NAG.Null then (bnag|>Game.NAGStr) else (wnag|>Game.NAGStr)
+                        elif iswrep then (wnag|>Game.NAGStr)
+                        else (bnag|>Game.NAGStr)
+                    let comment = 
+                        if isbrep&&iswrep then
+                            if wcomment="" then bcomment else wcomment
+                        elif iswrep then wcomment
+                        else bcomment
+                    mvsttag i mvst isbrep iswrep nagstr comment
+                else
+                    let isbrep,bnag,bcomment = 
+                        if bmov.IsSome && bmov.Value.San=mvst.Mvstr then
+                            true,bmov.Value.Nag,bmov.Value.Comm
+                        else false,NAG.Null,""
+                    let iswrep,wnag,wcomment = 
+                        if Repertoire.OptsHaveSan mvst.Mvstr wopts then
+                            let rol = wopts|>List.filter(fun r -> r.San=mvst.Mvstr)
+                            let ro = rol.Head
+                            true,ro.Nag,ro.Comm
+                        else false,NAG.Null,""
+                    let nagstr = 
+                        if isbrep&&iswrep then
+                            if wnag=NAG.Null then (bnag|>Game.NAGStr) else (wnag|>Game.NAGStr)
+                        elif iswrep then (wnag|>Game.NAGStr)
+                        else (bnag|>Game.NAGStr)
+                    let comment = 
+                        if isbrep&&iswrep then
+                            if wcomment="" then bcomment else wcomment
+                        elif iswrep then wcomment
+                        else bcomment
+                    mvsttag i mvst isbrep iswrep nagstr comment
+            
+            let notinmvsts (ro:RepOpt) =
+                let filt = mvsts1|>Seq.filter(fun m -> m.Mvstr = ro.San)|>Seq.toList
+                filt.Length=0
+            
+            let doextras (fi) =
+                let doextraw i ro =
+                    sans.[i+fi] <- ro.San 
+                    
+                    "<tr id=\"" + (i+fi).ToString() + "\">" + "<td class=\"iswrep\">" + ro.San + (ro.Nag|>Game.NAGStr) + "</td><td>" + "</td>" + 
+                    "<td>" + "</td><td>" + "</td>" + 
+                    "<td>" + "</td><td>" +
+                    "</td><td>" + "</td><td>" +
+                    "</td><td>" + "</td><td>" + "</td><td class=\"iswrep\">" + ro.Comm +
+                    "</td></tr>" + nl
+                let doextrab i ro =
+                    sans.[i+fi] <- ro.San
+
+                    "<tr id=\"" + (i+fi).ToString() + "\">" + "<td class=\"isbrep\">" + ro.San + (ro.Nag|>Game.NAGStr) + "</td><td>" + "</td>" + 
+                    "<td>" + "</td><td>" + "</td>" + 
+                    "<td>" + "</td><td>" +
+                    "</td><td>" + "</td><td>" +
+                    "</td><td>" + "</td><td>" + "</td><td class=\"isbrep\">" + ro.Comm +
+                    "</td></tr>" + nl
+                let extraws,extrabs = 
+                    if isw then
+                        //filter bopts not in mvsts
+                        let exbs = bopts|>List.filter notinmvsts
+                        //now add white if not included
+                        let exws = if wmov.IsSome && notinmvsts(wmov.Value) then [wmov.Value] else []
+                        exws,exbs
+                    else
+                        //filter wopts not in mvsts
+                        let exws = wopts|>List.filter notinmvsts
+                        //now add black if not included
+                        let exbs = if bmov.IsSome && notinmvsts(bmov.Value) then [bmov.Value] else []
+                        exws,exbs
+                let exwrws = if extraws.Length>0 then (extraws|>List.mapi doextraw|>List.reduce(+)) + nl else ""
+                let exbrws = if extrabs.Length>0 then (extrabs|>List.mapi doextrab|>List.reduce(+)) + nl else ""
+                exwrws + exbrws
+            
+            let mnrws = if mvsts1.Count>0 then mvsts1|>Seq.mapi addrep|>Seq.reduce(+) else ""
+            mnrws + doextras(mvsts1.Count)
+            
+        let bdsttags1() = 
+            if mvsts1.Count=0 && (not blkld) && (not whtld) then hdr()+ftr
+            else
+                hdr() +
+                "<tr><th style=\"text-align: left;\">Move</th><th style=\"text-align: left;\">Count</th>" +
+                "<th style=\"text-align: left;\">Percent</th><th style=\"text-align: left;\">Results</th>" + 
+                "<th style=\"text-align: left;\">Score</th><th style=\"text-align: left;\">DrawPc</th>" +
+                "<th style=\"text-align: left;\">AvElo</th>" + "<th style=\"text-align: left;\">Perf</th>" +
+                "<th style=\"text-align: left;\">AvYear</th>" +
+                "<th style=\"text-align: left;\">Comment</th>" + "</tr>" + nl + 
+                (mvstags1()) +
+                "<tr><td style=\"border-top: 1px solid black;\"></td><td style=\"border-top: 1px solid black;\">" + 
+                tsts1.TotCount.ToString() + "</td><td style=\"border-top: 1px solid black;\">" + tsts1.TotFreq.ToString("##0.0%") + "</td>" +
+                "<td style=\"border-top: 1px solid black;\">" + (getdiv tsts1.TotWhiteWins tsts1.TotDraws tsts1.TotBlackWins) + "</td><td style=\"border-top: 1px solid black;\">" + 
+                tsts1.TotScore.ToString("##0.0%") + "</td><td style=\"border-top: 1px solid black;\">" + 
+                tsts1.TotDrawPc.ToString("##0.0%") + "</td><td style=\"border-top: 1px solid black;\">" +  
+                tsts1.TotAvElo.ToString() + "</td><td style=\"border-top: 1px solid black;\">" +
+                tsts1.TotPerf.ToString() + "</td><td style=\"border-top: 1px solid black;\">" +
+                tsts1.TotAvYear.ToString() + "</td><td style=\"border-top: 1px solid black;\">" +
+                "</td><td style=\"border-top: 1px solid black;\">" + "</td></tr>" + nl
+                + ftr
+
+
+        
         let onclick(el:HtmlElement) = 
             let i = el.Id|>int
             let san = sans.[i]
@@ -237,11 +391,11 @@ module WbStatsLib =
 
         ///Refresh the stats after board change
         member stats.RefrshStatic() =
-            mvsts.Clear()
+            mvsts1.Clear()
             let sts = StaticTree.GetStats(bdstr)
-            mvsts<-sts.MvsStats
-            tsts <-sts.TotStats
-            stats.DocumentText <- bdsttags()
+            mvsts1<-sts.MvsStats
+            tsts1 <-sts.TotStats
+            stats.DocumentText <- bdsttags1()
 
         member stats.UpdateFen(bd:Brd) =
             isw <- bd.WhosTurn=Player.White

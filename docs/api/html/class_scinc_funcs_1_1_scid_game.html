@@ -120,6 +120,15 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:abefbad797b072610515f4872dee75b17"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scinc_funcs_1_1_scid_game.html#abefbad797b072610515f4872dee75b17">SetTag</a> (String^ tag, String^ val)</td></tr>
 <tr class="memdesc:abefbad797b072610515f4872dee75b17"><td class="mdescLeft">&#160;</td><td class="mdescRight">SetTag: Set a standard tag for this game.  <a href="class_scinc_funcs_1_1_scid_game.html#abefbad797b072610515f4872dee75b17">More...</a><br /></td></tr>
 <tr class="separator:abefbad797b072610515f4872dee75b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae5d12cb23141f5bd43a3cc311c91cf0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scinc_funcs_1_1_scid_game.html#aae5d12cb23141f5bd43a3cc311c91cf0">HasNonStandardStart</a> ()</td></tr>
+<tr class="memdesc:aae5d12cb23141f5bd43a3cc311c91cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">HasNonStandardStart: returns whether has a FEN, so does not start from normal start position  <a href="class_scinc_funcs_1_1_scid_game.html#aae5d12cb23141f5bd43a3cc311c91cf0">More...</a><br /></td></tr>
+<tr class="separator:aae5d12cb23141f5bd43a3cc311c91cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a629fc30297c4f7df9c6a5c95562cbdf0"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scinc_funcs_1_1_scid_game.html#a629fc30297c4f7df9c6a5c95562cbdf0">GetFen</a> (String^% fen)</td></tr>
+<tr class="memdesc:a629fc30297c4f7df9c6a5c95562cbdf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">GetFen: getfens for game if non-standard start  <a href="class_scinc_funcs_1_1_scid_game.html#a629fc30297c4f7df9c6a5c95562cbdf0">More...</a><br /></td></tr>
+<tr class="separator:a629fc30297c4f7df9c6a5c95562cbdf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dd0e9351a87e077d21fe35ff720b1cc"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scinc_funcs_1_1_scid_game.html#a8dd0e9351a87e077d21fe35ff720b1cc">GetMoves</a> (System::Collections::Generic::List&lt; String^&gt;^% mvs, int maxply)</td></tr>
+<tr class="memdesc:a8dd0e9351a87e077d21fe35ff720b1cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">GetMoves: Gets a list of the moves up to the specified maximum ply  <a href="class_scinc_funcs_1_1_scid_game.html#a8dd0e9351a87e077d21fe35ff720b1cc">More...</a><br /></td></tr>
+<tr class="separator:a8dd0e9351a87e077d21fe35ff720b1cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0bf2afe634888f4daab0322c273255b4"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scinc_funcs_1_1_scid_game.html#a0bf2afe634888f4daab0322c273255b4">List</a> (System::Collections::Generic::List&lt; <a class="el" href="class_scinc_funcs_1_1gmui.html">gmui</a>^&gt;^% gms, unsigned int start, unsigned int count)</td></tr>
 <tr class="memdesc:a0bf2afe634888f4daab0322c273255b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">List: Returns a portion of the game list according to the current filter. Takes start and count, where start is in the range (1..FilterCount).  <a href="class_scinc_funcs_1_1_scid_game.html#a0bf2afe634888f4daab0322c273255b4">More...</a><br /></td></tr>
 <tr class="separator:a0bf2afe634888f4daab0322c273255b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,6 +167,87 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gnum</td><td>the game number to change</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns 0 if successful</dd></dl>
+
+</div>
+</div>
+<a id="a629fc30297c4f7df9c6a5c95562cbdf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a629fc30297c4f7df9c6a5c95562cbdf0">&#9670;&nbsp;</a></span>GetFen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ScincFuncs::ScidGame::GetFen </td>
+          <td>(</td>
+          <td class="paramtype">String^%&#160;</td>
+          <td class="paramname"><em>fen</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>GetFen: getfens for game if non-standard start </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fen</td><td>fen returned, empty if standard start</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns 0 if successful</dd></dl>
+
+</div>
+</div>
+<a id="a8dd0e9351a87e077d21fe35ff720b1cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dd0e9351a87e077d21fe35ff720b1cc">&#9670;&nbsp;</a></span>GetMoves()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ScincFuncs::ScidGame::GetMoves </td>
+          <td>(</td>
+          <td class="paramtype">System::Collections::Generic::List&lt; String^&gt;^%&#160;</td>
+          <td class="paramname"><em>mvs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxply</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>GetMoves: Gets a list of the moves up to the specified maximum ply </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mvs</td><td>the list of moves returned</td></tr>
+    <tr><td class="paramname">maxply</td><td>the maximu ply to use, if set to -1 returns all moves</td></tr>
   </table>
   </dd>
 </dl>
@@ -208,6 +298,34 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>returns 0 if successful</dd></dl>
+
+</div>
+</div>
+<a id="aae5d12cb23141f5bd43a3cc311c91cf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae5d12cb23141f5bd43a3cc311c91cf0">&#9670;&nbsp;</a></span>HasNonStandardStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ScincFuncs::ScidGame::HasNonStandardStart </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>HasNonStandardStart: returns whether has a FEN, so does not start from normal start position </p>
+<dl class="section return"><dt>Returns</dt><dd>returns true or false</dd></dl>
 
 </div>
 </div>

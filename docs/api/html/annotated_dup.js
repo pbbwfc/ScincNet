@@ -3,6 +3,7 @@ var annotated_dup =
     [ "ScincFuncs", null, [
       [ "mvstats", "class_scinc_funcs_1_1mvstats.html", "class_scinc_funcs_1_1mvstats" ],
       [ "totstats", "class_scinc_funcs_1_1totstats.html", "class_scinc_funcs_1_1totstats" ],
+      [ "stats", "class_scinc_funcs_1_1stats.html", "class_scinc_funcs_1_1stats" ],
       [ "gmui", "class_scinc_funcs_1_1gmui.html", "class_scinc_funcs_1_1gmui" ],
       [ "Base", "class_scinc_funcs_1_1_base.html", null ],
       [ "Clipbase", "class_scinc_funcs_1_1_clipbase.html", null ],

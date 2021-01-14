@@ -57,15 +57,20 @@ module Form =
                     for i = 1 to numgames do
                         StaticTree.ProcessGame(i)
                         if i%100=0 then prg.Value<-i
+                    Base.Close()|>ignore
                     //now create tree for each
                     let numpos = StaticTree.NumPos()
                     prg.Maximum<-numpos
+                    StaticTree.CreateArrays()
                     for i = 1 to numpos do
                         StaticTree.ProcessPos(i)
                         if i%100=0 then prg.Value<-i
                     prg.Value<-0
+                    let fn = Path.Combine(tfol,nm + ".tr4")
+                    StaticTree.Save(fn)
+                    StaticTree.Load(fn)
                     sts.RefrshStatic()
-
+                    
 
         let bgpnl = new Panel(Dock=DockStyle.Fill,BorderStyle=BorderStyle.Fixed3D)
         let btmpnl = new Panel(Dock=DockStyle.Bottom,BorderStyle=BorderStyle.Fixed3D,Height=30)
