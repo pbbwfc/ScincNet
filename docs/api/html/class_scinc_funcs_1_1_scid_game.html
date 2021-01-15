@@ -129,6 +129,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a8dd0e9351a87e077d21fe35ff720b1cc"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scinc_funcs_1_1_scid_game.html#a8dd0e9351a87e077d21fe35ff720b1cc">GetMoves</a> (System::Collections::Generic::List&lt; String^&gt;^% mvs, int maxply)</td></tr>
 <tr class="memdesc:a8dd0e9351a87e077d21fe35ff720b1cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">GetMoves: Gets a list of the moves up to the specified maximum ply  <a href="class_scinc_funcs_1_1_scid_game.html#a8dd0e9351a87e077d21fe35ff720b1cc">More...</a><br /></td></tr>
 <tr class="separator:a8dd0e9351a87e077d21fe35ff720b1cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac191a487ed08e927e4be06ca56e9044c"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scinc_funcs_1_1_scid_game.html#ac191a487ed08e927e4be06ca56e9044c">GetMovesPosns</a> (System::Collections::Generic::List&lt; String^&gt;^% mvs, System::Collections::Generic::List&lt; String^&gt;^% posns, int maxply)</td></tr>
+<tr class="memdesc:ac191a487ed08e927e4be06ca56e9044c"><td class="mdescLeft">&#160;</td><td class="mdescRight">GetMovesPosns: Gets a list of the moves and postions up to the specified maximum ply  <a href="class_scinc_funcs_1_1_scid_game.html#ac191a487ed08e927e4be06ca56e9044c">More...</a><br /></td></tr>
+<tr class="separator:ac191a487ed08e927e4be06ca56e9044c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0bf2afe634888f4daab0322c273255b4"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scinc_funcs_1_1_scid_game.html#a0bf2afe634888f4daab0322c273255b4">List</a> (System::Collections::Generic::List&lt; <a class="el" href="class_scinc_funcs_1_1gmui.html">gmui</a>^&gt;^% gms, unsigned int start, unsigned int count)</td></tr>
 <tr class="memdesc:a0bf2afe634888f4daab0322c273255b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">List: Returns a portion of the game list according to the current filter. Takes start and count, where start is in the range (1..FilterCount).  <a href="class_scinc_funcs_1_1_scid_game.html#a0bf2afe634888f4daab0322c273255b4">More...</a><br /></td></tr>
 <tr class="separator:a0bf2afe634888f4daab0322c273255b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -247,6 +250,59 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mvs</td><td>the list of moves returned</td></tr>
+    <tr><td class="paramname">maxply</td><td>the maximu ply to use, if set to -1 returns all moves</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns 0 if successful</dd></dl>
+
+</div>
+</div>
+<a id="ac191a487ed08e927e4be06ca56e9044c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac191a487ed08e927e4be06ca56e9044c">&#9670;&nbsp;</a></span>GetMovesPosns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ScincFuncs::ScidGame::GetMovesPosns </td>
+          <td>(</td>
+          <td class="paramtype">System::Collections::Generic::List&lt; String^&gt;^%&#160;</td>
+          <td class="paramname"><em>mvs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">System::Collections::Generic::List&lt; String^&gt;^%&#160;</td>
+          <td class="paramname"><em>posns</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxply</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>GetMovesPosns: Gets a list of the moves and postions up to the specified maximum ply </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mvs</td><td>the list of moves returned</td></tr>
+    <tr><td class="paramname">posns</td><td>the list of posns returned</td></tr>
     <tr><td class="paramname">maxply</td><td>the maximu ply to use, if set to -1 returns all moves</td></tr>
   </table>
   </dd>

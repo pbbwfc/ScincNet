@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['numgames_28',['NumGames',['../class_scinc_funcs_1_1_base.html#a08e4ab98508ce8585dae90bc6c47de82',1,'ScincFuncs::Base']]]
+  ['numgames_29',['NumGames',['../class_scinc_funcs_1_1_base.html#a08e4ab98508ce8585dae90bc6c47de82',1,'ScincFuncs::Base']]]
 ];

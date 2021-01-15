@@ -1536,7 +1536,7 @@ bool ScincFuncs::ScidGame::HasNonStandardStart()
 /// <returns>returns 0 if successful</returns>
 int ScincFuncs::ScidGame::GetMoves(System::Collections::Generic::List<String^>^% mvs, int maxply)
 {
-	sanStringT* moveStrings = new sanStringT[400];
+	char sanStr[20];
 	uint plyCount = 0;
 	int limply = maxply == -1 ? 400 : maxply;
 
@@ -1545,17 +1545,48 @@ int ScincFuncs::ScidGame::GetMoves(System::Collections::Generic::List<String^>^%
 	do
 	{
 		simpleMoveT* sm = db->game->GetCurrentMove();
-		char* s = moveStrings[plyCount];
-		db->game->GetSAN(s);
-		String^ mv = gcnew System::String(moveStrings[plyCount]);
+		db->game->GetSAN(sanStr);
+		String^ mv = gcnew System::String(sanStr);
 		if (mv!="") mvs->Add(mv);
 		plyCount++;
 
 	} while ((db->game->MoveForward() == OK) && plyCount<maxply);
 	db->game->RestoreState();
-	delete[] moveStrings;
 	return 0;
 }
+
+/// <summary>
+/// GetMovesPosns: Gets a list of the moves and postions up to the specified maximum ply
+/// </summary>
+/// <param name="mvs">the list of moves returned</param>
+/// <param name="posns">the list of posns returned</param>
+/// <param name="maxply">the maximu ply to use, if set to -1 returns all moves</param>
+/// <returns>returns 0 if successful</returns>
+int ScincFuncs::ScidGame::GetMovesPosns(System::Collections::Generic::List<String^>^% mvs, System::Collections::Generic::List<String^>^% posns, int maxply)
+{
+	char sanStr[20];
+	char boardStr[200];
+	uint plyCount = 0;
+	int limply = maxply == -1 ? 400 : maxply;
+
+	db->game->SaveState();
+	db->game->MoveToPly(0);
+	do
+	{
+		simpleMoveT* sm = db->game->GetCurrentMove();
+		db->game->GetSAN(sanStr);
+		String^ mv = gcnew System::String(sanStr);
+		if (mv != "") mvs->Add(mv);
+		db->game->GetCurrentPos()->MakeLongStr(boardStr);
+		String^ bd = gcnew System::String(boardStr);
+		if (bd != "" && mv != "") posns->Add(bd);
+		plyCount++;
+
+	} while ((db->game->MoveForward() == OK) && plyCount < maxply);
+	db->game->RestoreState();
+	return 0;
+}
+
 
 /// <summary>
 /// List: Returns a portion of the game list according to the current filter.
