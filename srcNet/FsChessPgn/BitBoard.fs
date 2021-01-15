@@ -51,18 +51,18 @@ module Bitboard =
         NorthMostPosition((x &&& ~~~(x >>> 1)) |> BitB)
     
     let Reverse(ibb : Bitboard) = 
-        ((uint64 (ibb &&& Bitboard.Rank1) >>> 56) ||| (uint64 (ibb &&& Bitboard.Rank2) >>> 40) 
-         ||| (uint64 (ibb &&& Bitboard.Rank3) >>> 24) ||| (uint64 (ibb &&& Bitboard.Rank4) >>> 8) 
-         ||| (uint64 (ibb &&& Bitboard.Rank5) <<< 8) ||| (uint64 (ibb &&& Bitboard.Rank6) <<< 24) 
-         ||| (uint64 (ibb &&& Bitboard.Rank7) <<< 40) ||| (uint64 (ibb &&& Bitboard.Rank8) <<< 56)) |> BitB
-    let ShiftDirN(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank8) >>> 8) |> BitB
-    let ShiftDirE(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.FileH) <<< 1) |> BitB
-    let ShiftDirS(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank1) <<< 8) |> BitB
-    let ShiftDirW(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.FileA) >>> 1) |> BitB
-    let ShiftDirNE(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank8 &&& ~~~Bitboard.FileH) >>> 7) |> BitB
-    let ShiftDirSE(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank1 &&& ~~~Bitboard.FileH) <<< 9) |> BitB
-    let ShiftDirSW(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank1 &&& ~~~Bitboard.FileA) <<< 7) |> BitB
-    let ShiftDirNW(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank8 &&& ~~~Bitboard.FileA) >>> 9) |> BitB
+        ((uint64 (ibb &&& Bitboard.Rank1) <<< 56) ||| (uint64 (ibb &&& Bitboard.Rank2) <<< 40) 
+         ||| (uint64 (ibb &&& Bitboard.Rank3) <<< 24) ||| (uint64 (ibb &&& Bitboard.Rank4) <<< 8) 
+         ||| (uint64 (ibb &&& Bitboard.Rank5) >>> 8) ||| (uint64 (ibb &&& Bitboard.Rank6) >>> 24) 
+         ||| (uint64 (ibb &&& Bitboard.Rank7) >>> 40) ||| (uint64 (ibb &&& Bitboard.Rank8) >>> 56)) |> BitB
+    let ShiftDirN(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank8) <<< 8) |> BitB
+    let ShiftDirE(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.FileH) >>> 1) |> BitB
+    let ShiftDirS(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank1) >>> 8) |> BitB
+    let ShiftDirW(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.FileA) <<< 1) |> BitB
+    let ShiftDirNE(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank8 &&& ~~~Bitboard.FileH) <<< 9) |> BitB
+    let ShiftDirSE(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank1 &&& ~~~Bitboard.FileH) >>> 7) |> BitB
+    let ShiftDirSW(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank1 &&& ~~~Bitboard.FileA) >>> 9) |> BitB
+    let ShiftDirNW(ibb : Bitboard) = (uint64 (ibb &&& ~~~Bitboard.Rank8 &&& ~~~Bitboard.FileA) <<< 7) |> BitB
     
     let Shift dir (ibb : Bitboard) = 
         match dir with

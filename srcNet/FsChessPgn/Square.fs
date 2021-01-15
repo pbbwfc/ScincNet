@@ -48,8 +48,8 @@ module Square =
         let rankto = int (pto |> ToRank)
         let fileto = int (pto |> ToFile)
         if fileto = filefrom then 
-            if rankfrom < rankto then Dirn.DirS
-            else Dirn.DirN
+            if rankfrom < rankto then Dirn.DirN
+            else Dirn.DirS
         elif rankfrom = rankto then 
             if filefrom > fileto then Dirn.DirW
             else Dirn.DirE
@@ -69,10 +69,10 @@ module Square =
                 ((rankchange * 8) + filechange) |> enum<Dirn>
             elif rankchangeabs <> filechangeabs then 0 |> enum<Dirn>
             elif rankchange < 0 then 
-                if filechange > 0 then Dirn.DirNE
-                else Dirn.DirNW
-            else if filechange > 0 then Dirn.DirSE
-            else Dirn.DirSW
+                if filechange > 0 then Dirn.DirSE
+                else Dirn.DirSW
+            else if filechange > 0 then Dirn.DirNE
+            else Dirn.DirNW
     
     let PositionInDirectionUnsafe (dir : Dirn) (pos : Square) :Square= pos + int16(dir)
     

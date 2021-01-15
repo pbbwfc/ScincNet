@@ -3,22 +3,22 @@
 open FsChess
 
 type Dirn = 
-    | DirN = -8
+    | DirN = 8
     | DirE = 1
-    | DirS = 8
+    | DirS = -8
     | DirW = -1
-    | DirNE = -7
-    | DirSE = 9
-    | DirSW = 7
-    | DirNW = -9
-    | DirNNE = -15
-    | DirEEN = -6
-    | DirEES = 10
-    | DirSSE = 17
-    | DirSSW = 15
-    | DirWWS = 6
-    | DirWWN = -10
-    | DirNNW = -17
+    | DirNE = 9
+    | DirSE = -7
+    | DirSW = -9
+    | DirNW = 7
+    | DirNNE = 17
+    | DirEEN = 10
+    | DirEES = -6
+    | DirSSE = -15
+    | DirSSW = -17
+    | DirWWS = -10
+    | DirWWN = 6
+    | DirNNW = 15
 
 module Direction =
 

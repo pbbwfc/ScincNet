@@ -18,6 +18,7 @@ module Piece =
         | 'r' -> Piece.BRook
         | 'q' -> Piece.BQueen
         | 'k' -> Piece.BKing
+        | '.' -> Piece.EMPTY
         | _ -> failwith (c.ToString() + " is not a valid piece")
     
     let PieceToString(piece : Piece) = 

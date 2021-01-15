@@ -90,9 +90,9 @@ module Board =
         ||| ((Attacks.BishopAttacks mto bd.PieceLocationsAll) 
              &&& (bd.PieceTypes.[int (PieceType.Queen)] ||| bd.PieceTypes.[int (PieceType.Bishop)])) 
         ||| (Attacks.KingAttacks(mto) &&& (bd.PieceTypes.[int (PieceType.King)])) 
-        ||| ((Attacks.PawnAttacks mto Player.Black) &&& bd.WtPrBds
+        ||| ((Attacks.PawnAttacks mto Player.Black) &&& bd.BkPrBds
              &&& bd.PieceTypes.[int (PieceType.Pawn)]) 
-        ||| ((Attacks.PawnAttacks mto Player.White) &&& bd.BkPrBds 
+        ||| ((Attacks.PawnAttacks mto Player.White) &&& bd.WtPrBds 
              &&& bd.PieceTypes.[int (PieceType.Pawn)])
     
     ///Gets the Bitboard that defines the squares that attack the specified Square(mto) by the specified Player(by) for this Board(bd) 
@@ -228,7 +228,18 @@ module Board =
     ///Gets a FEN string for this Board(bd) 
     let ToStr (bd : Brd) = bd|>FEN.FromBd|>FEN.ToStr
 
-    ///Produces a simple string of characters plu whether white or black to move
+    ///Create a new Board given a simple string(str)
+    let FromSimpleStr (str: string) = 
+        let emp = BrdEMP
+        let bits = str.Split(' ')
+        let col = if bits.[1]="w" then Player.White else Player.Black
+        let pcs =
+            let chars = bits.[0].ToCharArray()
+            chars|>Array.map Piece.Parse|>List.ofArray
+        let fen = {emp with WhosTurn=col;PieceAt=pcs;CastleRights=CstlFlgs.All}|>FEN.FromBd
+        fen|>FromFEN
+    
+    ///Produces a simple string of characters plus whether white or black to move
     let ToSimpleStr (bd : Brd) =
         let bdstr = bd.PieceAt|>List.map(fun p -> if p = Piece.EMPTY then "." else p|>Piece.PieceToString)|>List.reduce(+)
         let tomv = if bd.WhosTurn=Player.White then " w" else " b"

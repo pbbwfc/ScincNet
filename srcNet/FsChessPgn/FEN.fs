@@ -18,7 +18,7 @@ type Fen =
 module FEN = 
     let ToStr(fen : Fen) = 
         let sb = new StringBuilder(50)
-        for irank = 0 to 7 do
+        for irank = 7 downto 0 do
             let rec getect ect ifile = 
                 if ifile > 7 then ect
                 else 
@@ -33,7 +33,7 @@ module FEN =
             
             let ect = getect 0 0
             if ect > 0 then sb.Append(ect.ToString()) |> ignore
-            if irank < 7 then sb.Append("/") |> ignore
+            if irank > 0 then sb.Append("/") |> ignore
         if fen.Whosturn = Player.White then sb.Append(" w ") |> ignore
         else sb.Append(" b ") |> ignore
         if (fen.CastleWS || fen.CastleWL || fen.CastleBS || fen.CastleBL) then 
@@ -81,7 +81,7 @@ module FEN =
         if matches.Count = 0 then failwith "No valid fen found"
         if matches.Count > 1 then failwith "Multiple FENs in string"
         let matchr = matches.[0]
-        let sRanks = RANKS|>List.map(fun r -> matchr.Groups.["R" + (r |> Rank.RankToString)].Value)|>List.rev
+        let sRanks = RANKS|>List.map(fun r -> matchr.Groups.["R" + (r |> Rank.RankToString)].Value)
         let sPlayer = matchr.Groups.["Player"].Value
         let sCastle = matchr.Groups.["Castle"].Value
         let sEnpassant = matchr.Groups.["Enpassant"].Value

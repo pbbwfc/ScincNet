@@ -3,6 +3,7 @@ namespace Tests
 open System.IO
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open ScincFuncs
+open FsChess
 
 [<TestClass>]
 type TestScidGame () =
@@ -104,40 +105,56 @@ type TestScidGame () =
         
     [<TestMethod>]
     member this.GetMovesPosns () =
-       ScidGame.Load(1u)|>ignore
-       let mutable mvs = new ResizeArray<string>()
-       let mutable posns = new ResizeArray<string>()
-       let actual = ScidGame.GetMovesPosns(&mvs,&posns,-1)
-       Assert.AreEqual(0, actual)
-       Assert.AreEqual("d4", mvs.[0])
-       Assert.AreEqual(104, mvs.Count)
-       Assert.AreEqual("RNBQKBNRPPPPPPPP................................pppppppprnbqkbnr w", posns.[0])
-       Assert.AreEqual("RNBQKBNRPPP.PPPP...........P................p...pppp.ppprnbqkbnr w", posns.[2])
-       Assert.AreEqual(104, posns.Count)
-       let mutable pgn = ""
-       let actual = ScidGame.Pgn(&pgn)
-       Assert.AreEqual(0, actual)
-       let gm1 = FsChess.Game.FromStr(pgn)
-       let gm2 = FsChess.Game.GetaMoves(gm1)
-       let bd0 = FsChess.Board.Start
-       let bdstr0 = FsChess.Board.ToSimpleStr(bd0)
-       Assert.AreEqual(bdstr0, posns.[0])
-       
-       //let mv1 = 
-       //let bd1 = 
+        ScidGame.Load(1u)|>ignore
+        let mutable mvs = new ResizeArray<string>()
+        let mutable posns = new ResizeArray<string>()
+        let actual = ScidGame.GetMovesPosns(&mvs,&posns,-1)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual("d4", mvs.[0])
+        Assert.AreEqual(104, mvs.Count)
+        Assert.AreEqual("RNBQKBNRPPPPPPPP................................pppppppprnbqkbnr w", posns.[0])
+        Assert.AreEqual("RNBQKBNRPPP.PPPP...........P................p...pppp.ppprnbqkbnr w", posns.[2])
+        Assert.AreEqual(104, posns.Count)
+        let mutable bd = FsChess.Board.Start
+        let mutable bdstr = FsChess.Board.ToSimpleStr(bd)
+        Assert.AreEqual(bdstr, posns.[0])
+        for i=1 to mvs.Count-1 do
+            bd <- Board.PushSAN mvs.[i-1] bd
+            bdstr <- FsChess.Board.ToSimpleStr(bd)
+            Assert.AreEqual(bdstr, posns.[i])
+        ScidGame.Load(2u)|>ignore
+        mvs.Clear()
+        posns.Clear()
+        let actual = ScidGame.GetMovesPosns(&mvs,&posns,-1)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual("Bg2", mvs.[0])
+        Assert.AreEqual(96, mvs.Count)
+        Assert.AreEqual("RNBQKB.RPP..PP.P.....NP...PP.......p........pn..pppn.pppr.bqkb.r w", posns.[0])
+        Assert.AreEqual(96, posns.Count)
+        bd <- FsChess.Board.FromSimpleStr(posns.[0])
+        bdstr <- FsChess.Board.ToSimpleStr(bd)
+        Assert.AreEqual(bdstr, posns.[0])
+        for i=1 to mvs.Count-1 do
+            bd <- Board.PushSAN mvs.[i-1] bd
+            bdstr <- FsChess.Board.ToSimpleStr(bd)
+            Assert.AreEqual(bdstr, posns.[i])
+        mvs.Clear()
+        posns.Clear()
+        let actual = ScidGame.GetMovesPosns(&mvs,&posns,10)
+        Assert.AreEqual(0, actual)
+        Assert.AreEqual("Bg2", mvs.[0])
+        Assert.AreEqual(10, mvs.Count)
+        //random sample
+        let mvs2 = "e4 e6 d4 d5 exd5 exd5 Nf3 Bg4 h3 Bh5 Qe2+ Qe7 Be3".Split(' ')
+        mvs.Clear()
+        mvs2|>Seq.iter(fun mv->mvs.Add(mv))
+        posns.Clear()
+        bd <- FsChess.Board.Start
+        for i=1 to mvs.Count-1 do
+            bd <- Board.PushSAN mvs.[i-1] bd
+            bdstr <- FsChess.Board.ToSimpleStr(bd)
 
-        //ScidGame.Load(2u)|>ignore
-        //mvs.Clear()
-        //let actual = ScidGame.GetMoves(&mvs,-1)
-        //Assert.AreEqual(0, actual)
-        //Assert.AreEqual("Bg2", mvs.[0])
-        //Assert.AreEqual(96, mvs.Count)
-        //mvs.Clear()
-        //let actual = ScidGame.GetMoves(&mvs,10)
-        //Assert.AreEqual(0, actual)
-        //Assert.AreEqual("Bg2", mvs.[0])
-        //Assert.AreEqual(10, mvs.Count)
-
+        
     [<TestMethod>]
     member this.ScidGameList () =
         let mutable gmsl = new ResizeArray<ScincFuncs.gmui>()
