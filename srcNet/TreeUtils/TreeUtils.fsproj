@@ -8,6 +8,18 @@
 		<ApplicationIcon>tree.ico</ApplicationIcon>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+	  <OutputPath>D:\GitHub\ScincNet\rel\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+	  <OutputPath>D:\GitHub\ScincNet\debug\</OutputPath>
+	</PropertyGroup>
+
 	<ItemGroup>
     <Compile Include="Form.fs" />
     <Compile Include="Program.fs" />

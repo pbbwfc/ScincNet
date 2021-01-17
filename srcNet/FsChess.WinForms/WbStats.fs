@@ -12,9 +12,11 @@ module WbStatsLib =
         let mutable mvsts = new ResizeArray<ScincFuncs.mvstats>()
         let mutable tsts = new ScincFuncs.totstats()
         let mutable fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-        let mutable mvsts1 = new ResizeArray<FsChessPgn.mvstats>()
-        let mutable tsts1 = new FsChessPgn.totstats()
+        let mutable mvsts1 = new ResizeArray<mvstats>()
+        let mutable tsts1 = new totstats()
         let mutable bdstr = "RNBQKBNRPPPPPPPP................................pppppppprnbqkbnr w"
+        let mutable stsdict:BrdStats option = None
+        
         let mutable isw = true
         let mutable basenm = ""
         let mutable basenum = -1
@@ -240,7 +242,7 @@ module WbStatsLib =
                     if rm.ContainsKey(fen) then rm.[fen]|>Some else None
                 else None
 
-            let mvsttag i (mvst:FsChessPgn.mvstats) isbrep iswrep nag comments =  
+            let mvsttag i (mvst:mvstats) isbrep iswrep nag comments =  
                 sans.[i] <- mvst.Mvstr
                 let tdstyle = 
                     if isbrep&&iswrep then "<td class=\"isboth\">" 
@@ -254,7 +256,7 @@ module WbStatsLib =
                 "</td><td>" + mvst.AvElo.ToString() + "</td><td>" + mvst.Perf.ToString() +
                 "</td><td>" + mvst.AvYear.ToString() + 
                 "</td>" + tdstyle + comments + "</td></tr>" + nl
-            let addrep i (mvst:FsChessPgn.mvstats) =
+            let addrep i (mvst:mvstats) =
                 if isw then
                     //check if move is in bopts
                     let isbrep,bnag,bcomment = 
@@ -392,10 +394,11 @@ module WbStatsLib =
         ///Refresh the stats after board change
         member stats.RefrshStatic() =
             mvsts1.Clear()
-            let sts = StaticTree.GetStats(bdstr)
-            mvsts1<-sts.MvsStats
-            tsts1 <-sts.TotStats
-            stats.DocumentText <- bdsttags1()
+            if stsdict.IsSome then
+                let sts = stsdict.Value.[bdstr]
+                mvsts1<-sts.MvsStats
+                tsts1 <-sts.TotStats
+                stats.DocumentText <- bdsttags1()
 
         member stats.UpdateFen(bd:Brd) =
             isw <- bd.WhosTurn=Player.White
@@ -410,7 +413,10 @@ module WbStatsLib =
         member stats.Init(nm:string, num:int) =
             basenm <- nm
             basenum <- num
-            
+        
+        member stats.InitStatic(istsdict:BrdStats) =
+            stsdict<-Some(istsdict)
+
         member stats.Close() =
             basenm <- ""
             basenum <- -1

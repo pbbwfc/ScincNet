@@ -217,24 +217,6 @@ module Repertoire =
 
 module StaticTree =
 
-    ///initialise the storage for the tree
-    let Init = FsChessPgn.StaticTree.Init
-
-    ///Processes a game to get info for the tree
-    let ProcessGame = FsChessPgn.StaticTree.ProcessGame
-
-    ///Processes a position to get info for the tree
-    let ProcessPos = FsChessPgn.StaticTree.ProcessPos
-
-    ///Gets the number of positions that need to be processed
-    let NumPos = FsChessPgn.StaticTree.NumPos
-
-    ///Creates arrays for more efficient processing
-    let CreateArrays = FsChessPgn.StaticTree.CreateArrays
-
-    ///Gets the stats for a position string
-    let GetStats = FsChessPgn.StaticTree.GetStats
-
     ///Saves the tree
     let Save = FsChessPgn.StaticTree.Save
 

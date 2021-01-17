@@ -138,11 +138,11 @@ module PnlBoardLib =
                 let r = i / 8
                 let f = i % 8
                 if not isw then 
-                    sq.Top <- 7 * 42 - r * 42 + 1
+                    sq.Top <- r * 42 + 1
                     sq.Left <- 7 * 42 - f * 42 + 1
                 else 
                     sq.Left <- f * 42 + 1
-                    sq.Top <- r * 42 + 1
+                    sq.Top <- 7 * 42 - r * 42 + 1
             sqs |> Array.iteri possq
             flbls
             |> Array.iteri (fun i l -> 
@@ -246,10 +246,10 @@ module PnlBoardLib =
             let sq =
                 new PictureBox(Height = 42, Width = 42, 
                                SizeMode = PictureBoxSizeMode.CenterImage)
-            sq.BackColor <- if (f + r) % 2 = 1 then Color.Green
+            sq.BackColor <- if (f + r) % 2 = 0 then Color.Green
                             else Color.PaleGreen
             sq.Left <- f * 42 + 1
-            sq.Top <- r * 42 + 1
+            sq.Top <- 7 * 42 - r * 42 + 1
             sq.Tag <- i
             //events
             sq.MouseDown.Add(fun e -> mouseDown (sq, e))

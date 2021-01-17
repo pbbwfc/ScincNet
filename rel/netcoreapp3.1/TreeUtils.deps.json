@@ -6,14 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "ScincNet/1.0.0": {
+      "TreeUtils/1.0.0": {
         "dependencies": {
           "FSharp.Core": "5.0.0",
-          "FSharp.Json": "0.4.0",
-          "FsChess.WinForms": "1.0.0"
+          "FsChess.WinForms": "1.0.0",
+          "FsChessPgn": "1.0.0",
+          "ScincFuncs": "1.0.0"
         },
         "runtime": {
-          "ScincNet.dll": {}
+          "TreeUtils.dll": {}
         }
       },
       "FSharp.Core/5.0.0": {
@@ -153,7 +154,7 @@
     }
   },
   "libraries": {
-    "ScincNet/1.0.0": {
+    "TreeUtils/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -44,7 +44,7 @@ module Form =
         
                 
         let SbUpdate(txt) =
-            //TODO may add soem timing and logging
+            //TODO may add some timing and logging
             sb.Text <- txt
 
         let updateMenuStates() =
