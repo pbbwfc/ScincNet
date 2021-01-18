@@ -1,6 +1,7 @@
 namespace FsChess.WinForms
 
 open System.Windows.Forms
+open System.IO
 open FsChess
 
 [<AutoOpen>]
@@ -15,7 +16,7 @@ module WbStatsLib =
         let mutable mvsts1 = new ResizeArray<mvstats>()
         let mutable tsts1 = new totstats()
         let mutable bdstr = "RNBQKBNRPPPPPPPP................................pppppppprnbqkbnr w"
-        let mutable stsdict:BrdStats option = None
+        let mutable isstatic = false
         
         let mutable isw = true
         let mutable basenm = ""
@@ -30,6 +31,10 @@ module WbStatsLib =
         //functions
         let nl = System.Environment.NewLine
         let hdr() = 
+            let hdrstr = 
+                if isstatic then
+                    "Static Tree - " + Path.GetFileNameWithoutExtension(basenm)
+                else "Tree - " + basenm      
             "<html>" + nl +
             "<head>" + nl +
             "<style>" + nl +
@@ -52,7 +57,7 @@ module WbStatsLib =
             "</style>" + nl +
             "</head>" + nl +
             "<body>" + nl +
-            "<h4>Tree - " + basenm + "</h4>" + nl +
+            "<h4>" + hdrstr + "</h4>" + nl +
             "<table style=\"width:100%;border-collapse: collapse;\">" + nl
 
         let ftr = 
@@ -60,9 +65,9 @@ module WbStatsLib =
             "</body></html>" + nl
 
         let getdiv ww dr bw =
-            let sww = if ww+dr+bw=0 then "0" else ((80*ww)/(ww+dr+bw)).ToString()
-            let sdr = if ww+dr+bw=0 then "0" else ((80*dr)/(ww+dr+bw)).ToString()
-            let sbw = if ww+dr+bw=0 then "0" else ((80*bw)/(ww+dr+bw)).ToString()
+            let sww = if ww+dr+bw=0L then "0" else ((80L*ww)/(ww+dr+bw)).ToString()
+            let sdr = if ww+dr+bw=0L then "0" else ((80L*dr)/(ww+dr+bw)).ToString()
+            let sbw = if ww+dr+bw=0L then "0" else ((80L*bw)/(ww+dr+bw)).ToString()
             let wwd = "<span style=\"border-top: 1px solid black;border-left: 1px solid black;border-bottom: 1px solid black;background-color:white;height:18px;width:" + sww + "px\"></span>" 
             let drd = "<span style=\"border-top: 1px solid black;border-bottom: 1px solid black;background-color:gray;height:18px;width:" + sdr + "px\"></span>"
             let bwd = "<span style=\"border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;background-color:black;height:18px;width:" + sbw + "px\"></span>"
@@ -101,7 +106,7 @@ module WbStatsLib =
                     else "<td>"
                 
                 "<tr id=\"" + i.ToString() + "\">" + tdstyle + mvst.Mvstr + nag + "</td><td>" + mvst.Count.ToString() + "</td>" + 
-                "<td>" + mvst.Freq.ToString("##0.0%") + "</td><td>" + (getdiv mvst.WhiteWins mvst.Draws mvst.BlackWins) + "</td>" + 
+                "<td>" + mvst.Freq.ToString("##0.0%") + "</td><td>" + (getdiv (int64(mvst.WhiteWins)) (int64(mvst.Draws)) (int64(mvst.BlackWins))) + "</td>" + 
                 "<td>" + mvst.Score.ToString("##0.0%") + "</td><td>" + mvst.DrawPc.ToString("##0.0%") +
                 "</td><td>" + mvst.AvElo.ToString() + "</td><td>" + mvst.Perf.ToString() +
                 "</td><td>" + mvst.AvYear.ToString() + "</td><td>" + mvst.ECO +
@@ -209,7 +214,7 @@ module WbStatsLib =
                 (mvstags()) +
                 "<tr><td style=\"border-top: 1px solid black;\"></td><td style=\"border-top: 1px solid black;\">" + 
                 tsts.TotCount.ToString() + "</td><td style=\"border-top: 1px solid black;\">" + tsts.TotFreq.ToString("##0.0%") + "</td>" +
-                "<td style=\"border-top: 1px solid black;\">" + (getdiv tsts.TotWhiteWins tsts.TotDraws tsts.TotBlackWins) + "</td><td style=\"border-top: 1px solid black;\">" + 
+                "<td style=\"border-top: 1px solid black;\">" + (getdiv (int64(tsts.TotWhiteWins)) (int64(tsts.TotDraws)) (int64(tsts.TotBlackWins))) + "</td><td style=\"border-top: 1px solid black;\">" + 
                 tsts.TotScore.ToString("##0.0%") + "</td><td style=\"border-top: 1px solid black;\">" + 
                 tsts.TotDrawPc.ToString("##0.0%") + "</td><td style=\"border-top: 1px solid black;\">" +  
                 tsts.TotAvElo.ToString() + "</td><td style=\"border-top: 1px solid black;\">" +
@@ -386,19 +391,16 @@ module WbStatsLib =
 
         ///Refresh the stats after board change
         member stats.Refrsh() =
-            tsts <- new ScincFuncs.totstats()
-            mvsts.Clear()
-            if basenum<> -1 && ScincFuncs.Tree.Search(&mvsts, &tsts, fen, basenum)=0 then
-                stats.DocumentText <- bdsttags()
-
-        ///Refresh the stats after board change
-        member stats.RefrshStatic() =
-            mvsts1.Clear()
-            if stsdict.IsSome then
-                let sts = stsdict.Value.[bdstr]
+            if isstatic then
+                let sts = StaticTree.Read(bdstr,basenm + "_FILES")
                 mvsts1<-sts.MvsStats
                 tsts1 <-sts.TotStats
                 stats.DocumentText <- bdsttags1()
+            else
+                tsts <- new ScincFuncs.totstats()
+                mvsts.Clear()
+                if basenum<> -1 && ScincFuncs.Tree.Search(&mvsts, &tsts, fen, basenum)=0 then
+                    stats.DocumentText <- bdsttags()
 
         member stats.UpdateFen(bd:Brd) =
             isw <- bd.WhosTurn=Player.White
@@ -408,14 +410,17 @@ module WbStatsLib =
         member stats.UpdateStr(bd:Brd) =
             isw <- bd.WhosTurn=Player.White
             bdstr <- bd|>Board.ToSimpleStr
-            stats.RefrshStatic()
+            stats.Refrsh()
 
         member stats.Init(nm:string, num:int) =
             basenm <- nm
             basenum <- num
+            isstatic <- false
         
-        member stats.InitStatic(istsdict:BrdStats) =
-            stsdict<-Some(istsdict)
+        member stats.InitStatic(nm:string) =
+            basenm <- nm
+            basenum <- -1
+            isstatic <- true
 
         member stats.Close() =
             basenm <- ""

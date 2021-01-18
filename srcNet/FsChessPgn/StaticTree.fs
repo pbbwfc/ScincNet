@@ -22,7 +22,7 @@ module StaticTree =
         Directory.CreateDirectory(fol)|>ignore
         use env = new LightningEnvironment(fol)
         env.MaxDatabases <- 1
-        env.MapSize <- 1000000000L
+        env.MapSize <- 4000000000L
         env.Open()
         use tx = env.BeginTransaction()
         use db = tx.OpenDatabase("Tree",new DatabaseConfiguration(Flags = LightningDB.DatabaseOpenFlags.Create))

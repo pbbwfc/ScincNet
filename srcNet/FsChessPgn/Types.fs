@@ -311,47 +311,47 @@ module Types =
         [<Key(0)>]
         member val Mvstr = "" with get, set
         [<Key(1)>]
-        member val Count = 0 with get, set
+        member val Count = 0L with get, set
         [<Key(2)>]
         member val Freq = 0.0 with get, set
         [<Key(3)>]
-        member val WhiteWins = 0 with get, set
+        member val WhiteWins = 0L with get, set
         [<Key(4)>]
-        member val Draws = 0 with get, set
+        member val Draws = 0L with get, set
         [<Key(5)>]
-        member val BlackWins = 0 with get, set
+        member val BlackWins = 0L with get, set
         [<Key(6)>]
         member val Score = 0.0 with get, set
         [<Key(7)>]
         member val DrawPc = 0.0 with get, set
         [<Key(8)>]
-        member val AvElo = 0 with get, set
+        member val AvElo = 0L with get, set
         [<Key(9)>]
-        member val Perf = 0 with get, set
+        member val Perf = 0L with get, set
         [<Key(10)>]
-        member val AvYear = 0 with get, set
+        member val AvYear = 0L with get, set
     [<MessagePackObject>]
     type totstats() =
         [<Key(0)>]
-        member val TotCount = 0 with get, set
+        member val TotCount = 0L with get, set
         [<Key(1)>]
         member val TotFreq = 0.0 with get, set
         [<Key(2)>]
-        member val TotWhiteWins = 0 with get, set
+        member val TotWhiteWins = 0L with get, set
         [<Key(3)>]
-        member val TotDraws = 0 with get, set
+        member val TotDraws = 0L with get, set
         [<Key(4)>]
-        member val TotBlackWins = 0 with get, set
+        member val TotBlackWins = 0L with get, set
         [<Key(5)>]
         member val TotScore = 0.0 with get, set
         [<Key(6)>]
         member val TotDrawPc = 0.0 with get, set
         [<Key(7)>]
-        member val TotAvElo = 0 with get, set
+        member val TotAvElo = 0L with get, set
         [<Key(8)>]
-        member val TotPerf = 0 with get, set
+        member val TotPerf = 0L with get, set
         [<Key(9)>]
-        member val TotAvYear = 0 with get, set
+        member val TotAvYear = 0L with get, set
     [<MessagePackObject>]
     type stats() =
         [<Key(0)>]

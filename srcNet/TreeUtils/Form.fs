@@ -8,7 +8,7 @@ open ScincFuncs
 open FsChess
 
 type private GameInfo = {Gmno:int;Welo:int;Belo:int;Year:int;Result:int}
-type private TreeData = {TotElo:int;EloCount:int;TotPerf:int;PerfCount:int;TotYear:int;YearCount:int;TotScore:int;DrawCount:int;TotCount:int}
+type private TreeData = {TotElo:int64;EloCount:int64;TotPerf:int64;PerfCount:int64;TotYear:int64;YearCount:int64;TotScore:int64;DrawCount:int64;TotCount:int64}
 type private MvTrees = System.Collections.Generic.Dictionary<string,TreeData>
 
 
@@ -26,10 +26,6 @@ module Form =
         inherit Form(Text = "TreeUtils", Icon = ico "tree.ico", Width=800, Height=500, FormBorderStyle = FormBorderStyle.FixedDialog, MaximizeBox = false, StartPosition = FormStartPosition.CenterScreen)
         let bfol = 
             let pth = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),"ScincNet\\bases")
-            Directory.CreateDirectory(pth)|>ignore
-            pth
-        let tfol = 
-            let pth = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),"ScincNet\\trees")
             Directory.CreateDirectory(pth)|>ignore
             pth
 
@@ -86,9 +82,9 @@ module Form =
                         elif gminfo.Result=2 then //win
                             (gminfo.Belo + 400),1
                         else (gminfo.Belo - 400),1
-                    {TotElo = gminfo.Welo;EloCount = (if gminfo.Welo=0 then 0 else 1);TotPerf = perf;
-                        PerfCount = ct;TotYear = gminfo.Year;YearCount = (if gminfo.Year=0 then 0 else 1);
-                        TotScore = gminfo.Result; DrawCount = (if gminfo.Result=1 then 1 else 0); TotCount=1}
+                    {TotElo = int64(gminfo.Welo);EloCount = (if gminfo.Welo=0 then 0L else 1L);TotPerf = int64(perf);
+                        PerfCount = int64(ct);TotYear = int64(gminfo.Year);YearCount = (if gminfo.Year=0 then 0L else 1L);
+                        TotScore = int64(gminfo.Result); DrawCount = (if gminfo.Result=1 then 1L else 0L); TotCount=1L}
                 let btd = 
                     let perf,ct =
                             if gminfo.Welo=0 then 0,0
@@ -97,9 +93,9 @@ module Form =
                             elif gminfo.Result=0 then //win
                                 (gminfo.Welo + 400),1
                             else (gminfo.Welo - 400),1
-                    {TotElo = gminfo.Belo;EloCount = (if gminfo.Belo=0 then 0 else 1);TotPerf = perf;
-                        PerfCount = ct;TotYear = gminfo.Year;YearCount = (if gminfo.Year=0 then 0 else 1);
-                        TotScore = gminfo.Result; DrawCount = (if gminfo.Result=1 then 1 else 0); TotCount=1}
+                    {TotElo = int64(gminfo.Belo);EloCount = (if gminfo.Belo=0 then 0L else 1L);TotPerf = int64(perf);
+                        PerfCount = int64(ct);TotYear = int64(gminfo.Year);YearCount = (if gminfo.Year=0 then 0L else 1L);
+                        TotScore = int64(gminfo.Result); DrawCount = (if gminfo.Result=1 then 1L else 0L); TotCount=1L}
                 //now need to go through the boarda and put in dictionary holding running totals
                 for j = 0 to posns.Count-1 do
                     let bd = posns.[j]
@@ -132,42 +128,42 @@ module Form =
                     let tr = mtr.Value
                     totsts.TotCount<-totsts.TotCount+tr.TotCount
 
-                let mutable ect = 0
-                let mutable pct = 0
-                let mutable yct = 0
+                let mutable ect = 0L
+                let mutable pct = 0L
+                let mutable yct = 0L
                 for mtr in vl do
                     let mv = mtr.Key
                     let tr = mtr.Value
                     let mvst = new mvstats()
                     mvst.Count<-tr.TotCount
                     mvst.Freq<-float(mvst.Count)/float(totsts.TotCount)
-                    mvst.WhiteWins<-(tr.TotScore-tr.DrawCount)/2
+                    mvst.WhiteWins<-(tr.TotScore-tr.DrawCount)/2L
                     totsts.TotWhiteWins<-totsts.TotWhiteWins+mvst.WhiteWins
                     mvst.Draws<-tr.DrawCount
                     totsts.TotDraws<-totsts.TotDraws+mvst.Draws
                     mvst.BlackWins<-mvst.Count-mvst.WhiteWins-mvst.Draws
                     totsts.TotBlackWins<-totsts.TotBlackWins+mvst.BlackWins
-                    mvst.Score<-float(tr.TotScore)/float(tr.TotCount*2)
-                    totsts.TotScore<-totsts.TotScore+float(tr.TotScore)/float(totsts.TotCount*2)
+                    mvst.Score<-float(tr.TotScore)/float(tr.TotCount*2L)
+                    totsts.TotScore<-totsts.TotScore+float(tr.TotScore)/float(totsts.TotCount*2L)
                     mvst.DrawPc<-float(tr.DrawCount)/float(tr.TotCount)
                     totsts.TotDrawPc<-totsts.TotDrawPc+float(tr.DrawCount)/float(totsts.TotCount)
-                    mvst.AvElo<-if tr.EloCount<=10 then 0 else tr.TotElo/tr.EloCount
+                    mvst.AvElo<-if tr.EloCount<=10L then 0L else tr.TotElo/tr.EloCount
                     totsts.TotAvElo<-totsts.TotAvElo+tr.TotElo
                     ect<-ect+tr.EloCount
-                    mvst.Perf<-if tr.PerfCount<=10 then 0 else tr.TotPerf/tr.PerfCount
+                    mvst.Perf<-if tr.PerfCount<=10L then 0L else tr.TotPerf/tr.PerfCount
                     totsts.TotPerf<-totsts.TotPerf+tr.TotPerf
                     pct<-pct+tr.PerfCount
-                    mvst.AvYear<-if tr.YearCount<=0 then 0 else tr.TotYear/tr.YearCount
+                    mvst.AvYear<-if tr.YearCount<=0L then 0L else tr.TotYear/tr.YearCount
                     totsts.TotAvYear<-totsts.TotAvYear+tr.TotYear
                     yct<-yct+tr.YearCount
                     mvst.Mvstr<-mv
                     mvsts.Add(mvst)
 
-                totsts.TotAvElo<-if ect=0 then 0 else totsts.TotAvElo/ect
-                totsts.TotPerf<-if pct=0 then 0 else totsts.TotPerf/pct
-                totsts.TotAvYear<-if yct=0 then 0 else totsts.TotAvYear/yct
+                totsts.TotAvElo<-if ect=0L then 0L else totsts.TotAvElo/ect
+                totsts.TotPerf<-if pct=0L then 0L else totsts.TotPerf/pct
+                totsts.TotAvYear<-if yct=0L then 0L else totsts.TotAvYear/yct
                 //need to sort by count
-                mvsts.Sort(fun a b -> b.Count-a.Count)
+                mvsts.Sort(fun a b -> int(b.Count-a.Count))
                 sts.MvsStats<-mvsts
                 sts.TotStats<-totsts
                 if i%100=0 then 
@@ -224,23 +220,22 @@ module Form =
                     lbl.Text <- "Creating dictionary..."
                     lbl.Refresh()
                     Application.DoEvents()
-                    let stsdict = Array.zip posns stsarr|>dict
-                    let fn = Path.Combine(tfol,nm + ".tr4")
+                    let fol = basename + "_FILES"
                     lbl.Text <- "Saving dictionary..."
                     lbl.Refresh()
-                    StaticTree.Save(fn,stsdict)
+                    if posns.Length>100000 then StaticTree.CreateBig(fol)|>ignore else StaticTree.Create(fol)|>ignore
+                    StaticTree.Save(posns,stsarr,fol)|>ignore
                     lbl.Text <- "Loading dictionary..."
                     lbl.Refresh()
                     Application.DoEvents()
-                    let nstsdict = StaticTree.Load(fn)
                     lbl.Text <- "Initializing View..."
                     lbl.Refresh()
                     Application.DoEvents()
-                    sts.InitStatic(nstsdict)
+                    sts.InitStatic(basename)
                     lbl.Text <- "Loading View..."
                     lbl.Refresh()
                     Application.DoEvents()
-                    sts.RefrshStatic()
+                    sts.Refrsh()
                     lbl.Text <- "Ready"
                     lbl.Refresh()
                     Application.DoEvents()
