@@ -405,10 +405,6 @@ module WbStatsLib =
         member stats.UpdateFen(bd:Brd) =
             isw <- bd.WhosTurn=Player.White
             fen <- bd|>Board.ToStr
-            stats.Refrsh()
-
-        member stats.UpdateStr(bd:Brd) =
-            isw <- bd.WhosTurn=Player.White
             bdstr <- bd|>Board.ToSimpleStr
             stats.Refrsh()
 
@@ -419,14 +415,16 @@ module WbStatsLib =
         
         member stats.InitStatic(nm:string) =
             basenm <- nm
-            basenum <- -1
+            basenum <- 99
             isstatic <- true
 
         member stats.Close() =
             basenm <- ""
             basenum <- -1
             fen <- "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+            bdstr <- "RNBQKBNRPPPPPPPP................................pppppppprnbqkbnr w"
             isw <- true
+            isstatic <- false
             mvsts.Clear()
             stats.DocumentText <- bdsttags()
         

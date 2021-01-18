@@ -40,7 +40,7 @@ module Form =
         let domvsel(mvstr) =
             let mv = mvstr|>Move.FromSan bd
             bd <- bd|>Board.Push mv
-            sts.UpdateStr(bd)
+            sts.UpdateFen(bd)
         
         
         let docreate(e) =

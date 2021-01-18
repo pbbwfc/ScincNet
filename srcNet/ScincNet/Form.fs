@@ -98,11 +98,13 @@ module Form =
                         MessageBox.Show("Unable to create database: " + fn,"Scinc Error")|>ignore
                     else
                         SbUpdate("Updating windows")
-                        Recents.add fn
+                        Recents.addrec fn
                         gmtbs.AddTab()
                         refreshWindows()
                         pgn.Refrsh(0,ScincFuncs.Base.Current())
-                        if sts.BaseNum()= -1 then sts.Init(nm,ScincFuncs.Base.Current())
+                        if sts.BaseNum()= -1 then 
+                            sts.Init(nm,ScincFuncs.Base.Current())
+                            Recents.addtr fn
                         SbUpdate("Ready")
 
         let doopen(ifn:string,dotree:bool) = 
@@ -119,9 +121,10 @@ module Form =
                         if ScincFuncs.Base.Open(fn)<0 then
                             MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
                         else
-                            Recents.add fn
+                            Recents.addrec fn
                             if sts.BaseNum()= -1||dotree then 
                                 sts.Init(nm,ScincFuncs.Base.Current())
+                                Recents.addtr fn
                             //dotbselect will be called to do the loading
                             gmtbs.AddTab()
                             SbUpdate("Ready")
@@ -133,14 +136,36 @@ module Form =
                         if ScincFuncs.Base.Open(fn)<0 then
                             MessageBox.Show("Unable to open database: " + fn,"Scinc Error")|>ignore
                         else
-                            Recents.add fn
+                            Recents.addrec fn
                             if sts.BaseNum()= -1||dotree then 
                                 sts.Init(nm,ScincFuncs.Base.Current())
+                                Recents.addtr fn
                             //dotbselect will be called to do the loading
                             gmtbs.AddTab()
                             SbUpdate("Ready")
             waitify(dofun)
 
+        let doopenstatic(ifol:string) = 
+            let dofun() =
+                let ndlg = new FolderBrowserDialog(Description="Open Static Tree by Selecting Folder")
+                if ifol="" && ndlg.ShowDialog() = DialogResult.OK then
+                    //open database
+                    let fol = ndlg.SelectedPath
+                    SbUpdate("Opening tree in: " + fol)
+                    Recents.addstr fol
+                    sts.InitStatic(fol.Substring(0,fol.Length-6))
+                    sts.Refrsh()
+                    SbUpdate("Ready")
+                elif ifol<>"" then
+                    //open database
+                    let fol = ifol
+                    SbUpdate("Opening tree in: " + fol)
+                    Recents.addstr fol
+                    sts.InitStatic(fol.Substring(0,fol.Length-6))
+                    sts.Refrsh()
+                    SbUpdate("Ready")
+            waitify(dofun)
+        
         let dosave() =
             SbUpdate("Saving game")
             pgn.SaveGame()
@@ -261,7 +286,6 @@ module Form =
             showbb.Text<-if showbb.Text="Show Black" then "Hide Black" else "Show Black"
             sts.LoadBlackRep(showbm.Text="Hide Black")
         
-
         
         let dobdchg(nbd) =
             bd.SetBoard(nbd)
@@ -377,22 +401,44 @@ module Form =
             let opentreem = new ToolStripMenuItem(Text = "Open as &Tree")
             opentreem.Click.Add(fun _ -> doopen("",true))
             filem.DropDownItems.Add(opentreem)|>ignore
+            // file open static tree
+            let openstreem = new ToolStripMenuItem(Text = "Open &Static Tree")
+            openstreem.Click.Add(fun _ -> doopenstatic(""))
+            filem.DropDownItems.Add(openstreem)|>ignore
             // recents
             let recm = new ToolStripMenuItem(Text = "Recent")
             let rectreem = new ToolStripMenuItem(Text = "Recent as Tree")
+            let recstreem = new ToolStripMenuItem(Text = "Recent Static Tree")
             filem.DropDownItems.Add(recm)|>ignore
             filem.DropDownItems.Add(rectreem)|>ignore
+            filem.DropDownItems.Add(recstreem)|>ignore
             let addrec (rc:string) =
                 let mn = new ToolStripMenuItem(Text = Path.GetFileNameWithoutExtension(rc))
                 mn.Click.Add(fun _ -> doopen(rc,false))
                 recm.DropDownItems.Add(mn)|>ignore
-                let mn1 = new ToolStripMenuItem(Text = Path.GetFileNameWithoutExtension(rc))
-                mn1.Click.Add(fun _ -> doopen(rc,true))
-                rectreem.DropDownItems.Add(mn1)|>ignore
             let rcs = 
-                Recents.get()
+                Recents.getrecs()
                 Recents.dbs
             rcs|>Seq.iter addrec
+            let addtr (tr:string) =
+                let mn1 = new ToolStripMenuItem(Text = Path.GetFileNameWithoutExtension(tr))
+                mn1.Click.Add(fun _ -> doopen(tr,true))
+                rectreem.DropDownItems.Add(mn1)|>ignore
+            let trs = 
+                Recents.gettrs()
+                Recents.trs
+            trs|>Seq.iter addtr
+            let addstr (str:string) =
+                let fol = Path.GetFileNameWithoutExtension(str)
+                let mn1 = new ToolStripMenuItem(Text = fol.Substring(0,fol.Length-6))
+                mn1.Click.Add(fun _ -> doopenstatic(str))
+                recstreem.DropDownItems.Add(mn1)|>ignore
+            let strs = 
+                Recents.getstrs()
+                Recents.strs
+            strs|>Seq.iter addstr
+
+
             // file exit
             let exitm = new ToolStripMenuItem(Text = "Exit")
             exitm.Click.Add(fun _ -> doexit())
