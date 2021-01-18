@@ -217,9 +217,20 @@ module Repertoire =
 
 module StaticTree =
 
-    ///Saves the tree
+    ///Creates the tree storage given a folder
+    let Create = FsChessPgn.StaticTree.Create
+
+    ///Creates big tree storage given a folder
+    let CreateBig = FsChessPgn.StaticTree.CreateBig
+
+    ///Saves the tree storage given an array of positions, an array of stats and a folder
     let Save = FsChessPgn.StaticTree.Save
 
-    ///Loads the tree
-    let Load = FsChessPgn.StaticTree.Load
+    ///Reads the tree storage given an array of positions and a folder
+    let ReadArray = FsChessPgn.StaticTree.ReadArray
 
+    ///Reads the tree storage given a position and a folder
+    let Read = FsChessPgn.StaticTree.Read
+    
+    ///Compavct the tree storage given a folder
+    let Compact = FsChessPgn.StaticTree.Compact
