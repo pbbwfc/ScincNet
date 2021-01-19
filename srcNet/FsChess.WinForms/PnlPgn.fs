@@ -21,6 +21,7 @@ module PnlPgnLib =
         let pgn = new WebBrowser(AllowWebBrowserDrop = false,IsWebBrowserContextMenuEnabled = false,WebBrowserShortcutsEnabled = false,Dock=DockStyle.Fill)
         //mutables
         let mutable game = Game.Start
+        let mutable egame = EncodedGameEMP
         let mutable board = Board.Start
         let mutable oldstyle:(HtmlElement*string) option = None
         let mutable irs = [-1]
@@ -341,6 +342,7 @@ module PnlPgnLib =
         let mvctxmnu = 
             let delrav(e) =
                 game <- Game.DeleteRav game rirs
+                egame <- Game.DeleteRav2 egame irs
                 pgn.DocumentText <- mvtags()
                 gmchg <- true
                 gmchg|>gmchngEvt.Trigger
@@ -503,6 +505,7 @@ module PnlPgnLib =
             let gm = Game.FromStr(pgnstr)
             //need to check if want to save
             if gmchg then pgnpnl.PromptSaveGame()
+            egame <- gm|>Game.Encode
             game <- gm|>Game.GetaMoves
             pgn.DocumentText <- mvtags()
             //need to select move that matches current board
@@ -527,9 +530,10 @@ module PnlPgnLib =
             sethdr()
  
         ///Sets the Game to be displayed
-        member pgnpnl.SetGame(gm:Game) = 
+        member pgnpnl.SetGame(gm:UnencodedGame) = 
             //need to check if want to save
             if gmchg then pgnpnl.PromptSaveGame()
+            egame <- gm|>Game.Encode
             game <- gm|>Game.GetaMoves
             pgn.DocumentText <- mvtags()
             board <- Board.Start
@@ -713,9 +717,11 @@ module PnlPgnLib =
                         if el.Id=id.ToString() then
                             el|>highlight
             elif isext then
+                let negame,nirs = Game.AddMv2 egame irs mv
                 let pmv = mv|>Move.TopMove board
                 let ngame,nirs = Game.AddMv game irs pmv 
                 game <- ngame
+                egame <- negame
                 irs <- nirs
                 board <- board|>Board.Push mv
                 pgn.DocumentText <- mvtags()
@@ -786,6 +792,7 @@ module PnlPgnLib =
                                 el|>highlight
                     else
                         //need to create a new RAV
+                        let negame,nirs = Game.AddRav2 egame irs mv  
                         let ngame,nirs = Game.AddRav game irs (mv|>Move.TopMove board) 
                         game <- ngame
                         irs <- nirs

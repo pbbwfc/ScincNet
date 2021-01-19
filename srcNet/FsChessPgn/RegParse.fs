@@ -19,9 +19,9 @@ module RegParse =
         | Invalid
         | FinishedInvalid
     
-    let rec private NextGameRdr(sr : StreamReader) = 
+    let rec private NextGameRdr(sr : StreamReader) :UnencodedGame = 
         let nl = System.Environment.NewLine
-        let rec proclin st cstr s gm = 
+        let rec proclin st cstr s (gm:UnencodedGame) = 
             if s = "" then 
                 match st with
                 |InMove ->
@@ -104,7 +104,7 @@ module RegParse =
                     proclin st cstr tl gm
                 |InHeader -> 
                     if hd=']' then
-                        let ngm = gm|>Game.AddTag cstr
+                        let ngm = gm|>GameUnencoded.AddTag cstr
                         proclin Unknown "" tl ngm
                     else
                         proclin st (cstr+hd.ToString()) tl gm
@@ -130,7 +130,7 @@ module RegParse =
                         | _ -> InMove, s
                     proclin st cstr ns gm
     
-        let rec getgm st cstr gm = 
+        let rec getgm st cstr (gm:UnencodedGame) = 
             let lin = sr.ReadLine()
             if lin |> isNull then { gm with MoveText = (gm.MoveText |> List.rev) }
             else 

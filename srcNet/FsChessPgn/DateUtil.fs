@@ -7,7 +7,7 @@ module DateUtil =
     let (|?) (lhs:int option) rhs = (if lhs.IsNone then rhs else lhs.Value.ToString("00"))
     let (-?) (lhs:int option) rhs = (if lhs.IsNone then rhs else lhs.Value.ToString("0000"))
     
-    let ToStr(gm:Game) =
+    let ToStr(gm:UnencodedGame) =
         (gm.Year -? "????") + (".") +
         (gm.Month |? "??") + (".") +
         (gm.Day |? "??")

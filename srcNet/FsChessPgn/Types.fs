@@ -199,51 +199,75 @@ module Types =
         |Wdecisive = 18
         |Bdecisive = 19
 
+    type Brd = 
+        { 
+            PieceAt : Piece list
+            WtKingPos : Square
+            BkKingPos : Square
+            PieceTypes : Bitboard list
+            WtPrBds : Bitboard
+            BkPrBds : Bitboard
+            PieceLocationsAll : Bitboard
+            Checkers : Bitboard
+            WhosTurn : Player
+            CastleRights : CstlFlgs
+            EnPassant : Square
+            Fiftymove : int
+            Fullmove : int
+        }
+        member bd.Item with get(sq:Square) = bd.PieceAt.[int(sq)]
+        override bd.ToString() =
+            let pctostr pc =
+                match pc with
+                | Piece.WPawn -> "P"
+                | Piece.WKnight -> "N"
+                | Piece.WBishop -> "B"
+                | Piece.WRook -> "R"
+                | Piece.WQueen -> "Q"
+                | Piece.WKing -> "K"
+                | Piece.BPawn -> "p"
+                | Piece.BKnight -> "n"
+                | Piece.BBishop -> "b"
+                | Piece.BRook -> "r"
+                | Piece.BQueen -> "q"
+                | Piece.BKing -> "k"
+                | Piece.EMPTY -> "."
+                |_ -> failwith "invalid piece"
+            let bdstr = bd.PieceAt|>List.map(fun p -> p|>pctostr)|>List.reduce(+)
+            let tomv = if bd.WhosTurn=Player.White then " w" else " b"
+            bdstr + tomv
+         
+    let BrdEMP = 
+        { 
+            PieceAt = Array.create 64 Piece.EMPTY|>List.ofArray
+            WtKingPos = OUTOFBOUNDS
+            BkKingPos = OUTOFBOUNDS
+            PieceTypes = Array.create 7 Bitboard.Empty|>List.ofArray
+            WtPrBds = Bitboard.Empty
+            BkPrBds = Bitboard.Empty
+            PieceLocationsAll = Bitboard.Empty
+            Checkers = Bitboard.Empty
+            WhosTurn = Player.White
+            CastleRights = CstlFlgs.EMPTY
+            EnPassant = OUTOFBOUNDS
+            Fiftymove = 0
+            Fullmove = 0
+        }
+
     type pMove = 
         {
-         Mtype:MoveType 
-         TargetSquare:Square 
-         Piece: PieceType option
-         OriginFile:File option
-         OriginRank:Rank option
-         PromotedPiece: PieceType option
-         IsCheck:bool
-         IsDoubleCheck:bool
-         IsCheckMate:bool
-         }
-
-    type Brd = 
-        { PieceAt : Piece list
-          WtKingPos : Square
-          BkKingPos : Square
-          PieceTypes : Bitboard list
-          WtPrBds : Bitboard
-          BkPrBds : Bitboard
-          PieceLocationsAll : Bitboard
-          Checkers : Bitboard
-          WhosTurn : Player
-          CastleRights : CstlFlgs
-          EnPassant : Square
-          Fiftymove : int
-          Fullmove : int
-          }
-         member this.Item with get(sq:Square) = this.PieceAt.[int(sq)]
-
-    let BrdEMP = 
-        { PieceAt = Array.create 64 Piece.EMPTY|>List.ofArray
-          WtKingPos = OUTOFBOUNDS
-          BkKingPos = OUTOFBOUNDS
-          PieceTypes = Array.create 7 Bitboard.Empty|>List.ofArray
-          WtPrBds = Bitboard.Empty
-          BkPrBds = Bitboard.Empty
-          PieceLocationsAll = Bitboard.Empty
-          Checkers = Bitboard.Empty
-          WhosTurn = Player.White
-          CastleRights = CstlFlgs.EMPTY
-          EnPassant = OUTOFBOUNDS
-          Fiftymove = 0
-          Fullmove = 0
-          }
+             Mtype:MoveType 
+             TargetSquare:Square 
+             Piece: PieceType option
+             OriginFile:File option
+             OriginRank:Rank option
+             PromotedPiece: PieceType option
+             IsCheck:bool
+             IsDoubleCheck:bool
+             IsCheckMate:bool
+             San:string
+        }
+        override x.ToString() = x.San
 
     type aMove =
         {
@@ -260,8 +284,8 @@ module Types =
         |GameEndEntry of GameResult
         |NAGEntry of NAG
         |RAVEntry of MoveTextEntry list
- 
-    type Game =
+    
+    type UnencodedGame =
         {
             WhitePlayer : string
             BlackPlayer : string
@@ -280,7 +304,116 @@ module Types =
             MoveText : MoveTextEntry list
         }
 
-    let GameEMP =
+    let GameEMP:UnencodedGame =
+        {
+            Event = "?"
+            Site = "?"
+            Year = None
+            Month = None
+            Day = None
+            Round = "?"
+            WhitePlayer = "?"
+            BlackPlayer = "?"
+            Result = GameResult.Open
+            WhiteElo = "-"
+            BlackElo = "-"
+            ECO = ""
+            BoardSetup = None
+            AdditionalInfo = Map.empty
+            MoveText = []
+        }
+
+    type EncodedMove =
+        {
+            San : string
+            Mno : int
+            Isw : bool
+            Mv : Move
+            PostBrd : Brd
+        }
+        override x.ToString() = x.San
+
+    type EncodedMoveTextEntry =
+        |EncodedHalfMoveEntry of int option * bool * EncodedMove
+        |EncodedCommentEntry of string
+        |EncodedGameEndEntry of GameResult
+        |EncodedNAGEntry of NAG
+        |EncodedRAVEntry of EncodedMoveTextEntry list
+    
+    type EncodedGame =
+        {
+            WhitePlayer : string
+            BlackPlayer : string
+            Result : GameResult
+            Year : int option
+            Month : int option
+            Day : int option
+            Event : string
+            WhiteElo : string
+            BlackElo : string
+            Round :string
+            Site : string
+            ECO : string
+            BoardSetup : Brd option
+            AdditionalInfo : Map<string,string>
+            MoveText : EncodedMoveTextEntry list
+        }
+
+    let EncodedGameEMP:EncodedGame =
+        {
+            Event = "?"
+            Site = "?"
+            Year = None
+            Month = None
+            Day = None
+            Round = "?"
+            WhitePlayer = "?"
+            BlackPlayer = "?"
+            Result = GameResult.Open
+            WhiteElo = "-"
+            BlackElo = "-"
+            ECO = ""
+            BoardSetup = None
+            AdditionalInfo = Map.empty
+            MoveText = []
+        }
+
+    type CompressedMove =
+        {
+            San : string
+            Mno : int
+            Isw : bool
+            Mv : Move
+        }
+        with override x.ToString() = x.San
+
+    type CompressedMoveTextEntry =
+        |CompressedHalfMoveEntry of int option * bool * CompressedMove
+        |CompressedCommentEntry of string
+        |CompressedGameEndEntry of GameResult
+        |CompressedNAGEntry of NAG
+        |CompressedRAVEntry of CompressedMoveTextEntry list
+    
+    type CompressedGame =
+        {
+            WhitePlayer : string
+            BlackPlayer : string
+            Result : GameResult
+            Year : int option
+            Month : int option
+            Day : int option
+            Event : string
+            WhiteElo : string
+            BlackElo : string
+            Round :string
+            Site : string
+            ECO : string
+            BoardSetup : Brd option
+            AdditionalInfo : Map<string,string>
+            MoveText : CompressedMoveTextEntry list
+        }
+
+    let CompressedGameEMP:CompressedGame =
         {
             Event = "?"
             Site = "?"

@@ -2,7 +2,7 @@
 
 open FsChess
 
-module Game =
+module GameUnencoded =
 
     let Start = GameEMP
 
@@ -24,7 +24,7 @@ module Game =
             |_ -> []
         mtel|>List.map gm|>List.concat
     
-    let AddTag (tagstr:string) (gm:Game) =
+    let AddTag (tagstr:string) (gm:UnencodedGame) =
         let k,v = tagstr.Trim().Split([|'"'|])|>Array.map(fun s -> s.Trim())|>fun a -> a.[0],a.[1].Trim('"')
         match k with
         | "Event" -> {gm with Event = v}
@@ -43,10 +43,10 @@ module Game =
         | _ ->
             {gm with AdditionalInfo=gm.AdditionalInfo.Add(k,v)}
     
-    let AddMoveEntry (mte:MoveTextEntry) (gm:Game) =
+    let AddMoveEntry (mte:MoveTextEntry) (gm:UnencodedGame) =
         {gm with MoveText=gm.MoveText@[mte]}
 
-    let RemoveMoveEntry (gm:Game) =
+    let RemoveMoveEntry (gm:UnencodedGame) =
         let mtel = gm.MoveText
         let nmtel =
             if mtel.IsEmpty then mtel
@@ -54,18 +54,18 @@ module Game =
                 mtel|>List.rev|>List.tail|>List.rev
         {gm with MoveText=nmtel}
 
-    let AddpMove (pmv:pMove) (gm:Game) =
+    let AddpMove (pmv:pMove) (gm:UnencodedGame) =
         let mtel = gm.MoveText
         let mc = mtel|>MoveCount
         let mn = if mc%2=0 then Some(mc/2+1) else None
         let mte = HalfMoveEntry(mn,false,pmv,None)
         gm|>AddMoveEntry mte
             
-    let AddSan (san:string) (gm:Game) =
+    let AddSan (san:string) (gm:UnencodedGame) =
         let pmv = san|>pMove.Parse
         gm|>AddpMove pmv
      
-    let pretty(gm:Game) = 
+    let pretty(gm:UnencodedGame) = 
         let mtel = gm.MoveText
         if mtel.IsEmpty then "No moves"
         elif mtel.Length<6 then
@@ -77,7 +77,7 @@ module Game =
             let mvstr = l5|>List.map PgnWrite.MoveTextEntryStr|>List.reduce(fun a b -> a + " " + b)
             "moves: ..." + mvstr
    
-    let SetaMoves(gm:Game) =
+    let SetaMoves(gm:UnencodedGame) =
         let rec setamv (pmvl:MoveTextEntry list) mct prebd bd opmvl =
             if pmvl|>List.isEmpty then opmvl|>List.rev
             else
@@ -99,7 +99,7 @@ module Game =
         let nmt = setamv gm.MoveText 1 ibd ibd []
         {gm with MoveText=nmt}
 
-    let AddRav (gm:Game) (irs:int list) (pmv:pMove) = 
+    let AddRav (gm:UnencodedGame) (irs:int list) (pmv:pMove) = 
         let rec getadd mct ci nmte (imtel:MoveTextEntry list) (omtel:MoveTextEntry list) =
             if ci>omtel.Length then getadd mct ci nmte imtel.Tail (imtel.Head::omtel)
             elif imtel.IsEmpty then (RAVEntry([nmte])::omtel)|>List.rev,omtel.Length
@@ -184,7 +184,7 @@ module Game =
             let nirs = getnmirs irs [] gm.MoveText
             {gm with MoveText=nmtel},nirs
 
-    let DeleteRav (gm:Game) (iirs:int list)  =
+    let DeleteRav (gm:UnencodedGame) (iirs:int list)  =
         if iirs.Length=1 then
             {gm with MoveText=[]}
         else
@@ -232,7 +232,7 @@ module Game =
                 let nmtel = getnmtel irs gm.MoveText
                 {gm with MoveText=nmtel}
 
-    let AddMv (gm:Game) (irs:int list) (pmv:pMove) = 
+    let AddMv (gm:UnencodedGame) (irs:int list) (pmv:pMove) = 
         let rec getext ci nmte (imtel:MoveTextEntry list) (omtel:MoveTextEntry list) =
             if ci>omtel.Length then getext ci nmte imtel.Tail (imtel.Head::omtel)
             elif imtel.IsEmpty then 
@@ -339,7 +339,7 @@ module Game =
             let nirs = getnmirs irs [] gm.MoveText
             {gm with MoveText=nmtel},nirs
     
-    let CommentBefore (gm:Game) (irs:int list) (str:string) =
+    let CommentBefore (gm:UnencodedGame) (irs:int list) (str:string) =
         let mte = CommentEntry(str)
         if irs.Length=1 then
             //allow for empty list
@@ -388,7 +388,7 @@ module Game =
             let nmtel = getnmtel irs gm.MoveText
             {gm with MoveText=nmtel}
 
-    let CommentAfter (gm:Game) (irs:int list) (str:string) =
+    let CommentAfter (gm:UnencodedGame) (irs:int list) (str:string) =
         let mte = CommentEntry(str)
         if irs.Length=1 then
             //allow for empty list
@@ -436,7 +436,7 @@ module Game =
             let nmtel = getnmtel irs gm.MoveText
             {gm with MoveText=nmtel}
 
-    let EditComment (gm:Game) (irs:int list) (str:string) =
+    let EditComment (gm:UnencodedGame) (irs:int list) (str:string) =
         let mte = CommentEntry(str)
         if irs.Length=1 then
             //allow for empty list
@@ -469,7 +469,7 @@ module Game =
             let nmtel = getnmtel irs gm.MoveText
             {gm with MoveText=nmtel}
 
-    let DeleteComment (gm:Game) (irs:int list)  =
+    let DeleteComment (gm:UnencodedGame) (irs:int list)  =
         if irs.Length=1 then
             let i = irs.Head
             let nmtel = 
@@ -513,7 +513,7 @@ module Game =
             let nmtel = getnmtel irs gm.MoveText
             {gm with MoveText=nmtel}
     
-    let AddNag (gm:Game) (irs:int list) (ng:NAG) =
+    let AddNag (gm:UnencodedGame) (irs:int list) (ng:NAG) =
         let mte = NAGEntry(ng)
         if irs.Length=1 then
             //allow for empty list
@@ -545,7 +545,7 @@ module Game =
             let nmtel = getnmtel irs gm.MoveText
             {gm with MoveText=nmtel}
 
-    let EditNag (gm:Game) (irs:int list) (ng:NAG) =
+    let EditNag (gm:UnencodedGame) (irs:int list) (ng:NAG) =
         let mte = NAGEntry(ng)
         if irs.Length=1 then
             //allow for empty list
@@ -578,7 +578,7 @@ module Game =
             let nmtel = getnmtel irs gm.MoveText
             {gm with MoveText=nmtel}
 
-    let DeleteNag (gm:Game) (irs:int list)  =
+    let DeleteNag (gm:UnencodedGame) (irs:int list)  =
         if irs.Length=1 then
             let i = irs.Head
             let nmtel = 
@@ -606,7 +606,7 @@ module Game =
             let nmtel = getnmtel irs gm.MoveText
             {gm with MoveText=nmtel}
 
-    let GetBoard (bd:Brd) (indx:int,gm:Game) =
+    let GetBoard (bd:Brd) (indx:int,gm:UnencodedGame) =
         let rec getbd cbd (ipmvl:pMove list) =
             if ipmvl.IsEmpty then false,""
             else
@@ -654,7 +654,7 @@ module Game =
         let fnd,mvstr = getbd initbd (gm.MoveText|>GetMoves)
         if fnd then Some(indx,gm,mvstr) else None
 
-    let Strip (gm:Game) (iirs:int list)  =
+    let Strip (gm:UnencodedGame) (iirs:int list)  =
         let rec getnmtel (cirs:int list) (mtel:MoveTextEntry list) =
             if cirs.Length=1 then 
                 let i = cirs.Head

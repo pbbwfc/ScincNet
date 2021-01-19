@@ -157,12 +157,12 @@ module PnlBoardLib =
         let highlightsqs sl =
             sqs
             |> Array.iteri (fun i sq -> 
-                   sqs.[i].BackColor <- if (i % 8 + i / 8) % 2 = 1 then 
+                   sqs.[i].BackColor <- if (i % 8 + i / 8) % 2 = 0 then 
                                             Color.Green
                                         else Color.PaleGreen)
             sl
             |> List.iter (fun s -> 
-                   sqs.[s].BackColor <- if (s % 8 + s / 8) % 2 = 1 then 
+                   sqs.[s].BackColor <- if (s % 8 + s / 8) % 2 = 0 then 
                                             Color.YellowGreen
                                         else Color.Yellow)
 

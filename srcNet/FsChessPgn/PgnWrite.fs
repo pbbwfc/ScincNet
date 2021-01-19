@@ -113,7 +113,7 @@ module PgnWrite =
         writer.Write(value)
         writer.WriteLine("\"]")
 
-    let Game(game:Game, writer:TextWriter) =
+    let Game(game:UnencodedGame, writer:TextWriter) =
         Tag("Event", game.Event, writer)
         Tag("Site", game.Site, writer)
         Tag("Date", game|>DateUtil.ToStr, writer)
@@ -132,7 +132,7 @@ module PgnWrite =
         MoveText(game.MoveText, writer)
         writer.WriteLine();
 
-    let GameStr(game:Game) =
+    let GameStr(game:UnencodedGame) =
         let writer = new StringWriter()
         Game(game,writer)
         writer.ToString()

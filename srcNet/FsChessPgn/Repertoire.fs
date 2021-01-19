@@ -132,7 +132,7 @@ module Repertoire =
             let mutable pgnstr = ""
             ScincFuncs.ScidGame.Pgn(&pgnstr)|>ignore
             let gm = RegParse.GameFromString(pgnstr)
-            let mvs = (gm|>Game.SetaMoves).MoveText
+            let mvs = (gm|>GameUnencoded.SetaMoves).MoveText
             let repopts,repmove = WhiteRep
             WhiteRep <- domvt None mvs repopts repmove
         savewhite()
@@ -220,7 +220,7 @@ module Repertoire =
             let mutable pgnstr = ""
             ScincFuncs.ScidGame.Pgn(&pgnstr)|>ignore
             let gm = RegParse.GameFromString(pgnstr)
-            let mvs = (gm|>Game.SetaMoves).MoveText
+            let mvs = (gm|>GameUnencoded.SetaMoves).MoveText
             let repopts,repmove = BlackRep
             BlackRep <- domvt None mvs repopts repmove
         saveblack()

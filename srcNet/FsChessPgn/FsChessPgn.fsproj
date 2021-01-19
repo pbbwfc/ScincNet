@@ -115,8 +115,10 @@
     <Compile Include="PgnWrite.fs" />
     <Compile Include="pMove.fs" />
     <Compile Include="MoveTextEntry.fs" />
-    <Compile Include="Game.fs" />
+    <Compile Include="GameUnencoded.fs" />
     <Compile Include="MoveUtil.fs" />
+    <Compile Include="MoveEncoded.fs" />
+    <Compile Include="GameEncoded.fs" />
     <Compile Include="RegParse.fs" />
     <Compile Include="Games.fs" />
     <Compile Include="PgnWriter.fs" />

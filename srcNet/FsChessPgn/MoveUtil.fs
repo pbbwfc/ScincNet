@@ -30,13 +30,13 @@ module MoveUtil =
 
     
         if piece = Piece.WKing && sFrom = E1 && sTo = G1 then 
-            pMove.CreateCastle(MoveType.CastleKingSide)
+            pMove.CreateCastle(MoveType.CastleKingSide,"O-O")
         elif piece = Piece.BKing && sFrom = E8 && sTo = G8 then 
-            pMove.CreateCastle(MoveType.CastleKingSide)
+            pMove.CreateCastle(MoveType.CastleKingSide,"O-O")
         elif piece = Piece.WKing && sFrom = E1 && sTo = C1 then 
-            pMove.CreateCastle(MoveType.CastleQueenSide)
+            pMove.CreateCastle(MoveType.CastleQueenSide,"O-O-O")
         elif piece = Piece.BKing && sFrom = E8 && sTo = C8 then 
-            pMove.CreateCastle(MoveType.CastleQueenSide)
+            pMove.CreateCastle(MoveType.CastleQueenSide,"O-O-O")
         else 
             //do not need this check for pawn moves
             let rec getuniqs pu fu ru attl = 
@@ -71,7 +71,9 @@ module MoveUtil =
                     elif ru then None,Some(fromrank)
                     else Some(fromfile),Some(fromrank)
             let mt = if iscap then MoveType.Capture else MoveType.Simple
-            pMove.CreateAll(mt,sTo,Some(pct),uf,ur,(if isprom then Some(ptprom) else None),ischk,false,ismt)
+            let pmv0 = pMove.CreateAll(mt,sTo,Some(pct),uf,ur,(if isprom then Some(ptprom) else None),ischk,false,ismt,"")
+            let san = pmv0|>PgnWrite.MoveStr
+            {pmv0 with San=san}
 
     let toPgn (board : Brd) (move : Move) = 
         let pmv = move|>topMove board

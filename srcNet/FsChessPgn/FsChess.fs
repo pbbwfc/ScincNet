@@ -109,19 +109,22 @@ module Move =
     ///Get the pMove for a move for this board
     let TopMove = FsChessPgn.MoveUtil.topMove
 
+    ///Get the Encoded Move for a move for this board
+    let ToeMove = FsChessPgn.MoveEncoded.FromMove
+
     ///Get the SAN string such as Nf3 for a move for this board
     let ToSan = FsChessPgn.MoveUtil.toPgn
 
 module Game =
 
     ///The starting Game with no moves
-    let Start = FsChessPgn.Game.Start
+    let Start = FsChessPgn.GameUnencoded.Start
 
     ///Make a SAN Move such as Nf3 for this Game and return the new Game
-    let PushSAN = FsChessPgn.Game.AddSan
+    let PushSAN = FsChessPgn.GameUnencoded.AddSan
 
     ///Pops a move of the end for this Game and return the new Game
-    let Pop = FsChessPgn.Game.RemoveMoveEntry
+    let Pop = FsChessPgn.GameUnencoded.RemoveMoveEntry
 
     ///Gets a single move as a string given one of the list from Game.MoveText
     let MoveStr = FsChessPgn.PgnWrite.MoveTextEntryStr
@@ -142,43 +145,52 @@ module Game =
     let NAGlist = FsChessPgn.NagUtil.All
 
     ///Adds a Nag in the Game after the address provided
-    let AddNag = FsChessPgn.Game.AddNag
+    let AddNag = FsChessPgn.GameUnencoded.AddNag
 
     ///Deletes a Nag in the Game at the address provided
-    let DeleteNag = FsChessPgn.Game.DeleteNag
+    let DeleteNag = FsChessPgn.GameUnencoded.DeleteNag
 
     ///Edits a Nag in the Game at the address provided
-    let EditNag = FsChessPgn.Game.EditNag
+    let EditNag = FsChessPgn.GameUnencoded.EditNag
 
     ///Gets the moves text as a string given the Game.MoveText
     let MovesStr = FsChessPgn.PgnWrite.MoveTextStr
 
     ///Gets the aMoves for the Game
-    let GetaMoves = FsChessPgn.Game.SetaMoves
+    let GetaMoves = FsChessPgn.GameUnencoded.SetaMoves
+
+    ///Encodes the Game
+    let Encode = FsChessPgn.GameEncoded.Encode
 
     ///Adds a pMove to the Game given its address
-    let AddMv = FsChessPgn.Game.AddMv
+    let AddMv = FsChessPgn.GameUnencoded.AddMv
+    ///Adds an EncodedMove to the Game given its address
+    let AddMv2 = FsChessPgn.GameEncoded.AddMv
 
     ///Adds a RAV to the Game given the pMove is contains and its address
-    let AddRav = FsChessPgn.Game.AddRav
+    let AddRav = FsChessPgn.GameUnencoded.AddRav
+    ///Adds a RAV to the Game given the Encoded Move is contains and its address
+    let AddRav2 = FsChessPgn.GameEncoded.AddRav
 
     ///Deletes a RAV in the Game at the address provided
-    let DeleteRav = FsChessPgn.Game.DeleteRav
+    let DeleteRav = FsChessPgn.GameUnencoded.DeleteRav
+    ///Deletes a RAV in the EncodedGame at the address provided
+    let DeleteRav2 = FsChessPgn.GameEncoded.DeleteRav
     
     ///Strips moves until end of game at the address provided
-    let Strip = FsChessPgn.Game.Strip
+    let Strip = FsChessPgn.GameUnencoded.Strip
 
     ///Adds a comment to the Game before the address provided
-    let CommentBefore = FsChessPgn.Game.CommentBefore
+    let CommentBefore = FsChessPgn.GameUnencoded.CommentBefore
 
     ///Adds a comment to the Game after the address provided
-    let CommentAfter = FsChessPgn.Game.CommentAfter
+    let CommentAfter = FsChessPgn.GameUnencoded.CommentAfter
 
     ///Edits a comment to the Game at the address provided
-    let EditComment = FsChessPgn.Game.EditComment
+    let EditComment = FsChessPgn.GameUnencoded.EditComment
 
     ///Deletes a comment in the Game at the address provided
-    let DeleteComment = FsChessPgn.Game.DeleteComment
+    let DeleteComment = FsChessPgn.GameUnencoded.DeleteComment
 
     ///Get from a PGN string
     let FromStr = FsChessPgn.RegParse.GameFromString
