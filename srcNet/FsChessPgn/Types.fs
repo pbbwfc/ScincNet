@@ -279,7 +279,7 @@ module Types =
         }
 
     type MoveTextEntry =
-        |HalfMoveEntry of int option * bool * pMove * aMove option
+        |HalfMoveEntry of int option * bool * pMove //* aMove option
         |CommentEntry of string
         |GameEndEntry of GameResult
         |NAGEntry of NAG

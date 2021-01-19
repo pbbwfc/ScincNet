@@ -20,7 +20,7 @@ module GameUnencoded =
     let GetMoves(mtel:MoveTextEntry list) =
         let gm(mte:MoveTextEntry) =
             match mte with
-            |HalfMoveEntry(_,_,mv,_) -> [mv]
+            |HalfMoveEntry(_,_,mv) -> [mv]
             |_ -> []
         mtel|>List.map gm|>List.concat
     
@@ -58,7 +58,7 @@ module GameUnencoded =
         let mtel = gm.MoveText
         let mc = mtel|>MoveCount
         let mn = if mc%2=0 then Some(mc/2+1) else None
-        let mte = HalfMoveEntry(mn,false,pmv,None)
+        let mte = HalfMoveEntry(mn,false,pmv)
         gm|>AddMoveEntry mte
             
     let AddSan (san:string) (gm:UnencodedGame) =
@@ -76,26 +76,5 @@ module GameUnencoded =
             let l5 = rl.[0..4]|>List.rev
             let mvstr = l5|>List.map PgnWrite.MoveTextEntryStr|>List.reduce(fun a b -> a + " " + b)
             "moves: ..." + mvstr
-   
-    let SetaMoves(gm:UnencodedGame) =
-        let rec setamv (pmvl:MoveTextEntry list) mct prebd bd opmvl =
-            if pmvl|>List.isEmpty then opmvl|>List.rev
-            else
-                let mte = pmvl.Head
-                match mte with
-                |HalfMoveEntry(mn,ic,mv,_) -> 
-                    let amv = mv|>pMove.ToaMove bd mct
-                    let nmte = HalfMoveEntry(mn,ic,mv,Some(amv))
-                    let nmct = if bd.WhosTurn=Player.White then mct else mct+1
-                    setamv pmvl.Tail nmct amv.PreBrd amv.PostBrd (nmte::opmvl)
-                |RAVEntry(mtel) -> 
-                    let nmct = if prebd.WhosTurn=Player.Black then mct-1 else mct
-                    let nmtel = setamv mtel nmct prebd prebd []
-                    let nmte = RAVEntry(nmtel)
-                    setamv pmvl.Tail mct prebd bd (nmte::opmvl)
-                |_ -> setamv pmvl.Tail mct prebd bd (mte::opmvl)
-        
-        let ibd = if gm.BoardSetup.IsSome then gm.BoardSetup.Value else Board.Start
-        let nmt = setamv gm.MoveText 1 ibd ibd []
-        {gm with MoveText=nmt}
+
 

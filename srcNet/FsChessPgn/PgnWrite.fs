@@ -71,7 +71,7 @@ module PgnWrite =
 
     let rec MoveTextEntry(entry:MoveTextEntry, writer:TextWriter) =
         match entry with
-        |HalfMoveEntry(mn,ic,mv,amv) -> 
+        |HalfMoveEntry(mn,ic,mv) -> 
             if mn.IsSome then
                 writer.Write(mn.Value)
                 writer.Write(if ic then "... " else ". ")

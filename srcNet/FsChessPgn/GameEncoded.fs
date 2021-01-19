@@ -60,7 +60,7 @@ module GameEncoded =
             else
                 let mte = pmvl.Head
                 match mte with
-                |HalfMoveEntry(mn,ic,mv,_) -> 
+                |HalfMoveEntry(mn,ic,mv) -> 
                     let emv = mv|>pMove.Encode bd mct
                     let nmte = EncodedHalfMoveEntry(mn,ic,emv)
                     let nmct = if bd.WhosTurn=Player.White then mct else mct+1

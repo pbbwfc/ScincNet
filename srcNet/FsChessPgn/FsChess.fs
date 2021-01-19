@@ -156,9 +156,6 @@ module Game =
     ///Gets the moves text as a string given the Game.MoveText
     let MovesStr = FsChessPgn.PgnWrite.MoveTextStr
 
-    ///Gets the aMoves for the Game
-    let GetaMoves = FsChessPgn.GameUnencoded.SetaMoves
-
     ///Encodes the Game
     let Encode = FsChessPgn.GameEncoded.Encode
 

@@ -35,6 +35,4 @@ module Games =
         let gms = str|>ReadFromString
         gms.Head
 
-    let SetaMoves(gml:UnencodedGame list) =
-        gml|>List.map GameUnencoded.SetaMoves
-
+    

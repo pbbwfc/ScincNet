@@ -52,16 +52,17 @@ module Repertoire =
         filt.Length>0
     
     let UpdateWhite () =
-        let rec domvt camv (imtel:MoveTextEntry list) (repopts:RepOpts) (repmove:RepMove) = 
+        let rec domvt cemvo cbd (imtel:EncodedMoveTextEntry list) (repopts:RepOpts) (repmove:RepMove) = 
             if List.isEmpty imtel then repopts,repmove
             else
                 let mte = imtel.Head
                 match mte with
-                |HalfMoveEntry(_,_,pmv,amvo) -> 
-                    let amv = amvo.Value
-                    let fen = amv.PreBrd|>Board.ToStr
-                    let isw = amv.Isw
-                    let san = pmv|>PgnWrite.MoveStr
+                |EncodedHalfMoveEntry(_,_,emv) -> 
+                    let emvo = emv|>Some
+                    let fen = cbd|>Board.ToStr
+                    let nbd = emv.PostBrd
+                    let isw = emv.Isw
+                    let san = emv.San
                     let cro = {San = san; Nag = NAG.Null; Comm = ""}
                     //doing opts
                     if not isw then
@@ -73,7 +74,7 @@ module Repertoire =
                                 else repopts
                             else
                                 repopts.Add(fen,[cro])
-                        domvt amvo imtel.Tail nrepopts repmove
+                        domvt emvo nbd imtel.Tail nrepopts repmove
                     //doing move
                     else
                         let nrepmove =
@@ -84,45 +85,45 @@ module Repertoire =
                                 repmove
                             else
                                 repmove.Add(fen,cro)
-                        domvt amvo imtel.Tail repopts nrepmove
-                |RAVEntry(mtel) -> 
-                    let nrepopts,nrepmove = domvt camv mtel repopts repmove
-                    domvt camv imtel.Tail nrepopts nrepmove
-                |NAGEntry(ng) -> 
-                    if camv.IsSome then
-                        let amv = camv.Value
-                        let fen = amv.PreBrd|>Board.ToStr
-                        let san = MoveUtil.toPgn amv.PreBrd amv.Mv
-                        let isw = amv.Isw
+                        domvt emvo nbd imtel.Tail repopts nrepmove
+                |EncodedRAVEntry(mtel) -> 
+                    let nrepopts,nrepmove = domvt cemvo cbd mtel repopts repmove
+                    domvt cemvo cbd imtel.Tail nrepopts nrepmove
+                |EncodedNAGEntry(ng) -> 
+                    if cemvo.IsSome then
+                        let emv = cemvo.Value
+                        let fen = cbd|>Board.ToStr
+                        let san = emv.San
+                        let isw = emv.Isw
                         if not isw then
                             let curopts = repopts.[fen]
                             let newopts = curopts|>List.map(fun ro -> if ro.San=san then {ro with Nag=ng} else ro)
                             let nrepopts = repopts.Add(fen,newopts)
-                            domvt camv imtel.Tail nrepopts repmove
+                            domvt cemvo cbd imtel.Tail nrepopts repmove
                         else
                             let cro = repmove.[fen]
                             let nro = {cro with Nag=ng}
                             let nrepmove = repmove.Add(fen,nro)
-                            domvt camv imtel.Tail repopts nrepmove
-                    else domvt camv imtel.Tail repopts repmove
-                |CommentEntry(cm) -> 
-                    if camv.IsSome then
-                        let amv = camv.Value
-                        let fen = amv.PreBrd|>Board.ToStr
-                        let san = MoveUtil.toPgn amv.PreBrd amv.Mv
-                        let isw = amv.Isw
+                            domvt cemvo cbd imtel.Tail repopts nrepmove
+                    else domvt cemvo cbd imtel.Tail repopts repmove
+                |EncodedCommentEntry(cm) -> 
+                    if cemvo.IsSome then
+                        let emv = cemvo.Value
+                        let fen = cbd|>Board.ToStr
+                        let san = emv.San
+                        let isw = emv.Isw
                         if not isw then
                             let curopts = repopts.[fen]
                             let newopts = curopts|>List.map(fun ro -> if ro.San=san then {ro with Comm=cm} else ro)
                             let nrepopts = repopts.Add(fen,newopts)
-                            domvt camv imtel.Tail nrepopts repmove
+                            domvt cemvo cbd imtel.Tail nrepopts repmove
                         else
                             let cro = repmove.[fen]
                             let nro = {cro with Comm=cm}
                             let nrepmove = repmove.Add(fen,nro)
-                            domvt camv imtel.Tail repopts nrepmove
-                    else domvt camv imtel.Tail repopts repmove
-                |_ -> domvt camv imtel.Tail repopts repmove
+                            domvt cemvo cbd imtel.Tail repopts nrepmove
+                    else domvt cemvo cbd imtel.Tail repopts repmove
+                |_ -> domvt cemvo cbd imtel.Tail repopts repmove
         ScincFuncs.Base.Open(whitedb)|>ignore
         let numgames = ScincFuncs.Base.NumGames()
         WhiteRep <- Map.empty,Map.empty
@@ -132,24 +133,26 @@ module Repertoire =
             let mutable pgnstr = ""
             ScincFuncs.ScidGame.Pgn(&pgnstr)|>ignore
             let gm = RegParse.GameFromString(pgnstr)
-            let mvs = (gm|>GameUnencoded.SetaMoves).MoveText
+            let mvs = (gm|>GameEncoded.Encode).MoveText
+            let bd = if gm.BoardSetup.IsSome then gm.BoardSetup.Value else Board.Start
             let repopts,repmove = WhiteRep
-            WhiteRep <- domvt None mvs repopts repmove
+            WhiteRep <- domvt None bd mvs repopts repmove
         savewhite()
         ScincFuncs.Base.Close()|>ignore
         WhiteErrors.Length
 
     let UpdateBlack () =
-        let rec domvt camv (imtel:MoveTextEntry list) (repopts:RepOpts) (repmove:RepMove) = 
+        let rec domvt cemvo cbd (imtel:EncodedMoveTextEntry list) (repopts:RepOpts) (repmove:RepMove) = 
             if List.isEmpty imtel then repopts,repmove
             else
                 let mte = imtel.Head
                 match mte with
-                |HalfMoveEntry(_,_,pmv,amvo) -> 
-                    let amv = amvo.Value
-                    let fen = amv.PreBrd|>Board.ToStr
-                    let isw = amv.Isw
-                    let san = pmv|>PgnWrite.MoveStr
+                |EncodedHalfMoveEntry(_,_,emv) -> 
+                    let emvo = emv|>Some
+                    let fen = cbd|>Board.ToStr
+                    let nbd = emv.PostBrd
+                    let isw = emv.Isw
+                    let san = emv.San
                     let cro = {San = san; Nag = NAG.Null; Comm = ""}
                     //doing opts
                     if isw then
@@ -161,7 +164,7 @@ module Repertoire =
                                 else repopts
                             else
                                 repopts.Add(fen,[cro])
-                        domvt amvo imtel.Tail nrepopts repmove
+                        domvt emvo nbd imtel.Tail nrepopts repmove
                     //doing move
                     else
                         let nrepmove =
@@ -172,45 +175,45 @@ module Repertoire =
                                 repmove
                             else
                                 repmove.Add(fen,cro)
-                        domvt amvo imtel.Tail repopts nrepmove
-                |RAVEntry(mtel) -> 
-                    let nrepopts,nrepmove = domvt camv mtel repopts repmove
-                    domvt camv imtel.Tail nrepopts nrepmove
-                |NAGEntry(ng) -> 
-                    if camv.IsSome then
-                        let amv = camv.Value
-                        let fen = amv.PreBrd|>Board.ToStr
-                        let san = MoveUtil.toPgn amv.PreBrd amv.Mv
-                        let isw = amv.Isw
+                        domvt cemvo nbd imtel.Tail repopts nrepmove
+                |EncodedRAVEntry(mtel) -> 
+                    let nrepopts,nrepmove = domvt cemvo cbd mtel repopts repmove
+                    domvt cemvo cbd imtel.Tail nrepopts nrepmove
+                |EncodedNAGEntry(ng) -> 
+                    if cemvo.IsSome then
+                        let emv = cemvo.Value
+                        let fen = cbd|>Board.ToStr
+                        let san = emv.San
+                        let isw = emv.Isw
                         if isw then
                             let curopts = repopts.[fen]
                             let newopts = curopts|>List.map(fun ro -> if ro.San=san then {ro with Nag=ng} else ro)
                             let nrepopts = repopts.Add(fen,newopts)
-                            domvt camv imtel.Tail nrepopts repmove
+                            domvt cemvo cbd imtel.Tail nrepopts repmove
                         else
                             let cro = repmove.[fen]
                             let nro = {cro with Nag=ng}
                             let nrepmove = repmove.Add(fen,nro)
-                            domvt camv imtel.Tail repopts nrepmove
-                    else domvt camv imtel.Tail repopts repmove
-                |CommentEntry(cm) -> 
-                    if camv.IsSome then
-                        let amv = camv.Value
-                        let fen = amv.PreBrd|>Board.ToStr
-                        let san = MoveUtil.toPgn amv.PreBrd amv.Mv
-                        let isw = amv.Isw
+                            domvt cemvo cbd imtel.Tail repopts nrepmove
+                    else domvt cemvo cbd imtel.Tail repopts repmove
+                |EncodedCommentEntry(cm) -> 
+                    if cemvo.IsSome then
+                        let emv = cemvo.Value
+                        let fen = cbd|>Board.ToStr
+                        let san = emv.San
+                        let isw = emv.Isw
                         if isw then
                             let curopts = repopts.[fen]
                             let newopts = curopts|>List.map(fun ro -> if ro.San=san then {ro with Comm=cm} else ro)
                             let nrepopts = repopts.Add(fen,newopts)
-                            domvt camv imtel.Tail nrepopts repmove
+                            domvt cemvo cbd imtel.Tail nrepopts repmove
                         else
                             let cro = repmove.[fen]
                             let nro = {cro with Comm=cm}
                             let nrepmove = repmove.Add(fen,nro)
-                            domvt camv imtel.Tail repopts nrepmove
-                    else domvt camv imtel.Tail repopts repmove
-                |_ -> domvt camv imtel.Tail repopts repmove
+                            domvt cemvo cbd imtel.Tail repopts nrepmove
+                    else domvt cemvo cbd imtel.Tail repopts repmove
+                |_ -> domvt cemvo cbd imtel.Tail repopts repmove
         ScincFuncs.Base.Open(blackdb)|>ignore
         let numgames = ScincFuncs.Base.NumGames()
         BlackRep <- Map.empty,Map.empty
@@ -220,9 +223,10 @@ module Repertoire =
             let mutable pgnstr = ""
             ScincFuncs.ScidGame.Pgn(&pgnstr)|>ignore
             let gm = RegParse.GameFromString(pgnstr)
-            let mvs = (gm|>GameUnencoded.SetaMoves).MoveText
+            let mvs = (gm|>GameEncoded.Encode).MoveText
+            let bd = if gm.BoardSetup.IsSome then gm.BoardSetup.Value else Board.Start
             let repopts,repmove = BlackRep
-            BlackRep <- domvt None mvs repopts repmove
+            BlackRep <- domvt None bd mvs repopts repmove
         saveblack()
         ScincFuncs.Base.Close()|>ignore
         BlackErrors.Length
