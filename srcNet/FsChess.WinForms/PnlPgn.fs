@@ -20,8 +20,7 @@ module PnlPgnLib =
         let ts = new ToolStrip(GripStyle=ToolStripGripStyle.Hidden)
         let pgn = new WebBrowser(AllowWebBrowserDrop = false,IsWebBrowserContextMenuEnabled = false,WebBrowserShortcutsEnabled = false,Dock=DockStyle.Fill)
         //mutables
-        let mutable game = Game.Start
-        let mutable egame = EncodedGameEMP
+        let mutable game = EncodedGameEMP
         let mutable board = Board.Start
         let mutable oldstyle:(HtmlElement*string) option = None
         let mutable irs = [-1]
@@ -73,25 +72,29 @@ module PnlPgnLib =
             oldstyle <- Some(mve,curr)
             mve.Style <- "BACKGROUND-COLOR: powderblue"
         
-        let rec mvtag (ravno:int64) i (mte:MoveTextEntry) =
+        let rec mvtag (ravno:int64) i (mte:EncodedMoveTextEntry) =
             let ir = (i|>int64)|||(ravno<<<8)
 
             let idstr = "id = \"" + ir.ToString() + "\""
             match mte with
-            |HalfMoveEntry(_,_,_,_) ->
-                let str = mte|>Game.MoveStr
+            |EncodedHalfMoveEntry(mn,ic,emv) ->
+                let str = 
+                    let mnstr = if mn.IsSome then mn.Value.ToString() else ""
+                    let dotstr = if ic then "... " else ". "
+                    mnstr + dotstr + emv.San
+
                 if ravno=0L then " <span " + idstr + " class=\"mv\" style=\"color:black\">" + str + "</span>"
                 else " <span " + idstr + " class=\"mv\" style=\"color:darkslategray\">" + str + "</span>"
-            |CommentEntry(_) ->
-                let str = (mte|>Game.MoveStr).Trim([|'{';'}'|])
+            |EncodedCommentEntry(c) ->
+                let str = c
                 "<div " + idstr + " class=\"cm\" style=\"color:green\">" + str + "</div>"
-            |GameEndEntry(_) ->
-                let str = mte|>Game.MoveStr
+            |EncodedGameEndEntry(r) ->
+                let str = Result.ToStr(r)
                 " <span " + idstr + " class=\"ge\" style=\"color:blue\">" + str + "</span>"
-            |NAGEntry(ng) ->
+            |EncodedNAGEntry(ng) ->
                 let str = ng|>Game.NAGHtm
                 "<span " + idstr + " class=\"ng\" style=\"color:darkred\">" + str + "</span>"
-            |RAVEntry(mtel) ->
+            |EncodedRAVEntry(mtel) ->
                 let indent = 
                     let rirs = irs|>getirs ir
                     let ind = rirs.Length * 2
@@ -244,9 +247,9 @@ module PnlPgnLib =
                 let res = if rscb.SelectedIndex= -1 then game.Result else results.[rscb.SelectedIndex]
                 //now update game end if result changed
                 if res<>game.Result then
-                    let chngres (mte:MoveTextEntry) =
+                    let chngres (mte:EncodedMoveTextEntry) =
                         match mte with
-                        |GameEndEntry(_) -> GameEndEntry(res)
+                        |EncodedGameEndEntry(_) -> EncodedGameEndEntry(res)
                         |_ -> mte
 
                     let nmvtxt = game.MoveText|>List.map chngres
@@ -315,34 +318,31 @@ module PnlPgnLib =
             irs <- getirs i []
             let mv =
                 if irs.Length>1 then 
-                    let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
+                    let rec getmv (mtel:EncodedMoveTextEntry list) (intl:int list) =
                         if intl.Length=1 then mtel.[intl.Head]
                         else
                             let ih = intl.Head
                             let mte = mtel.[ih]
                             match mte with
-                            |RAVEntry(nmtel) -> getmv nmtel intl.Tail
+                            |EncodedRAVEntry(nmtel) -> getmv nmtel intl.Tail
                             |_ -> failwith "should be a RAV"
                     getmv game.MoveText irs
                 else
                     game.MoveText.[i|>int]
             match mv with
-            |HalfMoveEntry(_,_,_,amv) ->
-                if amv.IsNone then failwith "should have valid aMove"
-                else
-                    board <- amv.Value.PostBrd
-                    mve|>highlight
-                    pgn.Refresh()
-                    while(pgn.ReadyState <> WebBrowserReadyState.Complete) do
-                         Application.DoEvents()
-                    board|>bdchngEvt.Trigger
+            |EncodedHalfMoveEntry(_,_,emv) ->
+                board <- emv.PostBrd
+                mve|>highlight
+                pgn.Refresh()
+                while(pgn.ReadyState <> WebBrowserReadyState.Complete) do
+                        Application.DoEvents()
+                board|>bdchngEvt.Trigger
                     
             |_ -> failwith "not done yet"
         
         let mvctxmnu = 
             let delrav(e) =
                 game <- Game.DeleteRav game rirs
-                egame <- Game.DeleteRav2 egame irs
                 pgn.DocumentText <- mvtags()
                 gmchg <- true
                 gmchg|>gmchngEvt.Trigger
@@ -505,18 +505,16 @@ module PnlPgnLib =
             let gm = Game.FromStr(pgnstr)
             //need to check if want to save
             if gmchg then pgnpnl.PromptSaveGame()
-            egame <- gm|>Game.Encode
-            game <- gm|>Game.GetaMoves
+            game <- gm|>Game.Encode
             pgn.DocumentText <- mvtags()
             //need to select move that matches current board
-            let rec getnxt ci (mtel:MoveTextEntry list) =
+            let rec getnxt ci (mtel:EncodedMoveTextEntry list) =
                 if mtel.IsEmpty then -1
                 else
                     let mte = mtel.Head
                     match mte with
-                    |HalfMoveEntry(_,_,_,amv) ->
-                        if amv.IsNone then failwith "should have valid aMove"
-                        elif board = amv.Value.PostBrd then ci
+                    |EncodedHalfMoveEntry(_,_,emv) ->
+                        if board = emv.PostBrd then ci
                         else getnxt (ci+1) mtel.Tail
                     |_ -> getnxt (ci+1) mtel.Tail
             let ni = getnxt 0 game.MoveText
@@ -533,8 +531,7 @@ module PnlPgnLib =
         member pgnpnl.SetGame(gm:UnencodedGame) = 
             //need to check if want to save
             if gmchg then pgnpnl.PromptSaveGame()
-            egame <- gm|>Game.Encode
-            game <- gm|>Game.GetaMoves
+            game <- gm|>Game.Encode
             pgn.DocumentText <- mvtags()
             board <- Board.Start
             oldstyle <- None
@@ -568,20 +565,18 @@ module PnlPgnLib =
 
         ///Goes to the next Move in the Game
         member pgnpnl.NextMove(one:bool) = 
-            let rec getnxt oi ci (mtel:MoveTextEntry list) =
+            let rec getnxt oi ci (mtel:EncodedMoveTextEntry list) =
                 if ci=mtel.Length then oi
                 else
                     let mte = mtel.[ci]
                     match mte with
-                    |HalfMoveEntry(_,_,_,amv) ->
-                        if amv.IsNone then failwith "should have valid aMove"
-                        else
-                            board <- amv.Value.PostBrd
-                            if one then board|>bdchngEvt.Trigger
+                    |EncodedHalfMoveEntry(_,_,emv) ->
+                        board <- emv.PostBrd
+                        if one then board|>bdchngEvt.Trigger
                         ci
                     |_ -> getnxt oi (ci+1) mtel
             if irs.Length>1 then 
-                let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
+                let rec getmv (mtel:EncodedMoveTextEntry list) (intl:int list) =
                     if intl.Length=1 then
                         let oi = intl.Head
                         let ni = getnxt oi (oi+1) mtel
@@ -591,7 +586,7 @@ module PnlPgnLib =
                         let ih = intl.Head
                         let mte = mtel.[ih]
                         match mte with
-                        |RAVEntry(nmtel) -> getmv nmtel intl.Tail
+                        |EncodedRAVEntry(nmtel) -> getmv nmtel intl.Tail
                         |_ -> failwith "should be a RAV"
                 getmv game.MoveText irs
             else
@@ -615,33 +610,29 @@ module PnlPgnLib =
         
         ///Goes to the previous Move in the Game
         member pgnpnl.PrevMove(one:bool) = 
-            let rec getprv oi ci (mtel:MoveTextEntry list) =
+            let rec getprv oi ci (mtel:EncodedMoveTextEntry list) =
                 if ci<0 then oi
                 else
                     let mte = mtel.[ci]
                     match mte with
-                    |HalfMoveEntry(_,_,_,amv) ->
-                        if amv.IsNone then failwith "should have valid aMove"
-                        else
-                            board <- amv.Value.PostBrd
-                            if one then board|>bdchngEvt.Trigger
+                    |EncodedHalfMoveEntry(_,_,emv) ->
+                        board <- emv.PostBrd
+                        if one then board|>bdchngEvt.Trigger
                         ci
                     |_ -> getprv oi (ci-1) mtel
             if irs=[-1] then ()
             elif irs=[0] then
                 let mte = game.MoveText.[0]
                 match mte with
-                |HalfMoveEntry(_,_,_,amv) ->
-                    if amv.IsNone then failwith "should have valid aMove"
-                    else
-                        board <- amv.Value.PreBrd
-                        if one then board|>bdchngEvt.Trigger
-                        removehighlight()
-                        irs<-[-1]
+                |EncodedHalfMoveEntry(_,_,emv) ->
+                    board <- if game.BoardSetup.IsSome then game.BoardSetup.Value else Board.Start
+                    if one then board|>bdchngEvt.Trigger
+                    removehighlight()
+                    irs<-[-1]
                 |_ -> ()
             else
                 if irs.Length>1 then 
-                    let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
+                    let rec getmv (mtel:EncodedMoveTextEntry list) (intl:int list) =
                         if intl.Length=1 then
                             let oi = intl.Head
                             let ni = getprv oi (oi-1) mtel
@@ -651,7 +642,7 @@ module PnlPgnLib =
                             let ih = intl.Head
                             let mte = mtel.[ih]
                             match mte with
-                            |RAVEntry(nmtel) -> getmv nmtel intl.Tail
+                            |EncodedRAVEntry(nmtel) -> getmv nmtel intl.Tail
                             |_ -> failwith "should be a RAV"
                     getmv game.MoveText irs
                 else
@@ -676,21 +667,20 @@ module PnlPgnLib =
 
         ///Make a Move in the Game - may change the Game or just select a Move
         member pgnpnl.DoMove(mv:Move) =
-            let rec getnxt oi ci (mtel:MoveTextEntry list) =
+            let rec getnxt oi ci (mtel:EncodedMoveTextEntry list) =
                 if ci=mtel.Length then ci,false,true//implies is an extension
                 else
                     let mte = mtel.[ci]
                     match mte with
-                    |HalfMoveEntry(_,_,_,amv) ->
-                        if amv.IsNone then failwith "should have valid aMove"
-                        elif amv.Value.Mv=mv then
-                            board <- amv.Value.PostBrd
+                    |EncodedHalfMoveEntry(_,_,emv) ->
+                        if emv.Mv=mv then
+                            board <- emv.PostBrd
                             ci,true,false
                         else ci,false,false
                     |_ -> getnxt oi (ci+1) mtel
             let isnxt,isext =
                 if irs.Length>1 then 
-                    let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
+                    let rec getmv (mtel:EncodedMoveTextEntry list) (intl:int list) =
                         if intl.Length=1 then
                             let oi = intl.Head
                             let ni,fnd,isext = getnxt oi (oi+1) mtel
@@ -702,7 +692,7 @@ module PnlPgnLib =
                             let ih = intl.Head
                             let mte = mtel.[ih]
                             match mte with
-                            |RAVEntry(nmtel) -> getmv nmtel intl.Tail
+                            |EncodedRAVEntry(nmtel) -> getmv nmtel intl.Tail
                             |_ -> failwith "should be a RAV"
                     getmv game.MoveText irs
                 else
@@ -717,11 +707,8 @@ module PnlPgnLib =
                         if el.Id=id.ToString() then
                             el|>highlight
             elif isext then
-                let negame,nirs = Game.AddMv2 egame irs mv
-                let pmv = mv|>Move.TopMove board
-                let ngame,nirs = Game.AddMv game irs pmv 
+                let ngame,nirs = Game.AddMv game irs mv 
                 game <- ngame
-                egame <- negame
                 irs <- nirs
                 board <- board|>Board.Push mv
                 pgn.DocumentText <- mvtags()
@@ -729,33 +716,32 @@ module PnlPgnLib =
                 gmchg|>gmchngEvt.Trigger
             else
                 //Check if first move in RAV
-                let rec inrav oi ci (mtel:MoveTextEntry list) =
+                let rec inrav oi ci (mtel:EncodedMoveTextEntry list) =
                     if ci=mtel.Length then ci,false //Should not hit this as means has no moves
                     else
                         let mte = mtel.[ci]
                         match mte with
-                        |HalfMoveEntry(_,_,_,amv) ->
-                            if amv.IsNone then failwith "should have valid aMove"
-                            elif amv.Value.Mv=mv then
-                                board <- amv.Value.PostBrd
+                        |EncodedHalfMoveEntry(_,_,emv) ->
+                            if emv.Mv=mv then
+                                board <- emv.PostBrd
                                 ci,true
                             else ci,false
                         |_ -> inrav oi (ci+1) mtel
                 //next see if moving into RAV
-                let rec getnxtrv oi ci mct (mtel:MoveTextEntry list) =
+                let rec getnxtrv oi ci mct (mtel:EncodedMoveTextEntry list) =
                     if ci=mtel.Length then ci,0,false //TODO this is an extension to RAV or Moves
                     else
                         let mte = mtel.[ci]
                         if mct = 0 then
                             match mte with
-                            |HalfMoveEntry(_,_,_,amv) ->
+                            |EncodedHalfMoveEntry(_,_,emv) ->
                                 getnxtrv oi (ci+1) (mct+1) mtel
                             |_ -> getnxtrv oi (ci+1) mct mtel
                         else
                             match mte with
-                            |HalfMoveEntry(_,_,_,amv) ->
+                            |EncodedHalfMoveEntry(_,_,emv) ->
                                 ci,0,false
-                            |RAVEntry(nmtel) ->
+                            |EncodedRAVEntry(nmtel) ->
                                 //now need to see if first move in rav is mv
                                 let sci,fnd = inrav 0 0 nmtel
                                 if fnd then
@@ -764,7 +750,7 @@ module PnlPgnLib =
                             |_ -> getnxtrv oi (ci+1) mct mtel
                 let isnxtrv =
                     if irs.Length>1 then 
-                        let rec getmv (mtel:MoveTextEntry list) (intl:int list) =
+                        let rec getmv (mtel:EncodedMoveTextEntry list) (intl:int list) =
                             if intl.Length=1 then
                                 let oi = intl.Head
                                 let ni,sci,fnd = getnxtrv oi (oi+1) 0 mtel
@@ -776,7 +762,7 @@ module PnlPgnLib =
                                 let ih = intl.Head
                                 let mte = mtel.[ih]
                                 match mte with
-                                |RAVEntry(nmtel) -> getmv nmtel intl.Tail
+                                |EncodedRAVEntry(nmtel) -> getmv nmtel intl.Tail
                                 |_ -> failwith "should be a RAV"
                         getmv game.MoveText irs
                     else
@@ -792,8 +778,7 @@ module PnlPgnLib =
                                 el|>highlight
                     else
                         //need to create a new RAV
-                        let negame,nirs = Game.AddRav2 egame irs mv  
-                        let ngame,nirs = Game.AddRav game irs (mv|>Move.TopMove board) 
+                        let ngame,nirs = Game.AddRav game irs mv  
                         game <- ngame
                         irs <- nirs
                         board <- board|>Board.Push mv

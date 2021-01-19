@@ -3,7 +3,7 @@
 module GameDate =
 
     ///Gets the string symbol for a Piece
-    let ToStr = FsChessPgn.DateUtil.ToStr
+    let ToStr = FsChessPgn.DateUtil.ToStr2
 
 
 module Result =
@@ -144,14 +144,14 @@ module Game =
     ///Gets a list of all NAGs supported
     let NAGlist = FsChessPgn.NagUtil.All
 
-    ///Adds a Nag in the Game after the address provided
-    let AddNag = FsChessPgn.GameUnencoded.AddNag
+    ///Adds a Nag in the EncodedGame after the address provided
+    let AddNag = FsChessPgn.GameEncoded.AddNag
 
-    ///Deletes a Nag in the Game at the address provided
-    let DeleteNag = FsChessPgn.GameUnencoded.DeleteNag
+    ///Deletes a Nag in the Encoded Game at the address provided
+    let DeleteNag = FsChessPgn.GameEncoded.DeleteNag
 
-    ///Edits a Nag in the Game at the address provided
-    let EditNag = FsChessPgn.GameUnencoded.EditNag
+    ///Edits a Nag in the Encoded Game at the address provided
+    let EditNag = FsChessPgn.GameEncoded.EditNag
 
     ///Gets the moves text as a string given the Game.MoveText
     let MovesStr = FsChessPgn.PgnWrite.MoveTextStr
@@ -162,41 +162,36 @@ module Game =
     ///Encodes the Game
     let Encode = FsChessPgn.GameEncoded.Encode
 
-    ///Adds a pMove to the Game given its address
-    let AddMv = FsChessPgn.GameUnencoded.AddMv
     ///Adds an EncodedMove to the Game given its address
-    let AddMv2 = FsChessPgn.GameEncoded.AddMv
+    let AddMv = FsChessPgn.GameEncoded.AddMv
 
-    ///Adds a RAV to the Game given the pMove is contains and its address
-    let AddRav = FsChessPgn.GameUnencoded.AddRav
     ///Adds a RAV to the Game given the Encoded Move is contains and its address
-    let AddRav2 = FsChessPgn.GameEncoded.AddRav
+    let AddRav = FsChessPgn.GameEncoded.AddRav
 
-    ///Deletes a RAV in the Game at the address provided
-    let DeleteRav = FsChessPgn.GameUnencoded.DeleteRav
     ///Deletes a RAV in the EncodedGame at the address provided
-    let DeleteRav2 = FsChessPgn.GameEncoded.DeleteRav
+    let DeleteRav = FsChessPgn.GameEncoded.DeleteRav
     
     ///Strips moves until end of game at the address provided
-    let Strip = FsChessPgn.GameUnencoded.Strip
+    let Strip = FsChessPgn.GameEncoded.Strip
 
-    ///Adds a comment to the Game before the address provided
-    let CommentBefore = FsChessPgn.GameUnencoded.CommentBefore
+    ///Adds a comment to the Encoded Game before the address provided
+    let CommentBefore = FsChessPgn.GameEncoded.CommentBefore
 
-    ///Adds a comment to the Game after the address provided
-    let CommentAfter = FsChessPgn.GameUnencoded.CommentAfter
+    ///Adds a comment to the Encoded Game after the address provided
+    let CommentAfter = FsChessPgn.GameEncoded.CommentAfter
 
-    ///Edits a comment to the Game at the address provided
-    let EditComment = FsChessPgn.GameUnencoded.EditComment
+    ///Edits a comment to the Encoded Game at the address provided
+    let EditComment = FsChessPgn.GameEncoded.EditComment
 
-    ///Deletes a comment in the Game at the address provided
-    let DeleteComment = FsChessPgn.GameUnencoded.DeleteComment
+    ///Deletes a comment in the Encoded Game at the address provided
+    let DeleteComment = FsChessPgn.GameEncoded.DeleteComment
 
     ///Get from a PGN string
     let FromStr = FsChessPgn.RegParse.GameFromString
 
     ///Convert to a PGN string
-    let ToStr = FsChessPgn.PgnWrite.GameStr
+    let ToStr = FsChessPgn.GameEncoded.ToStr
+
 
 module Repertoire =
     

@@ -11,7 +11,7 @@ type Game () =
     let fol = @"D:\GitHub\ScincNet\Tests\data\"
     let fl = Path.Combine(fol,"simple-game.pgn")
     let db = Pgn.Games.ReadListFromFile fl
-    let gm = db.Head 
+    let gm = db.Head|>Game.Encode 
     
     [<TestMethod>]
     member this.``Event to string`` () =

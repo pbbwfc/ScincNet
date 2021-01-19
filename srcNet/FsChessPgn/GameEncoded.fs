@@ -335,332 +335,341 @@ module GameEncoded =
             let nirs = getnmirs irs [] gm.MoveText
             {gm with MoveText=nmtel},nirs
     
-    //let CommentBefore (gm:UnencodedGame) (irs:int list) (str:string) =
-    //    let mte = CommentEntry(str)
-    //    if irs.Length=1 then
-    //        //allow for empty list
-    //        if gm.MoveText.IsEmpty then
-    //            {gm with MoveText=[mte]}
-    //        else
-    //            let i = irs.Head
-    //            //fix Black by adding mn and cont
-    //            let hm = gm.MoveText.[i]
-    //            let nhm =
-    //                match hm with
-    //                |HalfMoveEntry(mn,ic,pmv,amv) ->
-    //                    let mn,isw = amv.Value.Mno,amv.Value.Isw
-    //                    if isw then hm else HalfMoveEntry(mn|>Some,true,pmv,amv)
-    //                |_ -> failwith "should be a move"
-    //            let nmtel = 
-    //                if i=0 then mte::nhm::gm.MoveText.Tail
-    //                else
-    //                    gm.MoveText.[..i-1]@[mte;nhm]@gm.MoveText.[i+1..]
-    //            {gm with MoveText=nmtel}
-    //    else
-    //        let rec getnmtel (cirs:int list) (mtel:MoveTextEntry list) =
-    //            if cirs.Length=1 then 
-    //                let i = cirs.Head
-    //                //fix Black by adding mn and cont
-    //                let hm = mtel.[i]
-    //                let nhm =
-    //                    match hm with
-    //                    |HalfMoveEntry(mn,ic,pmv,amv) ->
-    //                        let mn,isw = amv.Value.Mno,amv.Value.Isw
-    //                        if isw then hm else HalfMoveEntry(mn|>Some,true,pmv,amv)
-    //                    |_ -> failwith "should be a move"
-    //                let nmtel = 
-    //                    if i=0 then mte::nhm::mtel.Tail
-    //                    else
-    //                        //TODO fix Black by adding mn and cont
-    //                        mtel.[..i-1]@[mte;nhm]@mtel.[i+1..]
-    //                nmtel
-    //            else
-    //                let i = cirs.Head
-    //                let rav = mtel.[i]
-    //                match rav with
-    //                |RAVEntry(nmtel) ->
-    //                    mtel.[..i-1]@[RAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
-    //                |_ -> failwith "should be RAV"
-    //        let nmtel = getnmtel irs gm.MoveText
-    //        {gm with MoveText=nmtel}
+    let CommentBefore (gm:EncodedGame) (irs:int list) (str:string) =
+        let mte = EncodedCommentEntry(str)
+        if irs.Length=1 then
+            //allow for empty list
+            if gm.MoveText.IsEmpty then
+                {gm with MoveText=[mte]}
+            else
+                let i = irs.Head
+                //fix Black by adding mn and cont
+                let hm = gm.MoveText.[i]
+                let nhm =
+                    match hm with
+                    |EncodedHalfMoveEntry(mn,ic,emv) ->
+                        let mn,isw = emv.Mno,emv.Isw
+                        if isw then hm else EncodedHalfMoveEntry(mn|>Some,true,emv)
+                    |_ -> failwith "should be a move"
+                let nmtel = 
+                    if i=0 then mte::nhm::gm.MoveText.Tail
+                    else
+                        gm.MoveText.[..i-1]@[mte;nhm]@gm.MoveText.[i+1..]
+                {gm with MoveText=nmtel}
+        else
+            let rec getnmtel (cirs:int list) (mtel:EncodedMoveTextEntry list) =
+                if cirs.Length=1 then 
+                    let i = cirs.Head
+                    //fix Black by adding mn and cont
+                    let hm = mtel.[i]
+                    let nhm =
+                        match hm with
+                        |EncodedHalfMoveEntry(mn,ic,emv) ->
+                            let mn,isw = emv.Mno,emv.Isw
+                            if isw then hm else EncodedHalfMoveEntry(mn|>Some,true,emv)
+                        |_ -> failwith "should be a move"
+                    let nmtel = 
+                        if i=0 then mte::nhm::mtel.Tail
+                        else
+                            //TODO fix Black by adding mn and cont
+                            mtel.[..i-1]@[mte;nhm]@mtel.[i+1..]
+                    nmtel
+                else
+                    let i = cirs.Head
+                    let rav = mtel.[i]
+                    match rav with
+                    |EncodedRAVEntry(nmtel) ->
+                        mtel.[..i-1]@[EncodedRAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
+                    |_ -> failwith "should be RAV"
+            let nmtel = getnmtel irs gm.MoveText
+            {gm with MoveText=nmtel}
 
-    //let CommentAfter (gm:UnencodedGame) (irs:int list) (str:string) =
-    //    let mte = CommentEntry(str)
-    //    if irs.Length=1 then
-    //        //allow for empty list
-    //        if gm.MoveText.IsEmpty then
-    //            {gm with MoveText=[mte]}
-    //        else
-    //            let i = irs.Head
-    //            let nmtel = 
-    //                if i=gm.MoveText.Length-1 then gm.MoveText@[mte]
-    //                else
-    //                    //fix Black by adding mn and cont
-    //                    let pmte = 
-    //                        let hm = gm.MoveText.[i+1]
-    //                        match hm with
-    //                        |HalfMoveEntry(mn,ic,pmv,amv) ->
-    //                            let mn,isw = amv.Value.Mno,amv.Value.Isw
-    //                            if isw then hm else HalfMoveEntry(mn|>Some,true,pmv,amv)
-    //                        |_ -> hm
-    //                    gm.MoveText.[..i]@[mte;pmte]@gm.MoveText.[i+2..]
-    //            {gm with MoveText=nmtel}
-    //    else
-    //        let rec getnmtel (cirs:int list) (mtel:MoveTextEntry list) =
-    //            if cirs.Length=1 then 
-    //                let i = cirs.Head
-    //                let nmtel = 
-    //                    if i=mtel.Length-1 then mtel@[mte]
-    //                    else
-    //                        //fix Black by adding mn and cont
-    //                        let pmte = 
-    //                            let hm = mtel.[i+1]
-    //                            match hm with
-    //                            |HalfMoveEntry(mn,ic,pmv,amv) ->
-    //                                let mn,isw = amv.Value.Mno,amv.Value.Isw
-    //                                if isw then hm else HalfMoveEntry(mn|>Some,true,pmv,amv)
-    //                            |_ -> hm
-    //                        mtel.[..i]@[mte;pmte]@mtel.[i+2..]
-    //                nmtel
-    //            else
-    //                let i = cirs.Head
-    //                let rav = mtel.[i]
-    //                match rav with
-    //                |RAVEntry(nmtel) ->
-    //                    mtel.[..i-1]@[RAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
-    //                |_ -> failwith "should be RAV"
-    //        let nmtel = getnmtel irs gm.MoveText
-    //        {gm with MoveText=nmtel}
+    let CommentAfter (gm:EncodedGame) (irs:int list) (str:string) =
+        let mte = EncodedCommentEntry(str)
+        if irs.Length=1 then
+            //allow for empty list
+            if gm.MoveText.IsEmpty then
+                {gm with MoveText=[mte]}
+            else
+                let i = irs.Head
+                let nmtel = 
+                    if i=gm.MoveText.Length-1 then gm.MoveText@[mte]
+                    else
+                        //fix Black by adding mn and cont
+                        let pmte = 
+                            let hm = gm.MoveText.[i+1]
+                            match hm with
+                            |EncodedHalfMoveEntry(mn,ic,emv) ->
+                                let mn,isw = emv.Mno,emv.Isw
+                                if isw then hm else EncodedHalfMoveEntry(mn|>Some,true,emv)
+                            |_ -> hm
+                        gm.MoveText.[..i]@[mte;pmte]@gm.MoveText.[i+2..]
+                {gm with MoveText=nmtel}
+        else
+            let rec getnmtel (cirs:int list) (mtel:EncodedMoveTextEntry list) =
+                if cirs.Length=1 then 
+                    let i = cirs.Head
+                    let nmtel = 
+                        if i=mtel.Length-1 then mtel@[mte]
+                        else
+                            //fix Black by adding mn and cont
+                            let pmte = 
+                                let hm = mtel.[i+1]
+                                match hm with
+                                |EncodedHalfMoveEntry(mn,ic,emv) ->
+                                    let mn,isw = emv.Mno,emv.Isw
+                                    if isw then hm else EncodedHalfMoveEntry(mn|>Some,true,emv)
+                                |_ -> hm
+                            mtel.[..i]@[mte;pmte]@mtel.[i+2..]
+                    nmtel
+                else
+                    let i = cirs.Head
+                    let rav = mtel.[i]
+                    match rav with
+                    |EncodedRAVEntry(nmtel) ->
+                        mtel.[..i-1]@[EncodedRAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
+                    |_ -> failwith "should be RAV"
+            let nmtel = getnmtel irs gm.MoveText
+            {gm with MoveText=nmtel}
 
-    //let EditComment (gm:UnencodedGame) (irs:int list) (str:string) =
-    //    let mte = CommentEntry(str)
-    //    if irs.Length=1 then
-    //        //allow for empty list
-    //        if gm.MoveText.IsEmpty then
-    //            {gm with MoveText=[mte]}
-    //        else
-    //            let i = irs.Head
-    //            let nmtel = 
-    //                if i=0 then mte::gm.MoveText.Tail
-    //                else
-    //                    gm.MoveText.[..i-1]@[mte]@gm.MoveText.[i+1..]
-    //            {gm with MoveText=nmtel}
-    //    else
-    //        let rec getnmtel (cirs:int list) (mtel:MoveTextEntry list) =
-    //            if cirs.Length=1 then 
-    //                let i = cirs.Head
-    //                let nmtel = 
-    //                    if i=0 then mte::mtel.Tail
-    //                    elif i=mtel.Length-1 then mtel.[..i-1]@[mte]
-    //                    else
-    //                        mtel.[..i-1]@[mte]@mtel.[i+1..]
-    //                nmtel
-    //            else
-    //                let i = cirs.Head
-    //                let rav = mtel.[i]
-    //                match rav with
-    //                |RAVEntry(nmtel) ->
-    //                    mtel.[..i-1]@[RAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
-    //                |_ -> failwith "should be RAV"
-    //        let nmtel = getnmtel irs gm.MoveText
-    //        {gm with MoveText=nmtel}
+    let EditComment (gm:EncodedGame) (irs:int list) (str:string) =
+        let mte = EncodedCommentEntry(str)
+        if irs.Length=1 then
+            //allow for empty list
+            if gm.MoveText.IsEmpty then
+                {gm with MoveText=[mte]}
+            else
+                let i = irs.Head
+                let nmtel = 
+                    if i=0 then mte::gm.MoveText.Tail
+                    else
+                        gm.MoveText.[..i-1]@[mte]@gm.MoveText.[i+1..]
+                {gm with MoveText=nmtel}
+        else
+            let rec getnmtel (cirs:int list) (mtel:EncodedMoveTextEntry list) =
+                if cirs.Length=1 then 
+                    let i = cirs.Head
+                    let nmtel = 
+                        if i=0 then mte::mtel.Tail
+                        elif i=mtel.Length-1 then mtel.[..i-1]@[mte]
+                        else
+                            mtel.[..i-1]@[mte]@mtel.[i+1..]
+                    nmtel
+                else
+                    let i = cirs.Head
+                    let rav = mtel.[i]
+                    match rav with
+                    |EncodedRAVEntry(nmtel) ->
+                        mtel.[..i-1]@[EncodedRAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
+                    |_ -> failwith "should be RAV"
+            let nmtel = getnmtel irs gm.MoveText
+            {gm with MoveText=nmtel}
 
-    //let DeleteComment (gm:UnencodedGame) (irs:int list)  =
-    //    if irs.Length=1 then
-    //        let i = irs.Head
-    //        let nmtel = 
-    //            if i=0 then gm.MoveText.Tail
-    //            else
-    //                //fix Black by removing mn and cont
-    //                let pmte = 
-    //                    let hm = gm.MoveText.[i+1]
-    //                    match hm with
-    //                    |HalfMoveEntry(_,_,pmv,amv) ->
-    //                        let isw = amv.Value.Isw
-    //                        if isw then hm else HalfMoveEntry(None,false,pmv,amv)
-    //                    |_ -> hm
-    //                gm.MoveText.[..i-1]@[pmte]@gm.MoveText.[i+2..]
-    //        {gm with MoveText=nmtel}
-    //    else
-    //        let rec getnmtel (cirs:int list) (mtel:MoveTextEntry list) =
-    //            if cirs.Length=1 then 
-    //                let i = cirs.Head
-    //                let nmtel = 
-    //                    if i=0 then mtel.Tail
-    //                    elif i=mtel.Length-1 then mtel.[..i-1]
-    //                    else
-    //                        //fix Black by removing mn and cont
-    //                        let pmte = 
-    //                            let hm = mtel.[i+1]
-    //                            match hm with
-    //                            |HalfMoveEntry(_,_,pmv,amv) ->
-    //                                let isw = amv.Value.Isw
-    //                                if isw then hm else HalfMoveEntry(None,false,pmv,amv)
-    //                            |_ -> hm
-    //                        mtel.[..i-1]@[pmte]@mtel.[i+2..]
-    //                nmtel
-    //            else
-    //                let i = cirs.Head
-    //                let rav = mtel.[i]
-    //                match rav with
-    //                |RAVEntry(nmtel) ->
-    //                    mtel.[..i-1]@[RAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
-    //                |_ -> failwith "should be RAV"
-    //        let nmtel = getnmtel irs gm.MoveText
-    //        {gm with MoveText=nmtel}
+    let DeleteComment (gm:EncodedGame) (irs:int list)  =
+        if irs.Length=1 then
+            let i = irs.Head
+            let nmtel = 
+                if i=0 then gm.MoveText.Tail
+                else
+                    //fix Black by removing mn and cont
+                    let pmte = 
+                        let hm = gm.MoveText.[i+1]
+                        match hm with
+                        |EncodedHalfMoveEntry(_,_,emv) ->
+                            let isw = emv.Isw
+                            if isw then hm else EncodedHalfMoveEntry(None,false,emv)
+                        |_ -> hm
+                    gm.MoveText.[..i-1]@[pmte]@gm.MoveText.[i+2..]
+            {gm with MoveText=nmtel}
+        else
+            let rec getnmtel (cirs:int list) (mtel:EncodedMoveTextEntry list) =
+                if cirs.Length=1 then 
+                    let i = cirs.Head
+                    let nmtel = 
+                        if i=0 then mtel.Tail
+                        elif i=mtel.Length-1 then mtel.[..i-1]
+                        else
+                            //fix Black by removing mn and cont
+                            let pmte = 
+                                let hm = mtel.[i+1]
+                                match hm with
+                                |EncodedHalfMoveEntry(_,_,emv) ->
+                                    let isw = emv.Isw
+                                    if isw then hm else EncodedHalfMoveEntry(None,false,emv)
+                                |_ -> hm
+                            mtel.[..i-1]@[pmte]@mtel.[i+2..]
+                    nmtel
+                else
+                    let i = cirs.Head
+                    let rav = mtel.[i]
+                    match rav with
+                    |EncodedRAVEntry(nmtel) ->
+                        mtel.[..i-1]@[EncodedRAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
+                    |_ -> failwith "should be RAV"
+            let nmtel = getnmtel irs gm.MoveText
+            {gm with MoveText=nmtel}
     
-    //let AddNag (gm:UnencodedGame) (irs:int list) (ng:NAG) =
-    //    let mte = NAGEntry(ng)
-    //    if irs.Length=1 then
-    //        //allow for empty list
-    //        if gm.MoveText.IsEmpty then
-    //            {gm with MoveText=[mte]}
-    //        else
-    //            let i = irs.Head
-    //            let nmtel = 
-    //                if i=gm.MoveText.Length-1 then gm.MoveText@[mte]
-    //                else
-    //                    gm.MoveText.[..i]@[mte]@gm.MoveText.[i+1..]
-    //            {gm with MoveText=nmtel}
-    //    else
-    //        let rec getnmtel (cirs:int list) (mtel:MoveTextEntry list) =
-    //            if cirs.Length=1 then 
-    //                let i = cirs.Head
-    //                let nmtel = 
-    //                    if i=mtel.Length-1 then mtel@[mte]
-    //                    else
-    //                        mtel.[..i]@[mte]@mtel.[i+1..]
-    //                nmtel
-    //            else
-    //                let i = cirs.Head
-    //                let rav = mtel.[i]
-    //                match rav with
-    //                |RAVEntry(nmtel) ->
-    //                    mtel.[..i-1]@[RAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
-    //                |_ -> failwith "should be RAV"
-    //        let nmtel = getnmtel irs gm.MoveText
-    //        {gm with MoveText=nmtel}
+    let AddNag (gm:EncodedGame) (irs:int list) (ng:NAG) =
+        let mte = EncodedNAGEntry(ng)
+        if irs.Length=1 then
+            //allow for empty list
+            if gm.MoveText.IsEmpty then
+                {gm with MoveText=[mte]}
+            else
+                let i = irs.Head
+                let nmtel = 
+                    if i=gm.MoveText.Length-1 then gm.MoveText@[mte]
+                    else
+                        gm.MoveText.[..i]@[mte]@gm.MoveText.[i+1..]
+                {gm with MoveText=nmtel}
+        else
+            let rec getnmtel (cirs:int list) (mtel:EncodedMoveTextEntry list) =
+                if cirs.Length=1 then 
+                    let i = cirs.Head
+                    let nmtel = 
+                        if i=mtel.Length-1 then mtel@[mte]
+                        else
+                            mtel.[..i]@[mte]@mtel.[i+1..]
+                    nmtel
+                else
+                    let i = cirs.Head
+                    let rav = mtel.[i]
+                    match rav with
+                    |EncodedRAVEntry(nmtel) ->
+                        mtel.[..i-1]@[EncodedRAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
+                    |_ -> failwith "should be RAV"
+            let nmtel = getnmtel irs gm.MoveText
+            {gm with MoveText=nmtel}
 
-    //let EditNag (gm:UnencodedGame) (irs:int list) (ng:NAG) =
-    //    let mte = NAGEntry(ng)
-    //    if irs.Length=1 then
-    //        //allow for empty list
-    //        if gm.MoveText.IsEmpty then
-    //            {gm with MoveText=[mte]}
-    //        else
-    //            let i = irs.Head
-    //            let nmtel = 
-    //                if i=0 then mte::gm.MoveText.Tail
-    //                else
-    //                    gm.MoveText.[..i-1]@[mte]@gm.MoveText.[i+1..]
-    //            {gm with MoveText=nmtel}
-    //    else
-    //        let rec getnmtel (cirs:int list) (mtel:MoveTextEntry list) =
-    //            if cirs.Length=1 then 
-    //                let i = cirs.Head
-    //                let nmtel = 
-    //                    if i=0 then mte::mtel.Tail
-    //                    elif i=mtel.Length-1 then mtel.[..i-1]@[mte]
-    //                    else
-    //                        mtel.[..i-1]@[mte]@mtel.[i+1..]
-    //                nmtel
-    //            else
-    //                let i = cirs.Head
-    //                let rav = mtel.[i]
-    //                match rav with
-    //                |RAVEntry(nmtel) ->
-    //                    mtel.[..i-1]@[RAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
-    //                |_ -> failwith "should be RAV"
-    //        let nmtel = getnmtel irs gm.MoveText
-    //        {gm with MoveText=nmtel}
+    let EditNag (gm:EncodedGame) (irs:int list) (ng:NAG) =
+        let mte = EncodedNAGEntry(ng)
+        if irs.Length=1 then
+            //allow for empty list
+            if gm.MoveText.IsEmpty then
+                {gm with MoveText=[mte]}
+            else
+                let i = irs.Head
+                let nmtel = 
+                    if i=0 then mte::gm.MoveText.Tail
+                    else
+                        gm.MoveText.[..i-1]@[mte]@gm.MoveText.[i+1..]
+                {gm with MoveText=nmtel}
+        else
+            let rec getnmtel (cirs:int list) (mtel:EncodedMoveTextEntry list) =
+                if cirs.Length=1 then 
+                    let i = cirs.Head
+                    let nmtel = 
+                        if i=0 then mte::mtel.Tail
+                        elif i=mtel.Length-1 then mtel.[..i-1]@[mte]
+                        else
+                            mtel.[..i-1]@[mte]@mtel.[i+1..]
+                    nmtel
+                else
+                    let i = cirs.Head
+                    let rav = mtel.[i]
+                    match rav with
+                    |EncodedRAVEntry(nmtel) ->
+                        mtel.[..i-1]@[EncodedRAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
+                    |_ -> failwith "should be RAV"
+            let nmtel = getnmtel irs gm.MoveText
+            {gm with MoveText=nmtel}
 
-    //let DeleteNag (gm:UnencodedGame) (irs:int list)  =
-    //    if irs.Length=1 then
-    //        let i = irs.Head
-    //        let nmtel = 
-    //            if i=0 then gm.MoveText.Tail
-    //            else
-    //                gm.MoveText.[..i-1]@gm.MoveText.[i+1..]
-    //        {gm with MoveText=nmtel}
-    //    else
-    //        let rec getnmtel (cirs:int list) (mtel:MoveTextEntry list) =
-    //            if cirs.Length=1 then 
-    //                let i = cirs.Head
-    //                let nmtel = 
-    //                    if i=0 then mtel.Tail
-    //                    elif i=mtel.Length-1 then mtel.[..i-1]
-    //                    else
-    //                        mtel.[..i-1]@mtel.[i+1..]
-    //                nmtel
-    //            else
-    //                let i = cirs.Head
-    //                let rav = mtel.[i]
-    //                match rav with
-    //                |RAVEntry(nmtel) ->
-    //                    mtel.[..i-1]@[RAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
-    //                |_ -> failwith "should be RAV"
-    //        let nmtel = getnmtel irs gm.MoveText
-    //        {gm with MoveText=nmtel}
+    let DeleteNag (gm:EncodedGame) (irs:int list)  =
+        if irs.Length=1 then
+            let i = irs.Head
+            let nmtel = 
+                if i=0 then gm.MoveText.Tail
+                else
+                    gm.MoveText.[..i-1]@gm.MoveText.[i+1..]
+            {gm with MoveText=nmtel}
+        else
+            let rec getnmtel (cirs:int list) (mtel:EncodedMoveTextEntry list) =
+                if cirs.Length=1 then 
+                    let i = cirs.Head
+                    let nmtel = 
+                        if i=0 then mtel.Tail
+                        elif i=mtel.Length-1 then mtel.[..i-1]
+                        else
+                            mtel.[..i-1]@mtel.[i+1..]
+                    nmtel
+                else
+                    let i = cirs.Head
+                    let rav = mtel.[i]
+                    match rav with
+                    |EncodedRAVEntry(nmtel) ->
+                        mtel.[..i-1]@[EncodedRAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
+                    |_ -> failwith "should be RAV"
+            let nmtel = getnmtel irs gm.MoveText
+            {gm with MoveText=nmtel}
 
-    //let GetBoard (bd:Brd) (indx:int,gm:UnencodedGame) =
-    //    let rec getbd cbd (ipmvl:pMove list) =
-    //        if ipmvl.IsEmpty then false,""
-    //        else
-    //            let pmv = ipmvl.Head
-    //            let mv = pmv|>pMove.ToMove cbd
-    //            //now check if a pawn move which is not on search board
-    //            let pc = mv|>Move.MovingPiece
-    //            if pc=Piece.WPawn then
-    //                let sq = mv|>Move.From
-    //                let rnk = sq|>Square.ToRank
-    //                if rnk=Rank2 && bd.[sq]=Piece.WPawn then false,""
-    //                else
-    //                    let nbd = cbd|>Board.MoveApply mv
-    //                    if nbd.PieceAt=bd.PieceAt then
-    //                        if ipmvl.Tail.IsEmpty then false,""
-    //                        else
-    //                            let npmv = ipmvl.Tail.Head
-    //                            let mvstr = npmv|>PgnWrite.MoveStr
-    //                            true,mvstr
-    //                    else getbd nbd ipmvl.Tail
-    //            elif pc=Piece.BPawn then
-    //                let sq = mv|>Move.From
-    //                let rnk = sq|>Square.ToRank
-    //                if rnk=Rank7 && bd.[sq]=Piece.BPawn then false,""
-    //                else
-    //                    let nbd = cbd|>Board.MoveApply mv
-    //                    if nbd.PieceAt=bd.PieceAt then
-    //                        if ipmvl.Tail.IsEmpty then false,""
-    //                        else
-    //                            let npmv = ipmvl.Tail.Head
-    //                            let mvstr = npmv|>PgnWrite.MoveStr
-    //                            true,mvstr
-    //                    else getbd nbd ipmvl.Tail
-    //            else
-    //                let nbd = cbd|>Board.MoveApply mv
-    //                if nbd.PieceAt=bd.PieceAt then
-    //                    if ipmvl.Tail.IsEmpty then false,""
-    //                    else
-    //                        let npmv = ipmvl.Tail.Head
-    //                        let mvstr = npmv|>PgnWrite.MoveStr
-    //                        true,mvstr
-    //                else getbd nbd ipmvl.Tail
+    let Strip (gm:EncodedGame) (iirs:int list)  =
+        let rec getnmtel (cirs:int list) (mtel:EncodedMoveTextEntry list) =
+            if cirs.Length=1 then 
+                let i = cirs.Head
+                mtel.[..i]
+            else
+                let i = cirs.Head
+                let rav = mtel.[i]
+                match rav with
+                |EncodedRAVEntry(nmtel) ->
+                    mtel.[..i-1]@[EncodedRAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
+                |_ -> failwith "should be RAV"
+        let nmtel = getnmtel iirs gm.MoveText
+        {gm with MoveText=nmtel}
+
+    let ToStr (game:EncodedGame) =
+        let writer = new System.Text.StringBuilder()
+        let ResultString = GameResult.ToStr
+
+        let rec MoveTextEntry(entry:EncodedMoveTextEntry) =
+            match entry with
+            |EncodedHalfMoveEntry(mn,ic,emv) -> 
+                if mn.IsSome then
+                    writer.Append(mn.Value)|>ignore
+                    writer.Append(if ic then "... " else ". ")|>ignore
+                writer.Append(emv.San)|>ignore
+                writer.Append(" ")|>ignore
+            |EncodedCommentEntry(str) -> 
+                writer.AppendLine()|>ignore
+                writer.Append("{" + str + "} ")|>ignore
+            |EncodedGameEndEntry(gr) -> writer.Append(ResultString(gr))|>ignore
+            |EncodedNAGEntry(cd) -> 
+                writer.Append("$" + (cd|>int).ToString())|>ignore
+                writer.Append(" ")|>ignore
+            |EncodedRAVEntry(ml) -> 
+                writer.AppendLine()|>ignore
+                writer.Append("(")|>ignore
+                MoveText(ml)|>ignore
+                writer.AppendLine(")")|>ignore
         
-    //    let initbd = if gm.BoardSetup.IsSome then gm.BoardSetup.Value else Board.Start
-    //    let fnd,mvstr = getbd initbd (gm.MoveText|>GetMoves)
-    //    if fnd then Some(indx,gm,mvstr) else None
+        and MoveText(ml:EncodedMoveTextEntry list) =
+            let doent i m =
+                MoveTextEntry(m)
+                //if i<ml.Length-1 then writer.Write(" ")
 
-    //let Strip (gm:UnencodedGame) (iirs:int list)  =
-    //    let rec getnmtel (cirs:int list) (mtel:MoveTextEntry list) =
-    //        if cirs.Length=1 then 
-    //            let i = cirs.Head
-    //            mtel.[..i]
-    //        else
-    //            let i = cirs.Head
-    //            let rav = mtel.[i]
-    //            match rav with
-    //            |RAVEntry(nmtel) ->
-    //                mtel.[..i-1]@[RAVEntry(getnmtel cirs.Tail nmtel)]@mtel.[i+1..]
-    //            |_ -> failwith "should be RAV"
-    //    let nmtel = getnmtel iirs gm.MoveText
-    //    {gm with MoveText=nmtel}
+            ml|>List.iteri doent
+        
+        let Tag(name:string, value:string) =
+            writer.Append("[")|>ignore
+            writer.Append(name + " \"")|>ignore
+            writer.Append(value)|>ignore
+            writer.AppendLine("\"]")|>ignore
+
+        Tag("Event", game.Event)
+        Tag("Site", game.Site)
+        Tag("Date", game|>DateUtil.ToStr2)
+        Tag("Round", game.Round)
+        Tag("White", game.WhitePlayer)
+        Tag("Black", game.BlackPlayer)
+        Tag("Result", ResultString(game.Result))
+        Tag("WhiteElo", game.WhiteElo)
+        Tag("BlackElo", game.BlackElo)
+        Tag("ECO", game.ECO)
+            
+        for info in game.AdditionalInfo do
+            Tag(info.Key, info.Value)
+
+        writer.AppendLine()|>ignore
+        MoveText(game.MoveText)
+        writer.AppendLine()|>ignore
+        writer.ToString()

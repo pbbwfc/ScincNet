@@ -12,6 +12,11 @@ module DateUtil =
         (gm.Month |? "??") + (".") +
         (gm.Day |? "??")
 
+    let ToStr2(gm:EncodedGame) =
+        (gm.Year -? "????") + (".") +
+        (gm.Month |? "??") + (".") +
+        (gm.Day |? "??")
+    
     let FromStr(dtstr:string) =
         let a = dtstr.Split([|'.'|])|>Array.map(fun s -> s.Trim())
         let y,m,d = if a.Length=3 then a.[0],a.[1],a.[2] else a.[0],"??","??"
