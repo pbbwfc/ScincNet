@@ -189,6 +189,12 @@ module Game =
     ///Convert to a PGN string
     let ToStr = FsChessPgn.GameEncoded.ToStr
 
+    ///Compresses an Encoded Game
+    let Compress = FsChessPgn.GameEncoded.Compress 
+
+    ///Expands a Compressed Game
+    let Expand = FsChessPgn.GameEncoded.Expand
+
 
 module Repertoire =
     

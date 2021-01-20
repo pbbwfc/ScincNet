@@ -199,20 +199,34 @@ module Types =
         |Wdecisive = 18
         |Bdecisive = 19
 
+    [<MessagePackObject>]
     type Brd = 
         { 
+            [<Key(0)>]
             PieceAt : Piece list
+            [<Key(1)>]
             WtKingPos : Square
+            [<Key(2)>]
             BkKingPos : Square
+            [<Key(3)>]
             PieceTypes : Bitboard list
+            [<Key(4)>]
             WtPrBds : Bitboard
+            [<Key(5)>]
             BkPrBds : Bitboard
+            [<Key(6)>]
             PieceLocationsAll : Bitboard
+            [<Key(7)>]
             Checkers : Bitboard
+            [<Key(8)>]
             WhosTurn : Player
+            [<Key(9)>]
             CastleRights : CstlFlgs
+            [<Key(10)>]
             EnPassant : Square
+            [<Key(11)>]
             Fiftymove : int
+            [<Key(12)>]
             Fullmove : int
         }
         member bd.Item with get(sq:Square) = bd.PieceAt.[int(sq)]
@@ -269,21 +283,12 @@ module Types =
         }
         override x.ToString() = x.San
 
-    type aMove =
-        {
-            PreBrd : Brd
-            Mno : int
-            Isw : bool
-            Mv : Move
-            PostBrd : Brd
-        }
-
-    type MoveTextEntry =
-        |HalfMoveEntry of int option * bool * pMove //* aMove option
-        |CommentEntry of string
-        |GameEndEntry of GameResult
-        |NAGEntry of NAG
-        |RAVEntry of MoveTextEntry list
+    type UnencodedMoveTextEntry =
+        |UnencodedHalfMoveEntry of int option * bool * pMove
+        |UnencodedCommentEntry of string
+        |UnencodedGameEndEntry of GameResult
+        |UnencodedNAGEntry of NAG
+        |UnencodedRAVEntry of UnencodedMoveTextEntry list
     
     type UnencodedGame =
         {
@@ -301,10 +306,10 @@ module Types =
             ECO : string
             BoardSetup : Brd option
             AdditionalInfo : Map<string,string>
-            MoveText : MoveTextEntry list
+            MoveText : UnencodedMoveTextEntry list
         }
 
-    let GameEMP:UnencodedGame =
+    let UnencodedGameEMP:UnencodedGame =
         {
             Event = "?"
             Site = "?"
@@ -323,16 +328,23 @@ module Types =
             MoveText = []
         }
 
+    [<MessagePackObject>]
     type EncodedMove =
         {
+            [<Key(0)>]
             San : string
+            [<Key(1)>]
             Mno : int
+            [<Key(2)>]
             Isw : bool
+            [<Key(3)>]
             Mv : Move
+            [<Key(4)>]
             PostBrd : Brd
         }
         override x.ToString() = x.San
 
+    [<MessagePackObject>]
     type EncodedMoveTextEntry =
         |EncodedHalfMoveEntry of int option * bool * EncodedMove
         |EncodedCommentEntry of string
@@ -340,22 +352,38 @@ module Types =
         |EncodedNAGEntry of NAG
         |EncodedRAVEntry of EncodedMoveTextEntry list
     
+    [<MessagePackObject>]
     type EncodedGame =
         {
+            [<Key(0)>]
             WhitePlayer : string
+            [<Key(1)>]
             BlackPlayer : string
+            [<Key(2)>]
             Result : GameResult
+            [<Key(3)>]
             Year : int option
+            [<Key(4)>]
             Month : int option
+            [<Key(5)>]
             Day : int option
+            [<Key(6)>]
             Event : string
+            [<Key(7)>]
             WhiteElo : string
+            [<Key(8)>]
             BlackElo : string
+            [<Key(9)>]
             Round :string
+            [<Key(10)>]
             Site : string
+            [<Key(11)>]
             ECO : string
+            [<Key(12)>]
             BoardSetup : Brd option
+            [<Key(13)>]
             AdditionalInfo : Map<string,string>
+            [<Key(14)>]
             MoveText : EncodedMoveTextEntry list
         }
 
@@ -378,15 +406,22 @@ module Types =
             MoveText = []
         }
 
+    
+    [<MessagePackObject>]
     type CompressedMove =
         {
+            [<Key(0)>]
             San : string
+            [<Key(1)>]
             Mno : int
+            [<Key(2)>]
             Isw : bool
+            [<Key(3)>]
             Mv : Move
         }
-        with override x.ToString() = x.San
+        override x.ToString() = x.San
 
+    [<MessagePackObject>]
     type CompressedMoveTextEntry =
         |CompressedHalfMoveEntry of int option * bool * CompressedMove
         |CompressedCommentEntry of string
@@ -394,22 +429,38 @@ module Types =
         |CompressedNAGEntry of NAG
         |CompressedRAVEntry of CompressedMoveTextEntry list
     
+    [<MessagePackObject>]
     type CompressedGame =
         {
+            [<Key(0)>]
             WhitePlayer : string
+            [<Key(1)>]
             BlackPlayer : string
+            [<Key(2)>]
             Result : GameResult
+            [<Key(3)>]
             Year : int option
+            [<Key(4)>]
             Month : int option
+            [<Key(5)>]
             Day : int option
+            [<Key(6)>]
             Event : string
+            [<Key(7)>]
             WhiteElo : string
+            [<Key(8)>]
             BlackElo : string
+            [<Key(9)>]
             Round :string
+            [<Key(10)>]
             Site : string
+            [<Key(11)>]
             ECO : string
+            [<Key(12)>]
             BoardSetup : Brd option
+            [<Key(13)>]
             AdditionalInfo : Map<string,string>
+            [<Key(14)>]
             MoveText : CompressedMoveTextEntry list
         }
 
@@ -432,6 +483,18 @@ module Types =
             MoveText = []
         }
 
+    
+    
+    
+    [<MessagePackObject>]
+    type IndexEntry =
+        {
+            [<Key(0)>]
+            Offset:int64
+            [<Key(1)>]
+            Length:int
+        }
+    
     type RepOpt =
         {San : string; Nag : NAG; Comm: string}
     

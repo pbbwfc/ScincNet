@@ -80,7 +80,7 @@ module PnlPgnLib =
             |EncodedHalfMoveEntry(mn,ic,emv) ->
                 let str = 
                     let mnstr = if mn.IsSome then mn.Value.ToString() else ""
-                    let dotstr = if ic then "... " else ". "
+                    let dotstr = if mn.IsSome then (if ic then "... " else ". ") else ""
                     mnstr + dotstr + emv.San
 
                 if ravno=0L then " <span " + idstr + " class=\"mv\" style=\"color:black\">" + str + "</span>"

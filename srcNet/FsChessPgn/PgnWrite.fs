@@ -69,40 +69,40 @@ module PgnWrite =
         Move(mv,writer)
         writer.ToString()
 
-    let rec MoveTextEntry(entry:MoveTextEntry, writer:TextWriter) =
+    let rec MoveTextEntry(entry:UnencodedMoveTextEntry, writer:TextWriter) =
         match entry with
-        |HalfMoveEntry(mn,ic,mv) -> 
+        |UnencodedHalfMoveEntry(mn,ic,mv) -> 
             if mn.IsSome then
                 writer.Write(mn.Value)
                 writer.Write(if ic then "... " else ". ")
             Move(mv, writer)
             writer.Write(" ")
-        |CommentEntry(str) -> 
+        |UnencodedCommentEntry(str) -> 
             writer.WriteLine()
             writer.Write("{" + str + "} ")
-        |GameEndEntry(gr) -> writer.Write(ResultString(gr))
-        |NAGEntry(cd) -> 
+        |UnencodedGameEndEntry(gr) -> writer.Write(ResultString(gr))
+        |UnencodedNAGEntry(cd) -> 
             writer.Write("$" + (cd|>int).ToString())
             writer.Write(" ")
-        |RAVEntry(ml) -> 
+        |UnencodedRAVEntry(ml) -> 
             writer.WriteLine()
             writer.Write("(")
             MoveText(ml, writer)
             writer.WriteLine(")")
     
-    and MoveText(ml:MoveTextEntry list, writer:TextWriter) =
+    and MoveText(ml:UnencodedMoveTextEntry list, writer:TextWriter) =
         let doent i m =
             MoveTextEntry(m,writer)
             //if i<ml.Length-1 then writer.Write(" ")
 
         ml|>List.iteri doent
     
-    let MoveTextEntryStr(entry:MoveTextEntry) =
+    let MoveTextEntryStr(entry:UnencodedMoveTextEntry) =
         let writer = new StringWriter()
         MoveTextEntry(entry,writer)
         writer.ToString()
 
-    let MoveTextStr(ml:MoveTextEntry list) =
+    let MoveTextStr(ml:UnencodedMoveTextEntry list) =
         let writer = new StringWriter()
         MoveText(ml,writer)
         writer.ToString()

@@ -55,27 +55,33 @@ module GameEncoded =
         {gm with MoveText=nmtel}
 
     let Encode(gm:UnencodedGame) =
-        let rec setemv (pmvl:MoveTextEntry list) mct prebd bd oemvl =
+        let rec setemv (pmvl:UnencodedMoveTextEntry list) mct prebd bd oemvl =
             if pmvl|>List.isEmpty then oemvl|>List.rev
             else
                 let mte = pmvl.Head
                 match mte with
-                |HalfMoveEntry(mn,ic,mv) -> 
+                |UnencodedHalfMoveEntry(mn,ic,mv) -> 
                     let emv = mv|>pMove.Encode bd mct
                     let nmte = EncodedHalfMoveEntry(mn,ic,emv)
                     let nmct = if bd.WhosTurn=Player.White then mct else mct+1
                     setemv pmvl.Tail nmct bd emv.PostBrd (nmte::oemvl)
-                |RAVEntry(mtel) -> 
+                |UnencodedRAVEntry(mtel) -> 
                     let nmct = if prebd.WhosTurn=Player.Black then mct-1 else mct
                     let nmtel = setemv mtel nmct prebd prebd []
                     let nmte = EncodedRAVEntry(nmtel)
                     setemv pmvl.Tail mct prebd bd (nmte::oemvl)
-                |CommentEntry(c) -> setemv pmvl.Tail mct prebd bd (EncodedCommentEntry(c)::oemvl)
-                |GameEndEntry(r) -> setemv pmvl.Tail mct prebd bd (EncodedGameEndEntry(r)::oemvl)
-                |NAGEntry(n) -> setemv pmvl.Tail mct prebd bd (EncodedNAGEntry(n)::oemvl)
+                |UnencodedCommentEntry(c) -> setemv pmvl.Tail mct prebd bd (EncodedCommentEntry(c)::oemvl)
+                |UnencodedGameEndEntry(r) -> setemv pmvl.Tail mct prebd bd (EncodedGameEndEntry(r)::oemvl)
+                |UnencodedNAGEntry(n) -> setemv pmvl.Tail mct prebd bd (EncodedNAGEntry(n)::oemvl)
         
         let ibd = if gm.BoardSetup.IsSome then gm.BoardSetup.Value else Board.Start
-        let nmt = setemv gm.MoveText 1 ibd ibd []
+        let nmt = 
+            try
+                setemv gm.MoveText 1 ibd ibd []
+            with
+            |ex -> let msg = ex.Message
+                   [] 
+
         let egm0 = EncodedGameEMP
         let egm1 = {egm0 with
                         WhitePlayer = gm.WhitePlayer
@@ -673,3 +679,92 @@ module GameEncoded =
         MoveText(game.MoveText)
         writer.AppendLine()|>ignore
         writer.ToString()
+
+    let Compress(gm:EncodedGame) =
+         let rec setemv (pmvl:EncodedMoveTextEntry list) oemvl =
+             if pmvl|>List.isEmpty then oemvl|>List.rev
+             else
+                 let mte = pmvl.Head
+                 match mte with
+                 |EncodedHalfMoveEntry(mn,ic,mv) -> 
+                     let cmv = mv|>MoveEncoded.Compress
+                     let nmte = CompressedHalfMoveEntry(mn,ic,cmv)
+                     setemv pmvl.Tail (nmte::oemvl)
+                 |EncodedRAVEntry(mtel) -> 
+                     let nmtel = setemv mtel []
+                     let nmte = CompressedRAVEntry(nmtel)
+                     setemv pmvl.Tail (nmte::oemvl)
+                 |EncodedCommentEntry(c) -> setemv pmvl.Tail (CompressedCommentEntry(c)::oemvl)
+                 |EncodedGameEndEntry(r) -> setemv pmvl.Tail (CompressedGameEndEntry(r)::oemvl)
+                 |EncodedNAGEntry(n) -> setemv pmvl.Tail (CompressedNAGEntry(n)::oemvl)
+         
+         let nmt = 
+             try
+                 setemv gm.MoveText []
+             with
+             |ex -> let msg = ex.Message
+                    [] 
+
+         let cgm0 = CompressedGameEMP
+         let cgm1 = {cgm0 with
+                         WhitePlayer = gm.WhitePlayer
+                         BlackPlayer = gm.BlackPlayer
+                         Result = gm.Result
+                         Year = gm.Year
+                         Month = gm.Month
+                         Day = gm.Day
+                         Event = gm.Event
+                         WhiteElo = gm.WhiteElo
+                         BlackElo = gm. BlackElo
+                         Round = gm.Round
+                         Site = gm. Site
+                         ECO = gm.ECO
+                         BoardSetup = gm.BoardSetup
+                         AdditionalInfo = gm.AdditionalInfo
+                         MoveText = nmt}
+         cgm1
+
+    let Expand(gm:CompressedGame) =
+         let rec setemv cbd (pmvl:CompressedMoveTextEntry list) oemvl =
+             if pmvl|>List.isEmpty then oemvl|>List.rev
+             else
+                 let mte = pmvl.Head
+                 match mte with
+                 |CompressedHalfMoveEntry(mn,ic,mv) -> 
+                     let emv = mv|>MoveEncoded.Expand cbd
+                     let nmte = EncodedHalfMoveEntry(mn,ic,emv)
+                     setemv emv.PostBrd pmvl.Tail (nmte::oemvl)
+                 |CompressedRAVEntry(mtel) -> 
+                     let nmtel = setemv cbd mtel []
+                     let nmte = EncodedRAVEntry(nmtel)
+                     setemv cbd pmvl.Tail (nmte::oemvl)
+                 |CompressedCommentEntry(c) -> setemv cbd pmvl.Tail (EncodedCommentEntry(c)::oemvl)
+                 |CompressedGameEndEntry(r) -> setemv cbd pmvl.Tail (EncodedGameEndEntry(r)::oemvl)
+                 |CompressedNAGEntry(n) -> setemv cbd pmvl.Tail (EncodedNAGEntry(n)::oemvl)
+         
+         let ibd = if gm.BoardSetup.IsSome then gm.BoardSetup.Value else Board.Start
+         let nmt = 
+             try
+                 setemv ibd gm.MoveText []
+             with
+             |ex -> let msg = ex.Message
+                    [] 
+
+         let egm0 = EncodedGameEMP
+         let egm1 = {egm0 with
+                         WhitePlayer = gm.WhitePlayer
+                         BlackPlayer = gm.BlackPlayer
+                         Result = gm.Result
+                         Year = gm.Year
+                         Month = gm.Month
+                         Day = gm.Day
+                         Event = gm.Event
+                         WhiteElo = gm.WhiteElo
+                         BlackElo = gm. BlackElo
+                         Round = gm.Round
+                         Site = gm. Site
+                         ECO = gm.ECO
+                         BoardSetup = gm.BoardSetup
+                         AdditionalInfo = gm.AdditionalInfo
+                         MoveText = nmt}
+         egm1

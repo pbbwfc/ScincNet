@@ -18,5 +18,5 @@ module MoveTextEntry =
             let mvtxt = bits.[bits.Length-1].Trim()
             pMove.Parse(mvtxt)
 
-        HalfMoveEntry(mn,ic,mv)
+        UnencodedHalfMoveEntry(mn,ic,mv)
     

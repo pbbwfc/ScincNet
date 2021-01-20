@@ -38,7 +38,7 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FsChessPgn", "srcNet\FsChes
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TreeUtils", "srcNet\TreeUtils\TreeUtils.fsproj", "{E0F7C6D1-9573-43AD-B01B-DC61B98836D7}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TestPerf", "srcNet\TestPerf\TestPerf.fsproj", "{FC2BF3F1-7F40-40CC-AF7C-B5B29A35EC35}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TestPerf", "srcNet\TestPerf\TestPerf.fsproj", "{FC2BF3F1-7F40-40CC-AF7C-B5B29A35EC35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +97,7 @@ Global
 		{FC2BF3F1-7F40-40CC-AF7C-B5B29A35EC35}.Debug|x64.Build.0 = Debug|x64
 		{FC2BF3F1-7F40-40CC-AF7C-B5B29A35EC35}.Release|Any CPU.ActiveCfg = Release|x64
 		{FC2BF3F1-7F40-40CC-AF7C-B5B29A35EC35}.Release|x64.ActiveCfg = Release|x64
+		{FC2BF3F1-7F40-40CC-AF7C-B5B29A35EC35}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

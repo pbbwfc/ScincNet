@@ -4,23 +4,23 @@ open FsChess
 
 module GameUnencoded =
 
-    let Start = GameEMP
+    let Start = UnencodedGameEMP
 
-    let MoveCount(mtel:MoveTextEntry list) =
-        let mc(mte:MoveTextEntry) =
+    let MoveCount(mtel:UnencodedMoveTextEntry list) =
+        let mc(mte:UnencodedMoveTextEntry) =
             match mte with
-            |HalfMoveEntry(_) -> 1
+            |UnencodedHalfMoveEntry(_) -> 1
             |_ -> 0
         if mtel.IsEmpty then 0
         else
             mtel|>List.map mc|>List.reduce(+)
         
-    let FullMoveCount(mtel:MoveTextEntry list) = MoveCount(mtel)/2
+    let FullMoveCount(mtel:UnencodedMoveTextEntry list) = MoveCount(mtel)/2
 
-    let GetMoves(mtel:MoveTextEntry list) =
-        let gm(mte:MoveTextEntry) =
+    let GetMoves(mtel:UnencodedMoveTextEntry list) =
+        let gm(mte:UnencodedMoveTextEntry) =
             match mte with
-            |HalfMoveEntry(_,_,mv) -> [mv]
+            |UnencodedHalfMoveEntry(_,_,mv) -> [mv]
             |_ -> []
         mtel|>List.map gm|>List.concat
     
@@ -43,7 +43,7 @@ module GameUnencoded =
         | _ ->
             {gm with AdditionalInfo=gm.AdditionalInfo.Add(k,v)}
     
-    let AddMoveEntry (mte:MoveTextEntry) (gm:UnencodedGame) =
+    let AddMoveEntry (mte:UnencodedMoveTextEntry) (gm:UnencodedGame) =
         {gm with MoveText=gm.MoveText@[mte]}
 
     let RemoveMoveEntry (gm:UnencodedGame) =
@@ -58,7 +58,7 @@ module GameUnencoded =
         let mtel = gm.MoveText
         let mc = mtel|>MoveCount
         let mn = if mc%2=0 then Some(mc/2+1) else None
-        let mte = HalfMoveEntry(mn,false,pmv)
+        let mte = UnencodedHalfMoveEntry(mn,false,pmv)
         gm|>AddMoveEntry mte
             
     let AddSan (san:string) (gm:UnencodedGame) =

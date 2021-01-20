@@ -29,23 +29,23 @@ module RegParse =
                     let ngm = {gm with MoveText=mte::gm.MoveText}
                     Unknown,"",ngm
                 |InNAG ->
-                    let mte = NAGEntry(cstr|>int|>Ng)
+                    let mte = UnencodedNAGEntry(cstr|>int|>Ng)
                     let ngm = {gm with MoveText=mte::gm.MoveText}
                     Unknown,"",ngm
                 |InSingleLineComment ->
-                    let mte = CommentEntry(cstr)
+                    let mte = UnencodedCommentEntry(cstr)
                     let ngm = {gm with MoveText=mte::gm.MoveText}
                     Unknown,"",ngm
                 |InRes ->
                     let bits = cstr.Split([|'{'|])
                     let ngm =
                         if bits.Length=1 then
-                            let mte = GameEndEntry(cstr|>GameResult.Parse)
+                            let mte = UnencodedGameEndEntry(cstr|>GameResult.Parse)
                             {gm with MoveText=mte::gm.MoveText}
                         else
-                            let mte = GameEndEntry(bits.[0].Trim()|>GameResult.Parse)
+                            let mte = UnencodedGameEndEntry(bits.[0].Trim()|>GameResult.Parse)
                             let gm1 = {gm with MoveText=mte::gm.MoveText}
-                            let mte1 = CommentEntry(bits.[1].Trim([|'}'|]))
+                            let mte1 = UnencodedCommentEntry(bits.[1].Trim([|'}'|]))
                             {gm1 with MoveText=mte1::gm1.MoveText}
                     FinishedOK,"",ngm
                 |InComment(_) |InRAV(_) -> st, cstr+nl, gm
@@ -57,7 +57,7 @@ module RegParse =
                 match st with
                 |InComment(cl) -> 
                     if hd='}' && cl=1 then
-                        let mte = CommentEntry(cstr)
+                        let mte = UnencodedCommentEntry(cstr)
                         let ngm = {gm with MoveText=mte::gm.MoveText}
                         proclin Unknown "" tl ngm
                     elif hd='}' then
@@ -74,7 +74,7 @@ module RegParse =
                         let stream = new MemoryStream(byteArray)
                         let nsr = new StreamReader(stream)
                         let gmr = NextGameRdr(nsr)
-                        let mte = RAVEntry(gmr.MoveText)
+                        let mte = UnencodedRAVEntry(gmr.MoveText)
                         let ngm = {gm with MoveText=mte::gm.MoveText}
                         proclin Unknown "" tl ngm
                     elif hd=')' then
@@ -85,7 +85,7 @@ module RegParse =
                         proclin st (cstr+hd.ToString()) tl gm
                 |InNAG -> 
                     if hd=' ' then
-                        let mte = NAGEntry(cstr|>int|>Ng)
+                        let mte = UnencodedNAGEntry(cstr|>int|>Ng)
                         let ngm = {gm with MoveText=mte::gm.MoveText}
                         proclin Unknown "" tl ngm
                     else
@@ -136,23 +136,28 @@ module RegParse =
             else 
                 let nst, ncstr, ngm = proclin st cstr lin gm
                 if nst = FinishedOK then { ngm with MoveText = (ngm.MoveText |> List.rev) }
-                elif nst = FinishedInvalid then GameEMP
+                elif nst = FinishedInvalid then UnencodedGameEMP
                 else getgm nst ncstr ngm
     
-        let gm = getgm Unknown "" GameEMP
-        gm
+        try
+             let gm = getgm Unknown "" UnencodedGameEMP
+             gm
+        with
+        |ex ->  let msg = ex.Message
+                UnencodedGameEMP
     
     let AllGamesRdr(sr : System.IO.StreamReader) = 
         seq { 
             while not sr.EndOfStream do
                 let gm = NextGameRdr(sr)
-                if gm<>GameEMP then
+                if gm<>UnencodedGameEMP then
                     yield gm
+                
         }
     
     let GameFromString(str : string) =
         let byteArray = Encoding.ASCII.GetBytes(str)
-        let stream = new MemoryStream(byteArray)
+        use stream = new MemoryStream(byteArray)
         let sr = new StreamReader(stream)
         let gm = NextGameRdr(sr)
         gm    
