@@ -1,20 +1,19 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v3.1",
+    "name": ".NETCoreApp,Version=v5.0",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
-      "TreeUtils/1.0.0": {
+    ".NETCoreApp,Version=v5.0": {
+      "ScincNet/1.0.0": {
         "dependencies": {
           "FSharp.Core": "5.0.0",
-          "FsChess.WinForms": "1.0.0",
-          "FsChessPgn": "1.0.0",
-          "ScincFuncs": "1.0.0"
+          "FSharp.Json": "0.4.0",
+          "FsChess.WinForms": "1.0.0"
         },
         "runtime": {
-          "TreeUtils.dll": {}
+          "ScincNet.dll": {}
         }
       },
       "FSharp.Core/5.0.0": {
@@ -112,46 +111,12 @@
       "Microsoft.Win32.SystemEvents/5.0.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
         }
       },
       "System.Collections.Immutable/1.5.0": {},
       "System.Drawing.Common/5.0.0": {
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "5.0.0"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/System.Drawing.Common.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll": {
-            "rid": "unix",
-            "assetType": "runtime",
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          },
-          "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
         }
       },
       "System.Memory/4.5.4": {},
@@ -193,7 +158,7 @@
     }
   },
   "libraries": {
-    "TreeUtils/1.0.0": {
+    "ScincNet/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

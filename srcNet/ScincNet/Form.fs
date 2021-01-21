@@ -40,12 +40,13 @@ module Form =
         let showwm = new ToolStripMenuItem(Image = img "white.png", Text = "Show White", CheckState = CheckState.Unchecked, Enabled = false)
         let showbb = new ToolStripButton(Image = img "black.png", Enabled = false, Text = "Show Black")
         let showbm = new ToolStripMenuItem(Image = img "black.png", Text = "Show Black", CheckState = CheckState.Unchecked, Enabled = false)
-        let sb = new StatusBar(ShowPanels = false, Anchor=AnchorStyles.Bottom, Text = "No bases open", Dock = DockStyle.Bottom)
-        
+        let ss = new StatusStrip(LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow, Anchor=AnchorStyles.Bottom, Text = "No bases open", Dock = DockStyle.Bottom)
+        let sl = new ToolStripStatusLabel(Text="Ready")
                 
         let SbUpdate(txt) =
             //TODO may add some timing and logging
-            sb.Text <- txt
+            sl.Text <- txt
+            Application.DoEvents()
 
         let updateMenuStates() =
             closeb.Enabled<-gmtbs.TabCount>1&&ScincFuncs.Base.Current()<>9
@@ -554,7 +555,8 @@ module Form =
             ts|>this.Controls.Add
             createms()
             ms|>this.Controls.Add
-            sb|>this.Controls.Add
+            sl|>ss.Items.Add|>ignore
+            ss|>this.Controls.Add
             //Events
             pgn.BdChng  |> Observable.add dobdchg 
             pgn.GmChng |> Observable.add dogmchg

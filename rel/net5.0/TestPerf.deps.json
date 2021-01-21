@@ -1,19 +1,22 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v3.1",
+    "name": ".NETCoreApp,Version=v5.0",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
-      "FsChess.WinForms/1.0.0": {
+    ".NETCoreApp,Version=v5.0": {
+      "TestPerf/1.0.0": {
         "dependencies": {
           "FSharp.Core": "5.0.0",
           "FsChessPgn": "1.0.0",
-          "ScincFuncs": "1.0.0"
+          "FsPickler": "5.3.2",
+          "LightningDB": "0.13.0",
+          "MessagePack": "2.2.85",
+          "MessagePack.FSharpExtensions": "2.1.0"
         },
         "runtime": {
-          "FsChess.WinForms.dll": {}
+          "TestPerf.dll": {}
         }
       },
       "FSharp.Core/5.0.0": {
@@ -32,6 +35,18 @@
           "lib/netstandard2.0/FSharp.Json.dll": {
             "assemblyVersion": "0.4.0.0",
             "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "FsPickler/5.3.2": {
+        "dependencies": {
+          "FSharp.Core": "5.0.0",
+          "System.Reflection.Emit.Lightweight": "4.6.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FsPickler.dll": {
+            "assemblyVersion": "5.3.2.0",
+            "fileVersion": "5.3.2.0"
           }
         }
       },
@@ -96,6 +111,18 @@
           "lib/netstandard2.0/MessagePack.Annotations.dll": {
             "assemblyVersion": "2.2.0.0",
             "fileVersion": "2.2.85.21899"
+          }
+        }
+      },
+      "MessagePack.FSharpExtensions/2.1.0": {
+        "dependencies": {
+          "FSharp.Core": "5.0.0",
+          "MessagePack": "2.2.85"
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/MessagePack.FSharpExtensions.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
           }
         }
       },
@@ -182,7 +209,7 @@
     }
   },
   "libraries": {
-    "FsChess.WinForms/1.0.0": {
+    "TestPerf/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -200,6 +227,13 @@
       "sha512": "sha512-3QchEhViQdnvJQzVG7M/CIgdCZhDJw4ZzFKMfLqb/j1cucxcUcXvIMxf6rV0ktFn9mmkmw9WOOuIsrG012vkUg==",
       "path": "fsharp.json/0.4.0",
       "hashPath": "fsharp.json.0.4.0.nupkg.sha512"
+    },
+    "FsPickler/5.3.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LFtxXpQNor8az1ez3rN9oz2cqf/06i9yTrPyJ9R83qLEpFAU7Of0WL2hoSXzLHer4lh+6mO1NV4VQFiBzNRtjw==",
+      "path": "fspickler/5.3.2",
+      "hashPath": "fspickler.5.3.2.nupkg.sha512"
     },
     "LightningDB/0.13.0": {
       "type": "package",
@@ -221,6 +255,13 @@
       "sha512": "sha512-YptRsDCQK35K5FhmZ0LojW4t8I6DpetLfK5KG8PVY2f6h7/gdyr8f4++xdSEK/xS6XX7/GPvEpqszKVPksCsiQ==",
       "path": "messagepack.annotations/2.2.85",
       "hashPath": "messagepack.annotations.2.2.85.nupkg.sha512"
+    },
+    "MessagePack.FSharpExtensions/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/s6BpeorH+iH3aOW33QJhpG5/r4TPb8q0kn/9PBmZbB/oCYL05HEzpGS8u21Uferge1OrMbxYzSV5TsnyOSFDg==",
+      "path": "messagepack.fsharpextensions/2.1.0",
+      "hashPath": "messagepack.fsharpextensions.2.1.0.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/1.0.0": {
       "type": "package",

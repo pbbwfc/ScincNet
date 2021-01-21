@@ -460,7 +460,7 @@ module PnlPgnLib =
         do
             pgn.DocumentText <- mvtags()
             pgn.DocumentCompleted.Add(setclicks)
-            pgn.ObjectForScripting <- pgn
+            //pgn.ObjectForScripting <- pgn
             pgnpnl.Controls.Add(pgn)
             createts()
             ttpnl.Controls.Add(ts)
